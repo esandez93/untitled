@@ -1,0 +1,12 @@
+<items>
+	<item>
+		<type>Usable</type>
+		<name>Potion</name>
+		<description>Heals for an amount of 20 HP</description>
+		<buyValue>10</buyValue>
+		<sellValue>2</sellValue>
+		<sellable>true</sellable>
+		<statAffected>currHP</statAffected>
+		<quantityAffected>+20</quantityAffected>
+	</item>
+</items>

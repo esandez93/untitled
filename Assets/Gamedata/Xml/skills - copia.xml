@@ -1,0 +1,209 @@
+<skills>
+	<!-- PLANTILLA POR DEFECTO 
+	<skill>
+        <name></name>
+        <maxLevel></maxLevel>
+		<type></type>
+        <description></description>
+        <usableOutOfCombat></usableOutOfCombat>
+    </skill> -->
+
+	<!-- ACTIVAS AYUDA 
+	<skill>
+        <name></name>
+        <maxLevel></maxLevel>
+        <type></type>
+        <target></target>
+        <description></description>
+        <benefit></benefit>
+		<duration></duration>
+        <mp></mp>
+        <usableOutOfCombat></usableOutOfCombat>
+    </skill> -->
+	
+    <skill>
+		<idType>1</idType>
+        <name>Bulwark</name>
+        <maxLevel></maxLevel>
+        <type>Active</type>
+        <target>Self</target>
+        <description>Gets a defensive position raising his DEF and MDEF.</description>
+        <benefit>DEF x2;MDEF x2</benefit>
+		<duration>2</duration>
+        <mp>15</mp>
+        <usableOutOfCombat>false</usableOutOfCombat>
+    </skill>
+	
+	<!-- ACTIVAS AÑADEN ESTADO
+    <skill>
+        <name></name>
+        <maxLevel></maxLevel>
+        <type></type>
+        <target></target>
+        <description></description>
+		<chance></chance>
+		<status></status>
+		<duration></duration>
+        <mp></mp>
+        <usableOutOfCombat></usableOutOfCombat>
+    </skill> -->
+	
+	<skill>
+		<idType>2</idType>
+        <name>Endure</name>
+        <maxLevel></maxLevel>
+        <type>Active</type>
+        <target>Self</target>
+        <description>Becomes immortal until his next turn. "Si fuese a morir, aguanta con 1 HP".</description>
+		<chance>100</chance>
+		<status>Immortal</status>
+		<duration>1</duration>
+        <mp>30</mp>
+        <usableOutOfCombat>false</usableOutOfCombat>
+    </skill>	
+    <skill>
+		<idType>2</idType>
+        <name>Provoke</name>
+        <maxLevel></maxLevel>
+        <type>Active</type>
+        <target>Single</target>
+        <description>Provokes the target making him attack you for 2 turns.</description>
+		<chance>75</chance>
+		<status>Provoked</status>
+		<duration>2</duration>
+        <mp>10</mp>
+        <usableOutOfCombat>false</usableOutOfCombat>
+    </skill>
+    <skill>
+		<idType>2</idType>
+        <name>Protect</name>
+        <maxLevel></maxLevel>
+        <type>Active</type>
+        <target>Single</target>
+        <description>Receive the damage of the next attack received by the target.</description>
+		<chance>100</chance>
+		<status>Protected</status>
+		<duration>1</duration>
+        <mp>20</mp>
+        <usableOutOfCombat>false</usableOutOfCombat>
+    </skill>
+        
+    <!-- ACTIVAS DAÑO
+	<skill>
+		<name></name>
+		<maxLevel></maxLevel>
+		<type></type>
+		<damageType></damageType>
+		<target></target>
+		<description></description>
+		<damage></damage>
+		<element></element>
+		<mp></mp>
+		<status></status>
+		<chance></chance>
+		<duration></duration>
+		<usableOutOfCombat></usableOutOfCombat>
+	</skill> -->
+	
+	<skill>
+		<idType>3</idType>
+		<name>Impale</name>
+		<maxLevel></maxLevel>
+		<type>Active</type>
+		<damageType>Physic</damageType>
+		<target>Single</target>
+		<description>"Crosses" the target with your weapon.</description>
+		<damage>1.5</damage>
+		<element>8</element>
+		<mp>10</mp>
+		<status>null</status>
+		<chance>0</chance>
+		<duration>0</duration>
+		<usableOutOfCombat>false</usableOutOfCombat>
+	</skill>
+	<skill>
+		<idType>3</idType>
+        <name>Reaper</name>
+        <maxLevel></maxLevel>
+		<type>Active</type>
+        <damageType>Physic</damageType>
+        <target>Group</target>
+        <description>"Sweeps a group with the weapon doing damage to all the targets".</description>
+		<damage>1</damage>
+		<element>8</element>
+		<mp>15</mp>
+		<status>null</status>
+		<chance>0</chance>
+		<duration>0</duration>
+		<usableOutOfCombat>false</usableOutOfCombat>
+	</skill>
+    <skill>
+		<idType>3</idType>
+        <name>Tornado</name>
+        <maxLevel></maxLevel>
+		<type>Active</type>
+        <damageType>Physic</damageType>
+        <target>Group</target>
+        <description>Spin [2+skillLevel] times doing damage to the targets.</description>
+        <damage>0.75</damage>
+        <element>8</element>
+        <mp>30</mp>
+		<status>null</status>
+		<chance>0</chance>
+		<duration>0</duration>
+        <usableOutOfCombat>false</usableOutOfCombat>
+    </skill>
+    <skill>
+		<idType>3</idType>
+        <name>Overwhelm</name>
+        <maxLevel></maxLevel>
+		<type>Active</type>
+        <damageType>Physic</damageType>
+        <target>Single</target>
+        <description>Attacks the target [2+skillLevel] times.</description>
+        <damage>1</damage>
+        <element>8</element>
+        <mp>30</mp>
+        <usableOutOfCombat>false</usableOutOfCombat>
+    </skill>
+    
+	<!-- PASIVAS AUMENTAR STAT
+	<skill>
+        <name></name>
+        <maxLevel></maxLevel>
+		<type></type>
+        <description></description>
+		<stat></stat>
+		<benefit></benefit>
+        <usableOutOfCombat></usableOutOfCombat>
+    </skill> -->
+	
+	<skill>
+		<idType>4</idType>
+        <name>Rock Skin</name>
+        <maxLevel>5</maxLevel>
+		<type>Passive</type>
+        <description>5% DEF for each level of the skill.</description>
+		<stat>DEF</stat>
+		<benefit>1.05</benefit>
+        <usableOutOfCombat>false</usableOutOfCombat>
+    </skill>
+	
+	<!-- NO TARGET
+	<skill>
+        <name></name>
+        <maxLevel></maxLevel>
+		<type></type>
+        <description></description>
+        <usableOutOfCombat></usableOutOfCombat>
+    </skill> -->
+	
+	<skill>
+		<idType>5</idType>
+        <name>Craft I</name>
+        <maxLevel>1</maxLevel>
+		<type>Passive</type>
+        <description>Allows the creation of level 1 objects.</description>
+        <usableOutOfCombat>true</usableOutOfCombat>
+    </skill>
+</skills>

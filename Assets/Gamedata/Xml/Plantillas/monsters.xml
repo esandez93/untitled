@@ -1,0 +1,16 @@
+<monsters>
+	<monster>
+		<type></type>
+		<name></name>
+		<level></level>
+		<hp></hp>
+		<mp></mp>
+		<str></str>
+		<agi></agi>
+		<vit></vit>
+		<int></int>
+		<dex></dex>
+		<luk></luk>
+	</monster>
+</monsters>
+		

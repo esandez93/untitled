@@ -1,0 +1,11 @@
+<items>
+	<item>
+		<type></type>
+		<name></name>
+		<description></description>
+		<buyValue></buyValue>
+		<sellValue></sellValue>
+		<sellable></sellable>
+		<bonus></bonus> <!-- Only when the object gives a bonus in stats if equiped or used --> <!-- SYNTAX: stat number -> str 2 -->
+	</item>
+</items>

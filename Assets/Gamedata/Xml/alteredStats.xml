@@ -1,0 +1,18 @@
+<alteredStats>
+	<alteredStat>
+		<idType>2</idType> 
+		<name>Poison</name>
+		<duration>3</duration>
+		<damagePerTurn>10</damagePerTurn>
+		<statReduced>def</statReduced>
+		<quantityReduced>10</quantityReduced>
+	</alteredStat>
+	<alteredStat>
+		<idType>2</idType> 
+		<name>Burn</name>
+		<duration>3</duration>
+		<damagePerTurn>10</damagePerTurn>
+		<statReduced>atk</statReduced>
+		<quantityReduced>10</quantityReduced>
+	</alteredStat>
+</alteredStats>

@@ -1,0 +1,10 @@
+<skills>
+	<skill>
+		<name></name>
+		<description></description>
+		<damage></damage>
+		<element></element>
+		<mp></mp>
+		<usableOutOfCombat></usableOutOfCombat>
+	</skill>
+</skills>

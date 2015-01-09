@@ -1,0 +1,176 @@
+﻿PROGRESO
+
+01/09/2014 - 12/10/2014
+- Aprendiendo funcionamiento de Unity, tutoriales y miniproyecto de prueba aplicando lo aprendido.
+
+14/10/2014
+- Creación del sistema de tratamiento de archivos:
+	+ Creación de carpetas básicas del juego si no existen.
+	+ Inicialización del FileManager.
+	
+15/10/2014 - 21/10/2014
+- Mejoras del sistema de archivos:
+	+ Lectura de XML
+	+ Clasificación de los XML leídos según su tipo
+	
+23/10/2014 - 07/11/2014
+- Creación de las diferentes funciones relacionadas con los personajes:
+	+ Inicializaciones de los personajes y enemigos con sus correspondientes datos
+	+ Subida de nivel
+	+ Uso de inventario
+	+ Uso de habilidades y ataques básicos
+	+ Implementación de golpes críticos
+	+ Muerte en batalla
+	+ Planteamiento del sistema de estados alterados
+- Mejora del sistema de archivos:
+	+ Lectura de CSV
+
+09/11/2014
+- Definición del sistema de estados alterados:
+	+ Implementación de los estados alterados en batalla
+	+ Implementación de los diferentes tipos de estados alterados
+		* Reducciones de daño, de estadísticas, beneficiosos, etc.
+	+ Afectación y cura de los estados alterados según el turno
+	
+10/11/2014
+- Sistema de guardado y carga de archivos:
+	+ En los lugares adecuados se puede guardar partida
+	+ Encriptación de archivos de partida guardada
+	
+11/11/2014 - 16/11/2014
+- Implementado movimiento en la fase de plataformas:
+	+ Detección de colisiones con el entorno
+	+ Definición de físicas
+	+ Detección de posibilidad de salto
+	+ Corrección de varios errores con las detecciones de colisiones
+
+18/11/2014
+- Añadido soporte multilenguaje
+- Comienzo de diseño de la fase de batalla:
+	+ Diseño básico de la interfaz de batalla
+	+ Creación del gestor de batallas
+	
+19/11/2014
+- Implementación de las funcionalidades básicas de la batalla:
+	+ Máquina de estados (Definición de turnos)
+	+ Máquina de estados (Definición de fases del turno)
+	+ Ataque básico
+	+ Habilidad (Mage - Fireball)
+	
+20/11/2014 - 21/11/2014
+- Implementación del sistema de debilidades elementales:
+	+ Modifican el daño en 1/2, 0 ó x2, dependiendo de los elementos
+
+- Implementación de animaciones del monstruo en la fase de combate:
+	+ Idle, Move, Attack, Move back, Receive damage y Die (los disponibles por el momento)
+	+ Corrección de errores con el uso de habilidades al implementar animaciones
+
+22/11/2014
+- Implementación de estados alterados en batalla
+
+23/11/2014
+- Añadido el monstruo en la fase de plataformas:
+	+ Se mueve hasta detectar el borde de una plataforma
+- Mejoras en el sistema de físicas
+
+24/11/2014
+- Añadida gestión de encuentros con monstruos:
+	+ Cada mapa tendrá unos monstruos con un porcentaje de aparición. Al entrar en batalla se generarán los monstruos aleatoriamente en base a ese porcentaje.
+	+ Añadido límite de monstruos en batalla. Según el número de personajes del grupo, el número de monstruos podrá ser igual o inferior, pero no superior.
+	
+25/11/2014
+- Aplicación del diseño de interfaz de batalla mediante el sistema de UI de Unity:
+	+ Se muestra el estado del personaje o monstruo de ese turno y en la parte opuesta se mostrarán los datos del objetivo
+
+26/11/2014
+- Generación de la interfaz de combate en base al monstruo generado:
+	+ Añadidos los retratos de personajes y monstruos
+	+ Añadido retrato por defecto en caso de que hay algún error de código no detectado
+	
+30/11/2014
+- Diseño teórico del sistema de drop de los enemigos
+- Diseño teórico del sistema de subida de estadísticas y habilidades
+
+02/12/2014 - 03/12/2014
+- Intento fallido de implementación de ignorar las colisiones de plataformas en el caso que saltes (Pendiente de revisión futura)
+
+04/12/2014
+- Detección de click en el enemigo para elegir objetivo:
+	+ El primer click selecciona un enemigo para ver sus estadísticas 
+	+ El segundo click confirma el objetivo
+	
+05/12/2014 - 07/12/2014
+- Corrección de errores generales
+- Limpieza de código
+- Mejora de legibilidad de código
+	
+08/12/2014
+- Solucionados errores de detección de colisiones en los bordes de las plataformas
+- Implementado el inicio de batalla al entrar en contacto con un monstruo en la fase de plataformas
+	
+09/12/2014
+- Empezada la implementación de las animaciones:
+	+ TODOS
+		* Magia
+
+10/12/2014
+- Acabada la implementación de las animaciones:
+	+ TODOS
+		* Magia (las disponibles por el momento)
+
+	+ ENEMIGOS (los disponibles por el momento)
+		* Recepción de daño
+		* Muerte
+		
+11/12/2014
+- Creando documentación
+- Corregidos errores con los cálculos de acierto de los golpes
+- Corregidos errores en la subida de estadísticas por nivel
+- Inicio de implementación de los menús de batalla
+
+12/12/2014
+- Diseño de varias habilidades
+
+14/12/2014
+- Comienzo del diseño de la creación de objetos
+
+15/12/2014 - 23/12/2014
+- Limpieza de código.
+- Implementación de las habilidades:
+	+ Creación de SkillInfo con la información de las subidas de nivel de las habilidades.
+	+ Lectura de datos desde CSV para crear los SkillInfo.
+	+ Tratamiento de la habilidad según el tipo
+		* Pasivas
+		
+24/12/2014 - 25/12/2014
+- Modificación de la interfaz de usuario aprovechando las funcionalidades que implementa la versión 4.6 de Unity.
+- Menús desplegables para habilidades y objetos, falta implementar un scroll para cuando son más de X (de momento el máximo es 4).
+
+26/12/2014
+- Mejora de los menús:
+	+ Ahora sólo se instancian los necesarios en vez de crearlos todos y darles valor continuamente.
+	+ Solucionados problemas de posicionamiento de submenús.
+	
+28/12/2014 - 29/12/2014
+- Mejora de los menús:
+	+ Añadido un botón sin script para cuando no hay habilidades u objetos en el inventario.
+	+ Las habilidades ahora muestran el nivel de la habilidad.
+	+ Solucionados numerosos errores con las cantidades de objetos mostradas en el submenú. 
+	
+30/12/2014
+- Iniciando revisión del proceso de guardado para que funcione correctamente.
+- Implementar autoguardado entre escenas para no perder datos.
+	
+08/01/2015
+- Autoguardado entre escenas funcionando correctamente.	
+
+09/01/2015
+- Mejora del sistema de lenguaje.
+- Comprobaciones de que al intentar hacer un get de cualquier objeto, este exista.
+	
+TO DO:
+- Acabar de implementar skills
+- Implementar creación de objetos
+- Arreglar guardado de partida + autosave entre scenes para no perder datos
+
+DIFICULTADES:

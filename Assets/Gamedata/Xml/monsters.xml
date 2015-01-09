@@ -1,0 +1,21 @@
+<monsters>
+	<monster>
+		<type>Animal</type>
+		<name>Wolf</name>
+		<level>1</level>
+		<element>1</element>
+		<hp>40</hp>
+		<mp>10</mp>
+		<str>3</str>
+		<agi>6</agi>
+		<vit>2</vit>
+		<int>1</int>
+		<dex>5</dex>
+		<luk>1</luk>
+		<drop>Potion</drop>
+		<dropQuantity>1</dropQuantity>
+		<dropRates>100</dropRates>
+		<expGiven>25</expGiven>
+	</monster>
+</monsters>
+		

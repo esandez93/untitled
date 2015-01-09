@@ -1,0 +1,7 @@
+<maps>
+	<map>
+		<mapName>Forest</mapName>
+		<monsters>Wolf</monsters>
+		<monstersChance>100</monstersChance>
+	</map>
+</maps>
