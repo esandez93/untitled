@@ -167,6 +167,7 @@
 09/01/2015
 - Mejora del sistema de lenguaje.
 - Comprobaciones de que al intentar hacer un get de cualquier objeto, este exista.
+- Empezado repositorio en GitHub. https://github.com/esandez93/untitled/
 	
 TO DO:
 - Acabar de implementar skills
