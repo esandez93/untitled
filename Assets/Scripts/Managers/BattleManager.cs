@@ -552,10 +552,10 @@ public class BattleManager : MonoBehaviour {
 
 	private void setPlayers(){
 		//numPlayers = playersInBattle.Count;
-		playersInBattle = Gamestate.instance.players;
+		playersInBattle = BattleData.players;//Gamestate.instance.players;
 
 		foreach(Player player in playersInBattle){
-			Debug.Log (player);
+			Debug.Log(player.name);
 			enableComponents(player.gameObject);
 			player.enablePassives();
 		}

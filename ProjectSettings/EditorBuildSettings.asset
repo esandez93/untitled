@@ -5,11 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Level.unity
   - enabled: 1
-    path: Assets/Scenes/untitled.unity
+    path: Assets/Scenes/MainMenu.unity
   - enabled: 1
-    path: Assets/Scenes/forestBattle.unity
+    path: Assets/Scenes/Forest.unity
   - enabled: 1
-    path: Assets/Scenes/forestWinBattle.unity
+    path: Assets/Scenes/ForestBattle.unity
+  - enabled: 1
+    path: Assets/Scenes/ForestWinBattle.unity

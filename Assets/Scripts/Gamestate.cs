@@ -55,12 +55,12 @@ public class Gamestate : MonoBehaviour {
 
 		//mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
 		//map = Singleton.allMaps["Forest"];
-		players = new List<Player>();
+		//players = new List<Player>();
 		
 		//players.Add(mage);
 		
 		//BattleData.map = map;
-		BattleData.players = players;
+		//BattleData.players = players;
 	}
 
 	private void loadDebugData(){
@@ -132,6 +132,7 @@ public class Gamestate : MonoBehaviour {
 	private void addPlayer(Player player){
 		if(players == null){
 			players = new List<Player>();
+
 		}
 
 		if(!playerExist(player)){
@@ -161,6 +162,6 @@ public class Gamestate : MonoBehaviour {
 	// Sets the instance to null when the application quits 
 	public void OnApplicationQuit() { 
 		instance = null; 
-		SaveManager.Instance.autoSave();
+		//SaveManager.Instance.autoSave();
 	}
 }

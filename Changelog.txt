@@ -167,7 +167,14 @@
 09/01/2015
 - Mejora del sistema de lenguaje.
 - Comprobaciones de que al intentar hacer un get de cualquier objeto, este exista.
-- Empezado repositorio en GitHub. https://github.com/esandez93/untitled/
+- Empezado repositorio en GitHub. https://github.com/esandez93/untitled/ /// git@github.com:esandez93/untitled.git
+
+10/01/2015
+- Empezado el menú principal en la rama mainMenu.
+
+12/01/2015
+- Arreglados problemas con el cliente GitHub.
+- Implementación de scripts para los botones del menú principal.
 	
 TO DO:
 - Acabar de implementar skills
