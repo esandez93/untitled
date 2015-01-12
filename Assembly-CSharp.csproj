@@ -46,8 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DisplayItems.cs" />
-     <Compile Include="Assets\DisplaySkills.cs" />
+     <Compile Include="Assets\Scripts\Buttons\ContinueGame.cs" />
+     <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
+     <Compile Include="Assets\Scripts\Buttons\DisplaySkills.cs" />
+     <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
      <Compile Include="Assets\Scripts\CheckBorder.cs" />
      <Compile Include="Assets\Scripts\EnterBattleCheck.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />

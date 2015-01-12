@@ -1,19 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public class NewGame : MonoBehaviour
-{
+public class NewGame : MonoBehaviour{
 
-		// Use this for initialization
-		void Start ()
-		{
-	
+	void Start (){
+		try{
+			if(SaveManager.Instance.loadStartGame()){
+				Application.LoadLevel("Forest");
+			}
+			else{
+				Debug.Log ("AutoLoad failed.");
+			}
 		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-	
+		catch{
+			Debug.Log ("New game failed.");
 		}
+		
+		this.enabled = false;
+	}
 }
 

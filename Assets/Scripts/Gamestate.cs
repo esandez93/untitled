@@ -38,14 +38,27 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	void Start() {
-		if(SaveManager.Instance.autoLoad()){
+		this.initialize();
+
+		/*if(SaveManager.Instance.autoLoad()){
 
 		}
 		else{
 			loadStartGame();
-		}
+		}*/
 
 		//loadDebugData();
+	}
+
+	public void initialize(){
+		//mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
+		//map = Singleton.allMaps["Forest"];
+		players = new List<Player>();
+		
+		//players.Add(mage);
+		
+		//BattleData.map = map;
+		BattleData.players = players;
 	}
 
 	private void loadDebugData(){
@@ -83,19 +96,6 @@ public class Gamestate : MonoBehaviour {
 		BattleData.players = players;
 	}
 
-	private void loadStartGame(){
-		//knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
-		//rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
-		mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
-		map = Singleton.allMaps["Forest"];
-		players = new List<Player>();
-
-		players.Add(mage);
-
-		BattleData.map = map;
-		BattleData.players = players;
-	}
-
 	public void addMonsterToMap(string monsterName, MapInfo map){
 		MonsterInfo monster = Singleton.allMonsters[monsterName];/*GameObject.FindWithTag("Monster1").GetComponent<Monster>();
 		monster.initializeMonster(Singleton.allMonsters["Wolf"]);*/
@@ -122,13 +122,19 @@ public class Gamestate : MonoBehaviour {
 		addPlayer(mage);
 	}
 
+	public void setMap(MapInfo map){
+		this.map = map;
+		BattleData.map = map;
+	}
+
 	private void addPlayer(Player player){
 		if(!playerExist(player)){
 			players.Add(player);
+			BattleData.addPlayer(player);
 		}
 	}
 
-	private bool playerExist(Player players){
+	private bool playerExist(Player player){
 		foreach(Player p in this.players){
 			if(p.name.Equals(player.name)){
 				return true;

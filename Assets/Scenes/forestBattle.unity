@@ -2377,7 +2377,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 924714269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c12f01491ce6e488d3f41a4d801450, type: 3}
+  m_Script: {fileID: 11500000, guid: b1c5083e9eff03049a600d9b7740128d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skillButtons: []
@@ -4067,7 +4067,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1836314169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fc7b98b09074a64683281428037e246, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e9f3d7d38b4a274e9e8038a65aeb6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1836314172
