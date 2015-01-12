@@ -7,6 +7,10 @@ public class BattleData {
 	public static List<Player> players {get; set;}
 
 	public static void addPlayer(Player player){
+		if (players == null){
+			players = new List<Player>();
+		}
+
 		if(!playerExist(player)){
 			players.Add(player);
 		}

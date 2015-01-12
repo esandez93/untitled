@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ContinueGame : MonoBehaviour{
 
-	// Use this for initialization
 	void Start (){
 		try{
 			if(SaveManager.Instance.autoLoad()){

@@ -51,6 +51,8 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void initialize(){
+		Singleton.Instance.initialize();
+
 		//mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
 		//map = Singleton.allMaps["Forest"];
 		players = new List<Player>();
@@ -128,9 +130,16 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	private void addPlayer(Player player){
+		if(players == null){
+			players = new List<Player>();
+		}
+
 		if(!playerExist(player)){
 			players.Add(player);
 			BattleData.addPlayer(player);
+		}
+		else{
+			//Debug.Log ("Player Exists");
 		}
 	}
 

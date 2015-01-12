@@ -9,7 +9,7 @@ public class NewGame : MonoBehaviour{
 				Application.LoadLevel("Forest");
 			}
 			else{
-				Debug.Log ("AutoLoad failed.");
+				Debug.Log ("New Game failed.");
 			}
 		}
 		catch{

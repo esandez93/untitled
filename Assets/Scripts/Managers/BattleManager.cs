@@ -108,7 +108,7 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	void Start(){
-		currentMap = BattleData.map;
+		currentMap = Gamestate.instance.map;
 
 		playerBackgroundGUI = transform.FindChild("PlayerData").GetComponent<Image>();
 		playerPortraitGUI = transform.FindChild("PlayerData").FindChild("PlayerPortrait").GetComponent<Image>();
@@ -543,7 +543,7 @@ public class BattleManager : MonoBehaviour {
 
 		for(int i = 0; i < numMonsters; i++){
 			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();
-			monster.initializeMonster(BattleData.map.getRandomMonster());
+			monster.initializeMonster(Gamestate.instance.map.getRandomMonster());
 			monstersInBattle.Add(monster);
 			
 			enableComponents(monster.gameObject);
@@ -552,9 +552,10 @@ public class BattleManager : MonoBehaviour {
 
 	private void setPlayers(){
 		//numPlayers = playersInBattle.Count;
-		playersInBattle = BattleData.players;
+		playersInBattle = Gamestate.instance.players;
 
 		foreach(Player player in playersInBattle){
+			Debug.Log (player);
 			enableComponents(player.gameObject);
 			player.enablePassives();
 		}

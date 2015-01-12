@@ -131,7 +131,7 @@ public class SaveManager : MonoBehaviour{
 			if(gamestate == null){
 				gamestate.initialize();
 			}
-			
+
 			//knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
 			//rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
 			gamestate.setMage(GameObject.FindWithTag("Mage").GetComponent<Mage>());
