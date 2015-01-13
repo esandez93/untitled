@@ -53,6 +53,53 @@ public class Player : Character{
 
 		expForNextLevel = Singleton.expNeeded[this.level];
 	}
+
+	
+	
+	public void populate(PlayerData data){
+		this.bIsPlayer = data.bIsPlayer;
+		
+		this.characterName = data.characterName;
+		this.level = data.level;
+		this.element = data.element;
+		
+		this.maxHP = data.maxHP;
+		this.maxMP = data.maxMP;
+		this.currHP = data.currHP;
+		this.currMP = data.currMP;
+		
+		this.str = data.str;
+		this.agi = data.agi;
+		this.vit = data.vit;
+		this.itg = data.itg;
+		this.dex = data.dex;
+		this.luk = data.luk;
+		
+		this.atk = data.atk;
+		this.matk = data.matk;
+		this.def = data.def;
+		this.mdef = data.mdef;
+		this.hit = data.hit;
+		this.flee = data.flee;
+		this.critChance = data.critChance;
+		this.critDmg = data.critDmg;
+		
+		this.hpRegen = data.hpRegen;
+		this.mpRegen = data.mpRegen;
+		
+		this.alive = data.alive;
+		
+		this.skills = data.skills;
+		
+		this.alteredStatus = data.alteredStatus;
+		
+		this.job = data.job;
+		this.exp = data.exp;
+		this.expForNextLevel = data.expForNextLevel;
+		
+		this.skillPoints = data.skillPoints;
+		this.statPoints = data.statPoints;
+	}
 	
 	public void getExp(float exp){
 		this.exp += exp;

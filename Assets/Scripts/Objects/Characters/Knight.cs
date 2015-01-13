@@ -43,6 +43,5 @@ public class Knight : Player
 		this.critChance = getCritChance();
 		this.critDmg = getCritDamage();
 	}
-
 }
 

@@ -50,6 +50,8 @@
      <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplaySkills.cs" />
      <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
+     <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
+     <Compile Include="Assets\Scripts\Buttons\getSkillButtonText.cs" />
      <Compile Include="Assets\Scripts\CheckBorder.cs" />
      <Compile Include="Assets\Scripts\EnterBattleCheck.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
@@ -81,10 +83,9 @@
      <Compile Include="Assets\Scripts\Objects\Item.cs" />
      <Compile Include="Assets\Scripts\Objects\MapInfo.cs" />
      <Compile Include="Assets\Scripts\Objects\MonsterInfo.cs" />
+     <Compile Include="Assets\Scripts\Objects\PlayerData.cs" />
      <Compile Include="Assets\Scripts\Objects\Skill.cs" />
      <Compile Include="Assets\Scripts\Objects\SkillInfo.cs" />
-     <Compile Include="Assets\Scripts\getItemButtonText.cs" />
-     <Compile Include="Assets\Scripts\getSkillButtonText.cs" />
      <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />
      <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesEN.xml" />
      <None Include="Assets\Gamedata\Xml\alteredStats.xml" />
