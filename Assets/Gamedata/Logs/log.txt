@@ -1,0 +1,5 @@
+Map: Forest 
+Monsters: 
+Wolf 100% 
+Drops: 
+Potion x1 100% 

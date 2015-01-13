@@ -552,12 +552,29 @@ public class BattleManager : MonoBehaviour {
 
 	private void setPlayers(){
 		//numPlayers = playersInBattle.Count;
-		playersInBattle = BattleData.players;//Gamestate.instance.players;
+		//playersInBattle = BattleData.players;
+		playersInBattle = new List<Player>();//Gamestate.instance.players;
+		Player player;
 
-		foreach(Player player in playersInBattle){
-			Debug.Log(player.name);
+		foreach(PlayerData data in Gamestate.instance.playersData){
+			Debug.Log(data.characterName);
+			player = buildPlayer(data);
+			playersInBattle.Add(player);
 			enableComponents(player.gameObject);
 			player.enablePassives();
+		}
+	}
+
+	private Player buildPlayer(PlayerData data){
+		switch(data.job){
+		case Player.Job.MAGE:
+			return GameObject.FindWithTag("Mage").GetComponent<Mage>();
+		case Player.Job.KNIGHT:
+			return GameObject.FindWithTag("Knight").GetComponent<Knight>();
+		case Player.Job.ROGUE:
+			return GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
+		default: 
+			return null;
 		}
 	}
 

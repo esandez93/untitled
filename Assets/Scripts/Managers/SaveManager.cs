@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections; 
 using System.Collections.Generic; 
 using System.Runtime.Serialization.Formatters.Binary;
@@ -68,10 +69,6 @@ public class SaveManager : MonoBehaviour{
 					
 					file.Close();
 					
-					if(gamestate == null){
-						gamestate.initialize();
-					}
-					
 					//gamestate.setKnight(data.knight);
 					//gamestate.setRogue(data.rogue);
 					gamestate.setMage(data.mage);
@@ -103,9 +100,9 @@ public class SaveManager : MonoBehaviour{
 				BinaryFormatter bf = new BinaryFormatter();
 				FileStream file = File.Open(savePath, FileMode.OpenOrCreate);
 				
-				data.knight = GameObject.Find("Knight").GetComponent<Knight>();;
-				data.rogue = GameObject.Find("Rogue").GetComponent<Rogue>();
-				data.mage = GameObject.Find("Mage").GetComponent<Mage>();
+				data.knight = gamestate.getPlayerData("Knight");//GameObject.Find("Knight").GetComponent<Knight>().getData();
+				data.rogue = gamestate.getPlayerData("Rogue");//GameObject.Find("Rogue").GetComponent<Rogue>().getData();
+				data.mage = gamestate.getPlayerData("Mage");//GameObject.Find("Mage").GetComponent<Mage>().getData();
 				data.inventory = Singleton.inventory;
 				data.currentposition = Singleton.playerPositionInMap;
 				
@@ -127,16 +124,17 @@ public class SaveManager : MonoBehaviour{
 	public bool loadStartGame(){
 		bool res = false;
 
-		try{			
-			if(gamestate == null){
-				gamestate.initialize();
-			}
+		try{
+			//Knight knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
+			//Rogue rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
+			Mage mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
+			MapInfo map = Singleton.allMaps["Forest"];
 
-			//knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
-			//rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
-			gamestate.setMage(GameObject.FindWithTag("Mage").GetComponent<Mage>());
-			gamestate.setMap(Singleton.allMaps["Forest"]);
-			
+			//FileManager.Instance.writeToLog(map.toString());
+
+			gamestate.setMage(mage.getData());
+			gamestate.setMap(map);
+
 			//players.Add(mage);
 			
 			//BattleData.map = map;
@@ -144,8 +142,8 @@ public class SaveManager : MonoBehaviour{
 
 			res = true;
 		}
-		catch{
-
+		catch(Exception e){
+			Debug.Log (e.ToString());
 		}
 
 		return res;
@@ -154,9 +152,9 @@ public class SaveManager : MonoBehaviour{
 
 [System.Serializable]
 public class GameData {
-	public Knight knight;
-	public Rogue rogue;
-	public Mage mage;
+	public PlayerData knight;
+	public PlayerData rogue;
+	public PlayerData mage;
 	public Inventory inventory;
 	public MapInfo map;
 	public Vector2 currentposition;

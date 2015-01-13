@@ -18,12 +18,17 @@ public class Gamestate : MonoBehaviour {
 	public Dictionary<string, Skill> allSkills;
 
 	public List<Player> players;
+	public List<PlayerData> playersData;
 
-	/*void OnGUI() {
-		if (GUI.Button (new Rect (930, 30, 150, 30), "Add potion")) { // DEBUG
+	void OnGUI() {
+		/*if (GUI.Button (new Rect (930, 30, 150, 30), "Add potion")) { // DEBUG
 			Singleton.inventory.addItem("Potion", 1);
+		}*/
+
+		if (GUI.Button (new Rect (930, 30, 150, 30), "Save Game")) { // DEBUG
+			SaveManager.Instance.save();
 		}
-	}*/
+	}
 
 	void Awake() {
 		if(instance == null){
@@ -109,22 +114,46 @@ public class Gamestate : MonoBehaviour {
 		return allMonsters[monsterName];
 	}
 
-	public void setKnight(Knight knight){
+	public void setKnight(Knight knight, PlayerData data){
 		this.knight = knight;
-		addPlayer(knight);
+		setKnight(data);
 	}
 
-	public void setRogue(Rogue rogue){
+	public void setKnight(PlayerData data){
+		//this.knight.populate(data);
+		//addPlayer(this.knight);
+
+	}
+
+	public void setRogue(Rogue rogue, PlayerData data){
 		this.rogue = rogue;
-		addPlayer(rogue);
+		setRogue(data);
 	}
 
-	public void setMage(Mage mage){
+	public void setRogue(PlayerData data){
+		this.rogue.populate(data);
+		addPlayer(this.rogue);
+	}
+
+	public void setMage(Mage mage, PlayerData data){
 		this.mage = mage;
-		addPlayer(mage);
+		setMage(data);
+	}
+
+	/*public void setMage(PlayerData data){
+		this.mage.populate(data);
+		addPlayer(this.mage);
+	}*/
+
+	public void setMage(PlayerData data){
+		//this.mage.populate(data);
+		//addPlayer(this.mage);
+		addPlayerData(data);
 	}
 
 	public void setMap(MapInfo map){
+		Debug.Log (map.mapName);
+
 		this.map = map;
 		BattleData.map = map;
 	}
@@ -132,26 +161,59 @@ public class Gamestate : MonoBehaviour {
 	private void addPlayer(Player player){
 		if(players == null){
 			players = new List<Player>();
-
 		}
 
-		if(!playerExist(player)){
+		if(!playerExist(player.name)){
 			players.Add(player);
 			BattleData.addPlayer(player);
 		}
 		else{
-			//Debug.Log ("Player Exists");
+			Debug.Log ("Player Exists");
 		}
 	}
 
-	private bool playerExist(Player player){
+	private void addPlayerData(PlayerData data){
+		if(playersData == null){
+			playersData = new List<PlayerData>();
+		}
+		
+		if(!playerDataExist(data.characterName)){
+			playersData.Add(data);
+			//BattleData.addPlayer(data);
+		}
+		else{
+			Debug.Log ("Player Data Exists");
+		}
+	}
+
+	private bool playerExist(string name){
 		foreach(Player p in this.players){
-			if(p.name.Equals(player.name)){
+			if(p.name.Equals(name)){
 				return true;
 			}
 		}
 		
 		return false;		
+	}
+
+	private bool playerDataExist(string name){//PlayerData data){
+		foreach(PlayerData d in this.playersData){
+			if(d.characterName.Equals(name)){
+				return true;
+			}
+		}
+		
+		return false;		
+	}
+
+	public PlayerData getPlayerData(string name){	
+		foreach(PlayerData d in this.playersData){
+			if(d.characterName.Equals(name)){
+				return d;
+			}
+		}
+
+		return null;
 	}
 
 	public void changeFromMapToBattle(string battleMapName){

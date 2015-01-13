@@ -99,6 +99,7 @@
      <None Include="Assets\Gamedata\Lang\Menus\menusEN.xml" />
      <None Include="Assets\Gamedata\Xml\maps.xml" />
      <None Include="Assets\Gamedata\Xml\items.xml" />
+     <None Include="Assets\Gamedata\Logs\log.txt" />
      <None Include="Assets\Gamedata\Xml\skills - copia.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>

@@ -56,20 +56,24 @@ public class MonsterInfo
 
 		this.expGiven = expGiven;
 
-		this.drops = drops.Split(new char[] {';'});
-		string[] dropsAux = dropRates.Split(new char[] {';'});
-		string[] dropsAux2 = dropQuantity.Split(new char[] {';'});
-		
+		//Debug.Log ("Drops: " + drops);
+		this.drops = drops.Split(';');
+		//Debug.Log ("this.Drops: " + this.drops.Length);
+		string[] dropsAux = dropRates.Split(';');
+		string[] dropsAux2 = dropQuantity.Split(';');
+
 		if(this.hasDrops()){
-			for(int i = 0; i < drops.Length; i++){
+			for(int i = 0; i < this.drops.Length; i++){
+				//Debug.Log (i + " - " + this.drops[i] + " " + dropsAux[i] + "% x" + dropsAux2[i]);
 				this.dropRates.Add(this.drops[i], Convert.ToInt32(dropsAux[i]));
 				this.dropQuantity.Add(this.drops[i], Convert.ToInt32(dropsAux2[i]));
+
 			}
 		}
 	}
 	
 	public bool hasDrops(){
-		if(this.drops.Length == this.dropRates.Count && this.drops.Length > 0 && this.dropRates.Count > 0){
+		if(this.drops.Length > 0){//this.drops.Length == this.dropRates.Count && this.drops.Length > 0 && this.dropRates.Count > 0){
 			return true;
 		}
 		else{

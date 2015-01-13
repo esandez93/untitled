@@ -50,6 +50,10 @@ public class PlayerData{
 	public PlayerData(){
 	}
 
+	public PlayerData(Player player){
+		this.populate(player);
+	}
+
 	public void populate(Player player){
 		this.bIsPlayer = player.bIsPlayer;
 

@@ -11,6 +11,7 @@ public class FileManager : MonoBehaviour {
 	public string path;  // Holds the application path 
 	public static string XML_PATH = "Gamedata/Xml";
 	public static string LANG_PATH = "Gamedata/Lang";
+	public static string LOG_PATH = "Gamedata/Logs";
 		
 	// constructor, creates an instance of fileManager if one does not exist 
 	public static FileManager Instance { 
@@ -38,18 +39,23 @@ public class FileManager : MonoBehaviour {
 		path = Application.dataPath; 
 
 		// Check for and create the gamedata directory 
-		if(checkDirectory("Gamedata") == false) { 
+		if(!checkDirectory("Gamedata")) { 
 			createDirectory("Gamedata"); 
 		}
 
 		// Check for and create the saves directory 
-		if(checkDirectory("Gamedata/Saves") == false) { 
+		if(!checkDirectory("Gamedata/Saves")) { 
 			createDirectory("Gamedata/Saves");
 		}
 
-		// Check for and create the saves directory 
-		if(checkDirectory("Gamedata/Lang") == false) { 
+		// Check for and create the languages directory 
+		if(!checkDirectory("Gamedata/Lang")) { 
 			createDirectory("Gamedata/Lang");
+		}
+
+		// Check for and create the logs directory 
+		if(!checkDirectory("Gamedata/Logs")) { 
+			createDirectory("Gamedata/Logs");
 		}
 	} 
 
@@ -82,6 +88,10 @@ public class FileManager : MonoBehaviour {
 		else { 
 			return false; 
 		} 
+	}
+
+	public void createFile(string filePath, string name, string extension) { 
+		File.Create(path + "/" + filePath + "/" + name + extension);
 	}
 
 	public Dictionary<string, AnyText> readMenus(){
@@ -351,6 +361,14 @@ public class FileManager : MonoBehaviour {
 			lines.Add(line);
 		}
 		return lines;
+	}
+
+	public void writeToLog(string data){
+		if(!checkFile(LOG_PATH + "/log.txt")){
+			createFile(LOG_PATH, "log", ".txt");
+		}
+
+		File.WriteAllText(path+"/"+LOG_PATH+"/log.txt", data);
 	}
 
 	public class XmlTypes{

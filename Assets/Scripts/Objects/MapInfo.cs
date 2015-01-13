@@ -56,4 +56,20 @@ public class MapInfo{
 
 		return monster;
 	}
+
+	public string toString(){
+		string desc;
+
+		desc  = "Map: " + mapName + " \n";
+		desc += "Monsters: \n";
+		foreach(MonsterInfo monster in monsters){
+			desc += monster.name + " " + monstersChance[monster.name] + "% \n";
+			desc += "Drops: \n";
+			foreach(string drop in monster.drops){
+				desc += drop + " x" + monster.dropQuantity[drop] + " " + monster.dropRates[drop] + "% \n"; 
+			}
+		}
+
+		return desc;
+	}
 }

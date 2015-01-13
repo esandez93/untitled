@@ -6,7 +6,7 @@ public class NewGame : MonoBehaviour{
 	void Start (){
 		try{
 			if(SaveManager.Instance.loadStartGame()){
-				Application.LoadLevel("Forest");
+				Application.LoadLevel(Gamestate.instance.map.mapName);
 			}
 			else{
 				Debug.Log ("New Game failed.");
