@@ -54,6 +54,8 @@ public class BattleManager : MonoBehaviour {
 	public static Text enemyHealthTextGUI;
 	public static Text enemyManaTextGUI;
 
+	public static SpriteRenderer background;
+
 	public static Character currentObjective;
 
 	public static BattleStates currentState;
@@ -135,9 +137,12 @@ public class BattleManager : MonoBehaviour {
 		enemyHealthTextGUI = transform.FindChild("EnemyData").FindChild("Health").FindChild("HealthText").GetComponent<Text>();
 		enemyManaTextGUI = transform.FindChild("EnemyData").FindChild("Mana").FindChild("ManaText").GetComponent<Text>();
 
+		background = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>();
+
 		changeState(BattleStates.START);
 		changePhase(BattlePhases.NONE);
 
+		setBackground();
 		setMonsters();
 		setPlayers();
 	}
@@ -680,6 +685,10 @@ public class BattleManager : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	private void setBackground(){
+		background.sprite = Resources.Load <Sprite> ("Backgrounds/Battle/" + "Castle");//currentMap.mapName);
 	}
 
 	public static void backToStart(){

@@ -479,6 +479,7 @@ MonoBehaviour:
     mapName: 
   monstersInBattle: []
   players: []
+  playersData: []
 --- !u!4 &639678056
 Transform:
   m_ObjectHideFlags: 0
@@ -1703,7 +1704,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2511236001
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1091b4054767b8b4c8ec790aeea85eb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b4623e32e6eecb43b5a7427a922bfec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1667819408
 Transform:
