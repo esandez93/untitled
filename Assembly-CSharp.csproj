@@ -49,7 +49,10 @@
      <Compile Include="Assets\Scripts\Buttons\ContinueGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplaySkills.cs" />
+     <Compile Include="Assets\Scripts\Buttons\LoadGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
+     <Compile Include="Assets\Scripts\Buttons\Options.cs" />
+     <Compile Include="Assets\Scripts\Buttons\QuitGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
      <Compile Include="Assets\Scripts\Buttons\getSkillButtonText.cs" />
      <Compile Include="Assets\Scripts\CheckBorder.cs" />
@@ -63,6 +66,7 @@
      <Compile Include="Assets\Scripts\Managers\LanguageManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Managers\Singleton.cs" />
+     <Compile Include="Assets\Scripts\Managers\VersionDeserializationBinder.cs" />
      <Compile Include="Assets\Scripts\MonsterBehaviour.cs" />
      <Compile Include="Assets\Scripts\Movement\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\Movement\CommonMovementPlatform.cs" />
@@ -84,6 +88,7 @@
      <Compile Include="Assets\Scripts\Objects\MapInfo.cs" />
      <Compile Include="Assets\Scripts\Objects\MonsterInfo.cs" />
      <Compile Include="Assets\Scripts\Objects\PlayerData.cs" />
+     <Compile Include="Assets\Scripts\Objects\SaveData.cs" />
      <Compile Include="Assets\Scripts\Objects\Skill.cs" />
      <Compile Include="Assets\Scripts\Objects\SkillInfo.cs" />
      <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />

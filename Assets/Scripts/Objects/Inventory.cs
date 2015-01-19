@@ -108,7 +108,7 @@ public class Inventory{
 	}
 
 	public Item getItem(string name){
-		return Singleton.allItems[name];
+		return Singleton.Instance.allItems[name];
 	}
 
 	public void addMoney(float quantity){

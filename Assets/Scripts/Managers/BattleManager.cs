@@ -103,13 +103,15 @@ public class BattleManager : MonoBehaviour {
 				Debug.Log ("State: " + currentState + ", Phase: " + currentPhase);
 			}
 			if (GUI.Button (new Rect (730, 30, 150, 30), "Add potion")) { // DEBUG
-				Singleton.inventory.addItem("Potion", 1);
+				Singleton.Instance.inventory.addItem("Potion", 1);
 				DisplayItems.repopulate();
 			}
 		}
 	}
 
 	void Start(){
+		SaveManager.Instance.autoLoad();
+
 		currentMap = Gamestate.instance.map;
 
 		playerBackgroundGUI = transform.FindChild("PlayerData").GetComponent<Image>();
@@ -208,6 +210,7 @@ public class BattleManager : MonoBehaviour {
 			changePhase(BattlePhases.END);
 			giveRewards();
 			//CHANGE SCENE TO BATTLE REWARDS
+			Application.LoadLevel("Forest");
 			break;
 		}
 		
@@ -281,17 +284,19 @@ public class BattleManager : MonoBehaviour {
 		currentCharacter = turns[turn-1];
 
 		if(currentCharacter.isAlive()){
-			if(currentCharacter.isPlayer()){
-				hideGUIMonsterInfo();
-				playerTurn = true;
-				changeState(BattleStates.PLAYERTURN);
-				//showPlayerCommandsGUI = true;
-			}
-			else{
-				hideGUIPlayerInfo();
-				playerTurn = false;
-				showPlayerCommandsGUI = false;
-				changeState(BattleStates.ENEMYTURN);
+			if(!ended){
+				if(currentCharacter.isPlayer()){
+					hideGUIMonsterInfo();
+					playerTurn = true;
+					changeState(BattleStates.PLAYERTURN);
+					//showPlayerCommandsGUI = true;
+				}
+				else{
+					hideGUIPlayerInfo();
+					playerTurn = false;
+					showPlayerCommandsGUI = false;
+					changeState(BattleStates.ENEMYTURN);
+				}
 			}
 
 			changePhase(BattlePhases.AFFECT);
@@ -562,7 +567,6 @@ public class BattleManager : MonoBehaviour {
 		Player player;
 
 		foreach(PlayerData data in Gamestate.instance.playersData){
-			Debug.Log(data.characterName);
 			player = buildPlayer(data);
 			playersInBattle.Add(player);
 			enableComponents(player.gameObject);
@@ -688,7 +692,7 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void setBackground(){
-		background.sprite = Resources.Load <Sprite> ("Backgrounds/Battle/" + "Castle");//currentMap.mapName);
+		background.sprite = Resources.Load <Sprite> ("Backgrounds/Battle/" + currentMap.mapName);
 	}
 
 	public static void backToStart(){

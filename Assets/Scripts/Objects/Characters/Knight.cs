@@ -11,7 +11,7 @@ public class Knight : Player
 		this.characterName = "Knight";
 		this.job = Player.Job.KNIGHT;
 		
-		initializePlayer(this.job);
+		//initializePlayer(this.job);
 	}
 	
 	public override void Update(){

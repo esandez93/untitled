@@ -30,7 +30,7 @@ public class DisplayItems : MonoBehaviour {
 	
 	void Update () {
 		if(bm != null && bm.isPlayerTurn()){
-			items = Singleton.inventory.getUsableItems();			
+			items = Singleton.Instance.inventory.getUsableItems();			
 			
 			populateButtons();
 			allocatePanel();

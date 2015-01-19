@@ -98,5 +98,20 @@ public class PlayerData{
 		this.skillPoints = player.skillPoints;
 		this.statPoints = player.statPoints;
 	}
+
+	public string toString(){
+		string data = "";
+
+		data += "Name: " + characterName + "\n";
+		data += "Level " + level + "\n";
+		data += "STR: " + str + "\n";
+		data += "AGI: " + agi + "\n";
+		data += "VIT: " + vit + "\n";
+		data += "INT: " + itg + "\n";
+		data += "DEX: " + dex + "\n";
+		data += "LUK: " + luk + "\n";
+
+		return data;
+	}
 }
 

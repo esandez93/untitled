@@ -5,28 +5,28 @@ using System.Collections.Generic;
 
 public class Singleton : MonoBehaviour {
 
-	public static Vector2 playerPositionInMap;
+	public Vector2 playerPositionInMap;
 
 	public static string statsFileName = "Atributos por lv.csv";
 	public static string elementalModifiersFileName = "Modificadores elemento.csv";
 	public static string skillInfosFileName = "Skills por lv.csv";
 	public static string exceptionSkillsName = "exceptionSkills.csv";
-	public static float[,] statsPerLv;
-	public static float[,] elementalModifiers;
-	public static Dictionary<int, float> expNeeded;
+	public float[,] statsPerLv;
+	public float[,] elementalModifiers;
+	public Dictionary<int, float> expNeeded;
 
-	public static Dictionary<string, Item> allItems;
-	public static Dictionary<string, MonsterInfo> allMonsters;
-	public static Dictionary<string, Skill> allSkills;
-	public static Dictionary<string, AnyText> allMenus;
-	public static Dictionary<string, AnyText> allDialogues;
-	public static Dictionary<string, MapInfo> allMaps;
-	public static Dictionary<string, AlteredStatus> allAlteredStatus;
-	public static Dictionary<string, SkillInfo> allSkillInfo;
+	public Dictionary<string, Item> allItems;
+	public Dictionary<string, MonsterInfo> allMonsters;
+	public Dictionary<string, Skill> allSkills;
+	public Dictionary<string, AnyText> allMenus;
+	public Dictionary<string, AnyText> allDialogues;
+	public Dictionary<string, MapInfo> allMaps;
+	public Dictionary<string, AlteredStatus> allAlteredStatus;
+	public Dictionary<string, SkillInfo> allSkillInfo;
 
-	public static Inventory inventory = new Inventory();
+	public Inventory inventory = new Inventory();
 
-	public static List<string> exceptionSkills;
+	public List<string> exceptionSkills;
 
 	private static Singleton instance = null;
 	public static Singleton Instance{
@@ -34,21 +34,23 @@ public class Singleton : MonoBehaviour {
 			if (instance == null){
 				instance = new GameObject("Singleton").AddComponent<Singleton>();
 				instance.initialize();
+				DontDestroyOnLoad(instance.gameObject);
 			}
+
 				
 			return instance;
 		}
 	}
 
-	public static void getStatsFromFile(){
+	public void getStatsFromFile(){
 		statsPerLv = FileManager.Instance.readNumberCsv(FileManager.Instance.path, statsFileName);
 	}
 
-	public static void getElementalModifiersFromFile(){
+	public void getElementalModifiersFromFile(){
 		elementalModifiers = FileManager.Instance.readNumberCsv(FileManager.Instance.path, elementalModifiersFileName);
 	}
 	
-	public static void getSkillInfoFromFile(){
+	public void getSkillInfoFromFile(){
 		List<string[]> skillInfos = FileManager.Instance.readStringCsv(FileManager.Instance.path, skillInfosFileName);
 
 		allSkillInfo = new Dictionary<string, SkillInfo>();
@@ -57,7 +59,7 @@ public class Singleton : MonoBehaviour {
 		}	
 	}
 	
-	public static void getExceptionSkills(){
+	public void getExceptionSkills(){
 		List<string[]> exceptions = FileManager.Instance.readStringCsv(FileManager.Instance.path, exceptionSkillsName);
 
 		exceptionSkills = new List<string>();
@@ -66,7 +68,7 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 	
-	public static void populateSkillInfo(string[] row){
+	public void populateSkillInfo(string[] row){
 		SkillInfo skillInfo = new SkillInfo();
 		
 		skillInfo.populate(row);
@@ -74,34 +76,34 @@ public class Singleton : MonoBehaviour {
 		allSkillInfo.Add(skillInfo.skillName, skillInfo);
 	}
 
-	public static void populateExceptionSkills(string[] row){
+	public void populateExceptionSkills(string[] row){
 		foreach(string exception in row){
 			exceptionSkills.Add(exception);
 		}
 	}
 
-	public static void getExpNeeded(){
+	public void getExpNeeded(){
 		float exp = 0; 
 
 		for(int i = 1; i < 100; i++){
 			exp = (float)System.Math.Pow(i, 3);
 
-			Singleton.expNeeded.Add(i, exp);
+			Singleton.Instance.expNeeded.Add(i, exp);
 		}
 	}
 
 	public void initialize(){
-		//Singleton.inventory = new Inventory();	
-		Singleton.expNeeded = new Dictionary<int, float>();
+		//Singleton.Instance.inventory = new Inventory();	
+		Singleton.Instance.expNeeded = new Dictionary<int, float>();
 
-		FileManager.Instance.initialize();
+		//FileManager.Instance.initialize();
 
-		Singleton.getExpNeeded();
+		Singleton.Instance.getExpNeeded();
 
-		Singleton.getStatsFromFile();
-		Singleton.getElementalModifiersFromFile();
-		Singleton.getSkillInfoFromFile();
-		Singleton.getExceptionSkills();
+		Singleton.Instance.getStatsFromFile();
+		Singleton.Instance.getElementalModifiersFromFile();
+		Singleton.Instance.getSkillInfoFromFile();
+		Singleton.Instance.getExceptionSkills();
 
 		allItems = FileManager.Instance.readItems();
 		allMonsters = FileManager.Instance.readMonsters();
@@ -110,6 +112,8 @@ public class Singleton : MonoBehaviour {
 		allDialogues = FileManager.Instance.readDialogues();
 		allMaps = FileManager.Instance.readMaps();
 		allAlteredStatus = FileManager.Instance.readAlteredStatus();
+
+		Debug.Log ("Singleton initialized");
 	}
 
 	public void cleanItems(){

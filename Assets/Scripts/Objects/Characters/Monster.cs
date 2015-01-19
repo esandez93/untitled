@@ -85,7 +85,7 @@ public class Monster : Character{
 			}
 
 			foreach(string item in droppedItems){
-				Singleton.inventory.addItem(item, dropQuantity[item]);
+				Singleton.Instance.inventory.addItem(item, dropQuantity[item]);
 			}
 		}
 	}

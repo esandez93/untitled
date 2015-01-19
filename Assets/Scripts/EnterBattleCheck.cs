@@ -13,7 +13,8 @@ public class EnterBattleCheck : MonoBehaviour {
 		enterBattle = Physics2D.OverlapCircle(monsterCheck.position, 0.1f, monsterLayers);
 
 		if(enterBattle){
-			Singleton.playerPositionInMap = this.transform.parent.position;
+			Singleton.Instance.playerPositionInMap = this.transform.parent.position;
+			SaveManager.Instance.autoSave();
 			Application.LoadLevel("forestBattle");
 		}
 	}

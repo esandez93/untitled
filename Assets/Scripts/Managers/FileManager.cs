@@ -18,6 +18,8 @@ public class FileManager : MonoBehaviour {
 		get { 
 			if (instance == null) { 
 				instance = new GameObject("FileManager").AddComponent<FileManager>();
+				instance.initialize();
+				DontDestroyOnLoad(instance.gameObject);
 			} 
 
 			return instance; 
@@ -57,6 +59,8 @@ public class FileManager : MonoBehaviour {
 		if(!checkDirectory("Gamedata/Logs")) { 
 			createDirectory("Gamedata/Logs");
 		}
+
+		Debug.Log ("FileManager initialized");
 	} 
 
 	// checks to see whether the passed directory exists, returning true of false 
@@ -364,11 +368,13 @@ public class FileManager : MonoBehaviour {
 	}
 
 	public void writeToLog(string data){
-		if(!checkFile(LOG_PATH + "/log.txt")){
+		/*if(!checkFile(LOG_PATH + "/log.txt")){
 			createFile(LOG_PATH, "log", ".txt");
-		}
+		}*/
 
 		File.WriteAllText(path+"/"+LOG_PATH+"/log.txt", data);
+
+		Debug.Log ("Log written");
 	}
 
 	public class XmlTypes{

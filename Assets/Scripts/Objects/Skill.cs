@@ -220,9 +220,9 @@ public class Skill{
 	}
 
 	public void setInfo(){
-		if(Singleton.allSkillInfo.ContainsKey(this.name)){
-			//Debug.Log (Singleton.allSkillInfo[this.name].skillName);
-			info = Singleton.allSkillInfo[this.name];
+		if(Singleton.Instance.allSkillInfo.ContainsKey(this.name)){
+			//Debug.Log (Singleton.Instance.allSkillInfo[this.name].skillName);
+			info = Singleton.Instance.allSkillInfo[this.name];
 		}
 	}
 

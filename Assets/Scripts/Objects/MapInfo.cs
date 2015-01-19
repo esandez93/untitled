@@ -26,7 +26,7 @@ public class MapInfo{
 		string[] monstersAux2 = monstersChance.Split(';');
 
 		for(int i = 0; i < monstersAux.Length; i++){
-			addMonster(Singleton.allMonsters[monstersAux[i]]);
+			addMonster(Singleton.Instance.allMonsters[monstersAux[i]]);
 			this.monstersChance.Add(monstersAux[i], Convert.ToInt32(monstersAux2[i]));
 		}
 	}
@@ -42,7 +42,7 @@ public class MapInfo{
 
 		foreach(KeyValuePair<string, int> entry in monstersChance){
 			if((chance -= entry.Value) < 0){
-				monster = Singleton.allMonsters[entry.Key];
+				monster = Singleton.Instance.allMonsters[entry.Key];
 				break;
 			}
 		}

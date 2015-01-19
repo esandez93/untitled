@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class MonsterInfo
-{
+[System.Serializable]
+public class MonsterInfo{
 	public string name;
 	public int level;
 	public int element;

@@ -11,7 +11,7 @@ public class Mage : Player
 		this.characterName = "Mage";
 		this.job = Player.Job.MAGE;
 
-		initializePlayer(this.job);
+		//initializePlayer(this.job);
 	}
 	
 	public override void Update(){

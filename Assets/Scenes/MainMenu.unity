@@ -477,6 +477,7 @@ MonoBehaviour:
   mage: {fileID: 0}
   map:
     mapName: 
+    monsters: []
   monstersInBattle: []
   players: []
   playersData: []
@@ -785,6 +786,7 @@ GameObject:
   - 222: {fileID: 1152109929}
   - 114: {fileID: 1152109928}
   - 114: {fileID: 1152109927}
+  - 114: {fileID: 1152109931}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -830,7 +832,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1152109928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1152109931}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1152109928
@@ -878,6 +892,17 @@ RectTransform:
   m_AnchoredPosition: {x: 2, y: -357}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
+--- !u!114 &1152109931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1152109926}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb485857b4e91f4ab249433bbc2d95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1161358585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,6 +1266,7 @@ GameObject:
   - 222: {fileID: 1463902030}
   - 114: {fileID: 1463902029}
   - 114: {fileID: 1463902028}
+  - 114: {fileID: 1463902031}
   m_Layer: 5
   m_Name: LoadGame
   m_TagString: Untagged
@@ -1304,7 +1330,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1463902029}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1463902031}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1463902029
@@ -1334,6 +1372,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1463902026}
+--- !u!114 &1463902031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1463902026}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417c09efee16c774b8cd527f7c6ddfbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1589461706
 GameObject:
   m_ObjectHideFlags: 0

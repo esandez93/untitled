@@ -13,6 +13,9 @@ public class Gamestate : MonoBehaviour {
 	public MapInfo map;
 	public List<Monster> monstersInBattle = new List<Monster>();
 
+	/*public bool checkMap;
+	public MapType mapType;*/
+
 	public Dictionary<string, Item> allItems;
 	public Dictionary<string, Monster> allMonsters;
 	public Dictionary<string, Skill> allSkills;
@@ -22,8 +25,11 @@ public class Gamestate : MonoBehaviour {
 
 	void OnGUI() {
 		/*if (GUI.Button (new Rect (930, 30, 150, 30), "Add potion")) { // DEBUG
-			Singleton.inventory.addItem("Potion", 1);
+			Singleton.Instance.inventory.addItem("Potion", 1);
 		}*/
+		if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
+			findPlayer("Mage").GetComponent<Mage>().levelUp();
+		}
 
 		if (GUI.Button (new Rect (930, 30, 150, 30), "Save Game")) { // DEBUG
 			SaveManager.Instance.save();
@@ -35,7 +41,8 @@ public class Gamestate : MonoBehaviour {
 			DontDestroyOnLoad(gameObject);
 			instance = this;
 			
-			Singleton.Instance.initialize();
+			//Singleton.Instance.Instance.initialize();
+			//SaveManager.Instance.initialize();
 		}
 		else if (instance != this){
 			Destroy(gameObject);
@@ -55,11 +62,20 @@ public class Gamestate : MonoBehaviour {
 		//loadDebugData();
 	}
 
+	void Update() {
+		/*if(this.map != null && this.map.mapName.Equals("Forest") && !checkMap){
+			mage = GameObject.FindGameObjectWithTag("Mage").GetComponent<Mage>();
+			checkMap = true;
+			mapType = MapType.PLATFORM;
+		}*/
+	}
+
 	public void initialize(){
-		Singleton.Instance.initialize();
+		//checkMap = false;
+		//Singleton.Instance.Instance.initialize();
 
 		//mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
-		//map = Singleton.allMaps["Forest"];
+		//map = Singleton.Instance.allMaps["Forest"];
 		//players = new List<Player>();
 		
 		//players.Add(mage);
@@ -73,15 +89,15 @@ public class Gamestate : MonoBehaviour {
 		//knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
 		//rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
 		mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
-		map = Singleton.allMaps["Forest"];
+		map = Singleton.Instance.allMaps["Forest"];
 		players = new List<Player>();
 		
-		//Singleton.inventory.addItem("Potion", 20);
+		//Singleton.Instance.inventory.addItem("Potion", 20);
 		//mage.addAlteredStatus();
 		
 		//players.Add(knight);
 		//players.Add(rogue);
-		//mage.addSkill("Fireball", Singleton.allSkills["Fireball"]);	
+		//mage.addSkill("Fireball", Singleton.Instance.allSkills["Fireball"]);	
 		
 		mage.levelUp();
 		mage.levelUp();
@@ -104,8 +120,8 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void addMonsterToMap(string monsterName, MapInfo map){
-		MonsterInfo monster = Singleton.allMonsters[monsterName];/*GameObject.FindWithTag("Monster1").GetComponent<Monster>();
-		monster.initializeMonster(Singleton.allMonsters["Wolf"]);*/
+		MonsterInfo monster = Singleton.Instance.allMonsters[monsterName];/*GameObject.FindWithTag("Monster1").GetComponent<Monster>();
+		monster.initializeMonster(Singleton.Instance.allMonsters["Wolf"]);*/
 		map.addMonster(monster);
 	}
 
@@ -152,8 +168,6 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void setMap(MapInfo map){
-		Debug.Log (map.mapName);
-
 		this.map = map;
 		BattleData.map = map;
 	}
@@ -176,7 +190,7 @@ public class Gamestate : MonoBehaviour {
 		if(playersData == null){
 			playersData = new List<PlayerData>();
 		}
-		
+
 		if(!playerDataExist(data.characterName)){
 			playersData.Add(data);
 			//BattleData.addPlayer(data);
@@ -207,13 +221,29 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public PlayerData getPlayerData(string name){	
-		foreach(PlayerData d in this.playersData){
+		/*foreach(PlayerData d in this.playersData){
 			if(d.characterName.Equals(name)){
 				return d;
 			}
-		}
+		}*/
+		/*switch(name){
+		case "Mage":
+			return findPlayer("Mage").GetComponent<Mage>().getData();
+		case "Knight":
+			return findPlayer("Knight").GetComponent<Knight>().getData();
+		case "Rogue":
+			return findPlayer("Rogue").GetComponent<Rogue>().getData();
+//			break;
+		default:
+			return null;
+		}*/
+		return findPlayer(name).GetComponent<Player>().getData();
 
-		return null;
+		//return null;
+	}
+
+	public static GameObject findPlayer(string tag){
+		return GameObject.FindGameObjectWithTag(tag);
 	}
 
 	public void changeFromMapToBattle(string battleMapName){
@@ -226,4 +256,23 @@ public class Gamestate : MonoBehaviour {
 		instance = null; 
 		//SaveManager.Instance.autoSave();
 	}
+
+	void OnLevelWasLoaded(int level) {
+		if (level != 0){
+			if(playersData != null && playersData.Count > 0){
+				foreach(PlayerData data in playersData){
+					findPlayer(data.characterName).GetComponent<Player>().populate(data);
+				}
+
+				if(Singleton.Instance.playerPositionInMap.x != 0 && Singleton.Instance.playerPositionInMap.y != 0){
+					findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+				}
+			}
+		}
+	}
+
+	/*public enum MapType{
+		PLATFORM,
+		BATTLE
+	}*/
 }

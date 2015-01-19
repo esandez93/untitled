@@ -53,7 +53,7 @@ public class Character : MonoBehaviour{
 	public Dictionary<string, AlteredStatus> alteredStatus = new Dictionary<string, AlteredStatus>();
 
 	public virtual void Start(){
-		this.level = 1;
+		//this.level = 1;
 		this.alive = true;
 	}
 	
@@ -112,7 +112,7 @@ public class Character : MonoBehaviour{
 	}
 
 	public void addSkill(string name){
-		addSkill(name, Singleton.allSkills[name]);
+		addSkill(name, Singleton.Instance.allSkills[name]);
 	}
 
 	public void addSkill(Skill skill){
@@ -516,7 +516,7 @@ public class Character : MonoBehaviour{
 		int skillElement = skill.element;
 		int enemyElement = enemy.element;
 		
-		return Singleton.elementalModifiers[skillElement, enemyElement];
+		return Singleton.Instance.elementalModifiers[skillElement, enemyElement];
 	}
 	
 	public float addPercentVariation(float damage, float percent){
@@ -543,7 +543,7 @@ public class Character : MonoBehaviour{
 	}
 
 	public void useItem(string itemName, Character target){
-		Singleton.inventory.useItem(itemName, target);
+		Singleton.Instance.inventory.useItem(itemName, target);
 	}
 	
 	public void useSkill(string skillName, Character target){
@@ -627,7 +627,7 @@ public class Character : MonoBehaviour{
 		
 		if(rand <= skill.chance){ // Success
 			if(!this.alteredStatus.ContainsKey(skill.status)){
-				this.addAlteredStatus(Singleton.allAlteredStatus[skill.status]);
+				this.addAlteredStatus(Singleton.Instance.allAlteredStatus[skill.status]);
 			}
 			else{
 				this.alteredStatus[skill.status].resetDuration();

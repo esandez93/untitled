@@ -23,8 +23,6 @@ public class Player : Character{
 
 		body = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-
-		expForNextLevel = Singleton.expNeeded[this.level];
 	}
 	
 	public override void Update(){
@@ -37,21 +35,21 @@ public class Player : Character{
 		this.level = 1;
 		this.exp = 0;
 		
-		element = Singleton.Element.NEUTRAL;
-		this.str = Singleton.statsPerLv[Character.Stat.STR, this.job];
-		this.agi = Singleton.statsPerLv[Character.Stat.AGI, this.job];
-		this.dex = Singleton.statsPerLv[Character.Stat.DEX, this.job];
-		this.itg = Singleton.statsPerLv[Character.Stat.INT, this.job];
-		this.vit = Singleton.statsPerLv[Character.Stat.VIT, this.job];
-		this.luk = Singleton.statsPerLv[Character.Stat.LUK, this.job];
+		this.element = Singleton.Element.NEUTRAL;
+		this.str = Singleton.Instance.statsPerLv[Character.Stat.STR, this.job];
+		this.agi = Singleton.Instance.statsPerLv[Character.Stat.AGI, this.job];
+		this.dex = Singleton.Instance.statsPerLv[Character.Stat.DEX, this.job];
+		this.itg = Singleton.Instance.statsPerLv[Character.Stat.INT, this.job];
+		this.vit = Singleton.Instance.statsPerLv[Character.Stat.VIT, this.job];
+		this.luk = Singleton.Instance.statsPerLv[Character.Stat.LUK, this.job];
 		
-		this.maxHP += Singleton.statsPerLv[Character.Stat.HP, this.job] + getMaxHP();
-		this.currHP += this.maxHP;//Singleton.statsPerLv[Character.Stat.HP, this.job] + getMaxHP();
-		this.maxMP += Singleton.statsPerLv[Character.Stat.MP, this.job] + getMaxMP();
-		this.currMP += this.maxMP;//Singleton.statsPerLv[Character.Stat.MP, this.job] + getMaxMP();
+		this.maxHP += Singleton.Instance.statsPerLv[Character.Stat.HP, this.job] + getMaxHP();
+		this.currHP += this.maxHP;//Singleton.Instance.statsPerLv[Character.Stat.HP, this.job] + getMaxHP();
+		this.maxMP += Singleton.Instance.statsPerLv[Character.Stat.MP, this.job] + getMaxMP();
+		this.currMP += this.maxMP;//Singleton.Instance.statsPerLv[Character.Stat.MP, this.job] + getMaxMP();
 		
-		this.atk += Singleton.statsPerLv[Character.Stat.ATK, this.job] + getAtk();
-		this.matk += Singleton.statsPerLv[Character.Stat.MATK, this.job] + getMatk();
+		this.atk += Singleton.Instance.statsPerLv[Character.Stat.ATK, this.job] + getAtk();
+		this.matk += Singleton.Instance.statsPerLv[Character.Stat.MATK, this.job] + getMatk();
 		
 		this.def = getDef();
 		this.mdef = getMdef();
@@ -59,34 +57,36 @@ public class Player : Character{
 		this.flee = getFlee();
 		this.critChance = getCritChance();
 		this.critDmg = getCritDamage();
+
+		expForNextLevel = Singleton.Instance.expNeeded[this.level];
 	}
 	
 	public void levelUp(){
 		level++;
-		this.str += Singleton.statsPerLv[Character.Stat.STR, this.job];
-		this.agi += Singleton.statsPerLv[Character.Stat.AGI, this.job];
-		this.dex += Singleton.statsPerLv[Character.Stat.DEX, this.job];
-		this.itg += Singleton.statsPerLv[Character.Stat.INT, this.job];
-		this.vit += Singleton.statsPerLv[Character.Stat.VIT, this.job];
-		this.luk += Singleton.statsPerLv[Character.Stat.LUK, this.job];
+		this.str += Singleton.Instance.statsPerLv[Character.Stat.STR, this.job];
+		this.agi += Singleton.Instance.statsPerLv[Character.Stat.AGI, this.job];
+		this.dex += Singleton.Instance.statsPerLv[Character.Stat.DEX, this.job];
+		this.itg += Singleton.Instance.statsPerLv[Character.Stat.INT, this.job];
+		this.vit += Singleton.Instance.statsPerLv[Character.Stat.VIT, this.job];
+		this.luk += Singleton.Instance.statsPerLv[Character.Stat.LUK, this.job];
 		
-		this.maxHP += Singleton.statsPerLv[Character.Stat.HP, this.job];
-		this.currHP += Singleton.statsPerLv[Character.Stat.HP, this.job];
-		this.maxMP += Singleton.statsPerLv[Character.Stat.MP, this.job];
-		this.currMP += Singleton.statsPerLv[Character.Stat.MP, this.job];
+		this.maxHP += Singleton.Instance.statsPerLv[Character.Stat.HP, this.job];
+		this.currHP += Singleton.Instance.statsPerLv[Character.Stat.HP, this.job];
+		this.maxMP += Singleton.Instance.statsPerLv[Character.Stat.MP, this.job];
+		this.currMP += Singleton.Instance.statsPerLv[Character.Stat.MP, this.job];
 		
-		this.atk += Singleton.statsPerLv[Character.Stat.ATK, this.job];
-		this.matk += Singleton.statsPerLv[Character.Stat.MATK, this.job];
+		this.atk += Singleton.Instance.statsPerLv[Character.Stat.ATK, this.job];
+		this.matk += Singleton.Instance.statsPerLv[Character.Stat.MATK, this.job];
 
 		this.skillPoints += SKILL_POINTS_PER_LEVEL;
 		this.statPoints += STAT_POINTS_PER_LEVEL;
 
-		expForNextLevel = Singleton.expNeeded[this.level];
+		expForNextLevel = Singleton.Instance.expNeeded[this.level];
 	}
 	
 	public void populate(PlayerData data){
 		this.bIsPlayer = data.bIsPlayer;
-		
+
 		this.characterName = data.characterName;
 		this.level = data.level;
 		this.element = data.element;
@@ -136,7 +136,7 @@ public class Player : Character{
 	public void getExp(float exp){
 		this.exp += exp;
 
-		while(this.exp >= Singleton.expNeeded[this.level]){
+		while(this.exp >= Singleton.Instance.expNeeded[this.level]){
 			this.levelUp();
 		}
 	}
@@ -189,8 +189,8 @@ public class Player : Character{
 	}
 	
 	/*public void useItem(string itemName, Character target){
-		if(Singleton.inventory.isItemInInventory(itemName)){
-			Singleton.inventory.useItem(itemName, target);
+		if(Singleton.Instance.inventory.isItemInInventory(itemName)){
+			Singleton.Instance.inventory.useItem(itemName, target);
 
 			BattleManager.currentPhase = BattleManager.BattlePhases.DOACTION;
 		}
@@ -215,7 +215,7 @@ public class Player : Character{
 				benefits = skill.getBenefits();
 
 				foreach(KeyValuePair<string, float> benefit in benefits){
-					if(Singleton.exceptionSkills.Contains(skill.name)){ // Don't use percent, just constant numbers
+					if(Singleton.Instance.exceptionSkills.Contains(skill.name)){ // Don't use percent, just constant numbers
 						increaseStat(benefit.Key, benefit.Value);
 					}
 					else{
@@ -224,7 +224,7 @@ public class Player : Character{
 				}
 			}
 			else if(skill.idType == Skill.Type.PASSIVE_ADD_STATUS){
-				addAlteredStatus(Singleton.allAlteredStatus[skill.status]);
+				addAlteredStatus(Singleton.Instance.allAlteredStatus[skill.status]);
 			}
 		}
 	}

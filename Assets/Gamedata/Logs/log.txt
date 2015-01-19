@@ -1,5 +1,8 @@
-Map: Forest 
-Monsters: 
-Wolf 100% 
-Drops: 
-Potion x1 100% 
+Name: Mage
+Level 14
+STR: 13
+AGI: 26
+VIT: 26
+INT: 78
+DEX: 65
+LUK: 52
