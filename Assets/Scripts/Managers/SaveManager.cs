@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic; 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using UnityEditor;
+//using UnityEditor;
 
 public class SaveManager : MonoBehaviour{
 	private static string SAVE_PATH = "/Gamedata/Saves";
@@ -33,14 +33,13 @@ public class SaveManager : MonoBehaviour{
 	}
 
 	public bool save(){
-		string savePath = EditorUtility.SaveFilePanel("Save File", Application.dataPath + SAVE_PATH, "savegame", "sav"); 
-//		Debug.Log("SavePath: " + savePath);
-		
+		string savePath = Application.dataPath + SAVE_PATH + "/savegame.sav";//EditorUtility.SaveFilePanel("Save File", Application.dataPath + SAVE_PATH, "savegame", "sav"); 
+
 		return saveData(savePath);
 	}
 	
 	public bool load(){
-		string openPath = EditorUtility.OpenFilePanel("Open File", Application.dataPath + "/Gamedata/Saves", "sav"); 
+		string openPath = Application.dataPath + SAVE_PATH + "/savegame.sav";//EditorUtility.OpenFilePanel("Open File", Application.dataPath + SAVE_PATH, "sav"); 
 
 		return loadData(openPath);
 	}

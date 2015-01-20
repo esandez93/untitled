@@ -584,7 +584,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2511236001
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1091b4054767b8b4c8ec790aeea85eb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98fc13301d99485428c41b05e2e62974, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &255125569
 Transform:
@@ -2713,6 +2713,7 @@ MonoBehaviour:
   turn: 1
   currentMap:
     mapName: 
+    monsters: []
   playerTurn: 0
   showPlayerCommandsGUI: 0
   showPlayerStatGUI: 0
@@ -3826,6 +3827,7 @@ MonoBehaviour:
   mage: {fileID: 322833248}
   map:
     mapName: 
+    monsters: []
   monstersInBattle: []
   players: []
   playersData: []

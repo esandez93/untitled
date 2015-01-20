@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic; 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using UnityEditor;
 
 public class Gamestate : MonoBehaviour {	
 	public static Gamestate instance;
@@ -28,7 +27,18 @@ public class Gamestate : MonoBehaviour {
 			Singleton.Instance.inventory.addItem("Potion", 1);
 		}*/
 		if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
-			findPlayer("Mage").GetComponent<Mage>().levelUp();
+			Mage mage = findPlayer("Mage").GetComponent<Mage>();
+			mage.levelUp();
+
+			/*for(int i = 0; i < 10; i++){
+				mage.levelUp();
+			}
+
+			mage.addSkill("Fireball");
+			mage.skillUp("Fireball");
+			mage.skillUp("Fireball");
+			mage.skillUp("Fireball");
+			mage.skillUp("Fireball");*/
 		}
 
 		if (GUI.Button (new Rect (930, 30, 150, 30), "Save Game")) { // DEBUG
