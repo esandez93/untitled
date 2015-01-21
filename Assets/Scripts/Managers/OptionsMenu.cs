@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 public class OptionsMenu : MonoBehaviour {
 	
-	public static bool showMenu = false;
+	public static bool showMenu = true;
 	private string settings;
 	public static float environmentLevel = 1.0f; // 
 	public static bool fullscreen = true; // Default
@@ -89,7 +89,7 @@ public class OptionsMenu : MonoBehaviour {
 			GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-100,300,300),"Graphics");
 			fullscreen = GUI.Toggle(new Rect(Screen.width/2-150, Screen.height/2-80, 200, 30), fullscreen, "Fullscreen");
 			
-			if(GUI.Button(new Rect(Screen.width/2-60,Screen.height/2+110,120,30),"Close")){
+			if(GUI.Button(new Rect(Screen.width/2-60,Screen.height/2+110,120,30),"Save and Close")){
 				showMenu = false;
 				//inGameMenu.showGameMenu = true;
 				saveSettings();
