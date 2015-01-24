@@ -12,9 +12,6 @@ public class Gamestate : MonoBehaviour {
 	public MapInfo map;
 	public List<Monster> monstersInBattle = new List<Monster>();
 
-	/*public bool checkMap;
-	public MapType mapType;*/
-
 	public Dictionary<string, Item> allItems;
 	public Dictionary<string, Monster> allMonsters;
 	public Dictionary<string, Skill> allSkills;
@@ -23,22 +20,9 @@ public class Gamestate : MonoBehaviour {
 	public List<PlayerData> playersData;
 
 	void OnGUI() {
-		/*if (GUI.Button (new Rect (930, 30, 150, 30), "Add potion")) { // DEBUG
-			Singleton.Instance.inventory.addItem("Potion", 1);
-		}*/
 		if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
 			Mage mage = findPlayer("Mage").GetComponent<Mage>();
 			mage.levelUp();
-
-			/*for(int i = 0; i < 10; i++){
-				mage.levelUp();
-			}
-
-			mage.addSkill("Fireball");
-			mage.skillUp("Fireball");
-			mage.skillUp("Fireball");
-			mage.skillUp("Fireball");
-			mage.skillUp("Fireball");*/
 		}
 
 		if (GUI.Button (new Rect (930, 30, 150, 30), "Save Game")) { // DEBUG
@@ -50,9 +34,6 @@ public class Gamestate : MonoBehaviour {
 		if(instance == null){
 			DontDestroyOnLoad(gameObject);
 			instance = this;
-			
-			//Singleton.Instance.Instance.initialize();
-			//SaveManager.Instance.initialize();
 		}
 		else if (instance != this){
 			Destroy(gameObject);
@@ -61,23 +42,10 @@ public class Gamestate : MonoBehaviour {
 
 	void Start() {
 		this.initialize();
-
-		/*if(SaveManager.Instance.autoLoad()){
-
-		}
-		else{
-			loadStartGame();
-		}*/
-
-		//loadDebugData();
 	}
 
 	void Update() {
-		/*if(this.map != null && this.map.mapName.Equals("Forest") && !checkMap){
-			mage = GameObject.FindGameObjectWithTag("Mage").GetComponent<Mage>();
-			checkMap = true;
-			mapType = MapType.PLATFORM;
-		}*/
+
 	}
 
 	public void initialize(){
@@ -166,14 +134,7 @@ public class Gamestate : MonoBehaviour {
 		setMage(data);
 	}
 
-	/*public void setMage(PlayerData data){
-		this.mage.populate(data);
-		addPlayer(this.mage);
-	}*/
-
 	public void setMage(PlayerData data){
-		//this.mage.populate(data);
-		//addPlayer(this.mage);
 		addPlayerData(data);
 	}
 
@@ -203,7 +164,6 @@ public class Gamestate : MonoBehaviour {
 
 		if(!playerDataExist(data.characterName)){
 			playersData.Add(data);
-			//BattleData.addPlayer(data);
 		}
 		else{
 			Debug.Log ("Player Data Exists");
@@ -230,26 +190,8 @@ public class Gamestate : MonoBehaviour {
 		return false;		
 	}
 
-	public PlayerData getPlayerData(string name){	
-		/*foreach(PlayerData d in this.playersData){
-			if(d.characterName.Equals(name)){
-				return d;
-			}
-		}*/
-		/*switch(name){
-		case "Mage":
-			return findPlayer("Mage").GetComponent<Mage>().getData();
-		case "Knight":
-			return findPlayer("Knight").GetComponent<Knight>().getData();
-		case "Rogue":
-			return findPlayer("Rogue").GetComponent<Rogue>().getData();
-//			break;
-		default:
-			return null;
-		}*/
+	public PlayerData getPlayerData(string name){
 		return findPlayer(name).GetComponent<Player>().getData();
-
-		//return null;
 	}
 
 	public static GameObject findPlayer(string tag){
@@ -269,16 +211,25 @@ public class Gamestate : MonoBehaviour {
 
 	void OnLevelWasLoaded(int level) {
 		if (level != 0){
-			if(playersData != null && playersData.Count > 0){
+			if(arePlayersOnLevel()){
 				foreach(PlayerData data in playersData){
 					findPlayer(data.characterName).GetComponent<Player>().populate(data);
+					findPlayer(data.characterName).GetComponent<Player>().addSkill("Fireball");
 				}
 
-				if(Singleton.Instance.playerPositionInMap.x != 0 && Singleton.Instance.playerPositionInMap.y != 0){
+				if(!positionIsDefault()){
 					findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
 				}
 			}
 		}
+	}
+
+	private bool arePlayersOnLevel(){
+		return playersData != null && playersData.Count > 0;
+	}
+
+	private bool positionIsDefault(){ // (0, 0)
+		return Singleton.Instance.playerPositionInMap.x == 0 && Singleton.Instance.playerPositionInMap.y == 0;
 	}
 
 	/*public enum MapType{

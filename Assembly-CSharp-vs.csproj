@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Managers\BattleManager.cs" />
      <Compile Include="Assets\Scripts\Managers\FileManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LanguageManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\OptionsManager.cs" />
      <Compile Include="Assets\Scripts\Managers\OptionsMenu.cs" />
      <Compile Include="Assets\Scripts\Managers\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Managers\Singleton.cs" />
@@ -96,18 +97,22 @@
      <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />
      <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesEN.xml" />
      <None Include="Assets\Gamedata\Xml\alteredStats.xml" />
+     <None Include="Assets\Gamedata\Lang\Words\wordsES.xml" />
      <None Include="Assets\Gamedata\Xml\skills.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\menus.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\monsters.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\dialogues.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\items.xml" />
      <None Include="Assets\Gamedata\Xml\monsters.xml" />
+     <None Include="Assets\Gamedata\Lang\Words\wordsEN.xml" />
      <None Include="Assets\Gamedata\Xml\skillsInfo.xml" />
      <None Include="Assets\Gamedata\Lang\Menus\menusEN.xml" />
+     <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesES.xml" />
      <None Include="Assets\Gamedata\Xml\maps.xml" />
      <None Include="Assets\Gamedata\Xml\items.xml" />
      <None Include="Assets\Gamedata\Logs\log.txt" />
      <None Include="Assets\Gamedata\Xml\skills - copia.xml" />
+     <None Include="Assets\Gamedata\Lang\Menus\menusES.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>

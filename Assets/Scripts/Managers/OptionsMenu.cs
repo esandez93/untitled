@@ -10,8 +10,7 @@ public class OptionsMenu : MonoBehaviour {
 	public static bool fullscreen = true; // Default
 	public static string displayWidth = "1680"; // Default
 	public static string displayHeight = "1050"; // Default
-	private string currWidth = "1680";
-	private string currHeight = "1050";
+	public static string language = "EN";
 
 	void Awake(){
 
@@ -21,64 +20,20 @@ public class OptionsMenu : MonoBehaviour {
 	void Start () {
 		//GameObject.FindGameObjectWithTag("Menu").SetActive(false);
 
-		settings = System.IO.File.ReadAllText(@"settings.ini"); // Load the settings.
-		string[] settingsLines = Regex.Split(settings,"\r\n");
-		
-		foreach(string line in settingsLines){
-			if(line.StartsWith("[")){
-				continue;
-			}
+		OptionsManager.Instance.getSettings();
 
-			string[] thisLine = Regex.Split(line,"=");
-
-			string command = thisLine[0];
-			string value = thisLine[1];
-
-			if(command.Equals("EnvironmentAudio")){
-				environmentLevel = float.Parse(value);
-				// Debug.Log("Setting ambiance to "+thisLine[1]);
-			}
-			else if(command.Equals("FullScreen")){
-				if(value.Equals("True") || value.Equals("true") || value.Equals("TRUE")){
-					Screen.fullScreen = true;
-					fullscreen = true;
-				}
-				else{
-					Screen.fullScreen = false;
-				}
-			}
-			else if(command.Equals("DisplayWidth")){
-				displayWidth = value;
-			}
-			else if(command.Equals("DisplayHeight")){
-				displayHeight = value;
-			}
-		}
-
-		Screen.SetResolution(int.Parse(displayWidth), int.Parse(displayHeight), fullscreen);
+		//Screen.SetResolution(int.Parse(displayWidth), int.Parse(displayHeight), fullscreen);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(compareResolution()){
-			Screen.SetResolution(int.Parse(displayWidth), int.Parse(displayHeight), fullscreen);
 
-			currWidth = displayWidth;
-			currHeight = displayHeight;
-		}
-		
-		if(Screen.fullScreen != fullscreen){
-			Screen.fullScreen = fullscreen;
-		}
-	}
+	}	
 	
 	public void OnGUI(){
 		GUI.depth = 1000;
 		
 		if(showMenu){
-			//inGameMenu.showGameMenu = false;
-
-			// Audio
 			GUI.Box(new Rect(Screen.width/2-150,Screen.height/2-150,300,300),"");
 			GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-150,300,300),"Sound");
 			GUI.Label(new Rect(Screen.width/2-145,Screen.height/2-130,300,300),"Environment");
@@ -92,6 +47,7 @@ public class OptionsMenu : MonoBehaviour {
 			if(GUI.Button(new Rect(Screen.width/2-60,Screen.height/2+110,120,30),"Save and Close")){
 				showMenu = false;
 				//inGameMenu.showGameMenu = true;
+				OptionsManager.Instance.applySettings();
 				saveSettings();
 			}
 		}
@@ -99,19 +55,16 @@ public class OptionsMenu : MonoBehaviour {
 		GUI.depth = 0;
 	}
 	
-	public static void saveSettings(){
-		string output = "EnvironmentAudio="+((int)(environmentLevel * 100)).ToString();		
-		output = output + "\r\nFullScreen="+fullscreen;
-		output = output + "\r\nDisplayWidth="+displayWidth;
-		output = output + "\r\nDisplayHeight="+displayHeight;
-		
-		System.IO.StreamWriter file = new System.IO.StreamWriter(@"settings.ini");
-		file.Write(output);
-		file.Close();
-		// output = output + "\r\n";
-	}
+	public static void saveSettings(){		
+		string output = "[Audio]";
+		output += "\r\nEnvironmentAudio="+((int)(environmentLevel * 100)).ToString();
+		output += "\r\n[Graphics]";		
+		output += "\r\nFullScreen="+fullscreen;
+		output += "\r\nDisplayWidth="+displayWidth;
+		output += "\r\nDisplayHeight="+displayHeight;
+		output += "\r\n[Game]";
+		output += "\r\nLanguage="+language;
 
-	public bool compareResolution(){
-		return (displayWidth.Equals(currWidth) && displayHeight.Equals(currHeight));
+		FileManager.Instance.writeSettings(output);
 	}
 }

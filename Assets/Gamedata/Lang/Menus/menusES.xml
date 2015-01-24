@@ -1,0 +1,26 @@
+<menus>
+	<menu>
+		<menuId>enemy_status</menuId>
+		<text>El @name enemigo</text>
+	</menu>
+	<menu>
+		<menuId>status_burn</menuId>
+		<text>quemado</text>
+	</menu>
+	<menu>
+		<menuId>status_affected_burn</menuId>
+		<text>quemadura</text>
+	</menu>
+	<menu>
+		<menuId>status_poison</menuId>
+		<text>envenenado</text>
+	</menu>
+	<menu>
+		<menuId>status_affected_poison</menuId>
+		<text>envenenamiento</text>
+	</menu>
+	<menu>
+		<menuId>status_affected</menuId>
+		<text>es afectado por su @status</text>
+	</menu>
+</menus>

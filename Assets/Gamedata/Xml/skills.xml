@@ -142,7 +142,7 @@
 		<element>0</element>
 		<mp>10</mp>
 		<status>Burn</status>
-		<chance>100</chance>
+		<chance>10</chance>
 		<duration>3</duration>
 		<usableOutOfCombat>false</usableOutOfCombat>
 	</skill>

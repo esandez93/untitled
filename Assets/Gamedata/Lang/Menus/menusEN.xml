@@ -1,6 +1,26 @@
 <menus>
 	<menu>
-		<menuId></menuId>
-		<text></text>
+		<menuId>enemy_status</menuId>
+		<text>The enemy @name</text>
+	</menu>
+	<menu>
+		<menuId>status_burn</menuId>
+		<text>burned</text>
+	</menu>
+	<menu>
+		<menuId>status_affected_burn</menuId>
+		<text>burn</text>
+	</menu>
+	<menu>
+		<menuId>status_poison</menuId>
+		<text>poisoned</text>
+	</menu>
+	<menu>
+		<menuId>status_affected_poison</menuId>
+		<text>poison</text>
+	</menu>
+	<menu>
+		<menuId>status_affected</menuId>
+		<text>is affected by its @status</text>
 	</menu>
 </menus>

@@ -20,6 +20,7 @@ public class Singleton : MonoBehaviour {
 	public Dictionary<string, Skill> allSkills;
 	public Dictionary<string, AnyText> allMenus;
 	public Dictionary<string, AnyText> allDialogues;
+	public Dictionary<string, AnyText> allWords;
 	public Dictionary<string, MapInfo> allMaps;
 	public Dictionary<string, AlteredStatus> allAlteredStatus;
 	public Dictionary<string, SkillInfo> allSkillInfo;
@@ -27,6 +28,8 @@ public class Singleton : MonoBehaviour {
 	public Inventory inventory = new Inventory();
 
 	public List<string> exceptionSkills;
+
+	public bool initialized = false;
 
 	private static Singleton instance = null;
 	public static Singleton Instance{
@@ -92,28 +95,30 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 
-	public void initialize(){
-		//Singleton.Instance.inventory = new Inventory();	
-		Singleton.Instance.expNeeded = new Dictionary<int, float>();
+	public void initialize(){		
+		if(!initialized){
+			Singleton.Instance.expNeeded = new Dictionary<int, float>();
 
-		//FileManager.Instance.initialize();
+			Singleton.Instance.getExpNeeded();
 
-		Singleton.Instance.getExpNeeded();
+			Singleton.Instance.getStatsFromFile();
+			Singleton.Instance.getElementalModifiersFromFile();
+			Singleton.Instance.getSkillInfoFromFile();
+			Singleton.Instance.getExceptionSkills();
 
-		Singleton.Instance.getStatsFromFile();
-		Singleton.Instance.getElementalModifiersFromFile();
-		Singleton.Instance.getSkillInfoFromFile();
-		Singleton.Instance.getExceptionSkills();
+			allItems = FileManager.Instance.readItems();
+			allMonsters = FileManager.Instance.readMonsters();
+			allSkills = FileManager.Instance.readSkills();
+			allMenus = FileManager.Instance.readMenus();
+			allDialogues = FileManager.Instance.readDialogues();
+			allWords = FileManager.Instance.readWords();
+			allMaps = FileManager.Instance.readMaps();
+			allAlteredStatus = FileManager.Instance.readAlteredStatus();
 
-		allItems = FileManager.Instance.readItems();
-		allMonsters = FileManager.Instance.readMonsters();
-		allSkills = FileManager.Instance.readSkills();
-		allMenus = FileManager.Instance.readMenus();
-		allDialogues = FileManager.Instance.readDialogues();
-		allMaps = FileManager.Instance.readMaps();
-		allAlteredStatus = FileManager.Instance.readAlteredStatus();
+			Debug.Log ("Singleton initialized");
 
-		Debug.Log ("Singleton initialized");
+			initialized = true;
+		}
 	}
 
 	public void cleanItems(){

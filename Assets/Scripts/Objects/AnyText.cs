@@ -20,5 +20,13 @@ public class AnyText {
 		this.text = text;
 		this.speaker = speaker;
 	}
+
+	public string getText(){
+		return text;
+	}
+
+	public string getSpeaker(){
+		return speaker;
+	}
 }
 

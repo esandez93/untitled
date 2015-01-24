@@ -100,7 +100,8 @@ public class AlteredStatus {
 			break;
 		}
 
-		Debug.Log (character.name + " affected by " + this.name);
+		//Debug.Log (character.name + " affected by " + this.name);
+		Debug.Log (LanguageManager.Instance.getStatusAffection(character.name, this.name));
 
 		this.duration--;
 

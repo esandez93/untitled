@@ -12,7 +12,7 @@ public class SaveManager : MonoBehaviour{
 
 	private Gamestate gamestate;
 
-	//public GameData data;
+	public bool initialized = false;
 
 	private static SaveManager instance = null;
 	public static SaveManager Instance{
@@ -27,9 +27,11 @@ public class SaveManager : MonoBehaviour{
 		}
 	}
 	public void initialize(){
-		//data = new GameData();
-		gamestate = Gamestate.instance;
-		Debug.Log("SaveManager initialized.");
+		if(!initialized){
+			gamestate = Gamestate.instance;
+			Debug.Log("SaveManager initialized.");
+			initialized = true;
+		}
 	}
 
 	public bool save(){
@@ -159,6 +161,61 @@ public class SaveManager : MonoBehaviour{
 		}
 
 		return res;
+	}
+	
+	public SaveData getSavegameData(string path){
+		SaveData data = new SaveData();
+
+		try{
+			if (path.Length != 0) {
+				if(File.Exists(path)){					
+					FileStream file = File.Open(path, FileMode.Open);
+					BinaryFormatter bf = new BinaryFormatter();
+					
+					data = (SaveData)bf.Deserialize(file);
+					file.Close();
+					
+					Debug.Log("Game data loaded successfully.");
+				}
+			}
+		}
+		catch(Exception e){
+			Debug.Log (e.Message);
+		}
+
+		return data;
+	}
+
+	public List<string> getSavegames(){
+		List<string> savegames = FileManager.Instance.getFiles(Application.dataPath + SAVE_PATH, "*.sav");
+
+		return savegames;
+	}
+
+	public SaveData getFormattedSavegame(string path){
+		SaveData data = getSavegameData(path);
+
+		if(data.isEmpty()){
+			Debug.Log ("The savegame in " + path + " is empty.");
+		}
+
+		return data;
+	}
+
+	public List<SaveData> getFormattedSavegames(){
+		List<string> games = getSavegames();
+		List<SaveData> saveData = new List<SaveData>();
+
+		SaveData data = new SaveData();
+		foreach(string game in games){
+			data = getSavegameData(game);
+
+			if(!data.isEmpty()){
+				saveData.Add(data);
+			}
+		}
+
+		return saveData;
 	}
 }
 

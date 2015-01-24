@@ -13,13 +13,14 @@ public class FileManager : MonoBehaviour {
 	public static string LANG_PATH = "Gamedata/Lang";
 	public static string LOG_PATH = "Gamedata/Logs";
 		
-	// constructor, creates an instance of fileManager if one does not exist 
+	public bool initialized = false;
+
 	public static FileManager Instance { 
 		get { 
 			if (instance == null) { 
 				instance = new GameObject("FileManager").AddComponent<FileManager>();
 				instance.initialize();
-				DontDestroyOnLoad(instance.gameObject);
+				DontDestroyOnLoad(instance.gameObject);				
 			} 
 
 			return instance; 
@@ -38,29 +39,33 @@ public class FileManager : MonoBehaviour {
 
 	// initializes the file manager
 	public void initialize() { 
-		path = Application.dataPath; 
+		if(!initialized){
+			path = Application.dataPath; 
 
-		// Check for and create the gamedata directory 
-		if(!checkDirectory("Gamedata")) { 
-			createDirectory("Gamedata"); 
+			// Check for and create the gamedata directory 
+			if(!checkDirectory("Gamedata")) { 
+				createDirectory("Gamedata"); 
+			}
+
+			// Check for and create the saves directory 
+			if(!checkDirectory("Gamedata/Saves")) { 
+				createDirectory("Gamedata/Saves");
+			}
+
+			// Check for and create the languages directory 
+			if(!checkDirectory("Gamedata/Lang")) { 
+				createDirectory("Gamedata/Lang");
+			}
+
+			// Check for and create the logs directory 
+			if(!checkDirectory("Gamedata/Logs")) { 
+				createDirectory("Gamedata/Logs");
+			}
+
+			Debug.Log ("FileManager initialized");
+
+			initialized = true;
 		}
-
-		// Check for and create the saves directory 
-		if(!checkDirectory("Gamedata/Saves")) { 
-			createDirectory("Gamedata/Saves");
-		}
-
-		// Check for and create the languages directory 
-		if(!checkDirectory("Gamedata/Lang")) { 
-			createDirectory("Gamedata/Lang");
-		}
-
-		// Check for and create the logs directory 
-		if(!checkDirectory("Gamedata/Logs")) { 
-			createDirectory("Gamedata/Logs");
-		}
-
-		Debug.Log ("FileManager initialized");
 	} 
 
 	// checks to see whether the passed directory exists, returning true of false 
@@ -96,6 +101,17 @@ public class FileManager : MonoBehaviour {
 
 	public void createFile(string filePath, string name, string extension) { 
 		File.Create(path + "/" + filePath + "/" + name + extension);
+	}
+
+	public Dictionary<string, AnyText> readWords(){
+		Dictionary<string, System.Object> words = parseXMLFile(LANG_PATH, "Words/words" + LanguageManager.Instance.getLanguage(), "word");
+		Dictionary<string, AnyText> parsedWords = new Dictionary<string, AnyText>();
+		
+		foreach(KeyValuePair<string, System.Object> entry in words){
+			parsedWords.Add(entry.Key, (AnyText)entry.Value);		
+		}
+		
+		return parsedWords;
 	}
 
 	public Dictionary<string, AnyText> readMenus(){
@@ -208,6 +224,9 @@ public class FileManager : MonoBehaviour {
 			case XmlTypes.MENU:
 				addMenus(items, itemInfo);
 				break;
+			case XmlTypes.WORD:
+				addWords(items, itemInfo);
+				break;
 			case XmlTypes.MAP:
 				addMaps(items, itemInfo);
 				break;
@@ -292,6 +311,12 @@ public class FileManager : MonoBehaviour {
 		
 		items.Add(itemInfo["menuId"], newMenu);
 	}
+
+	private void addWords(Dictionary<string, System.Object> items, Dictionary<string, string> itemInfo){
+		AnyText newWord = new AnyText(itemInfo["wordId"], itemInfo["text"]);
+		
+		items.Add(itemInfo["wordId"], newWord);
+	}
 	
 	private void addMaps(Dictionary<string, System.Object> items, Dictionary<string, string> itemInfo){
 		MapInfo newMap = new MapInfo(itemInfo["mapName"], itemInfo["monsters"], itemInfo["monstersChance"]);
@@ -368,13 +393,26 @@ public class FileManager : MonoBehaviour {
 	}
 
 	public void writeToLog(string data){
-		/*if(!checkFile(LOG_PATH + "/log.txt")){
-			createFile(LOG_PATH, "log", ".txt");
-		}*/
-
 		File.WriteAllText(path+"/"+LOG_PATH+"/log.txt", data);
 
 		Debug.Log ("Log written");
+	}
+
+	public void writeSettings(string data){
+		System.IO.StreamWriter file = new System.IO.StreamWriter(@"settings.ini");
+		file.Write(data);
+		file.Close();
+	}
+
+	public List<string> getFiles(string path, string search){
+		string[] files = Directory.GetFiles(path, search);
+		List<string> res = new List<string>();
+
+		foreach(string file in files){
+			res.Add(file);
+		}
+
+		return res;
 	}
 
 	public class XmlTypes{
@@ -383,6 +421,7 @@ public class FileManager : MonoBehaviour {
 		public const string SKILL = "skill";
 		public const string DIALOG = "dialog";
 		public const string MENU = "menu";
+		public const string WORD = "word";
 		public const string MAP = "map";
 		public const string ALTEREDSTATUS = "alteredStat";
 	}

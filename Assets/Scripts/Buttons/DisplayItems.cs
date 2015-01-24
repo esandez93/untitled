@@ -93,10 +93,7 @@ public class DisplayItems : MonoBehaviour {
 			string last = getItemName(itemButtons[position-1].GetComponentInChildren<Text>().text);
 			string actual = getItemName(itemButtons[position].GetComponentInChildren<Text>().text);
 
-			Debug.Log ("LAST: " + last + ", ACTUAL: " + actual);
-
 			if(last.Equals(actual)){
-				Debug.Log ("TRUE");
 				return true;
 			}
 		}

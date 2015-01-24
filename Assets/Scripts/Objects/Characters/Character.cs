@@ -46,6 +46,8 @@ public class Character : MonoBehaviour{
 	public float hpRegen = Singleton.Battle.HP_REGEN_RATIO;
 	public float mpRegen = Singleton.Battle.MP_REGEN_RATIO;
 
+	public bool defending;
+
 	public bool alive;
 
 	public Dictionary<string, Skill> skills = new Dictionary<string, Skill>();
@@ -123,6 +125,7 @@ public class Character : MonoBehaviour{
 		if(!this.skills.ContainsKey(name)){
 			skill.levelUp(); // for set it to lv 1
 			this.skills.Add(name, skill);
+			Debug.Log(skill.toString());
 		}
 	}
 
@@ -597,7 +600,7 @@ public class Character : MonoBehaviour{
 		}
 		
 		damage *= modifier;
-		
+
 		skillPrefab.SetActive(true);
 		skillPrefab.GetComponent<MagicMovement>().useMagic(this, target, damage, modifier, status, skill);
 	}
@@ -638,7 +641,7 @@ public class Character : MonoBehaviour{
 	}
 	
 	private void setStatusMessage(string status){
-		string message = "El enemigo esta ";
+		/*string message = "El enemigo esta ";
 		
 		switch(status){
 		case AlteredStatus.Name.POISON:
@@ -649,19 +652,28 @@ public class Character : MonoBehaviour{
 			break;
 		}
 		
-		message += ".";
+		message += ".";*/
+		string message = LanguageManager.Instance.getStatus(this.name, status.ToLower());
 		
 		Debug.Log (message);
 	}
 	
 	public void receivePercentDamage(float damage){
-		receiveDamage(this.maxHP * (damage/100));
+		receiveDamage(this.maxHP * (damage/100), true);
 	}
 	
 	public void receiveDamage(float damage){
+		receiveDamage(damage, false);
+	}
+
+	public void receiveDamage(float damage, bool trueDamage){
 		if(!BattleManager.damageReceived){
 			showBattleData();
 			
+			if(this.isDefending() && !trueDamage){
+				damage /= 2;
+			}
+
 			this.currHP -= damage;
 			
 			if(this.currHP <= 0){
@@ -686,6 +698,14 @@ public class Character : MonoBehaviour{
 		if((alive && BattleManager.attackFinished)|| (!alive && BattleManager.deathFinished)){
 			BattleManager.finishCurrentAttack();
 		}
+	}
+
+	public void defend(){
+		defending = true;
+	}
+
+	public bool isDefending(){
+		return defending;
 	}
 	
 	private void showBattleData(){

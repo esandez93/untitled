@@ -31,5 +31,15 @@ public class SaveData : ISerializable{
 		info.AddValue("inventory", inventory);
 		info.AddValue("map", map);
 	}
+
+	public bool isEmpty(){
+		bool res = false;
+
+		if(mage == null ){//|| rogue == null || knight == null){
+			res = true;
+		}
+
+		return res;
+	}
 }
 

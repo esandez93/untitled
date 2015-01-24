@@ -188,7 +188,7 @@ public class Skill{
 				damage = currentLevelInfo[i];
 				break;
 			case SkillEvo.STATUS:
-				chance = currentLevelInfo[i];
+				chance = 100;//currentLevelInfo[i];
 				break;
 			}
 
@@ -294,6 +294,14 @@ public class Skill{
 		else{
 			return false;
 		}
+	}
+
+	public string toString(){
+		string res = "";
+
+		res += "Name: " + name + ", chance: " + chance;
+
+		return res;
 	}
 
 	public class Type{

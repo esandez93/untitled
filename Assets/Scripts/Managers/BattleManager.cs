@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour {
 	public static bool basicAttack = false;
 	public static bool skill = false;
 	public static bool item = false;
+	public static bool defend = false;
 	public static string skillName;
 	public static string itemName;
 	public static bool attackFinished = false;
@@ -646,9 +647,20 @@ public class BattleManager : MonoBehaviour {
 		clickItem ();
 	}
 
+	public void clickDefend(){
+		//changePhase(BattlePhases.DOACTION);
+		currentObjective = null;
+		defend = true;
+	}
+
 	public void battleListener(){
 		if(!ended){
 			if(showPlayerCommandsGUI){ // COMANDS
+				if(defend){
+					currentPlayer.defend();
+					attackFinished = true;
+				}
+
 				if(currentObjective != null && !attackObjective && Input.GetKeyDown(KeyCode.Escape)){
 					changePhase(BattlePhases.CHOSEACTION);
 					cleanVariables(currentCharacter);
