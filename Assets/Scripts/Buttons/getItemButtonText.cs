@@ -13,12 +13,22 @@ public class getItemButtonText : MonoBehaviour {
 	}
 
 	public void clickButton(){
-		string[] itemButtonText = this.GetComponentInChildren<Text>().text.Split(' ');
-		GameObject.Find("BattleCanvas").GetComponent<BattleManager>().setItemName(itemButtonText[0]);
+		GameObject.Find("BattleCanvas").GetComponent<BattleManager>().setItemName(getName());
 		clicked = false;
 	}
 
 	public void click (){
 		clicked = true;
+	}
+
+	private string getName(){
+		string[] label = this.GetComponentInChildren<Text>().text.Split(' ');
+		string name = "";
+
+		for(int i = 0; i < label.Length-1; i++){
+			name += label[i];
+		}
+
+		return name;
 	}
 }

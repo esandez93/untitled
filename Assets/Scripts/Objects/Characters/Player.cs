@@ -194,16 +194,7 @@ public class Player : Character{
 
 			BattleManager.currentPhase = BattleManager.BattlePhases.DOACTION;
 		}
-	}*/
-
-	public bool hasSkill(string name){
-		if(this.skills.ContainsKey(name)){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}	
+	}*/	
 
 	public void enablePassives(){
 		Skill skill;

@@ -113,18 +113,18 @@ public class Character : MonoBehaviour{
 		return this.currMP;
 	}
 
-	public void addSkill(string name){
-		addSkill(name, Singleton.Instance.allSkills[name]);
+	public void addSkill(string id){
+		addSkill(id, Singleton.Instance.allSkills[id]);
 	}
 
 	public void addSkill(Skill skill){
-		addSkill(skill.name, skill);
+		addSkill(skill.id, skill);
 	}
 
-	public void addSkill(string name, Skill skill){
-		if(!this.skills.ContainsKey(name)){
+	public void addSkill(string id, Skill skill){
+		if(!this.skills.ContainsKey(id)){
 			skill.levelUp(); // for set it to lv 1
-			this.skills.Add(name, skill);
+			this.skills.Add(id, skill);
 			Debug.Log(skill.toString());
 		}
 	}
@@ -550,13 +550,15 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void useSkill(string skillName, Character target){
-		if(skills.ContainsKey(skillName)){
-			Skill skill = skills[skillName];
+		if(this.hasSkill(skillName)){//skills.ContainsKey(skillId)){
+			string skillId = Singleton.Instance.skillNameId[skillName];
+
+			Skill skill = skills[skillId];	
 			
 			if(!BattleManager.attackStarted){
 				if(skill.mp <= this.currMP){
 					BattleManager.startCurrentAttack();
-					GameObject instance = (GameObject)Instantiate(Resources.Load("Prefabs/"+skill.damageType+"/"+skillName));
+					GameObject instance = (GameObject)Instantiate(Resources.Load("Prefabs/"+skill.damageType+"/"+skillId));
 					
 					this.currMP -= skill.mp;
 					
@@ -636,7 +638,7 @@ public class Character : MonoBehaviour{
 				this.alteredStatus[skill.status].resetDuration();
 			}
 			
-			setStatusMessage(skill.status);
+			setStatusMessage(skill.getStatusName());
 		}
 	}
 	
@@ -738,17 +740,18 @@ public class Character : MonoBehaviour{
 		return alive;
 	}
 
+	public bool hasSkill(string skillName){
+		string skillId = Singleton.Instance.skillNameId[skillName];
+
+		return this.skills.ContainsKey(skillId);
+	}
+
 	public bool isProvoked(){
-		if(this.alteredStatus.ContainsKey(AlteredStatus.Name.PROVOKE)){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return this.alteredStatus.ContainsKey(AlteredStatus.Name.PROVOKE);
 	}
 	
 	public void addAlteredStatus(AlteredStatus status){
-		this.alteredStatus.Add(status.name, status);
+		this.alteredStatus.Add(status.id, status);
 	}
 
 	public void removeAlteredStatus(string statusName){
@@ -758,21 +761,11 @@ public class Character : MonoBehaviour{
 	}
 
 	public bool hasAlteredStatus(string name){
-		if(this.alteredStatus.ContainsKey(name)){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return this.alteredStatus.ContainsKey(name);
 	}
 
 	public bool hasSomeAlteredStatus(){
-		if(alteredStatus.Count > 0){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return alteredStatus.Count > 0;
 	}
 
 	public void affectAlteredStatus(){

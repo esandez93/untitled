@@ -28,6 +28,7 @@ TagManager:
   - Background
   - Menu
   - OptionsManager
+  - Button
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

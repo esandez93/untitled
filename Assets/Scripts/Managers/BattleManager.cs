@@ -148,6 +148,7 @@ public class BattleManager : MonoBehaviour {
 		setBackground();
 		setMonsters();
 		setPlayers();
+		LanguageManager.Instance.translateButtons();
 	}
 
 	void Update(){
@@ -577,14 +578,14 @@ public class BattleManager : MonoBehaviour {
 
 	private Player buildPlayer(PlayerData data){
 		switch(data.job){
-		case Player.Job.MAGE:
-			return GameObject.FindWithTag("Mage").GetComponent<Mage>();
-		case Player.Job.KNIGHT:
-			return GameObject.FindWithTag("Knight").GetComponent<Knight>();
-		case Player.Job.ROGUE:
-			return GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
-		default: 
-			return null;
+			case Player.Job.MAGE:
+				return GameObject.FindWithTag("Mage").GetComponent<Mage>();
+			case Player.Job.KNIGHT:
+				return GameObject.FindWithTag("Knight").GetComponent<Knight>();
+			case Player.Job.ROGUE:
+				return GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
+			default: 
+				return null;
 		}
 	}
 

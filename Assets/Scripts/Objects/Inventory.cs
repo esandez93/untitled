@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [System.Serializable] 
 public class Inventory{
 
-	public static string EMPTY = "Empty Inventory";
+	public static string EMPTY = "battle_menu_items_empty";
 	public static int MAX_ITEMS = 99;
 	public Dictionary<string, Item> objects;
 	public float money;

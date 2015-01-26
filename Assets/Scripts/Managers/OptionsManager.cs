@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -92,7 +93,11 @@ public class OptionsManager : MonoBehaviour{
 			Screen.fullScreen = fullscreen;
 		}
 
-		LanguageManager.Instance.setLanguage(language);
+		LanguageManager.setLanguage(language);
+
+		if(Application.loadedLevelName.Equals("MainMenu")){
+			LanguageManager.Instance.translateButtons();
+		}
 	}
 
 	public bool compareResolution(){

@@ -25,6 +25,8 @@ public class Singleton : MonoBehaviour {
 	public Dictionary<string, AlteredStatus> allAlteredStatus;
 	public Dictionary<string, SkillInfo> allSkillInfo;
 
+	public Dictionary<string, string> skillNameId;
+
 	public Inventory inventory = new Inventory();
 
 	public List<string> exceptionSkills;
@@ -76,7 +78,7 @@ public class Singleton : MonoBehaviour {
 		
 		skillInfo.populate(row);
 
-		allSkillInfo.Add(skillInfo.skillName, skillInfo);
+		allSkillInfo.Add(skillInfo.id, skillInfo);
 	}
 
 	public void populateExceptionSkills(string[] row){
@@ -113,7 +115,7 @@ public class Singleton : MonoBehaviour {
 			allDialogues = FileManager.Instance.readDialogues();
 			allWords = FileManager.Instance.readWords();
 			allMaps = FileManager.Instance.readMaps();
-			allAlteredStatus = FileManager.Instance.readAlteredStatus();
+			allAlteredStatus = FileManager.Instance.readAlteredStatus();		
 
 			Debug.Log ("Singleton initialized");
 

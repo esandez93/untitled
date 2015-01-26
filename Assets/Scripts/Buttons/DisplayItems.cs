@@ -60,7 +60,7 @@ public class DisplayItems : MonoBehaviour {
 				}
 				else{
 					GameObject instance = createInstance();
-					setTextToButton(instance, Inventory.EMPTY);
+					setTextToButton(instance, LanguageManager.Instance.getMenuText(Inventory.EMPTY));
 					instance.GetComponent<getItemButtonText>().enabled = false;
 				}
 

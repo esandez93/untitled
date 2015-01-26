@@ -49,6 +49,7 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void initialize(){
+		OptionsManager.Instance.initialize();
 		//checkMap = false;
 		//Singleton.Instance.Instance.initialize();
 
@@ -214,7 +215,7 @@ public class Gamestate : MonoBehaviour {
 			if(arePlayersOnLevel()){
 				foreach(PlayerData data in playersData){
 					findPlayer(data.characterName).GetComponent<Player>().populate(data);
-					findPlayer(data.characterName).GetComponent<Player>().addSkill("Fireball");
+					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
 				}
 
 				if(!positionIsDefault()){

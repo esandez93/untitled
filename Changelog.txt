@@ -176,9 +176,27 @@
 - Arreglados problemas con el cliente GitHub.
 - Implementación de scripts para los botones del menú principal.
 	
+14/01/2015 - 19/01/2015
+- Limpieza general de código.
+- Clarificación de métodos.
+- Arreglo de bugs menores.
+- Fijado orden de carga e inicialización de los Managers.
+
+20/01/2015
+- Inicio de implementación del sistema de opciones.
+
+21/01/2015
+- Implementado el sistema de configuración de través del fichero settings.ini.
+
+23/01/2015
+- Implementación del sistema de cambio lenguaje.
+
+24/01/2015 - 26/01/2015
+- Arreglo de bugs al cargar partidas guardadas en otro idioma.
+- Arreglado un bug que impedía leer el idioma del fichero de configuración.
+	
 TO DO:
 - Acabar de implementar skills
 - Implementar creación de objetos
-- Arreglar guardado de partida + autosave entre scenes para no perder datos
 
 DIFICULTADES:

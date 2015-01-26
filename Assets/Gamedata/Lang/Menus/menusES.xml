@@ -1,5 +1,77 @@
 <menus>
 	<menu>
+		<menuId>main_menu_continue</menuId>
+		<text>Continuar</text>
+	</menu>
+	<menu>
+		<menuId>main_menu_new_game</menuId>
+		<text>Nueva partida</text>
+	</menu>
+	<menu>
+		<menuId>main_menu_load_game</menuId>
+		<text>Cargar partida</text>
+	</menu>
+	<menu>
+		<menuId>main_menu_options</menuId>
+		<text>Opciones</text>
+	</menu>
+	<menu>
+		<menuId>main_menu_credits</menuId>
+		<text>Créditos</text>
+	</menu>
+	<menu>
+		<menuId>main_menu_quit</menuId>
+		<text>Salir</text>
+	</menu>
+
+	<menu>
+		<menuId>battle_menu_attack</menuId>
+		<text>Atacar</text>
+	</menu>
+	<menu>
+		<menuId>battle_menu_skills</menuId>
+		<text>Habilidades</text>
+	</menu>
+	<menu>
+		<menuId>battle_menu_skills_empty</menuId>
+		<text>No hay habilidades</text>
+	</menu>
+	<menu>
+		<menuId>battle_menu_items</menuId>
+		<text>Objetos</text>
+	</menu>
+	<menu>
+		<menuId>battle_menu_items_empty</menuId>
+		<text>Inventario vacío</text>
+	</menu>
+	<menu>
+		<menuId>battle_menu_block</menuId>
+		<text>Bloquear</text>
+	</menu>
+	<menu>
+		<menuId>battle_menu_run</menuId>
+		<text>Huir</text>
+	</menu>
+
+	<menu>
+		<menuId>skill_name_fireball</menuId>
+		<text>Bola de fuego</text>
+	</menu>
+	<menu>
+		<menuId>skill_description_fireball</menuId>
+		<text>Lanza una bola de fuego al objetivo.</text>
+	</menu>
+
+	<menu>
+		<menuId>altered_status_name_burn</menuId>
+		<text>Quemadura</text>
+	</menu>
+	<menu>
+		<menuId>altered_status_name_poison</menuId>
+		<text>Veneno</text>
+	</menu>
+
+	<menu>
 		<menuId>enemy_status</menuId>
 		<text>El @name enemigo</text>
 	</menu>

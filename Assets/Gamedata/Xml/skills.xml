@@ -1,5 +1,5 @@
 <skills>
-	<skill>
+	<!--<skill>
 		<idType>1</idType>
         <name>Bulwark</name>
         <maxLevel>5</maxLevel>
@@ -129,24 +129,24 @@
 		<type>Passive</type>
         <description>Allows the creation of level 1 objects.</description>
         <usableOutOfCombat>true</usableOutOfCombat>
-    </skill>
+    </skill>-->
 	<skill>
 		<idType>6</idType>
-		<name>Fireball</name>
+		<name>skill_name_fireball</name>
 		<maxLevel>5</maxLevel>
 		<type>Active</type>
 		<damageType>Magic</damageType>
 		<target>Single</target>
-		<description>Throws a fireball to the target.</description>
+		<description>skill_description_fireball</description>
 		<damage>1</damage>
 		<element>0</element>
 		<mp>10</mp>
-		<status>Burn</status>
+		<status>altered_status_name_burn</status>
 		<chance>10</chance>
 		<duration>3</duration>
 		<usableOutOfCombat>false</usableOutOfCombat>
 	</skill>
-	<skill>
+	<!--<skill>
 		<idType>7</idType>
 		<name>Parry</name>
 		<maxLevel>5</maxLevel>
@@ -156,5 +156,5 @@
 		<damage>50</damage>
 		<status>Parry</status>
 		<usableOutOfCombat>false</usableOutOfCombat>
-	</skill>
+	</skill>-->
 </skills>

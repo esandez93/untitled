@@ -62,7 +62,7 @@ public class DisplaySkills : MonoBehaviour {
 				}
 				else{
 					GameObject instance = createInstance();
-					setTextToButton(instance, Skill.EMPTY);
+					LanguageManager.Instance.getMenuText(Skill.EMPTY);
 					instance.GetComponent<getSkillButtonText>().enabled = false;
 				}
 

@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 50: {fileID: 5000000}
   m_Layer: 13
-  m_Name: Fireball
+  m_Name: skill_name_fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

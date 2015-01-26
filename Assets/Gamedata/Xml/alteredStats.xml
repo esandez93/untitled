@@ -1,7 +1,7 @@
 <alteredStats>
 	<alteredStat>
 		<idType>2</idType> 
-		<name>Poison</name>
+		<name>altered_status_name_poison</name>
 		<duration>3</duration>
 		<damagePerTurn>10</damagePerTurn>
 		<statReduced>def</statReduced>
@@ -9,7 +9,7 @@
 	</alteredStat>
 	<alteredStat>
 		<idType>2</idType> 
-		<name>Burn</name>
+		<name>altered_status_name_burn</name>
 		<duration>3</duration>
 		<damagePerTurn>10</damagePerTurn>
 		<statReduced>atk</statReduced>

@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class LanguageManager : MonoBehaviour{
 	private static LanguageManager instance;  // Instance of the fileManager 
-	public  int currentLanguage;// = Languages.ENGLISH;
+	public  static int currentLanguage;// = Languages.ENGLISH;
 	public  Dictionary<string, AnyText> dialogs = new Dictionary<string, AnyText>();
 	public  Dictionary<string, AnyText> menus = new Dictionary<string, AnyText>();
 	public  Dictionary<string, AnyText> words = new Dictionary<string, AnyText>();
@@ -12,7 +14,7 @@ public class LanguageManager : MonoBehaviour{
 	public bool initialized = false;
 
 	public static LanguageManager Instance { 
-		get { 
+		get {
 			if (instance == null) { 
 				instance = new GameObject("LanguageManager").AddComponent<LanguageManager>();
 				instance.initialize();
@@ -20,23 +22,26 @@ public class LanguageManager : MonoBehaviour{
 			} 
 			
 			return instance; 
-		} 
+		}
 	}
 
-	public void initialize(){	
+	public void initialize(){
 		if(!initialized){
 			dialogs = Singleton.Instance.allDialogues;	
 			menus = Singleton.Instance.allMenus;
 			words = Singleton.Instance.allWords;
+			Singleton.Instance.skillNameId = getSkillNameId();
+			translateAlteredStatus();
+
 			Debug.Log("LanguageManager initialized.");
 			initialized = true;
 		}
 	}
 
 	// called when the application quits 
-	public void OnApplicationQuit() { 
-		destroyInstance(); 
-	} 
+	public void OnApplicationQuit() {
+		destroyInstance();
+	}
 	
 	// destroys the file manager instance 
 	public void destroyInstance() { 
@@ -50,11 +55,11 @@ public class LanguageManager : MonoBehaviour{
 			case Languages.SPANISH: 
 				return "ES";
 			default: 
-				return "ES";
+				return "EN";
 		}
 	}
 
-	public void setLanguage(string language){
+	public static void setLanguage(string language){
 		switch(language){
 			case "EN": 
 				currentLanguage = Languages.ENGLISH;
@@ -124,19 +129,26 @@ public class LanguageManager : MonoBehaviour{
 		return res;
 	}
 
-	private AnyText getDialog(string id){
+	public AnyText getDialog(string id){
 		return dialogs[id];
 	}
 
-	private AnyText getMenu(string id){
-		return menus[id];
+	public AnyText getMenu(string id){
+		try{
+			return menus[id];
+		}
+		catch(Exception e){
+			Debug.Log(e.Message + ": " + id);
+		}	
+
+		return null;	
 	}
 
-	private AnyText getWord(string id){
+	public AnyText getWord(string id){
 		return words[id];
 	}
 
-	private string getMenuText(string id){
+	public string getMenuText(string id){
 		return getMenu(id).getText();
 	}
 
@@ -178,12 +190,52 @@ public class LanguageManager : MonoBehaviour{
 		return tags;
 	}
 
+	public void translateButtons(){
+		GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+
+		string key;
+		Text text;
+		foreach(GameObject button in buttons){
+			text = button.GetComponentInChildren<Text>();
+			key = text.text;
+			text.text = LanguageManager.Instance.getMenuText(key);
+		}
+	}
+
 	private bool isEnemy(string target){
 		if (!target.Equals("Mage") && !target.Equals("Rogue") && !target.Equals("Knight")){
 			return true;
 		}
 
 		return false;
+	}
+
+	public bool compareLanguage(int language){
+		return language != LanguageManager.currentLanguage;
+	}
+
+	public Dictionary<string, string> getSkillNameId(){
+		try{
+			Dictionary<string, string> skillNameId = new Dictionary<string, string>();
+
+			foreach(KeyValuePair<string, Skill> entry in Singleton.Instance.allSkills){
+				entry.Value.getData();
+				skillNameId.Add(entry.Value.name, entry.Key);
+			}
+
+			return skillNameId;
+		}
+		catch(Exception e){
+			Debug.Log(e.Message);
+		}
+
+		return null;
+	}
+
+	public void translateAlteredStatus(){
+		foreach(KeyValuePair<string, AlteredStatus> entry in Singleton.Instance.allAlteredStatus){
+			entry.Value.translate();
+		}
 	}
 
 	public class Languages {

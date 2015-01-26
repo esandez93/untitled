@@ -6,10 +6,11 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Skill{
 
-	public static string EMPTY = "No Skills";
+	public static string EMPTY = "battle_menu_skills_empty";
 
 	public int idType;
 
+	public string id;
 	public string name;
 	public int maxLevel;
 	public int currLevel;
@@ -34,6 +35,8 @@ public class Skill{
 	public SkillInfo info;
 	//public List<float> benefit;
 
+	public bool initialized = false;
+
 	public Skill (){
 
 	}	
@@ -41,7 +44,8 @@ public class Skill{
 	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string target, int mp, string stat, string benefit, int duration){
 		idType = Type.ACTIVE_HELP;
 		
-		this.name = name;
+		this.id = name;
+		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
 		this.description = description;
@@ -62,7 +66,8 @@ public class Skill{
 	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string target, int mp, float chance, string status, int duration){
 		idType = Type.ACTIVE_ADD_STATUS;
 		
-		this.name = name;
+		this.id = name;
+		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
 		this.description = description;
@@ -80,7 +85,8 @@ public class Skill{
 	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string target, float damage, int element, int mp, string damageType){
 		idType = Type.ACTIVE_DAMAGE;
 		
-		this.name = name;
+		this.id = name;
+		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
 		this.description = description;
@@ -98,7 +104,8 @@ public class Skill{
 	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string stat, string benefit){
 		idType = Type.PASSIVE_BONUS_STAT;
 		
-		this.name = name;
+		this.id = name;
+		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
 		this.description = description;
@@ -116,7 +123,8 @@ public class Skill{
 	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat){
 		idType = Type.NO_TARGET;
 
-		this.name = name;
+		this.id = name;
+		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
 		this.description = description;
@@ -131,7 +139,8 @@ public class Skill{
 
 		idType = Type.ACTIVE_DAMAGE_AND_ADD_STATUS;
 		
-		this.name = name;
+		this.id = name;
+		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
 		this.description = description;
@@ -152,7 +161,8 @@ public class Skill{
 	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string status){
 		idType = Type.PASSIVE_ADD_STATUS;
 		
-		this.name = name;
+		this.id = name;
+		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
 		this.description = description;
@@ -178,6 +188,9 @@ public class Skill{
 			break;
 		}
 
+		if(name == null){
+			getData();
+		}
 	}
 
 	private void updateDamageStatus(float[] currentLevelInfo){
@@ -220,9 +233,9 @@ public class Skill{
 	}
 
 	public void setInfo(){
-		if(Singleton.Instance.allSkillInfo.ContainsKey(this.name)){
+		if(Singleton.Instance.allSkillInfo.ContainsKey(this.id)){
 			//Debug.Log (Singleton.Instance.allSkillInfo[this.name].skillName);
-			info = Singleton.Instance.allSkillInfo[this.name];
+			info = Singleton.Instance.allSkillInfo[this.id];
 		}
 	}
 
@@ -263,7 +276,6 @@ public class Skill{
 	}
 
 	public void levelUp(){
-		Debug.Log ("UPDATING " + name + " FROM LEVEL " + currLevel + " TO LEVEL " + (currLevel+1));
 		currLevel++;
 
 		updateSkill();
@@ -294,6 +306,24 @@ public class Skill{
 		else{
 			return false;
 		}
+	}
+
+	public void getData(){
+		if(!initialized){
+			this.name = LanguageManager.Instance.getMenuText(this.id);
+			this.description = LanguageManager.Instance.getMenuText(this.description);
+			initialized = true;
+		}		
+	}
+
+	public void translate(){
+		this.name = LanguageManager.Instance.getMenuText(this.id);
+	}
+
+	public string getStatusName(){
+		string[] status = this.status.Split('_');
+
+		return status[status.Length-1];
 	}
 
 	public string toString(){

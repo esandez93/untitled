@@ -5,6 +5,7 @@ public class AlteredStatus {
 
 	public int idType;
 
+	public string id;
 	public string name;
 
 	public int damagePerTurn;
@@ -19,6 +20,8 @@ public class AlteredStatus {
 
 	public int element;
 
+	public bool initialized = false;
+
 	public AlteredStatus (){
 
 	}
@@ -27,7 +30,7 @@ public class AlteredStatus {
 	public AlteredStatus (string name, int duration, string statAffected, float quantityStatAffected){
 		idType = Type.REDUCE_STAT;
 		
-		this.name = name;
+		this.id = name;
 		this.duration = duration;
 		this.maxDuration = duration;
 		this.statAffected = statAffected;
@@ -38,7 +41,7 @@ public class AlteredStatus {
 	public AlteredStatus (string name, int duration, int damagePerTurn, string statAffected, float quantityStatAffected){
 		idType = Type.REDUCE_STAT_AND_DOT;
 
-		this.name = name;
+		this.id = name;
 		this.duration = duration;
 		this.maxDuration = duration;
 		this.damagePerTurn = damagePerTurn;
@@ -50,7 +53,7 @@ public class AlteredStatus {
 	public AlteredStatus (string name, int duration, Character comesFrom){
 		idType = Type.VINCULATING;
 
-		this.name = name;
+		this.id = name;
 		this.duration = duration;
 		this.maxDuration = duration;
 		this.maxDuration = duration;
@@ -61,7 +64,7 @@ public class AlteredStatus {
 	public AlteredStatus (string name, int duration, int element){ 
 		idType = Type.PROTECT_OR_ADD_ELEMENT;
 
-		this.name = name;
+		this.id = name;
 		this.duration = duration;
 		this.maxDuration = duration;
 		this.element = element;
@@ -71,7 +74,7 @@ public class AlteredStatus {
 	public AlteredStatus (string name, int duration){
 		idType = Type.MISC;
 		
-		this.name = name;
+		this.id = name;
 		this.duration = duration;
 		this.maxDuration = duration;
 	}
@@ -101,7 +104,7 @@ public class AlteredStatus {
 		}
 
 		//Debug.Log (character.name + " affected by " + this.name);
-		Debug.Log (LanguageManager.Instance.getStatusAffection(character.name, this.name));
+		Debug.Log (LanguageManager.Instance.getStatusAffection(character.name, this.getStatusName()));
 
 		this.duration--;
 
@@ -158,6 +161,15 @@ public class AlteredStatus {
 		duration = maxDuration;
 	}
 
+	public void translate(){
+		this.name = LanguageManager.Instance.getMenuText(this.id);
+	}
+
+	public string getStatusName(){
+		string[] status = this.id.Split('_');
+
+		return status[status.Length-1];
+	}
 
 	public class Name{
 		public const string POISON = "Poison";

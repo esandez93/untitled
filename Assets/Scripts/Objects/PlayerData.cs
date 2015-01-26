@@ -113,5 +113,15 @@ public class PlayerData{
 
 		return data;
 	}
+
+	public void translate(){
+		foreach(KeyValuePair<string, Skill> entry in skills){
+			entry.Value.translate();
+		}
+
+		foreach(KeyValuePair<string, AlteredStatus> entry in alteredStatus){
+			entry.Value.translate();
+		}
+	}
 }
 

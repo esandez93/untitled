@@ -8,6 +8,7 @@ public class SkillInfo{
 
 	public int idType; // 1
 
+	public string id; // skill_name_bulwark
 	public string skillName; // Bulwark
 
 	public float[] level1; // [60, 60]
@@ -89,7 +90,8 @@ public class SkillInfo{
 	}
 
 	public void populate(string[] row){
-		this.skillName = row[0];		
+		this.id = row[0];
+		//this.skillName = row[0];		
 		this.idType = Convert.ToInt32(row[1]);
 		
 		this.setLevel(1, row[2]);

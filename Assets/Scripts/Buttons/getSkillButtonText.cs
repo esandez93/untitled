@@ -13,12 +13,19 @@ public class getSkillButtonText : MonoBehaviour {
 	}
 	
 	public void clickButton(){
-		string[] skillButtonText = this.GetComponentInChildren<Text>().text.Split(' ');
-		GameObject.Find("BattleCanvas").GetComponent<BattleManager>().setSkillName(skillButtonText[0]);
+		GameObject.Find("BattleCanvas").GetComponent<BattleManager>().setSkillName(getName());
 		clicked = false;
 	}
 	
 	public void click (){
 		clicked = true;
+	}
+
+	private string getName(){
+		string label = this.GetComponentInChildren<Text>().text;
+
+		string name = label.Remove(label.Length - 6); // Fireball Lv. 1
+
+		return name;
 	}
 }

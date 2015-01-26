@@ -71,6 +71,10 @@ public class SaveManager : MonoBehaviour{
 
 					data = (SaveData)bf.Deserialize(file);
 					file.Close();
+					
+					if(LanguageManager.Instance.compareLanguage(data.language)){ //if current language is different than the SaveData language
+						data.translate();
+					}
 
 					//gamestate.setKnight(data.knight);
 					//gamestate.setRogue(data.rogue);

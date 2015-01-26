@@ -11,6 +11,7 @@ public class SaveData : ISerializable{
 	public MapInfo map;
 	//public Vector2 currentposition;
 	//public Monster monsterCollided;
+	public int language;
 
 	public SaveData(){
 
@@ -22,6 +23,7 @@ public class SaveData : ISerializable{
 		mage = (PlayerData)info.GetValue("mage", typeof(PlayerData)); 
 		inventory = (Inventory)info.GetValue("inventory", typeof(Inventory));	
 		map = (MapInfo)info.GetValue("map", typeof(MapInfo));
+		language = (int)info.GetValue("language", typeof(int));
 	}
 	
 	//Serialization function.
@@ -30,6 +32,7 @@ public class SaveData : ISerializable{
 		info.AddValue("mage", mage);
 		info.AddValue("inventory", inventory);
 		info.AddValue("map", map);
+		info.AddValue("language", language);
 	}
 
 	public bool isEmpty(){
@@ -40,6 +43,10 @@ public class SaveData : ISerializable{
 		}
 
 		return res;
+	}
+
+	public void translate(){
+		mage.translate();
 	}
 }
 
