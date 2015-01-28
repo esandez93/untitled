@@ -111,7 +111,7 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	void Start(){
-		SaveManager.Instance.autoLoad();
+		//SaveManager.Instance.autoLoad();
 
 		currentMap = Gamestate.instance.map;
 
@@ -144,6 +144,8 @@ public class BattleManager : MonoBehaviour {
 
 		changeState(BattleStates.START);
 		changePhase(BattlePhases.NONE);
+
+		initializeVariables();
 
 		setBackground();
 		setMonsters();
@@ -206,15 +208,18 @@ public class BattleManager : MonoBehaviour {
 			Debug.Log ("Monsters WIN!");
 			changePhase(BattlePhases.END);
 			//CHANGE SCENE TO LOAD LAST SAVEGAME
-			
+			if(SaveManager.Instance.load()){
+				Application.LoadLevel(Gamestate.instance.map.mapName);
+			}			
 			break;
 		case BattleStates.WIN:
 			Debug.Log ("Players WIN!");
 			changePhase(BattlePhases.END);
-			SaveManager.Instance.saveBattleStatus();
 			giveRewards();
+			SaveManager.Instance.saveBattleStatus();
 			//CHANGE SCENE TO BATTLE REWARDS
 			Application.LoadLevel("Forest");
+			deleteInstance();
 			break;
 		}
 		
@@ -286,6 +291,8 @@ public class BattleManager : MonoBehaviour {
 
 	public void checkIfPlayerTurn(){
 		currentCharacter = turns[turn-1];
+
+		Debug.Log(currentCharacter.name + " ISALIVE? " + currentCharacter.isAlive());
 
 		if(currentCharacter.isAlive()){
 			if(!ended){
@@ -559,7 +566,7 @@ public class BattleManager : MonoBehaviour {
 			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();
 			monster.initializeMonster(Gamestate.instance.map.getRandomMonster());
 			monstersInBattle.Add(monster);
-			
+
 			enableComponents(monster.gameObject);
 		}
 	}
@@ -567,7 +574,7 @@ public class BattleManager : MonoBehaviour {
 	private void setPlayers(){
 		//numPlayers = playersInBattle.Count;
 		//playersInBattle = BattleData.players;
-		playersInBattle = new List<Player>();//Gamestate.instance.players;
+		//Gamestate.instance.players;
 		Player player;
 
 		foreach(PlayerData data in Gamestate.instance.playersData){
@@ -579,7 +586,7 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private Player buildPlayer(PlayerData data){
-		switch(data.job){
+		/*switch(data.job){
 			case Player.Job.MAGE:
 				return GameObject.FindWithTag("Mage").GetComponent<Mage>();
 			case Player.Job.KNIGHT:
@@ -588,13 +595,14 @@ public class BattleManager : MonoBehaviour {
 				return GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
 			default: 
 				return null;
-		}
+		}*/
+		return Gamestate.findPlayer(data.characterName).GetComponent<Player>();
 	}
 
 	private void giveRewards(){
 		foreach(Monster monster in monstersInBattle){
 			foreach(Player player in playersInBattle){
-				monster.giveExp(player);
+				monster.giveExp(player);				
 			}
 
 			monster.giveDrops();
@@ -726,5 +734,30 @@ public class BattleManager : MonoBehaviour {
 		BattleManager.action = -1;
 
 		BattleManager.changePhase(BattlePhases.CHOSEACTION);
+	}
+
+	private static void initializeVariables(){
+		BattleManager.playerObjective = null;
+		BattleManager.hideGUIMonsterInfo();
+		BattleManager.attackObjective = false;
+		BattleManager.attackFinished = false;
+		BattleManager.attackStarted = false;
+		BattleManager.basicAttack = false;
+		BattleManager.damageReceived = false;
+		BattleManager.deathFinished = false;
+		BattleManager.skill = false;
+		BattleManager.item = false;
+		BattleManager.skillName = null;
+		BattleManager.itemName = null;
+		BattleManager.action = -1;
+
+		playersInBattle = new List<Player>();
+		monstersInBattle = new List<Monster>();
+		turns = new List<Character>();
+	}
+
+	private void deleteInstance(){
+		Debug.Log("BOOM");
+		Object.Destroy(this.gameObject, 0.0f);		
 	}
 }

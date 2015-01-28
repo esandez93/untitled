@@ -687,11 +687,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 255125563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d8a6c7dc27eec54ea4854c081ae11b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 53f02cd99035ee94c86d9e911118d06f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackFinished: 0
-  body: {fileID: 255125567}
+  body: {fileID: 0}
   clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
@@ -719,7 +719,7 @@ MonoBehaviour:
   mpRegen: .0500000007
   defending: 0
   alive: 0
-  animator: {fileID: 255125566}
+  animator: {fileID: 0}
   job: 0
   exp: 0
   expForNextLevel: 0
@@ -3009,11 +3009,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269034454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d8a6c7dc27eec54ea4854c081ae11b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 871acb9dba9485148ac4838d0d8a6ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackFinished: 0
-  body: {fileID: 1269034458}
+  body: {fileID: 0}
   clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
@@ -3041,7 +3041,7 @@ MonoBehaviour:
   mpRegen: .0500000007
   defending: 0
   alive: 0
-  animator: {fileID: 1269034457}
+  animator: {fileID: 0}
   job: 0
   exp: 0
   expForNextLevel: 0

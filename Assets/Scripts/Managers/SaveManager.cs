@@ -142,7 +142,7 @@ public class SaveManager : MonoBehaviour{
 		bool res = false;
 
 		try{
-			gamestate.setMage(GameObject.Find("Mage").GetComponent<Mage>().getData());
+			gamestate.setMage(gamestate.getPlayerData("Mage"));
 			//gamestate.setKnight(GameObject.Find("Knight").GetComponent<Knight>().getData());
 			//gamestate.setRogue(GameObject.Find("Rogue").GetComponent<Rogue>().getData());
 		}
@@ -152,7 +152,7 @@ public class SaveManager : MonoBehaviour{
 		}
 
 		return res;
-	}
+	
 	}
 
 	public bool loadStartGame(){

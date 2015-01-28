@@ -62,6 +62,8 @@ public class Player : Character{
 	}
 	
 	public void levelUp(){
+		Debug.Log(this.characterName + " leveled up!");
+
 		level++;
 		this.str += Singleton.Instance.statsPerLv[Character.Stat.STR, this.job];
 		this.agi += Singleton.Instance.statsPerLv[Character.Stat.AGI, this.job];

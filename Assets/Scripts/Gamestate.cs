@@ -167,9 +167,14 @@ public class Gamestate : MonoBehaviour {
 			playersData.Add(data);
 		}
 		else{
-			foreach(PlayerData d in this.playersData){ // Si da error, usar index
+			/*foreach(PlayerData d in this.playersData){ // Si da error, usar index
 				if(d.characterName.Equals(name)){
 					d = data;
+				}
+			}*/
+			for(int i = 0; i < this.playersData.Count; i++){
+				if(playersData[i].characterName.Equals(data.characterName)){					
+					playersData[i] = data;
 				}
 			}
 
@@ -221,6 +226,9 @@ public class Gamestate : MonoBehaviour {
 			if(arePlayersOnLevel()){
 				foreach(PlayerData data in playersData){
 					findPlayer(data.characterName).GetComponent<Player>().populate(data);
+					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
+					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
+					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
 					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball"); // DEBUG
 				}
 

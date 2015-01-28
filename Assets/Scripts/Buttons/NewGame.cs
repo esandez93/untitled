@@ -7,6 +7,8 @@ public class NewGame : MonoBehaviour{
 		try{
 			if(SaveManager.Instance.loadStartGame()){
 				Time.timeScale = 1;
+				Gamestate.instance.playersData[0].matk = 150;
+				Gamestate.instance.playersData[0].agi = 150;
 				Application.LoadLevel(Gamestate.instance.map.mapName);
 			}
 			else{
