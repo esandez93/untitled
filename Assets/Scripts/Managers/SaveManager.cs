@@ -138,6 +138,23 @@ public class SaveManager : MonoBehaviour{
 		return res;
 	}
 
+	public bool saveBattleStatus(){
+		bool res = false;
+
+		try{
+			gamestate.setMage(GameObject.Find("Mage").GetComponent<Mage>().getData());
+			//gamestate.setKnight(GameObject.Find("Knight").GetComponent<Knight>().getData());
+			//gamestate.setRogue(GameObject.Find("Rogue").GetComponent<Rogue>().getData());
+		}
+		catch(Exception e){
+			res = false;
+			Debug.Log (e.Message);
+		}
+
+		return res;
+	}
+	}
+
 	public bool loadStartGame(){
 		bool res = false;
 

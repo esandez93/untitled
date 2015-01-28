@@ -167,6 +167,12 @@ public class Gamestate : MonoBehaviour {
 			playersData.Add(data);
 		}
 		else{
+			foreach(PlayerData d in this.playersData){ // Si da error, usar index
+				if(d.characterName.Equals(name)){
+					d = data;
+				}
+			}
+
 			Debug.Log ("Player Data Exists");
 		}
 	}
@@ -215,7 +221,7 @@ public class Gamestate : MonoBehaviour {
 			if(arePlayersOnLevel()){
 				foreach(PlayerData data in playersData){
 					findPlayer(data.characterName).GetComponent<Player>().populate(data);
-					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
+					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball"); // DEBUG
 				}
 
 				if(!positionIsDefault()){

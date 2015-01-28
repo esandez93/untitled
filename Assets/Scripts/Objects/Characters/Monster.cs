@@ -72,31 +72,37 @@ public class Monster : Character{
 		}
 	}
 
-	public void giveDrops(){
-		List<string> droppedItems = new List<string>();
+	public bool giveDrops(){
+		//List<string> droppedItems = new List<string>();
 
-		if(hasDrops()){
+		bool res = this.hasDrops();
+
+		if(res){
+			float rand;
 			foreach(KeyValuePair<string, int> entry in dropRates){
-				float rand = Random.Range(0, 101);
+				rand = Random.Range(0, 101);
 
 				if(rand <= entry.Value){ // Success
-					droppedItems.Add(entry.Key);
+					//droppedItems.Add(entry.Key);
+					Singleton.Instance.inventory.addItem(entry.Key, dropQuantity[entry.Key]);
 				}
 			}
 
-			foreach(string item in droppedItems){
+			/*foreach(string item in droppedItems){
 				Singleton.Instance.inventory.addItem(item, dropQuantity[item]);
-			}
+			}*/
 		}
+
+		return res;
 	}
 	
 	public void doAction(int action, Player objective){
 		BattleManager.damageReceived = false;
 
 		switch(action){
-		case Character.Actions.BASIC_ATTACK:
-			GetComponent<MonsterBehaviour>().basicAttack(objective);
-			break;
+			case Character.Actions.BASIC_ATTACK:
+				GetComponent<MonsterBehaviour>().basicAttack(objective);
+				break;
 		}
 	}
 }

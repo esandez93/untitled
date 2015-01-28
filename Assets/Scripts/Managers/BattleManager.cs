@@ -206,10 +206,12 @@ public class BattleManager : MonoBehaviour {
 			Debug.Log ("Monsters WIN!");
 			changePhase(BattlePhases.END);
 			//CHANGE SCENE TO LOAD LAST SAVEGAME
+			
 			break;
 		case BattleStates.WIN:
 			Debug.Log ("Players WIN!");
 			changePhase(BattlePhases.END);
+			SaveManager.Instance.saveBattleStatus();
 			giveRewards();
 			//CHANGE SCENE TO BATTLE REWARDS
 			Application.LoadLevel("Forest");
