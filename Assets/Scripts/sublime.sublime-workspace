@@ -4,6 +4,78 @@
 		"selected_items":
 		[
 			[
+				"FindB",
+				"FindGameObjectWithTag"
+			],
+			[
+				"currentC",
+				"currentCharacter"
+			],
+			[
+				"monsters",
+				"monstersInBattle"
+			],
+			[
+				"Des",
+				"Destroy	obj, time"
+			],
+			[
+				"stat",
+				"status	Provider.*(asset)"
+			],
+			[
+				"Singl",
+				"Singleton"
+			],
+			[
+				"n",
+				"name	Asset.*"
+			],
+			[
+				"GetC",
+				"GetComponentInChildren	type"
+			],
+			[
+				"F",
+				"FindGameObjectsWithTag	tag"
+			],
+			[
+				"s",
+				"substitutions"
+			],
+			[
+				"cha",
+				"characterName"
+			],
+			[
+				"O",
+				"OptionsManager"
+			],
+			[
+				"ini",
+				"initialized"
+			],
+			[
+				"initiali",
+				"initialized"
+			],
+			[
+				"initi",
+				"initialized"
+			],
+			[
+				"E",
+				"ENGLISH"
+			],
+			[
+				"Ins",
+				"Instance"
+			],
+			[
+				"in",
+				"initialize"
+			],
+			[
 				"DOA",
 				"DOACTION"
 			]
@@ -15,23 +87,23 @@
 			"file": "Managers/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 20352,
-				"line_ending": "Unix"
+				"buffer_size": 21351,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Objects/Characters/Character.cs",
+			"file": "Gamestate.cs",
 			"settings":
 			{
-				"buffer_size": 19694,
-				"line_ending": "Unix"
+				"buffer_size": 6446,
+				"line_ending": "Windows"
 			}
 		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 200.0,
+		"height": 392.0,
 		"selected_items":
 		[
 			[
@@ -55,7 +127,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 400.0
+		"width": 600.0
 	},
 	"console":
 	{
@@ -81,18 +153,66 @@
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Movement",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters"
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Dialogues",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Logs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Saves",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml"
 	],
 	"file_history":
 	[
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleData.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/MonsterBehaviour.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Character.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Monster.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Inventory.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/SaveManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleEncounterManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/MapInfo.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/NewGame.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Player.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/PlayerData.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusEN.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/LanguageManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/AlteredStatus.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Skill.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml/skills.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml/alteredStats.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/SaveData.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/Singleton.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/FileManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusES.xml",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Gamestate.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/OptionsManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Movement/MagicMovement.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/DisplaySkills.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/getSkillButtonText.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/getItemButtonText.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/NewGame.cs.meta",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Skills por lv.csv",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/SkillInfo.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/FileManager.cs.meta",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Mage.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/ContinueGame.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/DisplayItems.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/ManagerInitializer.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Words/wordsEN.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Words/wordsES.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleManager.cs.meta",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Dialogues/dialoguesEN.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/AnyText.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/OptionsMenu.cs",
 		"/C/Program Files (x86)/Sublime Text 3/SublimeText3/Data/Packages/User/C#.sublime-settings"
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -103,9 +223,29 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"Gamestate.instance",
+			"Gamestate",
+			"BattleManager.Instance.BattlePhases",
+			"BattleManager",
+			"static ",
+			"monstersInBattle.Add",
+			"monstersInBattle",
+			"gamestate",
+			"playersInBattle",
+			"this.name = name;",
+			"this.description = description",
+			"//this.description = LanguageManager.Instance.getMenuText(description);",
+			"skillName",
+			"skill.",
+			"this.description = LanguageManager.Instance.getMenuText(description);",
+			"this.name = LanguageManager.Instance.getMenuText(name);",
+			"this.description = description;",
+			"this.name = LanguageManager.Instance.getMenuText(name);",
+			"invent",
+			"defend"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -113,6 +253,17 @@
 		"regex": false,
 		"replace_history":
 		[
+			"gamestate",
+			"BattleManager.BattlePhases",
+			"BattleManager.Instance",
+			"",
+			"this.id = name;",
+			"this.description = description;",
+			"this.description = description",
+			"//this.description = LanguageManager.Instance.getMenuText(description);",
+			"//this.name = LanguageManager.Instance.getMenuText(name);",
+			"this.description = LanguageManager.Instance.getMenuText(description);",
+			"this.id = name;this.name = LanguageManager.Instance.getMenuText(name);"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -123,7 +274,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -132,44 +283,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20352,
+						"buffer_size": 21351,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18170,
-								18170
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 8680.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Objects/Characters/Character.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19694,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15052,
-								15052
+								4453,
+								4453
 							]
 						],
 						"settings":
@@ -178,10 +300,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 9030.0,
+						"translation.y": 1621.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Gamestate.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6042,
+								6042
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -189,7 +340,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -225,7 +376,7 @@
 	"project": "sublime.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

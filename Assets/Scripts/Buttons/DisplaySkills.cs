@@ -11,18 +11,18 @@ public class DisplaySkills : MonoBehaviour {
 	public List<GameObject> skillButtons;
 	public bool finished = false;
 
-	BattleManager bm;
+	public BattleManager bm;
 
-	Player player;
-	List<Skill> skills;
+	public Player player;
+	public List<Skill> skills;
 
-	Vector2 parentPosition;
+	public Vector2 parentPosition;
 
-	int numInactives = 0;
+	public int numInactives = 0;
 
 	void Start () {
-		bm = GameObject.Find("BattleCanvas").GetComponent<BattleManager>();
-		this.gameObject.SetActive(false);
+		bm = BattleManager.Instance;
+		//this.gameObject.SetActive(false);
 
 		skillButtons = new List<GameObject>();
 
@@ -46,10 +46,11 @@ public class DisplaySkills : MonoBehaviour {
 			if(!finished){
 				int i = 0;
 				if(skills.Count > 0){
+					string text;
 					foreach(Skill skill in skills){
 						if(i <= MAX_SKILLS_UI){
 							GameObject instance = createInstance();
-							string text = skill.name + " Lv. " + skill.currLevel;
+							text = skill.name + " Lv. " + skill.currLevel;
 							setTextToButton(instance, text);
 							
 							if(sameAsLast(i) || text.Equals(DEFAULT_SKILL_TEXT)){

@@ -222,7 +222,8 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level) {
-		if (level != 0){
+		if (isPlatform(level)){ // platform levels
+			destroyBattleManager();
 			if(arePlayersOnLevel()){
 				foreach(PlayerData data in playersData){
 					findPlayer(data.characterName).GetComponent<Player>().populate(data);
@@ -237,6 +238,25 @@ public class Gamestate : MonoBehaviour {
 				}
 			}
 		}
+		else if(isBattle(level)){
+			BattleManager bm = BattleManager.Instance;
+		}
+	}
+
+	private bool isPlatform(int level){
+		return level == 1;
+	}
+
+	private bool isBattle(int level){
+		return level == 2;
+	}
+
+	private void destroyBattleManager(){
+		GameObject battleManager = GameObject.Find("BattleManager");
+
+		if(battleManager != null){
+			GameObject.Destroy(battleManager, 0.0f);
+		}
 	}
 
 	private bool arePlayersOnLevel(){
@@ -246,9 +266,4 @@ public class Gamestate : MonoBehaviour {
 	private bool positionIsDefault(){ // (0, 0)
 		return Singleton.Instance.playerPositionInMap.x == 0 && Singleton.Instance.playerPositionInMap.y == 0;
 	}
-
-	/*public enum MapType{
-		PLATFORM,
-		BATTLE
-	}*/
 }

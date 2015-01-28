@@ -11,73 +11,70 @@ public class BattleManager : MonoBehaviour {
 
 	public bool playerTurn = false;
 	public bool showPlayerCommandsGUI = false;
-	public static bool ended = false;
-	public static bool attackObjective = false;
-	public static Player playerObjective = null;
-	public static int action = -1;
+	public bool ended = false;
+	public bool attackObjective = false;
+	public Player playerObjective = null;
+	public int action = -1;
 
-	public static bool basicAttack = false;
-	public static bool skill = false;
-	public static bool item = false;
-	public static bool defend = false;
-	public static string skillName;
-	public static string itemName;
-	public static bool attackFinished = false;
-	public static bool attackStarted = false;
-	public static bool damageReceived = false;
-	public static bool deathFinished = false;
+	public bool basicAttack = false;
+	public bool skill = false;
+	public bool item = false;
+	public bool defend = false;
+	public string skillName;
+	public string itemName;
+	public bool attackFinished = false;
+	public bool attackStarted = false;
+	public bool damageReceived = false;
+	public bool deathFinished = false;
 
 	public bool showPlayerStatGUI;
 	public bool showMonsterStatGUI;
 
-	public static Image playerBackgroundGUI;
-	public static Image playerPortraitGUI;
-	public static Text playerNameGUI;
-	public static Text playerLevelGUI;
-	public static Image playerHealthGUI;
-	public static Image playerManaGUI;
-	public static Image playerExpGUI;
-	public static Image playerHealthFrameGUI;
-	public static Image playerManaFrameGUI;
-	public static Image playerExpFrameGUI;
-	public static Text playerHealthTextGUI;
-	public static Text playerManaTextGUI;
-	public static Text playerExpTextGUI;
+	public Image playerBackgroundGUI;
+	public Image playerPortraitGUI;
+	public Text playerNameGUI;
+	public Text playerLevelGUI;
+	public Image playerHealthGUI;
+	public Image playerManaGUI;
+	public Image playerExpGUI;
+	public Image playerHealthFrameGUI;
+	public Image playerManaFrameGUI;
+	public Image playerExpFrameGUI;
+	public Text playerHealthTextGUI;
+	public Text playerManaTextGUI;
+	public Text playerExpTextGUI;
 
-	public static Image enemyBackgroundGUI;
-	public static Image enemyPortraitGUI;
-	public static Text enemyNameGUI;
-	public static Text enemyLevelGUI;
-	public static Image enemyHealthGUI;
-	public static Image enemyManaGUI;
-	public static Image enemyHealthFrameGUI;
-	public static Image enemyManaFrameGUI;
-	public static Text enemyHealthTextGUI;
-	public static Text enemyManaTextGUI;
+	public Image enemyBackgroundGUI;
+	public Image enemyPortraitGUI;
+	public Text enemyNameGUI;
+	public Text enemyLevelGUI;
+	public Image enemyHealthGUI;
+	public Image enemyManaGUI;
+	public Image enemyHealthFrameGUI;
+	public Image enemyManaFrameGUI;
+	public Text enemyHealthTextGUI;
+	public Text enemyManaTextGUI;
 
-	public static SpriteRenderer background;
+	public SpriteRenderer background;
 
-	public static Character currentObjective;
+	public Character currentObjective;
 
-	public static BattleStates currentState;
-	public static BattlePhases currentPhase;
+	public BattleStates currentState;
+	public BattlePhases currentPhase;
 
-	int maxTurns;
-	public static Character currentCharacter;
+	public int maxTurns;
+	public Character currentCharacter;
 
-	public static Monster currentMonster;
-	public static Player currentPlayer;
+	public Monster currentMonster;
+	public Player currentPlayer;
 
-	public static int numPlayers = 0;
-	public static int numMonsters = 0;
-	public static int thisMonster = 0;
+	public int numPlayers = 0;
+	public int numMonsters = 0;
+	public int thisMonster = 0;
 
-	public static List<Monster> monstersInBattle = new List<Monster>();
-	public static List<Player> playersInBattle = new List<Player>();
-	public static List<Character> turns = new List<Character>();
-
-	public List<Monster> nonStaticMonstersInBattle = new List<Monster>();
-	public List<Player> nonStaticPlayersInBattle = new List<Player>();	
+	public List<Monster> monstersInBattle = new List<Monster>();
+	public List<Player> playersInBattle = new List<Player>();
+	public List<Character> turns = new List<Character>();
 	
 	public enum BattleStates{
 		START,
@@ -96,6 +93,30 @@ public class BattleManager : MonoBehaviour {
 		END
 	}
 
+	private bool initialized;
+	private Gamestate gamestate;
+
+	private static BattleManager instance = null;
+	public static BattleManager Instance{
+		get{
+			if (instance == null){				
+				//instance = (BattleManager)FindObjectOfType(typeof(BattleManager));
+				instance = new GameObject("BattleManager").AddComponent<BattleManager>();
+				instance.initialize();
+				DontDestroyOnLoad(instance.gameObject);
+			}
+			return instance;
+		}
+	}
+
+	public void initialize(){
+		if(!initialized){
+			gamestate = Gamestate.instance;
+			Debug.Log("BattleManager initialized.");
+			initialized = true;
+		}
+	}
+
 	void OnGUI() {
 		if(!ended){
 			checkGUI();
@@ -105,7 +126,7 @@ public class BattleManager : MonoBehaviour {
 			}
 			if (GUI.Button (new Rect (730, 30, 150, 30), "Add potion")) { // DEBUG
 				Singleton.Instance.inventory.addItem("Potion", 1);
-				DisplayItems.repopulate();
+				//DisplayItems.repopulate();
 			}
 		}
 	}
@@ -113,7 +134,9 @@ public class BattleManager : MonoBehaviour {
 	void Start(){
 		//SaveManager.Instance.autoLoad();
 
-		currentMap = Gamestate.instance.map;
+		currentMap = gamestate.map;
+
+		Transform transform = GameObject.FindGameObjectWithTag("BattleCanvas").transform;
 
 		playerBackgroundGUI = transform.FindChild("PlayerData").GetComponent<Image>();
 		playerPortraitGUI = transform.FindChild("PlayerData").FindChild("PlayerPortrait").GetComponent<Image>();
@@ -165,7 +188,7 @@ public class BattleManager : MonoBehaviour {
 			setGUIPlayerInfo(currentPlayer);
 
 			if(currentPhase == BattlePhases.AFFECT){
-				currentCharacter.startTurn();
+				currentPlayer.startTurn();
 			}
 
 			if(currentObjective == null){				
@@ -209,7 +232,7 @@ public class BattleManager : MonoBehaviour {
 			changePhase(BattlePhases.END);
 			//CHANGE SCENE TO LOAD LAST SAVEGAME
 			if(SaveManager.Instance.load()){
-				Application.LoadLevel(Gamestate.instance.map.mapName);
+				Application.LoadLevel(gamestate.map.mapName);
 			}			
 			break;
 		case BattleStates.WIN:
@@ -222,9 +245,6 @@ public class BattleManager : MonoBehaviour {
 			deleteInstance();
 			break;
 		}
-		
-		nonStaticPlayersInBattle = playersInBattle;
-		nonStaticMonstersInBattle = monstersInBattle;
 	}
 
 	public void generateBattle(){
@@ -292,13 +312,13 @@ public class BattleManager : MonoBehaviour {
 	public void checkIfPlayerTurn(){
 		currentCharacter = turns[turn-1];
 
-		Debug.Log(currentCharacter.name + " ISALIVE? " + currentCharacter.isAlive());
-
 		if(currentCharacter.isAlive()){
 			if(!ended){
 				if(currentCharacter.isPlayer()){
 					hideGUIMonsterInfo();
 					playerTurn = true;
+					currentMonster = null;
+					currentPlayer = (Player) currentCharacter;
 					changeState(BattleStates.PLAYERTURN);
 					//showPlayerCommandsGUI = true;
 				}
@@ -306,7 +326,10 @@ public class BattleManager : MonoBehaviour {
 					hideGUIPlayerInfo();
 					playerTurn = false;
 					showPlayerCommandsGUI = false;
+					currentMonster = (Monster) currentCharacter;
+					currentPlayer = null;
 					changeState(BattleStates.ENEMYTURN);
+
 				}
 			}
 
@@ -319,7 +342,7 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public static void setGUIPlayerInfo(Player player){
+	public void setGUIPlayerInfo(Player player){
 		string job;
 
 		switch(player.job){
@@ -355,7 +378,7 @@ public class BattleManager : MonoBehaviour {
 		playerExpTextGUI.text = "EXP";
 	}
 
-	public static void setGUIMonsterInfo(Monster monster){
+	public void setGUIMonsterInfo(Monster monster){
 		enemyPortraitGUI.sprite = Resources.Load <Sprite> ("Portraits/" + monster.name + "Portrait");
 		enemyNameGUI.text = monster.name;
 		enemyLevelGUI.text = "Lv " + monster.level.ToString();
@@ -385,7 +408,7 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public static void hideGUIMonsterInfo(){
+	public void hideGUIMonsterInfo(){
 		GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("EnemyData"); 
 
 		foreach(GameObject gameObject in gameObjects){
@@ -408,11 +431,11 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public static Player getPlayerInBattle(int index){
+	public Player getPlayerInBattle(int index){
 		return playersInBattle[index];
 	}
 
-	public static Monster getMonsterInBattle(int index){
+	public Monster getMonsterInBattle(int index){
 		return monstersInBattle[index];
 	}
 
@@ -442,7 +465,7 @@ public class BattleManager : MonoBehaviour {
 		}*/
 	}
 
-	public static void checkIfEnded(){
+	public void checkIfEnded(){
 		int playersAlive = 0;
 		int monstersAlive = 0;
 
@@ -468,7 +491,7 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	// Check if the current phase can be changed
-	private static bool checkPhase(BattlePhases battlePhase){
+	private bool checkPhase(BattlePhases battlePhase){
 		if(battlePhase == BattlePhases.NONE){
 			return true;
 		}
@@ -495,7 +518,7 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public static bool changePhase(BattlePhases battlePhase){
+	public bool changePhase(BattlePhases battlePhase){
 		if(currentPhase != battlePhase){
 			if(checkPhase(battlePhase)){
 				currentPhase = battlePhase;
@@ -509,7 +532,7 @@ public class BattleManager : MonoBehaviour {
 		return false;
 	}
 
-	public static void changeState(BattleStates battleState){
+	public void changeState(BattleStates battleState){
 		currentState = battleState;
 
 		Debug.Log ("State: " + currentState);
@@ -554,7 +577,7 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	private static bool checkIfCurrentCharacterIsPlayer(){
+	private bool checkIfCurrentCharacterIsPlayer(){
 		return currentCharacter.bIsPlayer;
 	}
 
@@ -564,7 +587,7 @@ public class BattleManager : MonoBehaviour {
 
 		for(int i = 0; i < numMonsters; i++){
 			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();
-			monster.initializeMonster(Gamestate.instance.map.getRandomMonster());
+			monster.initializeMonster(gamestate.map.getRandomMonster());
 			monstersInBattle.Add(monster);
 
 			enableComponents(monster.gameObject);
@@ -574,11 +597,12 @@ public class BattleManager : MonoBehaviour {
 	private void setPlayers(){
 		//numPlayers = playersInBattle.Count;
 		//playersInBattle = BattleData.players;
-		//Gamestate.instance.players;
+		//gamestate.players;
 		Player player;
 
-		foreach(PlayerData data in Gamestate.instance.playersData){
+		foreach(PlayerData data in gamestate.playersData){
 			player = buildPlayer(data);
+			player.populate(data);
 			playersInBattle.Add(player);
 			enableComponents(player.gameObject);
 			player.enablePassives();
@@ -609,11 +633,11 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public static void finishCurrentAttack(){
+	public void finishCurrentAttack(){
 		attackFinished = true;
 	}
 
-	public static void startCurrentAttack(){
+	public void startCurrentAttack(){
 		attackStarted = true;
 	}
 
@@ -631,37 +655,37 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void clickAttack(){
-		changePhase(BattlePhases.CHOSEOBJECTIVE);
-		currentObjective = currentPlayer.decideObjective();
-		basicAttack = true;
+		instance.changePhase(BattlePhases.CHOSEOBJECTIVE);
+		currentObjective = instance.currentPlayer.decideObjective();
+		instance.basicAttack = true;
 	}
 
 	public void clickSkill(){
-		changePhase(BattlePhases.CHOSEOBJECTIVE);
-		currentObjective = currentPlayer.decideObjective();
-		skill = true;
+		instance.changePhase(BattlePhases.CHOSEOBJECTIVE);
+		instance.currentObjective = instance.currentPlayer.decideObjective();
+		instance.skill = true;
 	}
 
 	public void setSkillName(string name){
-		skillName = name;
-		clickSkill ();
+		instance.skillName = name;
+		instance.clickSkill ();
 	}
 
 	public void clickItem(){
-		changePhase(BattlePhases.CHOSEOBJECTIVE);
-		currentObjective = currentPlayer.decideObjective();
-		item = true;
+		instance.changePhase(BattlePhases.CHOSEOBJECTIVE);
+		instance.currentObjective = instance.currentPlayer.decideObjective();
+		instance.item = true;
 	}
 	
 	public void setItemName(string name){
-		itemName = name;
-		clickItem ();
+		instance.itemName = name;
+		instance.clickItem ();
 	}
 
 	public void clickDefend(){
 		//changePhase(BattlePhases.DOACTION);
-		currentObjective = null;
-		defend = true;
+		instance.currentObjective = null;
+		instance.defend = true;
 	}
 
 	public void battleListener(){
@@ -718,38 +742,38 @@ public class BattleManager : MonoBehaviour {
 		background.sprite = Resources.Load <Sprite> ("Backgrounds/Battle/" + currentMap.mapName);
 	}
 
-	public static void backToStart(){
-		BattleManager.playerObjective = null;
-		BattleManager.hideGUIMonsterInfo();
-		BattleManager.attackObjective = false;
-		BattleManager.attackFinished = false;
-		BattleManager.attackStarted = false;
-		BattleManager.basicAttack = false;
-		BattleManager.damageReceived = false;
-		BattleManager.deathFinished = false;
-		BattleManager.skill = false;
-		BattleManager.item = false;
-		BattleManager.skillName = null;
-		BattleManager.itemName = null;
-		BattleManager.action = -1;
+	public void backToStart(){
+		instance.playerObjective = null;
+		instance.hideGUIMonsterInfo();
+		instance.attackObjective = false;
+		instance.attackFinished = false;
+		instance.attackStarted = false;
+		instance.basicAttack = false;
+		instance.damageReceived = false;
+		instance.deathFinished = false;
+		instance.skill = false;
+		instance.item = false;
+		instance.skillName = null;
+		instance.itemName = null;
+		instance.action = -1;
 
-		BattleManager.changePhase(BattlePhases.CHOSEACTION);
+		instance.changePhase(BattlePhases.CHOSEACTION);
 	}
 
-	private static void initializeVariables(){
-		BattleManager.playerObjective = null;
-		BattleManager.hideGUIMonsterInfo();
-		BattleManager.attackObjective = false;
-		BattleManager.attackFinished = false;
-		BattleManager.attackStarted = false;
-		BattleManager.basicAttack = false;
-		BattleManager.damageReceived = false;
-		BattleManager.deathFinished = false;
-		BattleManager.skill = false;
-		BattleManager.item = false;
-		BattleManager.skillName = null;
-		BattleManager.itemName = null;
-		BattleManager.action = -1;
+	private void initializeVariables(){
+		instance.playerObjective = null;
+		instance.hideGUIMonsterInfo();
+		instance.attackObjective = false;
+		instance.attackFinished = false;
+		instance.attackStarted = false;
+		instance.basicAttack = false;
+		instance.damageReceived = false;
+		instance.deathFinished = false;
+		instance.skill = false;
+		instance.item = false;
+		instance.skillName = null;
+		instance.itemName = null;
+		instance.action = -1;
 
 		playersInBattle = new List<Player>();
 		monstersInBattle = new List<Monster>();
@@ -757,7 +781,6 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void deleteInstance(){
-		Debug.Log("BOOM");
 		Object.Destroy(this.gameObject, 0.0f);		
 	}
 }

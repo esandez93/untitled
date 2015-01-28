@@ -8,20 +8,20 @@ public class DisplayItems : MonoBehaviour {
 	public static string DEFAULT_ITEM_TEXT = "Item";
 	public static int ALLOCATE_HEIGHT = 15;
 	
-	public static List<GameObject> itemButtons;
-	public static bool finished = false;
+	public List<GameObject> itemButtons;
+	public bool finished = false;
 	
-	BattleManager bm;
+	public BattleManager bm;
 
-	List<Item> items;
+	public List<Item> items;
 	
-	Vector2 parentPosition;
+	public Vector2 parentPosition;
 	
-	int numInactives = 0;
+	public int numInactives = 0;
 	
 	void Start () {
-		bm = GameObject.Find("BattleCanvas").GetComponent<BattleManager>();
-		this.gameObject.SetActive(false);
+		bm = BattleManager.Instance;
+		//this.gameObject.SetActive(false);
 
 		itemButtons = new List<GameObject>();
 
@@ -38,16 +38,16 @@ public class DisplayItems : MonoBehaviour {
 	}
 	
 	private void populateButtons(){
-
 		if(items != null){
 			if(!finished){
 				int i = 0;
 				clean();
 				if(items.Count > 0){
+					string text;
 					foreach(Item item in items){
 						if(i <= MAX_ITEMS_UI){
 							GameObject instance = createInstance();
-							string text = item.name + " x" + item.quantity;
+							text = item.name + " x" + item.quantity;
 							setTextToButton(instance, text);
 							
 							if(sameAsLast(i) || text.Equals(DEFAULT_ITEM_TEXT)){
@@ -109,7 +109,7 @@ public class DisplayItems : MonoBehaviour {
 		numInactives = 0;
 	}
 
-	public static void repopulate(){
+	public void repopulate(){
 		finished = false;
 		itemButtons.Clear();
 	}

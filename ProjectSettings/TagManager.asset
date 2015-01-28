@@ -29,6 +29,7 @@ TagManager:
   - Menu
   - OptionsManager
   - Button
+  - BattleCanvas
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

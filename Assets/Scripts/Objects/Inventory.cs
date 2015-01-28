@@ -40,9 +40,7 @@ public class Inventory{
 		if (isItemInInventory(itemName)){
 			Item item = this.objects[itemName];
 			if(item.quantity >= quantity){
-				Debug.Log ("PRE: " + item.quantity);
 				item.quantity -= quantity;
-				Debug.Log ("POST: " + item.quantity);
 
 				if(item.quantity == 0){
 					this.objects.Remove(itemName);
@@ -54,7 +52,7 @@ public class Inventory{
 				Debug.Log (itemName + " REMOVED FROM INVENTORY");
 			}
 
-			Singleton.Instance.cleanItems();
+			//Singleton.Instance.cleanItems();
 		}
 		else{
 			MonoBehaviour.print("Item " + itemName + " doesn't exist in inventory.");
@@ -73,15 +71,14 @@ public class Inventory{
 	public void useItem(string itemName, Character target){
 		if(this.isItemInInventory(itemName)){
 			Item item = objects[itemName];
-
 			if(item.type.Equals(Item.Properties.USABLE)){
 				target.increaseStat(item.statAffected, item.quantityAffected);
 				this.removeItem(itemName, 1);
-				BattleManager.finishCurrentAttack();
+				BattleManager.Instance.finishCurrentAttack();
 			}
 		}
 		else{
-			BattleManager.backToStart();
+			BattleManager.Instance.backToStart();
 		}
 	}
 

@@ -15,7 +15,7 @@
 		<drop>Potion</drop>
 		<dropQuantity>1</dropQuantity>
 		<dropRates>100</dropRates>
-		<expGiven>25</expGiven>
+		<expGiven>15</expGiven>
 	</monster>
 </monsters>
 		

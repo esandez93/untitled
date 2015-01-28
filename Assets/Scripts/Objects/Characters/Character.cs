@@ -143,9 +143,14 @@ public class Character : MonoBehaviour{
 			case StatName.MAXMP:
 				this.maxMP -= quantity;
 				break;
-			case StatName.CURRMP:
-				this.currMP -= quantity;
+			case StatName.CURRHP:
+				//this.currHP -= quantity;
+				this.receiveDamage(quantity);
 				break;
+			case StatName.CURRMP:
+				this.reduceMana(quantity);
+				break;
+
 			case StatName.STR:
 				this.str -= quantity;
 				break;
@@ -216,9 +221,13 @@ public class Character : MonoBehaviour{
 			difference = maxMP * (quantity/100);
 			this.maxMP -= difference;
 			break;
+		case StatName.CURRHP:
+			difference = currMP * (quantity/100);
+			this.receiveDamage(difference);
+			break;	
 		case StatName.CURRMP:
 			difference = currMP * (quantity/100);
-			this.currMP -= currMP *difference;
+			this.reduceMana(difference);
 			break;
 			
 		case StatName.STR:
@@ -302,8 +311,11 @@ public class Character : MonoBehaviour{
 		case StatName.MAXMP:
 			this.maxMP += quantity;
 			break;
+		case StatName.CURRHP:
+			this.restoreHP(quantity);
+			break;
 		case StatName.CURRMP:
-			this.currMP += quantity;
+			this.restoreMP(quantity);
 			break;
 		case StatName.STR:
 			this.str += quantity;
@@ -375,11 +387,14 @@ public class Character : MonoBehaviour{
 			difference = maxMP * (quantity/100);
 			this.maxMP += difference;
 			break;
+		case StatName.CURRHP:
+			difference = currHP * (quantity/100);
+			this.restoreHP(difference);
+			break;
 		case StatName.CURRMP:
 			difference = currMP * (quantity/100);
-			this.currMP += difference;
-			break;
-			
+			this.restoreMP(difference);
+			break;			
 		case StatName.STR:
 			difference = str * (quantity/100);
 			this.str += difference;
@@ -487,7 +502,7 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void basicAttack(Character enemy){	
-		BattleManager.startCurrentAttack();
+		BattleManager.Instance.startCurrentAttack();
 		
 		if(hits(enemy)){
 			bool isCrit = isCritical();
@@ -511,7 +526,7 @@ public class Character : MonoBehaviour{
 		}
 		else{
 			Debug.Log ("El ataque de " + this.name + " contra " + enemy.name + " ha fallado!");
-			BattleManager.finishCurrentAttack();
+			BattleManager.Instance.finishCurrentAttack();
 		}
 	}
 	
@@ -555,9 +570,9 @@ public class Character : MonoBehaviour{
 
 			Skill skill = skills[skillId];	
 			
-			if(!BattleManager.attackStarted){
+			if(!BattleManager.Instance.attackStarted){
 				if(skill.mp <= this.currMP){
-					BattleManager.startCurrentAttack();
+					BattleManager.Instance.startCurrentAttack();
 					GameObject instance = (GameObject)Instantiate(Resources.Load("Prefabs/"+skill.damageType+"/"+skillId));
 					
 					this.currMP -= skill.mp;
@@ -569,8 +584,8 @@ public class Character : MonoBehaviour{
 			}
 		}
 		else{
-			BattleManager.skill = false;
-			BattleManager.changePhase(BattleManager.BattlePhases.CHOSEACTION);
+			BattleManager.Instance.skill = false;
+			BattleManager.Instance.changePhase(BattleManager.BattlePhases.CHOSEACTION);
 		}
 	}
 	
@@ -669,7 +684,7 @@ public class Character : MonoBehaviour{
 	}
 
 	public void receiveDamage(float damage, bool trueDamage){
-		if(!BattleManager.damageReceived){
+		if(!BattleManager.Instance.damageReceived){
 			showBattleData();
 			
 			if(this.isDefending() && !trueDamage){
@@ -685,7 +700,7 @@ public class Character : MonoBehaviour{
 			
 			showBattleData();
 			
-			BattleManager.damageReceived = true;
+			BattleManager.Instance.damageReceived = true;
 		}
 		
 		if(!this.isPlayer()){
@@ -697,8 +712,24 @@ public class Character : MonoBehaviour{
 			this.die();
 		}
 		
-		if((alive && BattleManager.attackFinished)|| (!alive && BattleManager.deathFinished)){
-			BattleManager.finishCurrentAttack();
+		if((alive && BattleManager.Instance.attackFinished)|| (!alive && BattleManager.Instance.deathFinished)){
+			BattleManager.Instance.finishCurrentAttack();
+		}
+	}
+
+	public void reduceMana(float damage){
+		if(!BattleManager.Instance.damageReceived){
+			showBattleData();
+
+			this.currMP -= damage;
+			
+			if(this.currMP <= 0){
+				this.currMP = 0;
+			}
+			
+			showBattleData();
+			
+			BattleManager.Instance.damageReceived = true;
 		}
 	}
 
@@ -712,18 +743,18 @@ public class Character : MonoBehaviour{
 	
 	private void showBattleData(){
 		if(isPlayer()){
-			BattleManager.setGUIPlayerInfo((Player)this);
+			BattleManager.Instance.setGUIPlayerInfo((Player)this);
 		}
 		else{
-			BattleManager.setGUIMonsterInfo((Monster)this);
+			BattleManager.Instance.setGUIMonsterInfo((Monster)this);
 		}
 	}
 	
 	public void die(){		
 		alive = false;
-		if(BattleManager.deathFinished){
+		if(BattleManager.Instance.deathFinished){
 			MonoBehaviour.print(this.name + " is dead!");
-			BattleManager.checkIfEnded();
+			BattleManager.Instance.checkIfEnded();
 		}
 		else{
 			if(this.isPlayer()){
@@ -784,7 +815,7 @@ public class Character : MonoBehaviour{
 			}
 		}
 
-		BattleManager.changePhase(BattleManager.BattlePhases.CHOSEACTION);
+		BattleManager.Instance.changePhase(BattleManager.BattlePhases.CHOSEACTION);
 	}
 
 	public bool isPlayer(){
@@ -796,12 +827,12 @@ public class Character : MonoBehaviour{
 	}
 	
 	public Character decideObjective(){
-		if(this.isPlayer() && BattleManager.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
+		if(this.isPlayer() && BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
 			objective = clickedObjective;
 		}
-		else if(!this.isPlayer() && BattleManager.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
-			numObjective = Random.Range(0, BattleManager.numPlayers);
-			objective = BattleManager.getPlayerInBattle(numObjective);
+		else if(!this.isPlayer() && BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
+			numObjective = Random.Range(0, BattleManager.Instance.numPlayers);
+			objective = BattleManager.Instance.getPlayerInBattle(numObjective);
 		}
 
 		return objective;
@@ -812,16 +843,16 @@ public class Character : MonoBehaviour{
 			Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			
 			if(collider2D.OverlapPoint(mousePosition)){				
-				if (BattleManager.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
-					//if(BattleManager.skill){
+				if (BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
+					//if(BattleManager.Instance.skill){
 						//Monster monster = (Monster)this;
 						
 						if(clickedObjective != null && clickedObjective == this){
-							BattleManager.attackObjective = true;
+							BattleManager.Instance.attackObjective = true;
 						}
 						else{
 							clickedObjective = this;						
-							BattleManager.currentObjective = clickedObjective;
+							BattleManager.Instance.currentObjective = clickedObjective;
 						}
 					//}
 				}			
@@ -837,10 +868,10 @@ public class Character : MonoBehaviour{
 
 	public void showInfo(){
 		if(isPlayer()){
-			BattleManager.setGUIPlayerInfo((Player)this);
+			BattleManager.Instance.setGUIPlayerInfo((Player)this);
 		}
 		else{
-			BattleManager.setGUIMonsterInfo((Monster)this);
+			BattleManager.Instance.setGUIMonsterInfo((Monster)this);
 		}
 	}
 

@@ -1656,7 +1656,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 24, y: -58.5}
+  m_AnchoredPosition: {x: 24, y: -62}
   m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &640508814
@@ -1672,6 +1672,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillButtons: []
   finished: 0
+  bm: {fileID: 0}
+  player: {fileID: 0}
+  skills: []
+  parentPosition: {x: 0, y: 0}
+  numInactives: 0
 --- !u!114 &640508815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2534,7 +2539,7 @@ GameObject:
   - 114: {fileID: 1047215538}
   m_Layer: 5
   m_Name: BattleCanvas
-  m_TagString: Untagged
+  m_TagString: BattleCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2620,7 +2625,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1047215533}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57be4d6293f7a4244863c686de10396f, type: 3}
   m_Name: 
@@ -2631,10 +2636,59 @@ MonoBehaviour:
     monsters: []
   playerTurn: 0
   showPlayerCommandsGUI: 0
+  ended: 0
+  attackObjective: 0
+  playerObjective: {fileID: 0}
+  action: -1
+  basicAttack: 0
+  skill: 0
+  item: 0
+  defend: 0
+  skillName: 
+  itemName: 
+  attackFinished: 0
+  attackStarted: 0
+  damageReceived: 0
+  deathFinished: 0
   showPlayerStatGUI: 0
   showMonsterStatGUI: 0
-  nonStaticMonstersInBattle: []
-  nonStaticPlayersInBattle: []
+  playerBackgroundGUI: {fileID: 0}
+  playerPortraitGUI: {fileID: 0}
+  playerNameGUI: {fileID: 0}
+  playerLevelGUI: {fileID: 0}
+  playerHealthGUI: {fileID: 0}
+  playerManaGUI: {fileID: 0}
+  playerExpGUI: {fileID: 0}
+  playerHealthFrameGUI: {fileID: 0}
+  playerManaFrameGUI: {fileID: 0}
+  playerExpFrameGUI: {fileID: 0}
+  playerHealthTextGUI: {fileID: 0}
+  playerManaTextGUI: {fileID: 0}
+  playerExpTextGUI: {fileID: 0}
+  enemyBackgroundGUI: {fileID: 0}
+  enemyPortraitGUI: {fileID: 0}
+  enemyNameGUI: {fileID: 0}
+  enemyLevelGUI: {fileID: 0}
+  enemyHealthGUI: {fileID: 0}
+  enemyManaGUI: {fileID: 0}
+  enemyHealthFrameGUI: {fileID: 0}
+  enemyManaFrameGUI: {fileID: 0}
+  enemyHealthTextGUI: {fileID: 0}
+  enemyManaTextGUI: {fileID: 0}
+  background: {fileID: 0}
+  currentObjective: {fileID: 0}
+  currentState: 0
+  currentPhase: 0
+  maxTurns: 0
+  currentCharacter: {fileID: 0}
+  currentMonster: {fileID: 0}
+  currentPlayer: {fileID: 0}
+  numPlayers: 0
+  numMonsters: 0
+  thisMonster: 0
+  monstersInBattle: []
+  playersInBattle: []
+  turns: []
 --- !u!1 &1060038925
 GameObject:
   m_ObjectHideFlags: 0
@@ -4131,7 +4185,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 24, y: -58.5}
+  m_AnchoredPosition: {x: 24, y: -62}
   m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &2023994681
@@ -4145,6 +4199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9f3d7d38b4a274e9e8038a65aeb6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemButtons: []
+  finished: 0
+  bm: {fileID: 0}
+  items: []
+  parentPosition: {x: 0, y: 0}
+  numInactives: 0
 --- !u!114 &2023994682
 MonoBehaviour:
   m_ObjectHideFlags: 0

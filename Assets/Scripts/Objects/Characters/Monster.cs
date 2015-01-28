@@ -40,6 +40,7 @@ public class Monster : Character{
 		this.luk = monsterInfo.luk;
 		
 		this.expGiven = monsterInfo.expGiven;
+		this.drops = monsterInfo.drops;
 		this.dropRates = monsterInfo.dropRates;
 		this.dropQuantity = monsterInfo.dropQuantity;
 
@@ -94,7 +95,7 @@ public class Monster : Character{
 	}
 	
 	public void doAction(int action, Player objective){
-		BattleManager.damageReceived = false;
+		BattleManager.Instance.damageReceived = false;
 
 		switch(action){
 			case Character.Actions.BASIC_ATTACK:

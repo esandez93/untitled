@@ -55,7 +55,7 @@ public class MonsterBehaviour : MonoBehaviour {
 			}
 			else{
 				stand ();
-				BattleManager.attackFinished = true;
+				BattleManager.Instance.attackFinished = true;
 				//BattleManager.finishCurrentAttack();
 			}
 			break;
@@ -64,7 +64,7 @@ public class MonsterBehaviour : MonoBehaviour {
 				die();
 			}
 			else{
-				BattleManager.deathFinished = true;
+				BattleManager.Instance.deathFinished = true;
 			}
 			/*else{
 				stand ();
@@ -96,7 +96,7 @@ public class MonsterBehaviour : MonoBehaviour {
 		if(!isAttacking){
 			print (thisMonster.name + " attacked to " + enemy.name);
 			thisMonster.basicAttack(enemy);
-			BattleManager.setGUIPlayerInfo(enemy);
+			BattleManager.Instance.setGUIPlayerInfo(enemy);
 			changeAnimationState(animationState.MOVINGBACK);
 		}
 	}
@@ -110,9 +110,9 @@ public class MonsterBehaviour : MonoBehaviour {
 			rigidbody2D.velocity = new Vector2 (movementSpeed, direction.y);
 		}
 		else{
-			BattleManager.changePhase(BattleManager.BattlePhases.DOACTION);
-			BattleManager.attackFinished = true;
-			BattleManager.setGUIPlayerInfo(enemy);
+			BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
+			BattleManager.Instance.attackFinished = true;
+			BattleManager.Instance.setGUIPlayerInfo(enemy);
 			enemy = null;
 			stand();
 		}
@@ -128,12 +128,12 @@ public class MonsterBehaviour : MonoBehaviour {
 		enemy = player;
 		objectivePosition = enemy.body.position;
 
-		if(!BattleManager.attackStarted){
+		if(!BattleManager.Instance.attackStarted){
 			changeAnimationState(animationState.MOVING);
 			initialPosition = rigidbody2D.position;
 		}
 
-		BattleManager.attackStarted = true;
+		BattleManager.Instance.attackStarted = true;
 	}
 
 	public void receiveDamage(){
@@ -172,7 +172,7 @@ public class MonsterBehaviour : MonoBehaviour {
 
 	public void finishDeath(){
 		startDeath = false;
-		BattleManager.finishCurrentAttack();
+		BattleManager.Instance.finishCurrentAttack();
 		animator.enabled = false;
 	}
 	
