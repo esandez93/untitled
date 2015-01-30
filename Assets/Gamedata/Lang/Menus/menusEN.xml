@@ -25,6 +25,11 @@
 	</menu>
 
 	<menu>
+		<menuId>pause_menu_resume</menuId>
+		<text>Resume game</text>
+	</menu>
+
+	<menu>
 		<menuId>battle_menu_attack</menuId>
 		<text>Attack</text>
 	</menu>

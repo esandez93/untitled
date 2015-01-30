@@ -125,7 +125,6 @@ public class Character : MonoBehaviour{
 		if(!this.skills.ContainsKey(id)){
 			skill.levelUp(); // for set it to lv 1
 			this.skills.Add(id, skill);
-			Debug.Log(skill.toString());
 		}
 	}
 
@@ -520,7 +519,7 @@ public class Character : MonoBehaviour{
 				damage = 1;
 			}
 			
-			//MonoBehaviour.print("isCrit: " + isCrit + ", ATK: " + this.atk + ", MonsDEF: " + enemy.def + ", DMG: " + damage);
+			//Debug.Log("isCrit: " + isCrit + ", ATK: " + this.atk + ", MonsDEF: " + enemy.def + ", DMG: " + damage);
 			
 			enemy.receiveDamage(damage);
 		}
@@ -608,12 +607,12 @@ public class Character : MonoBehaviour{
 		if(physic){
 			damage = this.atk * (skill.damage/100);
 			damage -= target.def;
-			MonoBehaviour.print("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
+			Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
 		}
 		else{
 			damage = this.matk * (skill.damage/100);
 			damage -= target.mdef;
-			MonoBehaviour.print("Skill: " + skill.name + ", Modifier: " + modifier + ", MATK: " + this.matk + " * " + skill.damage + "%, MonsMDEF: " + target.mdef + ", DMG: " + (damage*modifier));
+			Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", MATK: " + this.matk + " * " + skill.damage + "%, MonsMDEF: " + target.mdef + ", DMG: " + (damage*modifier));
 		}
 		
 		damage *= modifier;
@@ -624,13 +623,13 @@ public class Character : MonoBehaviour{
 	
 	public void doElementalDamage(float damage, float modifier, string status, Skill skill){
 		switch((int)(modifier*100)){
-		case 0: MonoBehaviour.print("No afecta");
+		case 0: Debug.Log("No afecta");
 			break;
-		case 50: MonoBehaviour.print("No es muy efectivo");
+		case 50: Debug.Log("No es muy efectivo");
 			break;
-		case 100: MonoBehaviour.print("Efecto normal");
+		case 100: Debug.Log("Efecto normal");
 			break;
-		case 200: MonoBehaviour.print("Es muy efectivo");
+		case 200: Debug.Log("Es muy efectivo");
 			break;
 		}
 		
@@ -658,18 +657,6 @@ public class Character : MonoBehaviour{
 	}
 	
 	private void setStatusMessage(string status){
-		/*string message = "El enemigo esta ";
-		
-		switch(status){
-		case AlteredStatus.Name.POISON:
-			message += "envenenado";
-			break;
-		case AlteredStatus.Name.BURN:
-			message += "quemado";
-			break;
-		}
-		
-		message += ".";*/
 		string message = LanguageManager.Instance.getStatus(this.name, status.ToLower());
 		
 		Debug.Log (message);
@@ -753,7 +740,7 @@ public class Character : MonoBehaviour{
 	public void die(){		
 		alive = false;
 		if(BattleManager.Instance.deathFinished){
-			MonoBehaviour.print(this.name + " is dead!");
+			Debug.Log(this.name + " is dead!");
 			BattleManager.Instance.checkIfEnded();
 		}
 		else{

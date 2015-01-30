@@ -25,6 +25,11 @@
 	</menu>
 
 	<menu>
+		<menuId>pause_menu_resume</menuId>
+		<text>Volver al juego</text>
+	</menu>
+
+	<menu>
 		<menuId>battle_menu_attack</menuId>
 		<text>Atacar</text>
 	</menu>

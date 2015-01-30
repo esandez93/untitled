@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\Options.cs" />
      <Compile Include="Assets\Scripts\Buttons\QuitGame.cs" />
+     <Compile Include="Assets\Scripts\Buttons\ResumeGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
      <Compile Include="Assets\Scripts\Buttons\getSkillButtonText.cs" />
      <Compile Include="Assets\Scripts\CheckBorder.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\Scripts\Managers\LanguageManager.cs" />
      <Compile Include="Assets\Scripts\Managers\OptionsManager.cs" />
      <Compile Include="Assets\Scripts\Managers\OptionsMenu.cs" />
+     <Compile Include="Assets\Scripts\Managers\Pause.cs" />
      <Compile Include="Assets\Scripts\Managers\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Managers\Singleton.cs" />
      <Compile Include="Assets\Scripts\Managers\VersionDeserializationBinder.cs" />

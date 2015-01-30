@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"rest",
+				"restoreHP"
+			],
+			[
+				"mana",
+				"reduceMana"
+			],
+			[
+				"rece",
+				"receiveDamage"
+			],
+			[
 				"FindB",
 				"FindGameObjectWithTag"
 			],
@@ -87,15 +99,66 @@
 			"file": "Managers/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 21351,
+				"buffer_size": 21546,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Gamestate.cs",
+			"file": "Managers/Singleton.cs",
 			"settings":
 			{
-				"buffer_size": 6446,
+				"buffer_size": 4305,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "using UnityEngine;\nusing System.Collections;\nusing System.Collections.Generic;\n\n[System.Serializable] \npublic class Inventory{\n\n	public static string EMPTY = \"battle_menu_items_empty\";\n	public static int MAX_ITEMS = 99;\n	public Dictionary<string, Item> objects;\n	public float money;\n\n	public Inventory (){\n		objects = new Dictionary<string, Item>();\n	}\n\n	public bool isItemInInventory(string itemName){\n		return this.objects.ContainsKey(itemName);\n	}\n	\n	public void addItem(string itemName, int newQuantity){\n		if (isItemInInventory(itemName)){\n			if((this.objects[itemName].quantity + newQuantity) <= MAX_ITEMS){\n				this.objects[itemName].quantity += newQuantity;\n				//Debug.Log (\"Added \" + quantity + \" Potions.\");\n			}\n			else{\n				this.objects[itemName].quantity = MAX_ITEMS;\n			}\n		}\n		else{\n			Item item = getItem(itemName);\n			item.quantity = newQuantity;\n			this.objects.Add(itemName, item);\n		}		\n	}\n	\n	public void removeItem(string itemName, int quantity){\n		//int inventorySize = this.objects.Count;		\n		if (isItemInInventory(itemName)){\n			Item item = this.objects[itemName];\n			if(item.quantity >= quantity){\n				item.quantity -= quantity;\n\n				if(item.quantity == 0){\n					this.objects.Remove(itemName);\n					Debug.Log (itemName + \" REMOVED FROM INVENTORY\");\n				}\n			}\n			else{\n				this.objects.Remove(itemName);\n				Debug.Log (itemName + \" REMOVED FROM INVENTORY\");\n			}\n\n			//Singleton.Instance.cleanItems();\n		}\n		else{\n			Debug.Log(\"Item \" + itemName + \" doesn't exist in inventory.\");\n		}\n	}\n	\n	/*public int count(){\n		int i = 0;\n		foreach(KeyValuePair<string, int> entry in this.objects){\n			i += entry.Value;\n		}\n		\n		return i;\n	}*/\n\n	public void useItem(string itemName, Character target){\n		if(this.isItemInInventory(itemName)){\n			Item item = objects[itemName];\n			if(item.type.Equals(Item.Properties.USABLE)){\n				target.increaseStat(item.statAffected, item.quantityAffected);\n				this.removeItem(itemName, 1);\n				BattleManager.Instance.finishCurrentAttack();\n			}\n		}\n		else{\n			BattleManager.Instance.backToStart();\n		}\n	}\n\n	public List<Item> getItems(){\n		List<Item> items = new List<Item>();\n\n		foreach(KeyValuePair<string,Item> entry in objects){\n			items.Add(entry.Value);\n		}\n\n		return items;\n	}\n\n	public List<Item> getUsableItems(){\n		List<Item> items = new List<Item>();\n		\n		foreach(KeyValuePair<string,Item> entry in objects){\n			if(entry.Value.isUsable()){\n				items.Add(entry.Value);\n			}\n		}\n		\n		return items;\n	}\n\n	public Item getItem(string name){\n		return Singleton.Instance.allItems[name];\n	}\n\n	public void addMoney(float quantity){\n		money += quantity;\n	}\n\n	// If the money is enough to spend it, return true\n	public bool spendMoney(float quantity){\n		if(money >= quantity){\n			money -= quantity;\n\n			return true;\n		}\n		else{\n			return false;\n		}\n	}\n}\n\n",
+			"file": "Objects/Inventory.cs",
+			"file_size": 2948,
+			"file_write_time": 130669600931060789,
+			"settings":
+			{
+				"buffer_size": 2801,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Objects/Characters/Monster.cs",
+			"settings":
+			{
+				"buffer_size": 2672,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Objects/Characters/Character.cs",
+			"settings":
+			{
+				"buffer_size": 20744,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Objects/PlayerData.cs",
+			"settings":
+			{
+				"buffer_size": 2584,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Buttons/DisplaySkills.cs",
+			"settings":
+			{
+				"buffer_size": 2567,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Buttons/DisplayItems.cs",
+			"settings":
+			{
+				"buffer_size": 2834,
 				"line_ending": "Windows"
 			}
 		}
@@ -166,8 +229,13 @@
 	],
 	"file_history":
 	[
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleData.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/MonsterBehaviour.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Item.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/MonsterInfo.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Player.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Mage.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Gamestate.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleData.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Character.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Monster.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Inventory.cs",
@@ -175,7 +243,6 @@
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleEncounterManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/MapInfo.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/NewGame.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Player.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/PlayerData.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusEN.xml",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/LanguageManager.cs",
@@ -187,7 +254,6 @@
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/Singleton.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/FileManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusES.xml",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Gamestate.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/OptionsManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Movement/MagicMovement.cs",
@@ -198,7 +264,6 @@
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Skills por lv.csv",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/SkillInfo.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/FileManager.cs.meta",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Mage.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/ContinueGame.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/DisplayItems.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/ManagerInitializer.cs",
@@ -216,16 +281,23 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"MonoBehaviour.print",
+			"cleanItems",
+			"BattleManager.Instance.",
+			"currentPlayer =",
+			"int",
+			"currentPlayer",
 			"Gamestate.instance",
 			"Gamestate",
 			"BattleManager.Instance.BattlePhases",
@@ -253,6 +325,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Debug.Log",
+			"instance.",
+			"instance",
 			"gamestate",
 			"BattleManager.BattlePhases",
 			"BattleManager.Instance",
@@ -274,7 +349,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -283,15 +358,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21351,
+						"buffer_size": 21546,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4453,
-								4453
+								19502,
+								19502
 							]
 						],
 						"settings":
@@ -300,27 +375,173 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1621.0,
+						"translation.y": 10261.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Managers/Singleton.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4305,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3696,
+								3696
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1321.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Objects/Inventory.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2801,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1856,
+								1856
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 693.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Objects/Characters/Monster.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2672,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1617,
+								1617
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 586.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Objects/Characters/Character.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20744,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14562,
+								14562
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 9594.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "Gamestate.cs",
+					"buffer": 5,
+					"file": "Objects/PlayerData.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6446,
+						"buffer_size": 2584,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6042,
-								6042
+								115,
+								115
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 1125.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Buttons/DisplaySkills.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2567,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								784,
+								784
 							]
 						],
 						"settings":
@@ -329,10 +550,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 135.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Buttons/DisplayItems.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2834,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								520,
+								520
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

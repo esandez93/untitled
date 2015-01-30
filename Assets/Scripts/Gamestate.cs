@@ -19,6 +19,8 @@ public class Gamestate : MonoBehaviour {
 	public List<Player> players;
 	public List<PlayerData> playersData;
 
+	private bool pausable;
+
 	void OnGUI() {
 		if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
 			Mage mage = findPlayer("Mage").GetComponent<Mage>();
@@ -222,7 +224,9 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level) {
+		pausable = false;
 		if (isPlatform(level)){ // platform levels
+			pausable = true;
 			destroyBattleManager();
 			if(arePlayersOnLevel()){
 				foreach(PlayerData data in playersData){
@@ -243,12 +247,16 @@ public class Gamestate : MonoBehaviour {
 		}
 	}
 
-	private bool isPlatform(int level){
+	private bool isPlatform(int level){		
 		return level == 1;
 	}
 
 	private bool isBattle(int level){
 		return level == 2;
+	}
+
+	public bool isPausable(){
+		return pausable;
 	}
 
 	private void destroyBattleManager(){

@@ -14,8 +14,11 @@ public class OptionsManager : MonoBehaviour{
 	private string currWidth = "1680";
 	private string currHeight = "1050";
 	public string language;// = "EN";
+	public string difficulty;
 
 	public bool initialized = false;
+
+	private bool difficultyChanged = false;
 	
 	public static OptionsManager Instance { 
 		get { 
@@ -78,6 +81,9 @@ public class OptionsManager : MonoBehaviour{
 			else if(command.Equals("Language")){
 				language = value;
 			}
+			else if(command.Equals("Difficulty")){
+				difficulty = value;
+			}
 		}
 	}
 
@@ -98,6 +104,11 @@ public class OptionsManager : MonoBehaviour{
 		if(Application.loadedLevelName.Equals("MainMenu")){
 			LanguageManager.Instance.translateButtons();
 		}
+
+		if(!difficultyChanged){
+			Singleton.Instance.applyDifficulty(difficulty);
+			difficultyChanged = true;
+		}		
 	}
 
 	public bool compareResolution(){

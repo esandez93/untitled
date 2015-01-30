@@ -696,7 +696,7 @@ public class BattleManager : MonoBehaviour {
 					attackFinished = true;
 				}
 
-				if(currentObjective != null && !attackObjective && Input.GetKeyDown(KeyCode.Escape)){
+				if(currentObjective != null && !attackObjective && Input.GetButtonDown("Cancel")){
 					changePhase(BattlePhases.CHOSEACTION);
 					cleanVariables(currentCharacter);
 				}
@@ -704,7 +704,7 @@ public class BattleManager : MonoBehaviour {
 				if(currentObjective != null && !attackObjective){
 					setGUIMonsterInfo((Monster)currentObjective);
 				}
-				else if(currentObjective != null && !attackObjective && Input.GetKeyDown(KeyCode.Return)){
+				else if(currentObjective != null && !attackObjective && Input.GetButtonDown("Submit")){
 					if(basicAttack && !attackStarted){
 						currentPlayer.basicAttack(currentObjective);	
 					}

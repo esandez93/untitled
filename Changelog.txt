@@ -194,9 +194,24 @@
 24/01/2015 - 26/01/2015
 - Arreglo de bugs al cargar partidas guardadas en otro idioma.
 - Arreglado un bug que impedía leer el idioma del fichero de configuración.
-	
+
+27/01/2015
+- Cambiado todo el funcionamiento de BattleManager. Ahora es instanciable (a través de getInstance()). Se crea al empezar una batalla y se destruye después.
+- Arreglados unos bugs menores con los menús desplegables, donde hacían falta 2 clicks para desplegarlos, en vez de uno.
+
+28/01/2015
+- Implementación del menú de pausa.
+- Implementación de dificultad del juego:
+	+ Fácil: Los enemigos hacen un 25% menos de daño y tú un 25% más.
+	+ Normal: Tanto tú como los enemigos hacéis el daño normal.
+	+ Difícil: Los enemigos hacen 25% más de daño y tú un 25% menos.
+
 TO DO:
 - Acabar de implementar skills
 - Implementar creación de objetos
+- Acabar los menús
+- Acabar la dificultad
 
 DIFICULTADES:
+- Hacerse a la idea del funcionamiento de un juego, pensar que está en constante iteración y que debes programar en consecuencia. No puedes hacer un bucle while, por ejemplo.
+- Todo el tema de tratar interfaz via código al principio se hizo complicado.

@@ -22,7 +22,7 @@ public class CommonMovementPlatform : MonoBehaviour
 	void FixedUpdate () {
 		isGrounded = GroundHitCheck.isGrounded;	
 		
-		float move = Input.GetAxis ("Horizontal");
+		float move = Input.GetAxis("Horizontal");
 
 		rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);	
 
@@ -34,7 +34,7 @@ public class CommonMovementPlatform : MonoBehaviour
 	}
 	
 	void Update(){
-		if(isGrounded && Input.GetKeyDown (KeyCode.Space)){
+		if(isGrounded && Input.GetButtonDown("Jump")){
 			rigidbody2D.AddForce (new Vector2(0,jumpForce));
 		}		
 	}

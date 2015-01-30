@@ -41,7 +41,6 @@ public class Singleton : MonoBehaviour {
 				instance.initialize();
 				DontDestroyOnLoad(instance.gameObject);
 			}
-
 				
 			return instance;
 		}
@@ -123,9 +122,12 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 
+	public void applyDifficulty(string difficulty){
+
+	}
+
 	public void cleanItems(){
 		Destroy (GameObject.Find("ItemButton(Clone)"));
-		//DisplayItems.repopulate();
 	}
 
 	public class Element{

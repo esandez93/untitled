@@ -22,7 +22,7 @@ public class Inventory{
 		if (isItemInInventory(itemName)){
 			if((this.objects[itemName].quantity + newQuantity) <= MAX_ITEMS){
 				this.objects[itemName].quantity += newQuantity;
-				//MonoBehaviour.print ("Added " + quantity + " Potions.");
+				//Debug.Log ("Added " + quantity + " Potions.");
 			}
 			else{
 				this.objects[itemName].quantity = MAX_ITEMS;
@@ -55,7 +55,7 @@ public class Inventory{
 			//Singleton.Instance.cleanItems();
 		}
 		else{
-			MonoBehaviour.print("Item " + itemName + " doesn't exist in inventory.");
+			Debug.Log("Item " + itemName + " doesn't exist in inventory.");
 		}
 	}
 	

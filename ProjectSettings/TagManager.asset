@@ -30,6 +30,9 @@ TagManager:
   - OptionsManager
   - Button
   - BattleCanvas
+  - PauseCanvas
+  - PauseBackground
+  - PauseMenu
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
