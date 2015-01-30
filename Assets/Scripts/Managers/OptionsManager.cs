@@ -103,16 +103,15 @@ public class OptionsManager : MonoBehaviour{
 
 		if(Application.loadedLevelName.Equals("MainMenu")){
 			LanguageManager.Instance.translateButtons();
-		}
-
-		if(!difficultyChanged){
-			Singleton.Instance.applyDifficulty(difficulty);
-			difficultyChanged = true;
 		}		
 	}
 
 	public bool compareResolution(){
 		return (displayWidth.Equals(currWidth) && displayHeight.Equals(currHeight));
+	}
+
+	public string getDifficulty(){
+		return difficulty;
 	}
 
 	// called when the application quits 
@@ -123,5 +122,11 @@ public class OptionsManager : MonoBehaviour{
 	// destroys the file manager instance 
 	public void destroyInstance() { 
 		instance = null; 
+	}
+
+	public class Difficulty{
+		public const string EASY = "Easy";
+		public const string NORMAL = "Normal";
+		public const string HARD = "Hard";
 	}
 }

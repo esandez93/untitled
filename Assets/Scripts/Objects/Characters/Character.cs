@@ -7,6 +7,7 @@ public class Character : MonoBehaviour{
 
 	public bool attackFinished;
 	public static int PERCENT_DAMAGE_VARIATION = 20;
+	public static float DIFFICULTY_DAMAGE_VARIATION = 0.25f;
 
 	public Rigidbody2D body;
 
@@ -678,6 +679,8 @@ public class Character : MonoBehaviour{
 				damage /= 2;
 			}
 
+			damage = applyDifficultyDamage(damage, OptionsManager.Instance.getDifficulty());
+
 			this.currHP -= damage;
 			
 			if(this.currHP <= 0){
@@ -702,6 +705,40 @@ public class Character : MonoBehaviour{
 		if((alive && BattleManager.Instance.attackFinished)|| (!alive && BattleManager.Instance.deathFinished)){
 			BattleManager.Instance.finishCurrentAttack();
 		}
+	}
+
+	private float applyDifficultyDamage(float damage, string difficulty){
+		float newDamage = 0;
+
+		if(difficulty.Equals(OptionsManager.Difficulty.EASY)){
+			if(this.isPlayer()){
+				newDamage = damage - (damage * DIFFICULTY_DAMAGE_VARIATION); // total - 25%
+			}
+			else{
+				newDamage = damage + (damage * DIFFICULTY_DAMAGE_VARIATION); // total + 25%
+			}
+
+			return newDamage;
+		}
+		else if(difficulty.Equals(OptionsManager.Difficulty.NORMAL)){
+			return newDamage;
+		}
+		else if(difficulty.Equals(OptionsManager.Difficulty.HARD)){
+			if(this.isPlayer()){
+				newDamage = damage + (damage * DIFFICULTY_DAMAGE_VARIATION); // total + 25%
+			}
+			else{
+				newDamage = damage - (damage * DIFFICULTY_DAMAGE_VARIATION); // total - 25%
+			}
+
+			return newDamage;
+		}
+		else{
+			Debug.Log("Using not defined difficulty.")
+			return null;
+		}
+
+		return newDamage;
 	}
 
 	public void reduceMana(float damage){

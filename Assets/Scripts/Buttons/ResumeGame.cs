@@ -1,13 +1,9 @@
-using UnityEngine;
+	using UnityEngine;
 using System.Collections;
 
 public class ResumeGame : MonoBehaviour{
 
 	private bool active = false;
-
-	void Start (){
-		
-	}
 
 	void Update(){
 		if(active){

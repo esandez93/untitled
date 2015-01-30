@@ -122,10 +122,6 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 
-	public void applyDifficulty(string difficulty){
-
-	}
-
 	public void cleanItems(){
 		Destroy (GameObject.Find("ItemButton(Clone)"));
 	}
