@@ -514,13 +514,13 @@ public class BattleManager : MonoBehaviour {
 
 	public bool changePhase(BattlePhases battlePhase){
 		if(currentPhase != battlePhase){
-			if(checkPhase(battlePhase)){
+			//if(checkPhase(battlePhase)){
 				currentPhase = battlePhase;
 				
 				Debug.Log ("Phase: " + currentPhase);
 
 				return true;
-			}
+			//}
 		}
 
 		return false;

@@ -236,6 +236,10 @@ public class Player : Character{
 		GetComponent<PlayerBehaviour>().basicAttack(objective);
 	}
 
+	public void doSkill(Character objective, string skillName){
+		GetComponent<PlayerBehaviour>().skill(objective, skillName);
+	}
+
 	/*public void doAction(int action, Player objective){
 		BattleManager.Instance.damageReceived = false;
 

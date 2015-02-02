@@ -13,6 +13,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	Rigidbody2D rigidBody;
 	Vector2 initialPosition;
 	Vector2 objectivePosition;
+	public string skillName;
 
 	public animationState currentAnimationState;
 
@@ -36,7 +37,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	void FixedUpdate () {		
 		//if(enemy != null){
-		if(BattleManager.Instance.isPlayerTurn()){
+		//if(BattleManager.Instance.isPlayerTurn()){
 			switch(currentAnimationState){
 				case animationState.STANDING:
 					stand();
@@ -72,7 +73,7 @@ public class PlayerBehaviour : MonoBehaviour {
 					}*/
 					break;
 			}
-		}			
+		//}			
 		
 		//}
 	}
@@ -104,6 +105,10 @@ public class PlayerBehaviour : MonoBehaviour {
 		}
 	}
 
+	private void skill(){
+		skill(false);
+	}
+
 	private void backToPosition(){
 		if(transform.position.x > initialPosition.x){
 			animator.SetInteger("AnimationState", Animations.MOVE_BACK);
@@ -128,9 +133,21 @@ public class PlayerBehaviour : MonoBehaviour {
 		animator.SetInteger("AnimationState", Animations.STAND);
 	}
 
-	public void basicAttack(Character player){
-		enemy = player;
+	public void basicAttack(Character objective){
+		enemy = objective;
 		objectivePosition = enemy.body.position;
+		if(!BattleManager.Instance.attackStarted){
+			changeAnimationState(animationState.MOVING);
+			initialPosition = rigidbody2D.position;
+		}
+
+		BattleManager.Instance.attackStarted = true;
+	}
+
+	private void skill(Character objective, string skillName, bool moving){
+		this.enemy = objective;
+		this.skillName = skillName;
+		this.objectivePosition = enemy.body.position;
 		if(!BattleManager.Instance.attackStarted){
 			changeAnimationState(animationState.MOVING);
 			initialPosition = rigidbody2D.position;

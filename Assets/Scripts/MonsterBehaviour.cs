@@ -17,7 +17,7 @@ public class MonsterBehaviour : MonoBehaviour {
 	public animationState currentAnimationState;
 
 	public enum animationState{
-		MOVING, ATTACKING, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING
+		MOVING, ATTACKING, SKILL, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING
 	}
 
 	public bool isAttacking = false;
@@ -46,6 +46,8 @@ public class MonsterBehaviour : MonoBehaviour {
 		case animationState.ATTACKING:
 			attack();
 			break;
+		case animationState.SKILL:
+			break;		
 		case animationState.MOVINGBACK: 
 			backToPosition();
 			break;
