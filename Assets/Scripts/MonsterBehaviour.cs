@@ -35,7 +35,7 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 
 	void FixedUpdate () {		
-		//if(enemy != null){			
+		//if(enemy != null){	
 		switch(currentAnimationState){
 		case animationState.STANDING:
 			stand();
@@ -151,7 +151,10 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 
 	private void changeAnimationState(animationState state){
-		currentAnimationState = state;
+		if(currentAnimationState != state){
+			Debug.Log("Changing state - Previous: " + currentAnimationState + ", actual: " + state);
+			currentAnimationState = state;
+		}		
 	}
 
 	public void attackFinished(){
