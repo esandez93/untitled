@@ -232,6 +232,25 @@ public class Player : Character{
 		return playerSkills;
 	}
 	
+	public void doBasicAttack(Character objective){
+		GetComponent<PlayerBehaviour>().basicAttack(objective);
+	}
+
+	/*public void doAction(int action, Player objective){
+		BattleManager.Instance.damageReceived = false;
+
+		switch(action){
+			case Character.Actions.BASIC_ATTACK:
+				GetComponent<PlayerBehaviour>().basicAttack(objective);
+				break;
+			case Character.Actions.Skill:
+				GetComponent<PlayerBehaviour>().skill(objective);
+				break;
+
+
+		}
+	}*/
+
 	public class Job{		
 		public const int MAGE = 0;
 		public const int ROGUE = 1;

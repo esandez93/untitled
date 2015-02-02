@@ -129,12 +129,6 @@ public class Character : MonoBehaviour{
 		}
 	}
 
-	/*private void checkIfStatIsAffected(string stat){
-		if(this.){
-
-		}
-	}
-*/
 	public float reduceStat(string stat, float quantity){
 		switch (stat){
 			case StatName.MAXHP:
@@ -696,7 +690,11 @@ public class Character : MonoBehaviour{
 		if(!this.isPlayer()){
 			gameObject.GetComponent<MonsterBehaviour>().damageStarted();
 			gameObject.GetComponent<MonsterBehaviour>().receiveDamage();
-		}		
+		}
+		else{
+			gameObject.GetComponent<PlayerBehaviour>().damageStarted();
+			gameObject.GetComponent<PlayerBehaviour>().receiveDamage();
+		}
 		
 		if(!alive){
 			this.die();
@@ -734,8 +732,8 @@ public class Character : MonoBehaviour{
 			return newDamage;
 		}
 		else{
-			Debug.Log("Using not defined difficulty.")
-			return null;
+			Debug.Log("Using not defined difficulty.");
+			
 		}
 
 		return newDamage;
@@ -770,7 +768,7 @@ public class Character : MonoBehaviour{
 			BattleManager.Instance.setGUIPlayerInfo((Player)this);
 		}
 		else{
-			BattleManager.Instance.setGUIMonsterInfo((Monster)this);
+			BattleManager.Instance.setGUIEnemyInfo((Monster)this);
 		}
 	}
 	
@@ -863,25 +861,21 @@ public class Character : MonoBehaviour{
 	}
 
 	private void detectClick(){
-		if(!bIsPlayer){
+		//if(!this.isPlayer()){
 			Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			
 			if(collider2D.OverlapPoint(mousePosition)){				
-				if (BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
-					//if(BattleManager.Instance.skill){
-						//Monster monster = (Monster)this;
-						
-						if(clickedObjective != null && clickedObjective == this){
-							BattleManager.Instance.attackObjective = true;
-						}
-						else{
-							clickedObjective = this;						
-							BattleManager.Instance.currentObjective = clickedObjective;
-						}
-					//}
+				if (BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){						
+					if(clickedObjective != null && clickedObjective == this){
+						BattleManager.Instance.attackObjective = true;
+					}
+					else{
+						clickedObjective = this;						
+						BattleManager.Instance.currentObjective = clickedObjective;
+					}
 				}			
 			}
-		}
+		//}
 	}
 
 	public void cleanVariables(){
@@ -895,7 +889,7 @@ public class Character : MonoBehaviour{
 			BattleManager.Instance.setGUIPlayerInfo((Player)this);
 		}
 		else{
-			BattleManager.Instance.setGUIMonsterInfo((Monster)this);
+			BattleManager.Instance.setGUIEnemyInfo((Monster)this);
 		}
 	}
 

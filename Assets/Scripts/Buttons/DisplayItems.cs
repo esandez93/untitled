@@ -8,8 +8,8 @@ public class DisplayItems : MonoBehaviour {
 	public static string DEFAULT_ITEM_TEXT = "Item";
 	public static int ALLOCATE_HEIGHT = 15;
 	
-	public List<GameObject> itemButtons;
-	public bool finished = false;
+	public static List<GameObject> itemButtons;
+	public static bool finished = false;
 	
 	public BattleManager bm;
 
@@ -109,7 +109,7 @@ public class DisplayItems : MonoBehaviour {
 		numInactives = 0;
 	}
 
-	public void repopulate(){
+	public static void repopulate(){
 		finished = false;
 		itemButtons.Clear();
 	}

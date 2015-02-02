@@ -52,7 +52,7 @@ public class Inventory{
 				Debug.Log (itemName + " REMOVED FROM INVENTORY");
 			}
 
-			//Singleton.Instance.cleanItems();
+			Singleton.Instance.cleanItems();
 		}
 		else{
 			Debug.Log("Item " + itemName + " doesn't exist in inventory.");

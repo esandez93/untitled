@@ -940,6 +940,7 @@ GameObject:
   - 95: {fileID: 322833251}
   - 61: {fileID: 322833249}
   - 114: {fileID: 322833248}
+  - 114: {fileID: 322833254}
   m_Layer: 11
   m_Name: Mage
   m_TagString: Mage
@@ -1033,9 +1034,9 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 322833247}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2e4d908e85dc99441be3d569b65c2646, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1a0f8ce7efefe6a46aa0b657d24dccd5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1068,6 +1069,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &322833254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322833247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aaf602b5e0534445b5b90178d9c70e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 10
+  isTurn: 0
+  action: 0
+  objective: {fileID: 0}
+  currentAnimationState: 0
+  isAttacking: 0
+  startReceivingDamage: 0
+  startDeath: 0
 --- !u!1 &331172430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,8 +4219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9f3d7d38b4a274e9e8038a65aeb6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemButtons: []
-  finished: 0
   bm: {fileID: 0}
   items: []
   parentPosition: {x: 0, y: 0}

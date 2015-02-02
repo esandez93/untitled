@@ -192,16 +192,21 @@ public class BattleManager : MonoBehaviour {
 			}
 
 			if(currentObjective == null){				
-				hideGUIMonsterInfo();
+				hideGUIEnemyInfo();
 			}
 			else{
-				setGUIMonsterInfo((Monster)currentObjective);
+				if(currentObjective.isPlayer()){
+					setGUIPlayerInfo((Player)currentObjective);
+				}
+				else{
+					setGUIEnemyInfo((Monster)currentObjective);
+				}				
 			}
 
 			break;
 		case BattleStates.ENEMYTURN:
 			currentMonster = (Monster)currentCharacter;
-			setGUIMonsterInfo(currentMonster);
+			setGUIEnemyInfo(currentMonster);
 			if(currentPhase == BattlePhases.AFFECT){
 				currentMonster.startTurn();
 				hideGUIPlayerInfo();
@@ -315,7 +320,7 @@ public class BattleManager : MonoBehaviour {
 		if(currentCharacter.isAlive()){
 			if(!ended){
 				if(currentCharacter.isPlayer()){
-					hideGUIMonsterInfo();
+					hideGUIEnemyInfo();
 					playerTurn = true;
 					currentMonster = null;
 					currentPlayer = (Player) currentCharacter;
@@ -342,48 +347,31 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public void setGUIPlayerInfo(Player player){
-		string job;
-
-		switch(player.job){
-		case Player.Job.MAGE:
-			job = "Mage";
-			break;
-		case Player.Job.KNIGHT: 
-			job = "Knight";
-			break;
-		case Player.Job.ROGUE: 
-			job = "Rogue";
-			break;
-		default:
-			job = "Default";
-			break;
-		}
-
-		playerPortraitGUI.sprite = Resources.Load <Sprite> ("Portraits/" + job + "Portrait");
+	public void setGUIPlayerInfo(Character player){
+		playerPortraitGUI.sprite = Resources.Load <Sprite> ("Portraits/" + player.name + "Portrait");
 		playerNameGUI.text = player.name;
 		playerLevelGUI.text = "Lv " + player.level.ToString();
 		playerHealthGUI.fillAmount = (player.currHP / player.maxHP);
 		playerManaGUI.fillAmount = (player.currMP / player.maxMP);
-		playerExpGUI.fillAmount = (player.exp / player.expForNextLevel);
+		//playerExpGUI.fillAmount = (player.exp / player.expForNextLevel);
 
 		playerBackgroundGUI.fillAmount = 1;
 		playerHealthFrameGUI.fillAmount = 1;
 		playerManaFrameGUI.fillAmount = 1;
-		playerExpFrameGUI.fillAmount = 1;
+		//playerExpFrameGUI.fillAmount = 1;
 		playerPortraitGUI.fillAmount = 1;
 
 		playerHealthTextGUI.text = "HP";
 		playerManaTextGUI.text = "MP";
-		playerExpTextGUI.text = "EXP";
+		//playerExpTextGUI.text = "EXP";
 	}
 
-	public void setGUIMonsterInfo(Monster monster){
-		enemyPortraitGUI.sprite = Resources.Load <Sprite> ("Portraits/" + monster.name + "Portrait");
-		enemyNameGUI.text = monster.name;
-		enemyLevelGUI.text = "Lv " + monster.level.ToString();
-		enemyHealthGUI.fillAmount = (monster.currHP / monster.maxHP);
-		enemyManaGUI.fillAmount = (monster.currMP / monster.maxMP);
+	public void setGUIEnemyInfo(Character enemy){//Monster monster){
+		enemyPortraitGUI.sprite = Resources.Load <Sprite> ("Portraits/" + enemy.name + "Portrait");
+		enemyNameGUI.text = enemy.name;
+		enemyLevelGUI.text = "Lv " + enemy.level.ToString();
+		enemyHealthGUI.fillAmount = (enemy.currHP / enemy.maxHP);
+		enemyManaGUI.fillAmount = (enemy.currMP / enemy.maxMP);
 
 		enemyBackgroundGUI.fillAmount = 1;
 		enemyHealthFrameGUI.fillAmount = 1;
@@ -408,7 +396,7 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public void hideGUIMonsterInfo(){
+	public void hideGUIEnemyInfo(){
 		GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("EnemyData"); 
 
 		foreach(GameObject gameObject in gameObjects){
@@ -421,6 +409,12 @@ public class BattleManager : MonoBehaviour {
 			}
 		}
 	}
+
+	/*public void hideGUIObjectiveInfo(){
+		if(){
+
+		}
+	}*/
 
 	public bool isPlayerTurn(){
 		if(currentPlayer != null){
@@ -567,7 +561,7 @@ public class BattleManager : MonoBehaviour {
 		}
 		else if(go.tag.Equals("Mage")){
 			go.GetComponent<Mage>().enabled = true;
-			go.GetComponent<Animator>().enabled = false; // DEBUG
+			go.GetComponent<Animator>().enabled = true; // DEBUG
 		}
 		else if(go.tag.Equals("Knight")){
 			go.GetComponent<Knight>().enabled = true;
@@ -690,7 +684,7 @@ public class BattleManager : MonoBehaviour {
 
 	public void battleListener(){
 		if(!ended){
-			if(showPlayerCommandsGUI){ // COMANDS
+			if(isPlayerTurn()){ // COMANDS
 				if(defend){
 					currentPlayer.defend();
 					attackFinished = true;
@@ -702,11 +696,17 @@ public class BattleManager : MonoBehaviour {
 				}
 
 				if(currentObjective != null && !attackObjective){
-					setGUIMonsterInfo((Monster)currentObjective);
+					if(currentObjective.isPlayer()){
+						setGUIPlayerInfo((Player)currentObjective);
+					}
+					else{
+						setGUIEnemyInfo((Monster)currentObjective);
+					}
 				}
 				else if(currentObjective != null && !attackObjective && Input.GetButtonDown("Submit")){
 					if(basicAttack && !attackStarted){
-						currentPlayer.basicAttack(currentObjective);	
+						//currentPlayer.basicAttack(currentObjective);	
+						currentPlayer.doBasicAttack(currentObjective);	
 					}
 					else if(skill && !attackStarted){
 						currentPlayer.useSkill(skillName, currentObjective);
@@ -714,12 +714,18 @@ public class BattleManager : MonoBehaviour {
 					else if(item && !attackStarted){
 						currentPlayer.useItem(itemName, currentObjective);
 					}
-					setGUIMonsterInfo((Monster)currentObjective);
+
+					if(currentObjective.isPlayer()){
+						setGUIPlayerInfo((Player)currentObjective);
+					}
+					else{
+						setGUIEnemyInfo((Monster)currentObjective);
+					}
 				}
 				else if(currentObjective != null && attackObjective){
-					//Debug.Log ("ITEM: " + item + ", ATTACKSTARTED: " + attackStarted + ", ITEMNAME: " + itemName + ", CURRENTOBJECTIVE: " + currentObjective.name);
 					if(basicAttack && !attackStarted){
-						currentPlayer.basicAttack(currentObjective);	
+						//currentPlayer.basicAttack(currentObjective);	
+						currentPlayer.doBasicAttack(currentObjective);	
 					}
 					else if(skill && !attackStarted){
 						currentPlayer.useSkill(skillName, currentObjective);
@@ -727,8 +733,14 @@ public class BattleManager : MonoBehaviour {
 					else if(item && !attackStarted){
 						currentPlayer.useItem(itemName, currentObjective);
 					}
-					setGUIMonsterInfo((Monster)currentObjective);
-				} 			
+
+					if(currentObjective.isPlayer()){
+						setGUIPlayerInfo((Player)currentObjective);
+					}
+					else{
+						setGUIEnemyInfo((Monster)currentObjective);
+					}
+				}		
 				
 				if(attackFinished){
 					changePhase(BattlePhases.DOACTION);
@@ -744,7 +756,7 @@ public class BattleManager : MonoBehaviour {
 
 	public void backToStart(){
 		instance.playerObjective = null;
-		instance.hideGUIMonsterInfo();
+		instance.hideGUIEnemyInfo();
 		instance.attackObjective = false;
 		instance.attackFinished = false;
 		instance.attackStarted = false;
@@ -762,7 +774,7 @@ public class BattleManager : MonoBehaviour {
 
 	private void initializeVariables(){
 		instance.playerObjective = null;
-		instance.hideGUIMonsterInfo();
+		instance.hideGUIEnemyInfo();
 		instance.attackObjective = false;
 		instance.attackFinished = false;
 		instance.attackStarted = false;

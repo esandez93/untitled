@@ -229,21 +229,35 @@ public class Gamestate : MonoBehaviour {
 			pausable = true;
 			destroyBattleManager();
 			if(arePlayersOnLevel()){
+				GameObject player;
 				foreach(PlayerData data in playersData){
-					findPlayer(data.characterName).GetComponent<Player>().populate(data);
-					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
-					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
-					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball");
-					findPlayer(data.characterName).GetComponent<Player>().addSkill("skill_name_fireball"); // DEBUG
+					player = findPlayer(data.characterName);
+
+					player.GetComponent<Player>().populate(data);
+					player.GetComponent<Player>().addSkill("skill_name_fireball");
+					player.GetComponent<Player>().addSkill("skill_name_fireball");
+					player.GetComponent<Player>().addSkill("skill_name_fireball");
+					player.GetComponent<Player>().addSkill("skill_name_fireball"); // DEBUG
+					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
 				}
 
 				if(!positionIsDefault()){
+					findPlayer("Mage").GetComponent<PlayerBehaviour>().enabled = false;
 					findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
 				}
 			}
 		}
 		else if(isBattle(level)){
 			BattleManager bm = BattleManager.Instance;
+
+			if(arePlayersOnLevel()){
+				GameObject player;
+				foreach(PlayerData data in playersData){
+					player = findPlayer(data.characterName);
+					player.GetComponent<PlayerBehaviour>().enabled = true;
+					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Battle");
+				}
+			}
 		}
 	}
 

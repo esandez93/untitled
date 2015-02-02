@@ -96,6 +96,7 @@
      <Compile Include="Assets\Scripts\Objects\SaveData.cs" />
      <Compile Include="Assets\Scripts\Objects\Skill.cs" />
      <Compile Include="Assets\Scripts\Objects\SkillInfo.cs" />
+     <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
      <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />
      <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesEN.xml" />
      <None Include="Assets\Gamedata\Xml\alteredStats.xml" />

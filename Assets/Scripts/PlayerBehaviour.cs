@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MonsterBehaviour : MonoBehaviour {
+public class PlayerBehaviour : MonoBehaviour {
 
 	public float movementSpeed = 10f;
 	Animator animator;
 	public bool isTurn = false;
-	Monster thisMonster;
+	Player thisPlayer;
 	Character enemy;
 	public int action;
 	public Character objective;
@@ -25,7 +25,7 @@ public class MonsterBehaviour : MonoBehaviour {
 	public bool startDeath = false;
 
 	void Start () {
-		thisMonster = GetComponent<Monster>();
+		thisPlayer = GetComponent<Player>();
 
 		animator = GetComponent<Animator>();
 		rigidBody = GetComponent<Rigidbody2D>();
@@ -75,12 +75,12 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 	
 	private void goToObjective(){		
-		if(transform.position.x > (objectivePosition.x + 3)){
+		if(transform.position.x < (objectivePosition.x -3)){
 			animator.SetInteger("AnimationState", Animations.MOVE);
 			changeAnimationState(animationState.MOVING);
 
 			Vector2 direction = objectivePosition - (Vector2)transform.position;
-			rigidbody2D.velocity = new Vector2 (-movementSpeed, direction.y);
+			rigidbody2D.velocity = new Vector2 (+movementSpeed, direction.y);
 		}
 		else{
 			rigidbody2D.velocity = new Vector2 (0,0);
@@ -93,21 +93,21 @@ public class MonsterBehaviour : MonoBehaviour {
 		if(isAttacking){
 			animator.SetInteger("AnimationState", Animations.ATTACK);
 		}
-		if(!isAttacking){
-			print (thisMonster.name + " attacked to " + enemy.name);
-			thisMonster.basicAttack(enemy);
+		else{
+			Debug.Log(thisPlayer.name + " attacked to " + enemy.name);
+			thisPlayer.basicAttack(enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
 			changeAnimationState(animationState.MOVINGBACK);
 		}
 	}
 
 	private void backToPosition(){
-		if(transform.position.x < initialPosition.x){
+		if(transform.position.x > initialPosition.x){
 			animator.SetInteger("AnimationState", Animations.MOVE_BACK);
 			changeAnimationState(animationState.MOVINGBACK);
 
 			Vector2 direction = initialPosition - (Vector2)transform.position;
-			rigidbody2D.velocity = new Vector2 (movementSpeed, direction.y);
+			rigidbody2D.velocity = new Vector2 (-movementSpeed, direction.y);
 		}
 		else{
 			BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
@@ -115,7 +115,7 @@ public class MonsterBehaviour : MonoBehaviour {
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
 			enemy = null;
 			stand();
-		}
+		}		
 	}
 
 	private void stand(){
@@ -127,7 +127,6 @@ public class MonsterBehaviour : MonoBehaviour {
 	public void basicAttack(Character player){
 		enemy = player;
 		objectivePosition = enemy.body.position;
-
 		if(!BattleManager.Instance.attackStarted){
 			changeAnimationState(animationState.MOVING);
 			initialPosition = rigidbody2D.position;

@@ -124,6 +124,8 @@ public class Singleton : MonoBehaviour {
 
 	public void cleanItems(){
 		Destroy (GameObject.Find("ItemButton(Clone)"));
+		//this.gameObject.GetComponentInChildren<DisplayItems>().repopulate();
+		DisplayItems.repopulate();
 	}
 
 	public class Element{
