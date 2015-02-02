@@ -36,6 +36,7 @@ public class Gamestate : MonoBehaviour {
 		if(instance == null){
 			DontDestroyOnLoad(gameObject);
 			instance = this;
+			findPlayer("Mage").GetComponent<PlayerBehaviour>().enabled = false;
 		}
 		else if (instance != this){
 			Destroy(gameObject);
@@ -241,8 +242,9 @@ public class Gamestate : MonoBehaviour {
 					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
 				}
 
-				if(!positionIsDefault()){
-					findPlayer("Mage").GetComponent<PlayerBehaviour>().enabled = false;
+				//findPlayer("Mage").GetComponent<PlayerBehaviour>().enabled = false;
+
+				if(!positionIsDefault()){					
 					findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
 				}
 			}

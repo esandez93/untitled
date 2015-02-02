@@ -35,42 +35,45 @@ public class PlayerBehaviour : MonoBehaviour {
 	}
 
 	void FixedUpdate () {		
-		//if(enemy != null){			
-		switch(currentAnimationState){
-		case animationState.STANDING:
-			stand();
-			break;
-		case animationState.MOVING:
-			goToObjective();
-			break;
-		case animationState.ATTACKING:
-			attack();
-			break;
-		case animationState.MOVINGBACK: 
-			backToPosition();
-			break;
-		case animationState.RECEIVINGDAMAGE:
-			if(startReceivingDamage){
-				receiveDamage();
+		//if(enemy != null){
+		if(BattleManager.Instance.isPlayerTurn()){
+			switch(currentAnimationState){
+				case animationState.STANDING:
+					stand();
+					break;
+				case animationState.MOVING:
+					goToObjective();
+					break;
+				case animationState.ATTACKING:
+					attack();
+					break;
+				case animationState.MOVINGBACK: 
+					backToPosition();
+					break;
+				case animationState.RECEIVINGDAMAGE:
+					if(startReceivingDamage){
+						receiveDamage();
+					}
+					else{
+						stand ();
+						//BattleManager.Instance.attackFinished = true;
+						//BattleManager.finishCurrentAttack();
+					}
+					break;
+				case animationState.DYING:
+					if(startDeath){
+						die();
+					}
+					else{
+						BattleManager.Instance.deathFinished = true;
+					}
+					/*else{
+						stand ();
+					}*/
+					break;
 			}
-			else{
-				stand ();
-				BattleManager.Instance.attackFinished = true;
-				//BattleManager.finishCurrentAttack();
-			}
-			break;
-		case animationState.DYING:
-			if(startDeath){
-				die();
-			}
-			else{
-				BattleManager.Instance.deathFinished = true;
-			}
-			/*else{
-				stand ();
-			}*/
-			break;
-		}
+		}			
+		
 		//}
 	}
 	
@@ -110,6 +113,7 @@ public class PlayerBehaviour : MonoBehaviour {
 			rigidbody2D.velocity = new Vector2 (-movementSpeed, direction.y);
 		}
 		else{
+			Debug.Log("asdfasdasdads");
 			BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
 			BattleManager.Instance.attackFinished = true;
 			BattleManager.Instance.setGUIPlayerInfo(enemy);

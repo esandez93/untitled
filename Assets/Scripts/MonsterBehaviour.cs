@@ -55,7 +55,7 @@ public class MonsterBehaviour : MonoBehaviour {
 			}
 			else{
 				stand ();
-				BattleManager.Instance.attackFinished = true;
+				//BattleManager.Instance.attackFinished = true;
 				//BattleManager.finishCurrentAttack();
 			}
 			break;
