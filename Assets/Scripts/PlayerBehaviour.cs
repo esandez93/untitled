@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour {
 
+	private static int COMBAT_DISTANCE = 3;
+
 	public float movementSpeed = 10f;
 	Animator animator;
 	public bool isTurn = false;
@@ -18,12 +20,14 @@ public class PlayerBehaviour : MonoBehaviour {
 	public animationState currentAnimationState;
 
 	public enum animationState{
-		MOVING, ATTACKING, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING
+		MOVING, ATTACKING, USINGSKILL, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING
 	}
 
 	public bool isAttacking = false;
 	public bool startReceivingDamage = false;
 	public bool startDeath = false;
+
+	public bool moving = true;
 
 	void Start () {
 		thisPlayer = GetComponent<Player>();
@@ -47,6 +51,9 @@ public class PlayerBehaviour : MonoBehaviour {
 					break;
 				case animationState.ATTACKING:
 					attack();
+					break;
+				case animationState.USINGSKILL:
+					skill();
 					break;
 				case animationState.MOVINGBACK: 
 					backToPosition();
@@ -79,7 +86,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	}
 	
 	private void goToObjective(){		
-		if(transform.position.x < (objectivePosition.x -3)){
+		if(transform.position.x < (objectivePosition.x - COMBAT_DISTANCE)){
 			animator.SetInteger("AnimationState", Animations.MOVE);
 			changeAnimationState(animationState.MOVING);
 
@@ -101,12 +108,32 @@ public class PlayerBehaviour : MonoBehaviour {
 			Debug.Log(thisPlayer.name + " attacked to " + enemy.name);
 			thisPlayer.basicAttack(enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
-			changeAnimationState(animationState.MOVINGBACK);
+
+			if(moving){
+				changeAnimationState(animationState.MOVINGBACK);
+			}		
+			else{
+				changeAnimationState(animationState.STANDING);
+			}	
 		}
 	}
 
 	private void skill(){
-		skill(false);
+		if(isAttacking){
+			animator.SetInteger("AnimationState", Animations.USE_SKILL);
+		}
+		else{
+			Debug.Log(thisPlayer.name + " attacked to " + enemy.name + " // SKILL");
+			thisPlayer.useSkill(skillName, enemy);
+			BattleManager.Instance.setGUIPlayerInfo(enemy);
+
+			if(moving){
+				changeAnimationState(animationState.MOVINGBACK);
+			}		
+			else{
+				changeAnimationState(animationState.STANDING);
+			}	
+		}
 	}
 
 	private void backToPosition(){
@@ -118,7 +145,6 @@ public class PlayerBehaviour : MonoBehaviour {
 			rigidbody2D.velocity = new Vector2 (-movementSpeed, direction.y);
 		}
 		else{
-			Debug.Log("asdfasdasdads");
 			BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
 			BattleManager.Instance.attackFinished = true;
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
@@ -134,23 +160,52 @@ public class PlayerBehaviour : MonoBehaviour {
 	}
 
 	public void basicAttack(Character objective){
-		enemy = objective;
-		objectivePosition = enemy.body.position;
+		this.moving = true;
+
+		basicAttack(objective, true);
+	}
+
+	public void basicAttack(Character objective, bool moving){
+		this.moving = moving;
+
+		this.enemy = objective;
+		this.objectivePosition = enemy.body.position;
+
 		if(!BattleManager.Instance.attackStarted){
-			changeAnimationState(animationState.MOVING);
-			initialPosition = rigidbody2D.position;
+			if(moving){
+				changeAnimationState(animationState.MOVING);
+				initialPosition = rigidbody2D.position;
+			}
+			else{
+				changeAnimationState(animationState.ATTACKING);
+			}
+			
 		}
 
 		BattleManager.Instance.attackStarted = true;
 	}
 
-	private void skill(Character objective, string skillName, bool moving){
+	public void useSkill(Character objective, string skillName){
+		this.moving = true;
+
+		useSkill(objective, skillName, true);
+	}
+
+	public void useSkill(Character objective, string skillName, bool moving){
+
+		this.moving = moving;
 		this.enemy = objective;
 		this.skillName = skillName;
 		this.objectivePosition = enemy.body.position;
+
 		if(!BattleManager.Instance.attackStarted){
-			changeAnimationState(animationState.MOVING);
-			initialPosition = rigidbody2D.position;
+			if(moving){
+				changeAnimationState(animationState.MOVING);
+				initialPosition = rigidbody2D.position;
+			}
+			else{
+				changeAnimationState(animationState.USINGSKILL);
+			}
 		}
 
 		BattleManager.Instance.attackStarted = true;

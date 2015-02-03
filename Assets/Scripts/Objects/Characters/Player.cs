@@ -237,7 +237,7 @@ public class Player : Character{
 	}
 
 	public void doSkill(Character objective, string skillName){
-		GetComponent<PlayerBehaviour>().skill(objective, skillName);
+		GetComponent<PlayerBehaviour>().useSkill(objective, skillName);
 	}
 
 	/*public void doAction(int action, Player objective){

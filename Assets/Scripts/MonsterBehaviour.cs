@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MonsterBehaviour : MonoBehaviour {
 
+	private static int COMBAT_DISTANCE = 3;
+
 	public float movementSpeed = 10f;
 	Animator animator;
 	public bool isTurn = false;
@@ -77,7 +79,7 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 	
 	private void goToObjective(){		
-		if(transform.position.x > (objectivePosition.x + 3)){
+		if(transform.position.x > (objectivePosition.x + COMBAT_DISTANCE)){
 			animator.SetInteger("AnimationState", Animations.MOVE);
 			changeAnimationState(animationState.MOVING);
 

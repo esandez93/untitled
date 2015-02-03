@@ -21,6 +21,9 @@ public class Gamestate : MonoBehaviour {
 
 	private bool pausable;
 
+	private bool disable = false;
+	private List<string> enemiesToDisable;
+
 	void OnGUI() {
 		if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
 			Mage mage = findPlayer("Mage").GetComponent<Mage>();
@@ -53,6 +56,7 @@ public class Gamestate : MonoBehaviour {
 
 	public void initialize(){
 		OptionsManager.Instance.initialize();
+		enemiesToDisable = new List<string>();
 		//checkMap = false;
 		//Singleton.Instance.Instance.initialize();
 
@@ -218,6 +222,15 @@ public class Gamestate : MonoBehaviour {
 		//Application.LoadLevel(battleMapName);
 	}
 
+	public void disableEnemy(GameObject enemy){
+		disable = true;
+		/*if(enemiesToDisable == null){
+			enemiesToDisable = new List<string>();
+		}*/
+
+		enemiesToDisable.Add(enemy.name);
+	}
+
 	// Sets the instance to null when the application quits 
 	public void OnApplicationQuit() { 
 		instance = null; 
@@ -227,6 +240,13 @@ public class Gamestate : MonoBehaviour {
 	void OnLevelWasLoaded(int level) {
 		pausable = false;
 		if (isPlatform(level)){ // platform levels
+			if(disable){
+				foreach(string enemy in enemiesToDisable){
+					GameObject.FindGameObjectWithTag(enemy).SetActive(false);
+				}
+				//disable = false;
+			}
+
 			pausable = true;
 			destroyBattleManager();
 			if(arePlayersOnLevel()){
@@ -246,6 +266,7 @@ public class Gamestate : MonoBehaviour {
 
 				if(!positionIsDefault()){					
 					findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+					GameObject.FindWithTag("MainCamera").transform.position = Singleton.Instance.playerPositionInMap;
 				}
 			}
 		}

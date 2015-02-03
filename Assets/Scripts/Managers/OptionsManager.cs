@@ -17,8 +17,6 @@ public class OptionsManager : MonoBehaviour{
 	public string difficulty;
 
 	public bool initialized = false;
-
-	private bool difficultyChanged = false;
 	
 	public static OptionsManager Instance { 
 		get { 
