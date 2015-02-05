@@ -243,13 +243,7 @@
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Movement",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Dialogues",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Logs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Saves",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml"
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters"
 	],
 	"file_history":
 	[
@@ -304,7 +298,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 23.0
 	},
 	"find_in_files":
 	{
@@ -523,8 +517,8 @@
 						"selection":
 						[
 							[
-								6677,
-								6677
+								1054,
+								1054
 							]
 						],
 						"settings":
@@ -533,7 +527,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3556.0,
+						"translation.y": 166.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -561,7 +555,7 @@
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -696,7 +690,7 @@
 	"project": "sublime.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":

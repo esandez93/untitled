@@ -103,6 +103,17 @@ public class FileManager : MonoBehaviour {
 		File.Create(path + "/" + filePath + "/" + name + extension);
 	}
 
+	public Dictionary<string, string> readChestContents(){
+		Dictionary<string, System.Object> chestContents = parseXMLFile(XML_PATH, "chestContents", "chestContent");
+		Dictionary<string, string> parsedChestContents = new Dictionary<string, string>();
+		
+		foreach(KeyValuePair<string, System.Object> entry in chestContents){
+			parsedChestContents.Add(entry.Key, (string)entry.Value);		
+		}
+		
+		return parsedChestContents;
+	}
+
 	public Dictionary<string, AnyText> readWords(){
 		Dictionary<string, System.Object> words = parseXMLFile(LANG_PATH, "Words/words" + LanguageManager.Instance.getLanguage(), "word");
 		Dictionary<string, AnyText> parsedWords = new Dictionary<string, AnyText>();
@@ -204,6 +215,7 @@ public class FileManager : MonoBehaviour {
 		foreach (XmlNode item in itemList) { 
 			XmlNodeList listContent = item.ChildNodes;
 			Dictionary<string, string> itemInfo = new Dictionary<string, string>();
+
 			foreach (XmlNode itemChild in listContent) {
 				itemInfo.Add(itemChild.Name, itemChild.InnerText);
 			} 
@@ -233,10 +245,17 @@ public class FileManager : MonoBehaviour {
 			case XmlTypes.ALTEREDSTATUS:
 				addAlteredStatus(items, itemInfo);
 				break;
+			case XmlTypes.CHESTCONTENT:
+				addChestContent(items, itemInfo);
+				break;
 			}
 		} 
 
 		return items;
+	}
+
+	private void addChestContent(Dictionary<string, System.Object> items, Dictionary<string, string> itemInfo){
+		items.Add(itemInfo["id"], itemInfo["content"]);
 	}
 
 	private void addItems(Dictionary<string, System.Object> items, Dictionary<string, string> itemInfo){
@@ -424,5 +443,6 @@ public class FileManager : MonoBehaviour {
 		public const string WORD = "word";
 		public const string MAP = "map";
 		public const string ALTEREDSTATUS = "alteredStat";
+		public const string CHESTCONTENT = "chestContent";
 	}
 } 

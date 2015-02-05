@@ -57,7 +57,7 @@
      <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
      <Compile Include="Assets\Scripts\Buttons\getSkillButtonText.cs" />
      <Compile Include="Assets\Scripts\CheckBorder.cs" />
-     <Compile Include="Assets\Scripts\EnterBattleCheck.cs" />
+     <Compile Include="Assets\Scripts\EnterCollisionCheck.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\Gamestate.cs" />
      <Compile Include="Assets\Scripts\Managers\BattleData.cs" />
@@ -104,6 +104,7 @@
      <None Include="Assets\Gamedata\Xml\skills.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\menus.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\monsters.xml" />
+     <None Include="Assets\Gamedata\Xml\chestContents.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\dialogues.xml" />
      <None Include="Assets\Gamedata\Xml\Plantillas\items.xml" />
      <None Include="Assets\Gamedata\Xml\monsters.xml" />

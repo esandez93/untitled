@@ -24,6 +24,7 @@ public class Singleton : MonoBehaviour {
 	public Dictionary<string, MapInfo> allMaps;
 	public Dictionary<string, AlteredStatus> allAlteredStatus;
 	public Dictionary<string, SkillInfo> allSkillInfo;
+	public Dictionary<string, string> allChestContents;
 
 	public Dictionary<string, string> skillNameId;
 
@@ -114,7 +115,8 @@ public class Singleton : MonoBehaviour {
 			allDialogues = FileManager.Instance.readDialogues();
 			allWords = FileManager.Instance.readWords();
 			allMaps = FileManager.Instance.readMaps();
-			allAlteredStatus = FileManager.Instance.readAlteredStatus();		
+			allAlteredStatus = FileManager.Instance.readAlteredStatus();
+			allChestContents = FileManager.Instance.readChestContents();
 
 			Debug.Log ("Singleton initialized");
 
@@ -126,6 +128,10 @@ public class Singleton : MonoBehaviour {
 		Destroy (GameObject.Find("ItemButton(Clone)"));
 		//this.gameObject.GetComponentInChildren<DisplayItems>().repopulate();
 		DisplayItems.repopulate();
+	}
+
+	public string getChestContent(string id){
+		return allChestContents[id];
 	}
 
 	public class Element{

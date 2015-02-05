@@ -23,6 +23,9 @@ public class Gamestate : MonoBehaviour {
 
 	private bool disable = false;
 	private List<string> enemiesToDisable;
+	private List<string> openedChests;
+
+	private int currentLevel = -1;
 
 	void OnGUI() {
 		if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
@@ -57,6 +60,7 @@ public class Gamestate : MonoBehaviour {
 	public void initialize(){
 		OptionsManager.Instance.initialize();
 		enemiesToDisable = new List<string>();
+		openedChests = new List<string>();
 		//checkMap = false;
 		//Singleton.Instance.Instance.initialize();
 
@@ -239,57 +243,86 @@ public class Gamestate : MonoBehaviour {
 
 	void OnLevelWasLoaded(int level) {
 		pausable = false;
-		if (isPlatform(level)){ // platform levels
-			if(disable){
-				foreach(string enemy in enemiesToDisable){
-					GameObject.FindGameObjectWithTag(enemy).SetActive(false);
-				}
-				//disable = false;
-			}
+		currentLevel = level;
 
-			pausable = true;
-			destroyBattleManager();
-			if(arePlayersOnLevel()){
-				GameObject player;
-				foreach(PlayerData data in playersData){
-					player = findPlayer(data.characterName);
+		if (isPlatformLevel()){
+			setPlatformLevelConf();
+		}
+		else if(isBattleLevel()){
+			setBattleLevelConf();
+		}
+	}
 
-					player.GetComponent<Player>().populate(data);
-					player.GetComponent<Player>().addSkill("skill_name_fireball");
-					player.GetComponent<Player>().addSkill("skill_name_fireball");
-					player.GetComponent<Player>().addSkill("skill_name_fireball");
-					player.GetComponent<Player>().addSkill("skill_name_fireball"); // DEBUG
-					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
-				}
-
-				//findPlayer("Mage").GetComponent<PlayerBehaviour>().enabled = false;
-
-				if(!positionIsDefault()){					
-					findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
-					GameObject.FindWithTag("MainCamera").transform.position = Singleton.Instance.playerPositionInMap;
-				}
+	private void setPlatformLevelConf(){
+		if(disable){
+			foreach(string enemy in enemiesToDisable){
+				GameObject.FindGameObjectWithTag(enemy).SetActive(false);
 			}
 		}
-		else if(isBattle(level)){
-			BattleManager bm = BattleManager.Instance;
 
-			if(arePlayersOnLevel()){
-				GameObject player;
-				foreach(PlayerData data in playersData){
-					player = findPlayer(data.characterName);
-					player.GetComponent<PlayerBehaviour>().enabled = true;
-					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Battle");
-				}
+		pausable = true;
+		destroyBattleManager();
+
+		setChests();		
+
+		if(arePlayersOnLevel()){
+			GameObject player;
+			foreach(PlayerData data in playersData){
+				player = findPlayer(data.characterName);
+
+				player.GetComponent<Player>().populate(data);
+				player.GetComponent<Player>().addSkill("skill_name_fireball");
+				player.GetComponent<Player>().addSkill("skill_name_fireball");
+				player.GetComponent<Player>().addSkill("skill_name_fireball");
+				player.GetComponent<Player>().addSkill("skill_name_fireball"); // DEBUG
+				player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
+			}
+
+			if(!positionIsDefault()){					
+				findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+				GameObject.FindWithTag("MainCamera").transform.position = Singleton.Instance.playerPositionInMap;
 			}
 		}
 	}
 
-	private bool isPlatform(int level){		
-		return level == 1;
+	private List<Chest> getChests(){
+		GameObject[] chestsGos = GameObject.FindGameObjectsWithTag("Chest");
+		List<Chest> chests = new List<Chest>();
+
+		foreach(GameObject chest in chestsGos){
+			chests.Add(chest.GetComponent<Chest>());
+		}
+
+		return chests;
 	}
 
-	private bool isBattle(int level){
-		return level == 2;
+	private void setChests(){
+		List<Chest> chests = getChests();
+
+		foreach(Chest chest in chests){
+			chest.setContent(Singleton.Instance.getChestContent(chest.getId()));
+		}
+	}
+
+	private void setBattleLevelConf(){
+		BattleManager bm = BattleManager.Instance;
+
+		if(arePlayersOnLevel()){
+			GameObject player;
+			foreach(PlayerData data in playersData){
+				player = findPlayer(data.characterName);
+				player.GetComponent<PlayerBehaviour>().enabled = true;
+				player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Battle");
+			}
+		}
+	}
+
+	public bool isPlatformLevel(){		
+		return currentLevel == 1;
+	}
+
+	public bool isBattleLevel(){
+		return currentLevel == 2;
 	}
 
 	public bool isPausable(){

@@ -861,7 +861,7 @@ public class Character : MonoBehaviour{
 	}
 
 	private void detectClick(){
-		//if(!this.isPlayer()){
+		if(Gamestate.instance.isBattleLevel()){
 			Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			
 			if(collider2D.OverlapPoint(mousePosition)){				
@@ -875,7 +875,7 @@ public class Character : MonoBehaviour{
 					}
 				}			
 			}
-		//}
+		}
 	}
 
 	public void cleanVariables(){

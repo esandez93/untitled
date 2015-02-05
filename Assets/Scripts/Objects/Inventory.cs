@@ -14,7 +14,7 @@ public class Inventory{
 		objects = new Dictionary<string, Item>();
 	}
 
-	public bool isItemInInventory(string itemName){
+	private bool isItemInInventory(string itemName){
 		return this.objects.ContainsKey(itemName);
 	}
 	
