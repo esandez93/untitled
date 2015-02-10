@@ -23,7 +23,7 @@ public class Gamestate : MonoBehaviour {
 
 	private bool disable = false;
 	private List<string> enemiesToDisable;
-	private List<string> openedChests;
+	public List<string> openedChests;
 
 	private int currentLevel = -1;
 
@@ -258,10 +258,14 @@ public class Gamestate : MonoBehaviour {
 			foreach(string enemy in enemiesToDisable){
 				GameObject.FindGameObjectWithTag(enemy).SetActive(false);
 			}
-		}
+		}		
 
 		pausable = true;
 		destroyBattleManager();
+
+		foreach(string chest in openedChests){
+			GameObject.Find(chest).GetComponent<Chest>().setOpened();
+		}
 
 		setChests();		
 
@@ -280,7 +284,7 @@ public class Gamestate : MonoBehaviour {
 
 			if(!positionIsDefault()){					
 				findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
-				GameObject.FindWithTag("MainCamera").transform.position = Singleton.Instance.playerPositionInMap;
+				GameObject.FindWithTag("MainCamera").transform.position = new Vector3(Singleton.Instance.playerPositionInMap.x, Singleton.Instance.playerPositionInMap.y, -1);
 			}
 		}
 	}

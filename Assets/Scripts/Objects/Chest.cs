@@ -38,7 +38,13 @@ public class Chest : MonoBehaviour{
 
 		Singleton.Instance.inventory.addItem(this.getContent(), 1);
 		this.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load <Sprite>("Sprites/Chest/chest_opened");
+		Gamestate.instance.openedChests.Add(this.gameObject.name);
 
+		opened = true;
+	}
+
+	public void setOpened(){
+		this.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load <Sprite>("Sprites/Chest/chest_opened");
 		opened = true;
 	}
 }
