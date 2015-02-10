@@ -54,17 +54,4 @@ public class OptionsMenu : MonoBehaviour {
 		
 		GUI.depth = 0;
 	}
-	
-	public static void saveSettings(){		
-		string output = "[Audio]";
-		output += "\r\nEnvironmentAudio="+((int)(environmentLevel * 100)).ToString();
-		output += "\r\n[Graphics]";		
-		output += "\r\nFullScreen="+fullscreen;
-		output += "\r\nDisplayWidth="+displayWidth;
-		output += "\r\nDisplayHeight="+displayHeight;
-		output += "\r\n[Game]";
-		output += "\r\nLanguage="+language;
-
-		FileManager.Instance.writeSettings(output);
-	}
 }

@@ -21,30 +21,18 @@ public class GroundHitCheck : MonoBehaviour {
 
 		//isGrounded = Physics2D.Raycast(transform.position, -Vector2.up, radius);
 
+		checkGrounded();
+		
+		isGrounded = grounded();		
+	}
+
+	private void checkGrounded(){
 		isGroundedLeft = Physics2D.Raycast((Vector2)transform.position - vec, -Vector2.up, radius);
 		isGroundedCenter = Physics2D.Raycast(transform.position, -Vector2.up, radius);
 		isGroundedRight = Physics2D.Raycast((Vector2)transform.position + vec, -Vector2.up, radius);
+	}
 
-		if(isGroundedLeft || isGroundedCenter || isGroundedRight){
-			isGrounded = true;
-		}
-		else{
-			isGrounded = false;
-		}
-		
-		//Debug.Log ("isGrounded: " + isGrounded);
-
-		/*hit = Physics2D.Linecast(transform.position, groundCheck.position, groundLayers);
-
-		if(hit.collider != null){
-			if(hit.collider.tag == "Ground"){
-				isGrounded = true;
-			}
-			else{
-				isGrounded = false;
-			}
-		}*/
-
-
+	private bool grounded(){
+		return isGroundedLeft || isGroundedCenter || isGroundedRight;
 	}
 }

@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
-	// In TestMap maxXAndY -> 3.5 2.4
-	// In TestMap minXAndY -> -3.4 -3
+	// In TestMap maxXAndY -> (3.5, 2.4)
+	// In TestMap minXAndY -> (-3.4, -3)
 
 	public float xMargin = 1f;		// Distance in the x axis the player can move before the camera follows.
 	public float yMargin = 1f;		// Distance in the y axis the player can move before the camera follows.

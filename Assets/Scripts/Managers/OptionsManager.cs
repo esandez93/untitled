@@ -121,6 +121,19 @@ public class OptionsManager : MonoBehaviour{
 	public void destroyInstance() { 
 		instance = null; 
 	}
+	
+	public void saveSettings(){		
+		string output = "[Audio]";
+		output += "\r\nEnvironmentAudio="+((int)(environmentLevel * 100)).ToString();
+		output += "\r\n[Graphics]";		
+		output += "\r\nFullScreen="+fullscreen;
+		output += "\r\nDisplayWidth="+displayWidth;
+		output += "\r\nDisplayHeight="+displayHeight;
+		output += "\r\n[Game]";
+		output += "\r\nLanguage="+language;
+
+		FileManager.Instance.writeSettings(output);
+	}
 
 	public class Difficulty{
 		public const string EASY = "Easy";

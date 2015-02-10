@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class getItemButtonText : MonoBehaviour {
 
-	bool clicked = false;
+	private bool clicked = false;
+	private BattleManager bm;
 
 	void Update () {
 		if(clicked){
@@ -13,7 +14,11 @@ public class getItemButtonText : MonoBehaviour {
 	}
 
 	public void clickButton(){
-		GameObject.Find("BattleCanvas").GetComponent<BattleManager>().setItemName(getName());
+		if(bm == null){
+			bm = GameObject.Find("BattleCanvas").GetComponent<BattleManager>();
+		}
+
+		bm.setItemName(getName());
 		clicked = false;
 	}
 

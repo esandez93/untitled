@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CheckBorder : MonoBehaviour {
 
+	MonsterMovementPlatform monsterMovement;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,8 +17,11 @@ public class CheckBorder : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 		if(col.tag.Contains("Monster")){
-			//Debug.Log ("MONSTER IN EDGE");
-			col.gameObject.GetComponent<MonsterMovementPlatform>().enteringBorder();
+			if(monsterMovement == null){
+				monsterMovement = col.gameObject.GetComponent<MonsterMovementPlatform>();
+			}
+
+			monsterMovement.enteringBorder();
 		}
 	}
 }

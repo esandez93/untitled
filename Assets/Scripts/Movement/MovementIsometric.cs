@@ -86,8 +86,7 @@ public class MovementIsometric : MonoBehaviour {
 		}
 	}	
 	
-	void Flip ()
-	{		
+	void Flip (){		
 		Vector3 theScale = playerTransform.localScale;
 		theScale.x *= -1;
 		playerTransform.localScale = theScale;

@@ -61,4 +61,8 @@ public class Pause : MonoBehaviour{
 		pauseMenu.SetActive(false);
 		pauseBackground.enabled = false;
 	}
+
+	public bool isPaused(){
+		return paused;
+	}
 }

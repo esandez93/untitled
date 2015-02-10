@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class getSkillButtonText : MonoBehaviour {
 	
-	bool clicked = false;
+	private bool clicked = false;
+	private BattleManager bm;
 	
 	void Update () {
 		if(clicked){
@@ -13,7 +14,11 @@ public class getSkillButtonText : MonoBehaviour {
 	}
 	
 	public void clickButton(){
-		GameObject.Find("BattleCanvas").GetComponent<BattleManager>().setSkillName(getName());
+		if(bm == null){
+			bm = GameObject.Find("BattleCanvas").GetComponent<BattleManager>();
+		}
+		
+		bm.setSkillName(getName());
 		clicked = false;
 	}
 	
@@ -23,7 +28,6 @@ public class getSkillButtonText : MonoBehaviour {
 
 	private string getName(){
 		string label = this.GetComponentInChildren<Text>().text;
-
 		string name = label.Remove(label.Length - 6); // Fireball Lv. 1
 
 		return name;
