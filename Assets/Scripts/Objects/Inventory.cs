@@ -18,10 +18,10 @@ public class Inventory{
 		return this.objects.ContainsKey(itemName);
 	}
 
-	public bool haveNeededItems(string itemName, int quantity){
+	public bool hasNeededItems(string itemName, int quantity){
 		if (isItemInInventory(itemName)){
 			if(this.objects[itemName].quantity >= quantity){
-
+				return true;
 			}
 		}
 
@@ -62,7 +62,9 @@ public class Inventory{
 				Debug.Log (itemName + " REMOVED FROM INVENTORY");
 			}
 
-			Singleton.Instance.cleanItems();
+			if(Gamestate.instance.isBattleLevel()){
+				Singleton.Instance.cleanItems();			
+			}
 
 			return true;
 		}

@@ -554,13 +554,13 @@ public class Character : MonoBehaviour{
 		return hits;
 	}
 
-	public void useItem(string itemName, Character target){
-		Singleton.Instance.inventory.useItem(itemName, target);
+	public void useItem(string itemId, Character target){
+		Singleton.Instance.inventory.useItem(itemId, target);
 	}
 	
-	public void useSkill(string skillName, Character target){
-		if(this.hasSkill(skillName)){//skills.ContainsKey(skillId)){
-			string skillId = Singleton.Instance.skillNameId[skillName];
+	public void useSkill(string skillId, Character target){
+		if(this.hasSkill(skillId)){//skills.ContainsKey(skillId)){
+			//string skillId = Singleton.Instance.skillNameId[skillName];
 
 			Skill skill = skills[skillId];	
 			
@@ -793,8 +793,8 @@ public class Character : MonoBehaviour{
 		return alive;
 	}
 
-	public bool hasSkill(string skillName){
-		string skillId = Singleton.Instance.skillNameId[skillName];
+	public bool hasSkill(string skillId){
+		//string skillId = Singleton.Instance.skillNameId[skillName];
 
 		return this.skills.ContainsKey(skillId);
 	}

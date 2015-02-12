@@ -20,8 +20,11 @@ public class DisplaySkills : MonoBehaviour {
 
 	public int numInactives = 0;
 
+	private LanguageManager languageManager;
+
 	void Start () {
 		bm = BattleManager.Instance;
+		languageManager = LanguageManager.Instance;
 		//this.gameObject.SetActive(false);
 
 		skillButtons = new List<GameObject>();
@@ -50,8 +53,10 @@ public class DisplaySkills : MonoBehaviour {
 					foreach(Skill skill in skills){
 						if(i <= MAX_SKILLS_UI){
 							GameObject instance = createInstance();
-							text = skill.name + " Lv. " + skill.currLevel;
+							text =  languageManager.getMenuText(skill.id) + " Lv. " + skill.currLevel;
 							setTextToButton(instance, text);
+							instance.AddComponent<Skill>();
+							instance.GetComponent<Skill>().id = skill.id;
 							
 							if(sameAsLast(i) || text.Equals(DEFAULT_SKILL_TEXT)){
 								skillButtons[i].SetActive(false);

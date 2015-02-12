@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class CraftManager : MonoBehaviour{
 	private static CraftManager instance;
 	public bool initialized = false;
-	Inventory inventory;
+	private Inventory inventory;
 
 	public static CraftManager Instance {
 		get {
@@ -29,36 +29,38 @@ public class CraftManager : MonoBehaviour{
 		}
 	}
 
-	public void craft(string item1, string item2){
+	public bool craft(string item1, string item2){
 
-		string sql = "SELECT DISTINCT * FROM CRAFTING WHERE ITEM_1 LIKE " + item1 + " OR ITEM_2 LIKE " + item1
-				   + " OR ITEM_1 LIKE " + item2 + " OR ITEM_2 LIKE " + item2 + ";";
+		string sql = "SELECT DISTINCT * FROM CRAFTING WHERE ITEM_1 LIKE '" + item1 + "' OR ITEM_2 LIKE '" + item1
+				   + "' OR ITEM_1 LIKE '" + item2 + "' OR ITEM_2 LIKE '" + item2 + "';";
 
-		List<Craft> crafts = DatabaseManager.Instance.getCraft(sql);
+		List<Craft> crafts = DatabaseManager.Instance.getCrafts(sql);
 
 		if(crafts.Count > 0){
-			Craft craft = crafts.Get(0);
+			Craft craft = crafts[0];
 
-			if(this.haveNeededItems(craft.item1, craft.item1Quantity, craft.item2, craft.item2Quantity)){
+			if(this.hasNeededItems(craft.item1, craft.item1Quantity, craft.item2, craft.item2Quantity)){
+				LanguageManager lm = LanguageManager.Instance;
+
 				inventory.removeItem(craft.item1, craft.item1Quantity);
 				inventory.removeItem(craft.item2, craft.item2Quantity);
 				inventory.addItem(craft.result, craft.resultQuantity);
-				Debug.Log("Crafted " + craft.resultQuantity + " " + craft.result + " using " + craft.item1Quantity + " " + craft.item1
-						   + " and " + craft.item2Quantity + " " + craft.item2 + ".");
+				Debug.Log("Crafted " + craft.resultQuantity + " " + lm.getMenuText(craft.result) + " using " + craft.item1Quantity + " " + lm.getMenuText(craft.item1)
+						   + " and " + craft.item2Quantity + " " + lm.getMenuText(craft.item2) + ".");
 
 				return true;
 			}
-
-			return false;
 		}
+
+		return false;
 	}
 
-	private bool haveNeededItems(string item1, int item1Quantity, string item2, int item2Quantity){
+	private bool hasNeededItems(string item1, int item1Quantity, string item2, int item2Quantity){
 		if(item1.Equals(item2)){
-			return inventory.haveNeededItems(item1, item1Quantity+item2Quantity);
+			return inventory.hasNeededItems(item1, (item1Quantity+item2Quantity));
 		}
 		else{
-			return inventory.haveNeededItems(item1, item1Quantity) && inventory.haveNeededItems(item2, item2Quantity);
+			return inventory.hasNeededItems(item1, item1Quantity) && inventory.hasNeededItems(item2, item2Quantity);
 		}
 	}
 }

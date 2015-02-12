@@ -18,9 +18,12 @@ public class DisplayItems : MonoBehaviour {
 	public Vector2 parentPosition;
 	
 	public int numInactives = 0;
+
+	public LanguageManager languageManager;
 	
 	void Start () {
 		bm = BattleManager.Instance;
+		languageManager = LanguageManager.Instance;
 		//this.gameObject.SetActive(false);
 
 		itemButtons = new List<GameObject>();
@@ -47,13 +50,16 @@ public class DisplayItems : MonoBehaviour {
 					foreach(Item item in items){
 						if(i <= MAX_ITEMS_UI){
 							GameObject instance = createInstance();
-							text = item.name + " x" + item.quantity;
+							text = languageManager.getMenuText(item.id) + " x" + item.quantity;
 							setTextToButton(instance, text);
+							instance.AddComponent<Item>();
+							instance.GetComponent<Item>().id = item.id;
 							
 							if(sameAsLast(i) || text.Equals(DEFAULT_ITEM_TEXT)){
 								itemButtons[i].SetActive(false);
 								numInactives++;
 							}
+
 							i++;
 						}					
 					}

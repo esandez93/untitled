@@ -69,7 +69,7 @@ public class Singleton : MonoBehaviour {
 	public void getExceptionSkills(){
 		List<string[]> exceptions = fileManager.readStringCsv(fileManager.path, exceptionSkillsName);
 
-		allCrafting = new List<string>();
+		exceptionSkills = new List<string>();
 		foreach(string[] row in exceptions){
 			populateExceptionSkills(row);
 		}
@@ -101,7 +101,9 @@ public class Singleton : MonoBehaviour {
 
 	public void initialize(){
 		if(!initialized){
-			Singleton.Instance.expNeeded = new Dictionary<int, float>();
+			fileManager = FileManager.Instance;
+
+			Singleton.Instance.expNeeded = new Dictionary<int, float>();			
 
 			Singleton.Instance.getExpNeeded();
 
@@ -109,8 +111,6 @@ public class Singleton : MonoBehaviour {
 			Singleton.Instance.getElementalModifiersFromFile();
 			Singleton.Instance.getSkillInfoFromFile();
 			Singleton.Instance.getExceptionSkills();
-
-			fileManager = FileManager.Instance;
 
 			allItems = fileManager.readItems();
 			allMonsters = fileManager.readMonsters();

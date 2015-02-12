@@ -27,13 +27,14 @@ public class getItemButtonText : MonoBehaviour {
 	}
 
 	private string getName(){
-		string[] label = this.GetComponentInChildren<Text>().text.Split(' ');
+		/*string[] label = this.GetComponentInChildren<Text>().text.Split(' ');
 		string name = "";
 
 		for(int i = 0; i < label.Length-1; i++){
 			name += label[i];
-		}
+		}*/
+		return this.gameObject.GetComponent<Item>().id;
 
-		return name;
+		//return name;
 	}
 }

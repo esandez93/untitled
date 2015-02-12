@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable] 
-public class Item{
+public class Item : MonoBehaviour{
+
+	public string id;
 
 	public string type;
 	public string name;
@@ -22,8 +24,10 @@ public class Item{
 	}
 
 	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, string statAffected, float quantityAffected){
+		this.id = name;
+
 		this.type = type;
-		this.name = name;
+		//this.name = name;
 		this.description = description;
 		this.buyValue = buyValue;
 		this.sellValue = sellValue;

@@ -1,6 +1,6 @@
 <chestContents>
 	<chestContent>
 		<id>forest_1</id>
-		<content>Potion</content>
+		<content>item_name_potion</content>
 	</chestContent>
 </chestContents>

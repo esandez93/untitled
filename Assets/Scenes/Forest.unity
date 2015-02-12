@@ -82,9 +82,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 48109618}
+  - 114: {fileID: 48109621}
   - 61: {fileID: 48109620}
   - 61: {fileID: 48109619}
-  - 114: {fileID: 48109621}
   - 61: {fileID: 48109623}
   - 61: {fileID: 48109622}
   m_Layer: 0
@@ -115,8 +115,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: .116602443, y: .159100473}
-  m_Center: {x: .24391298, y: -1.12568939}
+  m_Size: {x: .116602443, y: .286234111}
+  m_Center: {x: .24391298, y: -1.06212294}
 --- !u!61 &48109620
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -126,8 +126,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: .0831900313, y: .159100473}
-  m_Center: {x: -2.21482635, y: -1.12568939}
+  m_Size: {x: .125567913, y: .254450858}
+  m_Center: {x: -2.19363737, y: -1.07801461}
 --- !u!114 &48109621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,8 +148,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: .24905239, y: .206840381}
-  m_Center: {x: 2.19207859, y: -2.26151943}
+  m_Size: {x: .206674516, y: .397542715}
+  m_Center: {x: 2.17088962, y: -2.16617012}
 --- !u!61 &48109623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,8 +159,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: .182231754, y: .139930934}
-  m_Center: {x: -.423040599, y: -2.29516625}
+  m_Size: {x: .171637475, y: .415387839}
+  m_Center: {x: -.428337932, y: -2.15743899}
 --- !u!1 &195481787
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   monstersInBattle: []
   players: []
   playersData: []
+  openedChests: []
 --- !u!1 &790906304
 GameObject:
   m_ObjectHideFlags: 0

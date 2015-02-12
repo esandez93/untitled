@@ -1,4 +1,4 @@
-/
+//
 // Copyright (c) 2009-2015 Krueger Systems, Inc.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-#if WINDOWS_PHONE && !USE_WP8_NATIVE_SQLITE
+/*#if WINDOWS_PHONE && !USE_WP8_NATIVE_SQLITE
 #define USE_CSHARP_SQLITE
 #endif
 
@@ -204,7 +204,7 @@ namespace SQLite
 			DatabasePath = databasePath;
 
 #if NETFX_CORE
-			SQLite3.SetDirectory(/*temp directory type*/2, Windows.Storage.ApplicationData.Current.TemporaryFolder.Path);
+			SQLite3.SetDirectory(2, Windows.Storage.ApplicationData.Current.TemporaryFolder.Path);
 #endif
 
 			Sqlite3DatabaseHandle handle;
@@ -1712,7 +1712,7 @@ namespace SQLite
 	{
 		public override bool Unique {
 			get { return true; }
-			set { /* throw?  */ }
+			set {}
 		}
 	}
 
@@ -3470,4 +3470,4 @@ namespace SQLite.Extensions
         }
     }
 }
-#endif
+#endif*/

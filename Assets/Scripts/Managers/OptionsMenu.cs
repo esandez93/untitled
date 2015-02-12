@@ -48,7 +48,7 @@ public class OptionsMenu : MonoBehaviour {
 				showMenu = false;
 				//inGameMenu.showGameMenu = true;
 				OptionsManager.Instance.applySettings();
-				saveSettings();
+				OptionsManager.Instance.saveSettings();
 			}
 		}
 		

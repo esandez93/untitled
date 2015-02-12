@@ -28,13 +28,18 @@ public class Gamestate : MonoBehaviour {
 	private int currentLevel = -1;
 
 	void OnGUI() {
-		if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
+		/*if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
 			Mage mage = findPlayer("Mage").GetComponent<Mage>();
 			mage.levelUp();
 		}
 
 		if (GUI.Button (new Rect (930, 30, 150, 30), "Save Game")) { // DEBUG
 			SaveManager.Instance.save();
+		}*/
+
+		if (GUI.Button (new Rect (930, 30, 150, 30), "Craft")) { // DEBUG
+			Singleton.Instance.inventory.addItem("item_name_potion", 2);
+			CraftManager.Instance.craft("item_name_potion", "item_name_potion");
 		}
 	}
 

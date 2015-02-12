@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Skill{
+public class Skill : MonoBehaviour{
 
 	public static string EMPTY = "battle_menu_skills_empty";
 

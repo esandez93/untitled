@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SQLite;
+using SQLite4Unity3d;
 
 public class DatabaseManager : MonoBehaviour {
 	public static string DATABASE_PATH = "/Gamedata/database.db3";
@@ -33,7 +33,7 @@ public class DatabaseManager : MonoBehaviour {
 	}
 
 	private void getDatabaseConnection(string path){
-		db = new SQLiteConnection(path);
+		db = new SQLiteConnection(Application.dataPath + path);
 	}
 
 	private void initializeDatabase(SQLiteConnection db){
@@ -53,27 +53,5 @@ public class DatabaseManager : MonoBehaviour {
 
 	public List<Craft> getCrafts(string sql){
 		return db.Query<Craft>(sql);
-	}
-
-	// TABLES
-	[Table("CRAFTING")]
-	public class Craft {
-	    [PrimaryKey, AutoIncrement, Column("ID")]
-	    public int Id { get; set; }
-
-	    [Column("ITEM_1")]
-	    public string item1 { get; set; }
-	    [Column("ITEM_1_QUANTITY")]
-	    public int item1Quantity { get; set; }
-
-	    [Column("ITEM_2")]
-	    public string item2 { get; set; }
-	    [Column("ITEM_2_QUANTITY")]
-	    public int item2Quantity { get; set; }
-
-	    [Column("RESULT")]
-	    public string result { get; set; }
-	    [Column("RESULT_QUANTITY")]
-	    public int resultQuantity { get; set; }
-	}
+	}	
 }
