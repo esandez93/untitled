@@ -1,7 +1,7 @@
 <monsters>
 	<monster>
 		<type>Animal</type>
-		<name>Wolf</name>
+		<name>enemy_name_wolf</name>
 		<level>1</level>
 		<element>1</element>
 		<hp>40</hp>
@@ -12,7 +12,7 @@
 		<int>1</int>
 		<dex>5</dex>
 		<luk>1</luk>
-		<drop>Potion</drop>
+		<drop>item_name_potion</drop>
 		<dropQuantity>1</dropQuantity>
 		<dropRates>100</dropRates>
 		<expGiven>15</expGiven>

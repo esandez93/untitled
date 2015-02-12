@@ -31,7 +31,8 @@ public class CraftManager : MonoBehaviour{
 
 	public void craft(string item1, string item2){
 
-		string sql = "SELECT DISTINCT * FROM CRAFTING WHERE ITEM_1 LIKE " + item1 + " OR ITEM_2 LIKE " + item1 + "OR ITEM_1 LIKE " + item2 + "OR ITEM_2 LIKE " + item2 + ";";
+		string sql = "SELECT DISTINCT * FROM CRAFTING WHERE ITEM_1 LIKE " + item1 + " OR ITEM_2 LIKE " + item1
+				   + " OR ITEM_1 LIKE " + item2 + " OR ITEM_2 LIKE " + item2 + ";";
 
 		List<Craft> crafts = DatabaseManager.Instance.getCraft(sql);
 
@@ -42,7 +43,8 @@ public class CraftManager : MonoBehaviour{
 				inventory.removeItem(craft.item1, craft.item1Quantity);
 				inventory.removeItem(craft.item2, craft.item2Quantity);
 				inventory.addItem(craft.result, craft.resultQuantity);
-				Debug.Log("Crafted " + craft.resultQuantity + " " + craft.result + " using " + craft.item1Quantity + " " + craft.item1 + " and " + craft.item2Quantity + " " + craft.item2 + ".");
+				Debug.Log("Crafted " + craft.resultQuantity + " " + craft.result + " using " + craft.item1Quantity + " " + craft.item1
+						   + " and " + craft.item2Quantity + " " + craft.item2 + ".");
 
 				return true;
 			}

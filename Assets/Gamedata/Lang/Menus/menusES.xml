@@ -117,4 +117,9 @@
 		<menuId>status_affected</menuId>
 		<text>es afectado por su @status</text>
 	</menu>
+
+	<menu>
+		<menuId>enemy_name_wolf</menuId>
+		<text>Lobo</text>
+	</menu>
 </menus>
