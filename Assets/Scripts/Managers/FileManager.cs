@@ -62,6 +62,11 @@ public class FileManager : MonoBehaviour {
 				createDirectory("Gamedata/Logs");
 			}
 
+			// Check for and create the logs directory 
+			if(!checkDirectory("Gamedata/Database")) { 
+				createDirectory("Gamedata/Database");
+			}
+
 			Debug.Log ("FileManager initialized");
 
 			initialized = true;

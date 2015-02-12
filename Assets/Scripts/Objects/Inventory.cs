@@ -17,6 +17,16 @@ public class Inventory{
 	private bool isItemInInventory(string itemName){
 		return this.objects.ContainsKey(itemName);
 	}
+
+	public bool haveNeededItems(string itemName, int quantity){
+		if (isItemInInventory(itemName)){
+			if(this.objects[itemName].quantity >= quantity){
+
+			}
+		}
+
+		return false;
+	}
 	
 	public void addItem(string itemName, int newQuantity){
 		if (isItemInInventory(itemName)){
@@ -35,7 +45,7 @@ public class Inventory{
 		}		
 	}
 	
-	public void removeItem(string itemName, int quantity){
+	public bool removeItem(string itemName, int quantity){
 		//int inventorySize = this.objects.Count;		
 		if (isItemInInventory(itemName)){
 			Item item = this.objects[itemName];
@@ -53,9 +63,12 @@ public class Inventory{
 			}
 
 			Singleton.Instance.cleanItems();
+
+			return true;
 		}
 		else{
 			Debug.Log("Item " + itemName + " doesn't exist in inventory.");
+			return false;
 		}
 	}
 	

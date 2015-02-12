@@ -1,12 +1,22 @@
 <items>
 	<item>
 		<type>Usable</type>
-		<name>Potion</name>
-		<description>Heals for an amount of 20 HP</description>
+		<name>item_name_potion</name>
+		<description>item_description_potion</description>
 		<buyValue>10</buyValue>
-		<sellValue>2</sellValue>
+		<sellValue>4</sellValue>
 		<sellable>true</sellable>
 		<statAffected>currHP</statAffected>
-		<quantityAffected>+20</quantityAffected>
+		<quantityAffected>20</quantityAffected>
+	</item>
+	<item>
+		<type>Usable</type>
+		<name>item_name_high_potion</name>
+		<description>item_description_high_potion</description>
+		<buyValue>30</buyValue>
+		<sellValue>10</sellValue>
+		<sellable>true</sellable>
+		<statAffected>currHP</statAffected>
+		<quantityAffected>50</quantityAffected>
 	</item>
 </items>

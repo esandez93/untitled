@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LanguageManager : MonoBehaviour{
-	private static LanguageManager instance;  // Instance of the fileManager 
+	private static LanguageManager instance;
 	public  static int currentLanguage;// = Languages.ENGLISH;
 	public  Dictionary<string, AnyText> dialogs = new Dictionary<string, AnyText>();
 	public  Dictionary<string, AnyText> menus = new Dictionary<string, AnyText>();

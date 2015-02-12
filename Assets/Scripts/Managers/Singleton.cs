@@ -34,6 +34,8 @@ public class Singleton : MonoBehaviour {
 
 	public bool initialized = false;
 
+	private FileManager fileManager;
+
 	private static Singleton instance = null;
 	public static Singleton Instance{
 		get{
@@ -48,15 +50,15 @@ public class Singleton : MonoBehaviour {
 	}
 
 	public void getStatsFromFile(){
-		statsPerLv = FileManager.Instance.readNumberCsv(FileManager.Instance.path, statsFileName);
+		statsPerLv = fileManager.readNumberCsv(fileManager.path, statsFileName);
 	}
 
 	public void getElementalModifiersFromFile(){
-		elementalModifiers = FileManager.Instance.readNumberCsv(FileManager.Instance.path, elementalModifiersFileName);
+		elementalModifiers = fileManager.readNumberCsv(fileManager.path, elementalModifiersFileName);
 	}
 	
 	public void getSkillInfoFromFile(){
-		List<string[]> skillInfos = FileManager.Instance.readStringCsv(FileManager.Instance.path, skillInfosFileName);
+		List<string[]> skillInfos = fileManager.readStringCsv(fileManager.path, skillInfosFileName);
 
 		allSkillInfo = new Dictionary<string, SkillInfo>();
 		foreach(string[] row in skillInfos){
@@ -65,9 +67,9 @@ public class Singleton : MonoBehaviour {
 	}
 	
 	public void getExceptionSkills(){
-		List<string[]> exceptions = FileManager.Instance.readStringCsv(FileManager.Instance.path, exceptionSkillsName);
+		List<string[]> exceptions = fileManager.readStringCsv(fileManager.path, exceptionSkillsName);
 
-		exceptionSkills = new List<string>();
+		allCrafting = new List<string>();
 		foreach(string[] row in exceptions){
 			populateExceptionSkills(row);
 		}
@@ -97,7 +99,7 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 
-	public void initialize(){		
+	public void initialize(){
 		if(!initialized){
 			Singleton.Instance.expNeeded = new Dictionary<int, float>();
 
@@ -108,15 +110,17 @@ public class Singleton : MonoBehaviour {
 			Singleton.Instance.getSkillInfoFromFile();
 			Singleton.Instance.getExceptionSkills();
 
-			allItems = FileManager.Instance.readItems();
-			allMonsters = FileManager.Instance.readMonsters();
-			allSkills = FileManager.Instance.readSkills();
-			allMenus = FileManager.Instance.readMenus();
-			allDialogues = FileManager.Instance.readDialogues();
-			allWords = FileManager.Instance.readWords();
-			allMaps = FileManager.Instance.readMaps();
-			allAlteredStatus = FileManager.Instance.readAlteredStatus();
-			allChestContents = FileManager.Instance.readChestContents();
+			fileManager = FileManager.Instance;
+
+			allItems = fileManager.readItems();
+			allMonsters = fileManager.readMonsters();
+			allSkills = fileManager.readSkills();
+			allMenus = fileManager.readMenus();
+			allDialogues = fileManager.readDialogues();
+			allWords = fileManager.readWords();
+			allMaps = fileManager.readMaps();
+			allAlteredStatus = fileManager.readAlteredStatus();
+			allChestContents = fileManager.readChestContents();
 
 			Debug.Log ("Singleton initialized");
 
