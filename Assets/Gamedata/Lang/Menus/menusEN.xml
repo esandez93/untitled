@@ -1,4 +1,5 @@
 <menus>
+	<!--                          MAIN MENU                     -->
 	<menu>
 		<menuId>main_menu_continue</menuId>
 		<text>Continue</text>
@@ -24,11 +25,13 @@
 		<text>Quit</text>
 	</menu>
 
+	<!--                          PAUSE MENU                     -->
 	<menu>
 		<menuId>pause_menu_resume</menuId>
 		<text>Resume game</text>
 	</menu>
 
+	<!--                          BATTLE MENU                     -->
 	<menu>
 		<menuId>battle_menu_attack</menuId>
 		<text>Attack</text>
@@ -58,14 +61,7 @@
 		<text>Run</text>
 	</menu>
 
-	<!--<menu>
-		<menuId>skill_name_bulwark</menuId>
-		<text>Bulwark</text>
-	</menu>
-	<menu>
-		<menuId>skill_description_bulwark</menuId>
-		<text>Gets a defensive position raising his DEF and MDEF by [50+(Skill Level * 10)]%.</text>
-	</menu>-->
+	<!--                          ITEMS                      -->
 	<menu>
 		<menuId>item_name_potion</menuId>
 		<text>Potion</text>
@@ -82,7 +78,41 @@
 		<menuId>item_description_high_potion</menuId>
 		<text>Heals for an amount of 50 HP.</text>
 	</menu>
+	<menu>
+		<menuId>item_name_ultra_potion</menuId>
+		<text>Ultra Potion</text>
+	</menu>
+	<menu>
+		<menuId>item_description_ultra_potion</menuId>
+		<text>Heals for an amount of 125 HP.</text>
+	</menu>
+	<menu>
+		<menuId>item_name_grenade</menuId>
+		<text>Grenade</text>
+	</menu>
+	<menu>
+		<menuId>item_description_grenade</menuId>
+		<text>Explosive grenade that causes 75 damage to an entire group.</text>
+	</menu>
+		<!--             CRAFTING            -->
+	<menu>
+		<menuId>item_name_gunpowder</menuId>
+		<text>Gunpowder</text>
+	</menu>
+	<menu>
+		<menuId>item_description_gunpowder</menuId>
+		<text>Explosive powder. Used for crafting.</text>
+	</menu>
+	<menu>
+		<menuId>item_name_container</menuId>
+		<text>Container</text>
+	</menu>
+	<menu>
+		<menuId>item_description_container</menuId>
+		<text>Destined to contain something inside. Used for crafting.</text>
+	</menu>
 
+	<!--                          SKILLS                      -->
 	<menu>
 		<menuId>skill_name_fireball</menuId>
 		<text>Fireball</text>
@@ -91,19 +121,19 @@
 		<menuId>skill_description_fireball</menuId>
 		<text>Throws a fireball to the target.</text>
 	</menu>
+	<!--<menu>
+		<menuId>skill_name_bulwark</menuId>
+		<text>Bulwark</text>
+	</menu>
+	<menu>
+		<menuId>skill_description_bulwark</menuId>
+		<text>Gets a defensive position raising his DEF and MDEF by [50+(Skill Level * 10)]%.</text>
+	</menu>-->
 
+	<!--                          ALTERED STATUS                      -->
 	<menu>
 		<menuId>altered_status_name_burn</menuId>
 		<text>Burn</text>
-	</menu>
-	<menu>
-		<menuId>altered_status_name_poison</menuId>
-		<text>Poison</text>
-	</menu>
-
-	<menu>
-		<menuId>enemy_status</menuId>
-		<text>The enemy @name</text>
 	</menu>
 	<menu>
 		<menuId>status_burn</menuId>
@@ -113,6 +143,11 @@
 		<menuId>status_affected_burn</menuId>
 		<text>burn</text>
 	</menu>
+
+	<menu>
+		<menuId>altered_status_name_poison</menuId>
+		<text>Poison</text>
+	</menu>
 	<menu>
 		<menuId>status_poison</menuId>
 		<text>poisoned</text>
@@ -121,13 +156,24 @@
 		<menuId>status_affected_poison</menuId>
 		<text>poison</text>
 	</menu>
+
+	<!--                          BATTLE MESSAGES                      -->
+	<menu>
+		<menuId>enemy_status</menuId>
+		<text>The enemy @name</text>
+	</menu>
 	<menu>
 		<menuId>status_affected</menuId>
 		<text>is affected by its @status</text>
 	</menu>
 
+	<!--                          ENEMIES                      -->
 	<menu>
 		<menuId>enemy_name_wolf</menuId>
 		<text>Wolf</text>
+	</menu>
+	<menu>
+		<menuId>enemy_name_ninja</menuId>
+		<text>Ninja</text>
 	</menu>
 </menus>

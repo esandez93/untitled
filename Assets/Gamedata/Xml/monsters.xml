@@ -12,10 +12,27 @@
 		<int>1</int>
 		<dex>5</dex>
 		<luk>1</luk>
-		<drop>item_name_potion</drop>
-		<dropQuantity>1</dropQuantity>
-		<dropRates>100</dropRates>
+		<drop>item_name_potion;item_name_potion;item_name_high_potion</drop>
+		<dropQuantity>1;1;1</dropQuantity>
+		<dropRates>100;20;5</dropRates>
 		<expGiven>15</expGiven>
 	</monster>
+	<monster>
+		<type>Human</type>
+		<name>enemy_name_ninja</name>
+		<level>3</level>
+		<element>8</element>
+		<hp>55</hp>
+		<mp>15</mp>
+		<str>4</str>
+		<agi>7</agi>
+		<vit>2</vit>
+		<int>1</int>
+		<dex>3</dex>
+		<luk>4</luk>
+		<drop>item_name_potion;item_name_high_potion;item_name_gunpowder;item_name_container</drop>
+		<dropQuantity>1;1;1;1</dropQuantity>
+		<dropRates>75;10;35;15</dropRates>
+		<expGiven>25</expGiven>
+	</monster>
 </monsters>
-		

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[System.Serializable] 
+[System.Serializable]
 public class Item : MonoBehaviour{
 
 	public string id;
@@ -13,8 +13,9 @@ public class Item : MonoBehaviour{
 	public int buyValue;
 	public int sellValue;
 	public bool sellable;
-	public string statAffected; // SYNTAX: stat number -> str 2 
+	public string statAffected; // SYNTAX: stat number -> str 2
 	public float quantityAffected;
+	public string target;
 
 	public int quantity;
 
@@ -23,7 +24,7 @@ public class Item : MonoBehaviour{
 		description = "";
 	}
 
-	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, string statAffected, float quantityAffected){
+	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, string statAffected, float quantityAffected, string target){
 		this.id = name;
 
 		this.type = type;
@@ -34,8 +35,20 @@ public class Item : MonoBehaviour{
 		this.sellable = sellable;
 		this.statAffected = statAffected;
 		this.quantityAffected = quantityAffected;
+		this.target = target;
 	}
-	
+
+	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable){
+		this.id = name;
+
+		this.type = type;
+		//this.name = name;
+		this.description = description;
+		this.buyValue = buyValue;
+		this.sellValue = sellValue;
+		this.sellable = sellable;
+	}
+
 	public Item dropping(){
 		return this;
 	}

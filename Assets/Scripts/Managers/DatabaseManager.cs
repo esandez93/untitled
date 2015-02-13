@@ -48,10 +48,26 @@ public class DatabaseManager : MonoBehaviour {
 	        newCraft.result = "item_name_high_potion";
 	        newCraft.resultQuantity = 1;
 	        db.Insert (newCraft);
+
+	        newCraft.item1 = "item_name_high_potion";
+	        newCraft.item1Quantity = 1;
+	        newCraft.item2 = "item_name_high_potion";
+	        newCraft.item2Quantity = 1;
+	        newCraft.result = "item_name_ultra_potion";
+	        newCraft.resultQuantity = 1;
+	        db.Insert (newCraft);
+
+	        newCraft.item1 = "item_name_container";
+	        newCraft.item1Quantity = 1;
+	        newCraft.item2 = "item_name_gunpowder";
+	        newCraft.item2Quantity = 1;
+	        newCraft.result = "item_name_grenade";
+	        newCraft.resultQuantity = 1;
+	        db.Insert (newCraft);
 	    }
 	}
 
 	public List<Craft> getCrafts(string sql){
 		return db.Query<Craft>(sql);
-	}	
+	}
 }

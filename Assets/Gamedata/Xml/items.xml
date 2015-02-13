@@ -1,4 +1,5 @@
 <items>
+	<!--               USABLES              -->
 	<item>
 		<type>Usable</type>
 		<name>item_name_potion</name>
@@ -8,15 +9,58 @@
 		<sellable>true</sellable>
 		<statAffected>currHP</statAffected>
 		<quantityAffected>20</quantityAffected>
+		<target>Single</target>
 	</item>
 	<item>
 		<type>Usable</type>
 		<name>item_name_high_potion</name>
 		<description>item_description_high_potion</description>
 		<buyValue>30</buyValue>
-		<sellValue>10</sellValue>
+		<sellValue>8</sellValue>
 		<sellable>true</sellable>
 		<statAffected>currHP</statAffected>
 		<quantityAffected>50</quantityAffected>
+		<target>Single</target>
+	</item>
+	<item>
+		<type>Usable</type>
+		<name>item_name_ultra_potion</name>
+		<description>item_description_ultra_potion</description>
+		<buyValue>100</buyValue>
+		<sellValue>40</sellValue>
+		<sellable>true</sellable>
+		<statAffected>currHP</statAffected>
+		<quantityAffected>125</quantityAffected>
+		<target>Single</target>
+	</item>
+
+	<item>
+		<type>Usable</type>
+		<name>item_name_grenade</name>
+		<description>item_description_grenade</description>
+		<buyValue>300</buyValue>
+		<sellValue>80</sellValue>
+		<sellable>true</sellable>
+		<statAffected>currHP</statAffected>
+		<quantityAffected>-75</quantityAffected>
+		<target>Group</target>
+	</item>
+
+	<!--               CRAFT                -->
+	<item>
+		<type>Craft</type>
+		<name>item_name_gunpowder</name>
+		<description>item_description_gunpowder</description>
+		<buyValue>40</buyValue>
+		<sellValue>10</sellValue>
+		<sellable>true</sellable>
+	</item>
+	<item>
+		<type>Craft</type>
+		<name>item_name_container</name>
+		<description>item_description_container</description>
+		<buyValue>10</buyValue>
+		<sellValue>4</sellValue>
+		<sellable>true</sellable>
 	</item>
 </items>
