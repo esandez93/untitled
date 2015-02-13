@@ -272,7 +272,7 @@ public class FileManager : MonoBehaviour {
 		                        Convert.ToInt32(itemInfo["sellValue"]), Convert.ToBoolean(itemInfo["sellable"]), itemInfo["statAffected"], 
 		                        float.Parse(itemInfo["quantityAffected"]), itemInfo["target"], Convert.ToInt32(itemInfo["element"]));
 				break;
-	/*5*/	case Item.Type.HEAL:
+	/*5*/	case Item.Type.CRAFT:
 				newItem = new Item(itemInfo["type"], itemInfo["name"], itemInfo["description"], Convert.ToInt32(itemInfo["buyValue"]),
 		                        Convert.ToInt32(itemInfo["sellValue"]), Convert.ToBoolean(itemInfo["sellable"]), itemInfo["statAffected"], 
 		                        float.Parse(itemInfo["quantityAffected"]), itemInfo["target"], Convert.ToInt32(itemInfo["element"]));
