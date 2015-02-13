@@ -524,11 +524,8 @@ public class Character : MonoBehaviour{
 		}
 	}
 	
-	public float getElementalModifier(Skill skill, Character enemy){
-		int skillElement = skill.element;
-		int enemyElement = enemy.element;
-		
-		return Singleton.Instance.elementalModifiers[skillElement, enemyElement];
+	public float getElementalModifier(int attackElement, int enemyElement){
+		return Singleton.Instance.elementalModifiers[attackElement, enemyElement];
 	}
 	
 	public float addPercentVariation(float damage, float percent){
@@ -595,7 +592,7 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void useDamageSkill(Skill skill, List<Character> targets, GameObject skillPrefab){
-		useDamageSkill(skill, target, null, skillPrefab);
+		useDamageSkill(skill, targets, null, skillPrefab);
 	}
 	
 	public void useDamageSkill(Skill skill, List<Character> targets, string status, GameObject skillPrefab){
@@ -606,17 +603,17 @@ public class Character : MonoBehaviour{
 		if(skill.damageType == "Physic"){
 			physic = true;
 		}
-		else if(skill.damageType== "Magic"){
+		else if(skill.damageType == "Magic"){
 			physic = false;
 		}
 
 		foreach(Character target in targets){
-			modifier = getElementalModifier(skill, target);
+			modifier = getElementalModifier(skill.element, target.element);
 
 			if(physic){
-			damage = this.atk * (skill.damage/100);
-			damage -= target.def;
-			Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
+				damage = this.atk * (skill.damage/100);
+				damage -= target.def;
+				Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
 			}
 			else{
 				damage = this.matk * (skill.damage/100);
@@ -625,13 +622,17 @@ public class Character : MonoBehaviour{
 			}
 
 			damage *= modifier;
+
+			skillPrefab.SetActive(true);
+			skillPrefab.GetComponent<MagicMovement>().useMagic(this, target, damage, modifier, status, skill);
 		}
 
-		skillPrefab.SetActive(true);
-		skillPrefab.GetComponent<MagicMovement>().useMagic(this, target, damage, modifier, status, skill); // RETOCAR PARA QUE VAYA AL DEL MEDIO. USAR NUMERO DE TAG
+		//Character skillTarget = GameObject.FindGameObjectWithTag("Monster2").GetComponent<Character>();
+
+		// RETOCAR PARA QUE VAYA AL DEL MEDIO. USAR NUMERO DE TAG
 	}
 	
-	public void doElementalDamage(float damage, float modifier, string status, Skill skill){
+	public void doElementalDamage(float damage, float modifier, string status, float chance){
 		switch((int)(modifier*100)){
 		case 0: Debug.Log("No afecta");
 			break;
@@ -644,26 +645,32 @@ public class Character : MonoBehaviour{
 		}
 		
 		if(status != null){
-			trySetAlteredStatus(skill);
+			trySetAlteredStatus(status, chance);
 		}
 		
 		this.receiveDamage(damage);
 	}
 	
-	private void trySetAlteredStatus(Skill skill){
+	private void trySetAlteredStatus(string status, float chance){
 		
 		int rand = Random.Range(0,101);
 		
-		if(rand <= skill.chance){ // Success
-			if(!this.alteredStatus.ContainsKey(skill.status)){
-				this.addAlteredStatus(Singleton.Instance.allAlteredStatus[skill.status]);
+		if(rand <= chance){ // Success
+			if(!this.alteredStatus.ContainsKey(status)){
+				this.addAlteredStatus(Singleton.Instance.allAlteredStatus[status]);
 			}
 			else{
-				this.alteredStatus[skill.status].resetDuration();
+				this.alteredStatus[status].resetDuration();
 			}
 			
-			setStatusMessage(skill.getStatusName());
+			setStatusMessage(getStatusName(status));
 		}
+	}
+
+	public string getStatusName(string status){
+		string[] allStatus = status.Split('_');
+
+		return allStatus[allStatus.Length-1];
 	}
 	
 	private void setStatusMessage(string status){
@@ -767,6 +774,18 @@ public class Character : MonoBehaviour{
 			showBattleData();
 			
 			BattleManager.Instance.damageReceived = true;
+		}
+	}
+
+	public void receiveItemUsage(Item item){
+		switch(item.idType){
+			case Item.Type.HEAL:
+				this.restoreHP(item.heal);
+				break;
+			case Item.Type.DAMAGE:
+				float modifier = getElementalModifier(item.element, this.element);
+				this.doElementalDamage(item.damage, modifier, item.status, item.chance);
+				break;
 		}
 	}
 
@@ -964,7 +983,7 @@ public class Character : MonoBehaviour{
 
 	public class Target{
 		public const string SINGLE = "Single";
-		public const string GROUP = "Group;
+		public const string GROUP = "Group";
 	}
 }
 

@@ -40,6 +40,7 @@ public class Gamestate : MonoBehaviour {
 		if (GUI.Button (new Rect (930, 30, 150, 30), "Craft")) { // DEBUG
 			Singleton.Instance.inventory.addItem("item_name_potion", 2);
 			CraftManager.Instance.craft("item_name_potion", "item_name_potion");
+			Singleton.Instance.inventory.addItem("item_name_grenade", 2);
 		}
 	}
 

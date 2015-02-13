@@ -136,7 +136,7 @@
 		<maxLevel>5</maxLevel>
 		<type>Active</type>
 		<damageType>Magic</damageType>
-		<target>Single</target>
+		<target>Group</target>
 		<description>skill_description_fireball</description>
 		<damage>1</damage>
 		<element>0</element>

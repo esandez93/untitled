@@ -18,6 +18,10 @@ public class Item : MonoBehaviour{
 
 	public string statAffected; // SYNTAX: stat number -> str 2
 	public float quantityAffected;
+
+	public float heal;
+	public float damage;
+
 	public string target;
 	public int element;
 
@@ -32,7 +36,7 @@ public class Item : MonoBehaviour{
 		description = "";
 	}
 
-	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, string statAffected, float quantityAffected, string target){
+	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, float heal, string target){
 		this.id = name;
 
 		this.idType = Type.HEAL;
@@ -43,12 +47,11 @@ public class Item : MonoBehaviour{
 		this.buyValue = buyValue;
 		this.sellValue = sellValue;
 		this.sellable = sellable;
-		this.statAffected = statAffected;
-		this.quantityAffected = quantityAffected;
+		this.heal = heal;
 		this.target = target;
 	}
 
-	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, string statAffected, float quantityAffected, string target, int element){
+	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, float damage, string target, int element){
 		this.id = name;
 
 		this.idType = Type.DAMAGE;
@@ -59,8 +62,7 @@ public class Item : MonoBehaviour{
 		this.buyValue = buyValue;
 		this.sellValue = sellValue;
 		this.sellable = sellable;
-		this.statAffected = statAffected;
-		this.quantityAffected = quantityAffected;
+		this.damage = damage;
 		this.target = target;
 		this.element = element;
 	}
@@ -86,7 +88,7 @@ public class Item : MonoBehaviour{
 		this.duration = duration;
 	}
 
-	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, string statAffected, float quantityAffected, string target, int element, float chance, string status, int duration){
+	public Item (string type, string name, string description, int buyValue, int sellValue, bool sellable, string target, float chance, string status, int duration){
 		this.id = name;
 
 		this.idType = Type.STATUS;

@@ -88,7 +88,6 @@ public class Inventory{
 			Item item = objects[itemName];
 			if(item.type.Equals(Item.Properties.USABLE)){
 				List<Character> targets = new List<Character>();
-
 				if(item.target.Equals(Character.Target.GROUP)){
 					GameObject[] gos = GameObject.FindGameObjectsWithTag(target.gameObject.tag);
 
@@ -100,8 +99,9 @@ public class Inventory{
 					targets.Add(target);
 				}
 
-				foreach(Character target in targets){
-					target.increaseStat(item.statAffected, item.quantityAffected);
+				foreach(Character character in targets){
+					//character.increaseStat(item.statAffected, item.quantityAffected);
+					character.receiveItemUsage(item);
 				}
 				
 				this.removeItem(itemName, 1);

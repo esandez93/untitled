@@ -32,7 +32,7 @@ public class EnterCollisionCheck : MonoBehaviour {
 			}
 
 			Singleton.Instance.playerPositionInMap = this.transform.parent.position;
-			SaveManager.Instance.autoSave();
+			//SaveManager.Instance.autoSave();
 			Application.LoadLevel("forestBattle");
 		}
 

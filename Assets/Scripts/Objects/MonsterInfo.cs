@@ -67,7 +67,6 @@ public class MonsterInfo{
 				//Debug.Log (i + " - " + this.drops[i] + " " + dropsAux[i] + "% x" + dropsAux2[i]);
 				this.dropRates.Add(this.drops[i], Convert.ToInt32(dropsAux[i]));
 				this.dropQuantity.Add(this.drops[i], Convert.ToInt32(dropsAux2[i]));
-
 			}
 		}
 	}
