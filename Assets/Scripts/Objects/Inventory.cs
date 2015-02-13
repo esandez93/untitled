@@ -87,7 +87,23 @@ public class Inventory{
 		if(this.isItemInInventory(itemName)){
 			Item item = objects[itemName];
 			if(item.type.Equals(Item.Properties.USABLE)){
-				target.increaseStat(item.statAffected, item.quantityAffected);
+				List<Character> targets = new List<Character>();
+
+				if(item.target.Equals(Character.Target.GROUP)){
+					GameObject[] gos = GameObject.FindGameObjectsWithTag(target.gameObject.tag);
+
+					foreach(GameObject go in gos){
+						targets.Add(go.GetComponent<Character>());
+					}
+				}
+				else{
+					targets.Add(target);
+				}
+
+				foreach(Character target in targets){
+					target.increaseStat(item.statAffected, item.quantityAffected);
+				}
+				
 				this.removeItem(itemName, 1);
 				BattleManager.Instance.finishCurrentAttack();
 			}

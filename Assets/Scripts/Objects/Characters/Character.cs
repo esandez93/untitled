@@ -561,9 +561,20 @@ public class Character : MonoBehaviour{
 	public void useSkill(string skillId, Character target){
 		if(this.hasSkill(skillId)){//skills.ContainsKey(skillId)){
 			//string skillId = Singleton.Instance.skillNameId[skillName];
+			List<Character> targets = new List<Character>();
 
-			Skill skill = skills[skillId];	
-			
+			Skill skill = skills[skillId];
+			if(skill.target == Target.GROUP){
+				GameObject[] gos = GameObject.FindGameObjectsWithTag(target.gameObject.tag);
+
+				foreach(GameObject go in gos){
+					targets.Add(go.GetComponent<Character>());
+				}
+			}
+			else{
+				targets.Add(target);
+			}
+
 			if(!BattleManager.Instance.attackStarted){
 				if(skill.mp <= this.currMP){
 					BattleManager.Instance.startCurrentAttack();
@@ -572,7 +583,7 @@ public class Character : MonoBehaviour{
 					this.currMP -= skill.mp;
 					
 					if(skill.idType == Skill.Type.ACTIVE_DAMAGE_AND_ADD_STATUS){
-						useDamageSkill(skill, target, skill.status, instance);
+						useDamageSkill(skill, targets, skill.status, instance);
 					}
 				}
 			}
@@ -583,37 +594,41 @@ public class Character : MonoBehaviour{
 		}
 	}
 	
-	public void useDamageSkill(Skill skill, Character target, GameObject skillPrefab){
+	public void useDamageSkill(Skill skill, List<Character> targets, GameObject skillPrefab){
 		useDamageSkill(skill, target, null, skillPrefab);
 	}
 	
-	public void useDamageSkill(Skill skill, Character target, string status, GameObject skillPrefab){
+	public void useDamageSkill(Skill skill, List<Character> targets, string status, GameObject skillPrefab){
 		bool physic = true;
-		float modifier = getElementalModifier(skill, target);
+		float modifier;
 		float damage = 0f;
-		
+
 		if(skill.damageType == "Physic"){
 			physic = true;
 		}
 		else if(skill.damageType== "Magic"){
 			physic = false;
 		}
-		
-		if(physic){
+
+		foreach(Character target in targets){
+			modifier = getElementalModifier(skill, target);
+
+			if(physic){
 			damage = this.atk * (skill.damage/100);
 			damage -= target.def;
 			Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
+			}
+			else{
+				damage = this.matk * (skill.damage/100);
+				damage -= target.mdef;
+				Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", MATK: " + this.matk + " * " + skill.damage + "%, MonsMDEF: " + target.mdef + ", DMG: " + (damage*modifier));
+			}
+
+			damage *= modifier;
 		}
-		else{
-			damage = this.matk * (skill.damage/100);
-			damage -= target.mdef;
-			Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", MATK: " + this.matk + " * " + skill.damage + "%, MonsMDEF: " + target.mdef + ", DMG: " + (damage*modifier));
-		}
-		
-		damage *= modifier;
 
 		skillPrefab.SetActive(true);
-		skillPrefab.GetComponent<MagicMovement>().useMagic(this, target, damage, modifier, status, skill);
+		skillPrefab.GetComponent<MagicMovement>().useMagic(this, target, damage, modifier, status, skill); // RETOCAR PARA QUE VAYA AL DEL MEDIO. USAR NUMERO DE TAG
 	}
 	
 	public void doElementalDamage(float damage, float modifier, string status, Skill skill){
@@ -945,6 +960,11 @@ public class Character : MonoBehaviour{
 		public const int USE_OBJECT = 3;
 		public const int RUN = 4;
 		public const int DEFEND = 5;
+	}
+
+	public class Target{
+		public const string SINGLE = "Single";
+		public const string GROUP = "Group;
 	}
 }
 
