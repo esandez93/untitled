@@ -160,6 +160,8 @@
 30/12/2014
 - Iniciando revisión del proceso de guardado para que funcione correctamente.
 - Implementar autoguardado entre escenas para no perder datos.
+
+[SEMANA DE DESCANSO]
 	
 08/01/2015
 - Autoguardado entre escenas funcionando correctamente.	
@@ -205,13 +207,53 @@
 	+ Fácil: Los enemigos hacen un 25% menos de daño y tú un 25% más.
 	+ Normal: Tanto tú como los enemigos hacéis el daño normal.
 	+ Difícil: Los enemigos hacen 25% más de daño y tú un 25% menos.
+	
+29/01/2015
+- Arreglado bug de repartición de turnos cuando todos los personajes luchaban conrta 3 montruos.
+
+30/01/2015
+- Arreglado bug con el menú de pausa donde no funcionaba correctamente al intentar despausar desde la tecla correspondiente del teclado.
+
+02/02/2015
+- Implementación (teórica, por falta de material, pero siguiendo el esquema funcional de los monstruos que sí funcionan) de las animaciones de los personajes y 
+  arreglados varios bugs descubiertos durante el desarrollo.
+  
+03/02/2015
+- Implementada la desaparición del monstruo del mapa de plataformas una vez derrotado en batalla.
+
+05/02/2015
+- Implementados los cofres con drop estático predefinido durante el desarrollo: 
+	+ Funcionamiento (obtención del objeto(s) deseado(s)).
+	+ Animación de apertura.
+	+ Permanece abierto aunque entremos en combate o cambiemos de mapa, impidiendo abrir un cobre infinitas veces.
+	
+10/02/2015
+- Cambios menores al funcionamiento de los cofres depurando el código.
+
+11/02/2015
+- Refactorización general para aumentar rendimiento.
+
+12/02/2015
+- Implementación del crafting (creación de objetos a partir de otros).
+- Implementación de BBDD mediante SQLite para utilizar el crafting.
+
+13/02/2015
+- Implementando daños grupales, aún sin éxito.
+
+[DESCANSO LARGO]
+
+24/03/2015
+- Corregido un bug donde cuando los monstruos atacaban en grupo sólo se mostraba la animación de muerte de primero de ellos.
+  Los demás pese a estar muertos a efectos del juego, seguían con la animación de standby.
+- Desarrollando la escena de recompensas tras la batalla. Actualmente se reciben a la perfección, pero no se muestran al usuario.
 
 TO DO:
 - Acabar de implementar skills
-- Implementar creación de objetos
 - Acabar los menús
-- Acabar la dificultad
 
 DIFICULTADES:
+- Aprender el manejo del motor Unity.
 - Hacerse a la idea del funcionamiento de un juego, pensar que está en constante iteración y que debes programar en consecuencia. No puedes hacer un bucle while, por ejemplo.
 - Todo el tema de tratar interfaz via código al principio se hizo complicado.
+- Manejar tantos ficheros y/o BBDD se puede llegar a hacer confuso.
+- Mantener un ritmo de producción más o menos constante sin caer en la desmotivación.
