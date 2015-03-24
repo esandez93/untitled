@@ -85,6 +85,8 @@ public class BattleManager : MonoBehaviour {
 	public List<Monster> monstersInBattle = new List<Monster>();
 	public List<Player> playersInBattle = new List<Player>();
 	public List<Character> turns = new List<Character>();
+
+	public BattleResults battleResults;
 	
 	public enum BattleStates{
 		START,
@@ -299,7 +301,7 @@ public class BattleManager : MonoBehaviour {
 			giveRewards();
 			SaveManager.Instance.saveBattleStatus();
 			//CHANGE SCENE TO BATTLE REWARDS
-			Application.LoadLevel("Forest");
+			Application.LoadLevel("forestWinBattle");
 			deleteInstance();
 			break;
 		}
@@ -635,8 +637,8 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void setMonsters(){
-		numMonsters = Random.Range(1, (playersInBattle.Count+1));
-		//numMonsters = 3; // DEBUG
+		//numMonsters = Random.Range(1, (playersInBattle.Count+1));
+		numMonsters = 3; // DEBUG
 
 		for(int i = 0; i < numMonsters; i++){
 			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();
@@ -677,13 +679,24 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void giveRewards(){
-		foreach(Monster monster in monstersInBattle){
-			foreach(Player player in playersInBattle){
-				monster.giveExp(player);				
+		battleResults = new BattleResults();
+		bool itemsGiven = false;
+
+		foreach(Player player in playersInBattle){
+			foreach(Monster monster in monstersInBattle){
+				//monster.giveExp(player);	
+				battleResults.addExp(player.name, monster.giveExp());
+
+				if(!itemsGiven){
+					//monster.giveDrops();
+					battleResults.addDrops(monster.giveDrops());
+				}			
 			}
 
-			monster.giveDrops();
+			itemsGiven = true;
 		}
+
+		Singleton.Instance.lastBattleResults = battleResults;
 	}
 
 	public void finishCurrentAttack(){

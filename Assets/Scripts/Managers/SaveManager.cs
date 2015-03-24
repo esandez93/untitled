@@ -162,12 +162,19 @@ public class SaveManager : MonoBehaviour{
 			//Knight knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
 			//Rogue rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
 			Mage mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
-			mage.initializePlayer(Player.Job.MAGE);
+
+			//knight.initializePlayer(Player.Job.KNIGHT);
+			//rogue.initializePlayer(Player.Job.ROGUE);
+			mage.initializePlayer(Player.Job.MAGE);			
+
 			MapInfo map = Singleton.Instance.allMaps["Forest"];
 
 			//FileManager.Instance.writeToLog(map.toString());
 
+			//gamestate.setKnight(knight.getData());
+			//gamestate.setRogue(rogue.getData());
 			gamestate.setMage(mage.getData());
+
 			gamestate.setMap(map);
 
 			//players.Add(mage);

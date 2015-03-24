@@ -83,6 +83,7 @@
      <Compile Include="Assets\Scripts\Movement\MovementIsometric.cs" />
      <Compile Include="Assets\Scripts\Objects\AlteredStatus.cs" />
      <Compile Include="Assets\Scripts\Objects\AnyText.cs" />
+     <Compile Include="Assets\Scripts\Objects\BattleResults.cs" />
      <Compile Include="Assets\Scripts\Objects\Characters\Character.cs" />
      <Compile Include="Assets\Scripts\Objects\Characters\Knight.cs" />
      <Compile Include="Assets\Scripts\Objects\Characters\Mage.cs" />
@@ -100,6 +101,7 @@
      <Compile Include="Assets\Scripts\Objects\Skill.cs" />
      <Compile Include="Assets\Scripts\Objects\SkillInfo.cs" />
      <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
+     <Compile Include="Assets\Scripts\RewardsBehaviour.cs" />
      <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />
      <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesEN.xml" />
      <None Include="Assets\Gamedata\Xml\alteredStats.xml" />

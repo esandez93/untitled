@@ -60,28 +60,30 @@ public class Monster : Character{
 		this.alteredStatus = new Dictionary<string, AlteredStatus>();		
 	}
 
-	public void giveExp(Player player){
-		player.getExp(this.expGiven);
-		Debug.Log(player.name + " got " + expGiven + " exp from " + this.name + ".");
+	public float giveExp(){		
+		//player.getExp(this.expGiven);
+		//Debug.Log(player.name + " got " + expGiven + " exp from " + this.name + ".");
+
+		return this.expGiven;
 	}
 
 	public bool hasDrops(){
 		return this.drops.Length == this.dropRates.Count && this.drops.Length > 0 && this.dropRates.Count > 0;
 	}
 
-	public bool giveDrops(){
-		//List<string> droppedItems = new List<string>();
+	public Dictionary<string, int> giveDrops(){
+		Dictionary<string, int> droppedItems = new Dictionary<string, int>();
 
-		bool res = this.hasDrops();
+		//bool res = this.hasDrops();
 
-		if(res){
+		if(this.hasDrops()){
 			float rand;
 			foreach(KeyValuePair<string, int> entry in dropRates){
 				rand = Random.Range(0, 101);
 
 				if(rand <= entry.Value){ // Success
-					//droppedItems.Add(entry.Key);
-					Singleton.Instance.inventory.addItem(entry.Key, dropQuantity[entry.Key]);
+					droppedItems.Add(entry.Key, dropQuantity[entry.Key]);
+					//Singleton.Instance.inventory.addItem(entry.Key, dropQuantity[entry.Key]);
 					Debug.Log(this.name + " dropped " + dropQuantity[entry.Key] + " " + entry.Key + ".");
 				}
 			}
@@ -91,7 +93,8 @@ public class Monster : Character{
 			}*/
 		}
 
-		return res;
+		return droppedItems;
+		//return res;
 	}
 	
 	public void doAction(int action, Player objective){

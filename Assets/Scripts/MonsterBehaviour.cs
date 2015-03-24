@@ -148,10 +148,10 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 
 	public void die(){
-		if(startDeath){
+		//if(startDeath){
 			animator.SetInteger("AnimationState", Animations.DIE);
 			changeAnimationState(animationState.DYING);
-		}
+		//}
 	}
 
 	private void changeAnimationState(animationState state){
@@ -181,6 +181,7 @@ public class MonsterBehaviour : MonoBehaviour {
 		startDeath = false;
 		BattleManager.Instance.finishCurrentAttack();
 		animator.enabled = false;
+		Debug.Log("FINISH DEATH");
 	}
 	
 	public class Animations{

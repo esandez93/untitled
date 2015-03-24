@@ -7,6 +7,8 @@ public class Singleton : MonoBehaviour {
 
 	public Vector2 playerPositionInMap;
 
+	public BattleResults lastBattleResults;
+
 	public static string statsFileName = "Atributos por lv.csv";
 	public static string elementalModifiersFileName = "Modificadores elemento.csv";
 	public static string skillInfosFileName = "Skills por lv.csv";

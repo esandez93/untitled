@@ -808,19 +808,19 @@ public class Character : MonoBehaviour{
 	
 	public void die(){		
 		alive = false;
-		if(BattleManager.Instance.deathFinished){
+		/*if(BattleManager.Instance.deathFinished){
 			Debug.Log(this.name + " is dead!");
 			BattleManager.Instance.checkIfEnded();
 		}
-		else{
-			if(this.isPlayer()){
-				
-			}
-			else{
-				gameObject.GetComponent<MonsterBehaviour>().deathStarted();
-				gameObject.GetComponent<MonsterBehaviour>().die();
-			}
+		else{*/
+		if(this.isPlayer()){
+			
 		}
+		else{
+			gameObject.GetComponent<MonsterBehaviour>().deathStarted();
+			gameObject.GetComponent<MonsterBehaviour>().die();
+		}
+		//}
 	}
 	
 	public bool isAlive(){
