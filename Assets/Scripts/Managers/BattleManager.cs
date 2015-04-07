@@ -638,7 +638,7 @@ public class BattleManager : MonoBehaviour {
 
 	private void setMonsters(){
 		//numMonsters = Random.Range(1, (playersInBattle.Count+1));
-		numMonsters = 3; // DEBUG
+		numMonsters = 2; // DEBUG
 
 		for(int i = 0; i < numMonsters; i++){
 			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();
@@ -675,25 +675,20 @@ public class BattleManager : MonoBehaviour {
 			default: 
 				return null;
 		}*/
-		return Gamestate.findPlayer(data.characterName).GetComponent<Player>();
+		//return Gamestate.findPlayer(data.characterName).GetComponent<Player>();
+		return GameObject.FindGameObjectWithTag(data.characterName).GetComponent<Player>();
 	}
 
 	private void giveRewards(){
 		battleResults = new BattleResults();
-		bool itemsGiven = false;
 
 		foreach(Player player in playersInBattle){
-			foreach(Monster monster in monstersInBattle){
-				//monster.giveExp(player);	
-				battleResults.addExp(player.name, monster.giveExp());
+			battleResults.addPlayer(player);
+		}
 
-				if(!itemsGiven){
-					//monster.giveDrops();
-					battleResults.addDrops(monster.giveDrops());
-				}			
-			}
-
-			itemsGiven = true;
+		foreach(Monster monster in monstersInBattle){
+			battleResults.addExp(monster.giveExp());
+			battleResults.addDrops(monster.giveDrops());						
 		}
 
 		Singleton.Instance.lastBattleResults = battleResults;

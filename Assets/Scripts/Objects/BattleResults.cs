@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 public class BattleResults {
 	public Dictionary<string, int> droppedItems;
-	public Dictionary<string, float> gainedExp;
+	public float gainedExp;
 
-	public List<string> players;
+	public List<Player> players;
 
 	public BattleResults(){
 		droppedItems = new Dictionary<string, int>();
-		gainedExp = new Dictionary<string, float>();
-		players = new List<string>();
+		//gainedExp = new Dictionary<string, float>();
+		players = new List<Player>();
 	}
 
 	private bool itemExists(string itemName){
@@ -26,14 +26,8 @@ public class BattleResults {
 		return res;
 	}
 
-	private bool playerExists(string playerName){
-		/*foreach(KeyValuePair<string, float> entry in gainedExp){
-			if(entry.Key.Equals(playerName)){
-				res = true;
-			}
-		}*/
-
-		return players.Contains(playerName);
+	private bool playerExists(Player player){
+		return players.Contains(player);
 	}
 
 	public void addDrops(Dictionary<string, int> drops){
@@ -47,17 +41,35 @@ public class BattleResults {
 		}
 	}
 
-	public void addExp(string playerName, float exp){
-		if(!playerExists(playerName)){
-			gainedExp.Add(playerName, exp);
-			players.Add(playerName);
+	public Dictionary<string, int> getDrops(){
+		return droppedItems;
+	}
+
+	public void addExp(float exp){
+		//if(!playerExists(playerName)){
+			gainedExp += exp;
+			/*players.Add(playerName);
 		}
 		else{
 			gainedExp[playerName] = gainedExp[playerName] + exp;
-		}		
+		}	*/	
+	}
+
+	public float getExp(){
+		return gainedExp;
+	}
+
+	public void addPlayer(Player player){
+		if(!playerExists(player)){
+			players.Add(player);
+		}
+	}
+
+	public Player getPlayer(int position){
+		return players[position-1];
 	}
 
 	public int getNumberOfPlayers(){
-		return gainedExp.Count;
+		return players.Count;
 	}
 }

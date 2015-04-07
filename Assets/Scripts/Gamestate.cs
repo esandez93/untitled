@@ -194,8 +194,6 @@ public class Gamestate : MonoBehaviour {
 					playersData[i] = data;
 				}
 			}
-
-			Debug.Log ("Player Data Exists");
 		}
 	}
 
@@ -220,11 +218,38 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public PlayerData getPlayerData(string name){
-		return findPlayer(name).GetComponent<Player>().getData();
+		PlayerData playerData = null;
+
+		foreach(PlayerData p in playersData){
+			if(p.characterName.Equals(name)){
+				playerData = p;
+			}
+		}
+
+		return playerData;
+		//return findPlayer(name).GetComponent<Player>().getData();
 	}
 
-	public static GameObject findPlayer(string tag){
+	private static GameObject findPlayer(string tag){
 		return GameObject.FindGameObjectWithTag(tag);
+	}
+
+	public Player getPlayer(string name){
+		Player player = null;
+
+		switch(name){
+			case "Mage":
+				player = mage;
+				break;
+			case "Knight":
+				player = knight;
+				break;	
+			case "Rogue":
+				player = rogue;
+				break;				
+		}
+
+		return player;
 	}
 
 	public void changeFromMapToBattle(string battleMapName){

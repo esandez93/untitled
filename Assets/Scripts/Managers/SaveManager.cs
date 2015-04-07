@@ -173,7 +173,7 @@ public class SaveManager : MonoBehaviour{
 
 			//gamestate.setKnight(knight.getData());
 			//gamestate.setRogue(rogue.getData());
-			gamestate.setMage(mage.getData());
+			gamestate.setMage(mage, mage.getData());
 
 			gamestate.setMap(map);
 

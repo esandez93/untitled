@@ -135,12 +135,17 @@ public class Player : Character{
 		return new PlayerData((Player)this);
 	}
 	
-	public void getExp(float exp){
+	public bool giveExp(float exp){
+		bool leveledUp = false;
+
 		this.exp += exp;
 
 		while(this.exp >= Singleton.Instance.expNeeded[this.level]){
 			this.levelUp();
+			leveledUp = true;
 		}
+
+		return leveledUp;
 	}
 
 	public void statUp(string stat){
