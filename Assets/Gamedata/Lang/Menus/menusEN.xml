@@ -30,6 +30,45 @@
 		<menuId>pause_menu_resume</menuId>
 		<text>Resume game</text>
 	</menu>
+	<menu>
+		<menuId>menu_tab_status</menuId>
+		<text>Status</text>
+	</menu>
+	<menu>
+		<menuId>menu_tab_skills</menuId>
+		<text>Skills</text>
+	</menu>
+	<menu>
+		<menuId>menu_tab_inventory</menuId>
+		<text>Inventory</text>
+	</menu>
+	<menu>
+		<menuId>menu_tab_craft</menuId>
+		<text>Craft</text>
+	</menu>
+	<menu>
+		<menuId>menu_tab_saveload</menuId>
+		<text>Save/Load Game</text>
+	</menu>
+
+	<menu>
+		<menuId>status_remaining_stat_points</menuId>
+		<text>Remaining Stat Points</text>
+	</menu>
+	<menu>
+		<menuId>status_remaining_skill_points</menuId>
+		<text>Remaining Skill Points</text>
+	</menu>
+
+	<!--						  SAVE MENU 					  -->
+	<menu>
+		<menuId>saving_games_head</menuId>
+		<text>Save Game</text>
+	</menu>
+	<menu>
+		<menuId>saved_games_head</menuId>
+		<text>Load Game</text>
+	</menu>
 
 	<!--                          BATTLE MENU                     -->
 	<menu>
@@ -62,6 +101,20 @@
 	</menu>
 
 	<!--                          ITEMS                      -->
+		<!--				TYPES				-->
+	<menu>
+		<menuId>item_type_usable</menuId>
+		<text>Usable</text>
+	</menu>
+	<menu>
+		<menuId>item_type_material</menuId>
+		<text>Material</text>
+	</menu>
+	<menu>
+		<menuId>item_type_trash</menuId>
+		<text>Trash</text>
+	</menu>
+		<!--			USABLE 				-->
 	<menu>
 		<menuId>item_name_potion</menuId>
 		<text>Potion</text>
@@ -112,7 +165,59 @@
 		<text>Destined to contain something inside. Used for crafting.</text>
 	</menu>
 
+	<menu>
+		<menuId>craft_recipes_head</menuId>
+		<text>Recipes</text>
+	</menu>
+	<menu>
+		<menuId>craft_materials_head</menuId>
+		<text>Materials</text>
+	</menu>	
+	<menu>
+		<menuId>create_button_text</menuId>
+		<text>Craft</text>
+	</menu>
+
 	<!--                          SKILLS                      -->
+		<!--				BRANCHES				-->		
+	<menu>
+		<menuId>mage_branch_creation</menuId>
+		<text>Creation</text>
+	</menu>
+	<menu>
+		<menuId>mage_branch_destruction</menuId>
+		<text>Destruction</text>
+	</menu>
+	<menu>
+		<menuId>mage_branch_benevolence</menuId>
+		<text>Benevolence</text>
+	</menu>
+	<menu>
+		<menuId>rogue_branch_alteration</menuId>
+		<text>Alteration</text>
+	</menu>
+	<menu>
+		<menuId>rogue_branch_massacre</menuId>
+		<text>Massacre</text>
+	</menu>
+	<menu>
+		<menuId>rogue_branch_gambit</menuId>
+		<text>Gambit</text>
+	</menu>
+	<menu>
+		<menuId>knight_branch_protection</menuId>
+		<text>Protection</text>
+	</menu>
+	<menu>
+		<menuId>knight_branch_attack</menuId>
+		<text>Attack</text>
+	</menu>
+	<menu>
+		<menuId>supporting</menuId>
+		<text>Supporting</text>
+	</menu>
+
+		<!--			SKILLS 				-->
 	<menu>
 		<menuId>skill_name_fireball</menuId>
 		<text>Fireball</text>

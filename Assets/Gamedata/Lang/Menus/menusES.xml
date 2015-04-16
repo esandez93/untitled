@@ -30,6 +30,45 @@
 		<menuId>pause_menu_resume</menuId>
 		<text>Volver al juego</text>
 	</menu>
+	<menu>
+		<menuId>menu_tab_status</menuId>
+		<text>Estado</text>
+	</menu>
+	<menu>
+		<menuId>menu_tab_skills</menuId>
+		<text>Habilidades</text>
+	</menu>
+	<menu>
+		<menuId>menu_tab_inventory</menuId>
+		<text>Inventario</text>
+	</menu>
+	<menu>
+		<menuId>menu_tab_craft</menuId>
+		<text>Creación</text> <!-- Elaboración -->
+	</menu>
+	<menu>
+		<menuId>menu_tab_saveload</menuId>
+		<text>Guardar/Cargar Partida</text>
+	</menu>
+
+	<menu>
+		<menuId>status_remaining_stat_points</menuId>
+		<text>Puntos de Atributo Restantes</text>
+	</menu>
+	<menu>
+		<menuId>status_remaining_skill_points</menuId>
+		<text>Puntos de Habilidad Restantes</text>
+	</menu>
+
+	<!--						  SAVE MENU 					  -->
+	<menu>
+		<menuId>saving_games_head</menuId>
+		<text>Guardar Partida</text>
+	</menu>
+	<menu>
+		<menuId>saved_games_head</menuId>
+		<text>Cargar Partida</text>
+	</menu>
 
 	<!--                          BATTLE MENU                     -->
 	<menu>
@@ -62,6 +101,19 @@
 	</menu>
 
 	<!--                          ITEMS                      -->
+		<!--				TYPES				-->
+	<menu>
+		<menuId>item_type_usable</menuId>
+		<text>Usable</text>
+	</menu>
+	<menu>
+		<menuId>item_type_material</menuId>
+		<text>Material</text>
+	</menu>
+	<menu>
+		<menuId>item_type_trash</menuId>
+		<text>Basura</text>
+	</menu>
 		<!--             USABLES            -->
 	<menu>
 		<menuId>item_name_potion</menuId>
@@ -113,7 +165,58 @@
 		<text>Destinado a contener algo dentro. Usado para la fabricación.</text>
 	</menu>
 
+	<menu>
+		<menuId>craft_recipes_head</menuId>
+		<text>Recetas</text>
+	</menu>
+	<menu>
+		<menuId>craft_materials_head</menuId>
+		<text>Materiales</text>
+	</menu>	
+	<menu>
+		<menuId>create_button_text</menuId>
+		<text>Crear</text>
+	</menu>
+
 	<!--                          SKILLS                      -->
+		<!--				BRANCHES				-->		
+	<menu>
+		<menuId>mage_branch_creation</menuId>
+		<text>Creación</text>
+	</menu>
+	<menu>
+		<menuId>mage_branch_destruction</menuId>
+		<text>Destrucción</text>
+	</menu>
+	<menu>
+		<menuId>mage_branch_benevolence</menuId>
+		<text>Benevolencia</text>
+	</menu>
+	<menu>
+		<menuId>rogue_branch_alteration</menuId>
+		<text>Alteración</text>
+	</menu>
+	<menu>
+		<menuId>rogue_branch_massacre</menuId>
+		<text>Masacre</text>
+	</menu>
+	<menu>
+		<menuId>rogue_branch_gambit</menuId>
+		<text>Táctica</text>
+	</menu>
+	<menu>
+		<menuId>knight_branch_protection</menuId>
+		<text>Protección</text>
+	</menu>
+	<menu>
+		<menuId>knight_branch_attack</menuId>
+		<text>Ataque</text>
+	</menu>
+	<menu>
+		<menuId>supporting</menuId>
+		<text>Apoyo</text>
+	</menu>
+		<!--				SKILLS 					-->
 	<menu>
 		<menuId>skill_name_fireball</menuId>
 		<text>Bola de fuego</text>

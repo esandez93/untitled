@@ -241,4 +241,10 @@ public class RewardsBehaviour : MonoBehaviour {
 	public void clickedContinue(){
 		clickContinue = true;		
 	}
+
+	public void goPlatform(){
+		if(clickContinue){
+			Application.LoadLevel("Forest");
+		}
+	}
 }
