@@ -9,6 +9,7 @@ public class Inventory{
 	public static int MAX_ITEMS = 99;
 	public Dictionary<string, Item> objects;
 	public float money;
+	private int totalItems = 0;
 
 	public Inventory (){
 		objects = new Dictionary<string, Item>();
@@ -42,6 +43,7 @@ public class Inventory{
 			Item item = getItem(itemName);
 			item.quantity = newQuantity;
 			this.objects.Add(itemName, item);
+			totalItems++;
 		}		
 	}
 	
@@ -55,11 +57,13 @@ public class Inventory{
 				if(item.quantity == 0){
 					this.objects.Remove(itemName);
 					Debug.Log (itemName + " REMOVED FROM INVENTORY");
+					totalItems--;
 				}
 			}
 			else{
 				this.objects.Remove(itemName);
 				Debug.Log (itemName + " REMOVED FROM INVENTORY");
+				totalItems--;
 			}
 
 			if(Gamestate.instance.isBattleLevel()){
@@ -73,15 +77,6 @@ public class Inventory{
 			return false;
 		}
 	}
-	
-	/*public int count(){
-		int i = 0;
-		foreach(KeyValuePair<string, int> entry in this.objects){
-			i += entry.Value;
-		}
-		
-		return i;
-	}*/
 
 	public void useItem(string itemName, Character target){
 		if(this.isItemInInventory(itemName)){
@@ -153,6 +148,10 @@ public class Inventory{
 		else{
 			return false;
 		}
+	}
+
+	public int getTotalItems(){
+		return totalItems;
 	}
 }
 

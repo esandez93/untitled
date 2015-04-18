@@ -171,8 +171,8 @@ public class SaveManager : MonoBehaviour{
 
 			//FileManager.Instance.writeToLog(map.toString());
 
-			//gamestate.setKnight(knight.getData());
-			//gamestate.setRogue(rogue.getData());
+			//gamestate.setKnight(knight, knight.getData());
+			//gamestate.setRogue(rogue, rogue.getData());
 			gamestate.setMage(mage, mage.getData());
 
 			gamestate.setMap(map);

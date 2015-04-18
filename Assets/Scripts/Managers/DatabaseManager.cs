@@ -38,7 +38,7 @@ public class DatabaseManager : MonoBehaviour {
 
 	private void initializeDatabase(SQLiteConnection db){
 		db.CreateTable<Craft> ();
-	   if (db.Table<Craft> ().Count() == 0) {
+	   if (db.Table<Craft>().Count() == 0) {
 	        // Only insert the data if it doesn't already exist
 	        Craft newCraft = new Craft ();
 	        newCraft.item1 = "item_name_potion";

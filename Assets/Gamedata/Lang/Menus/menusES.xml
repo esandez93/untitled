@@ -53,11 +53,11 @@
 
 	<menu>
 		<menuId>status_remaining_stat_points</menuId>
-		<text>Puntos de Atributo Restantes</text>
+		<text>Puntos de Atributo</text>
 	</menu>
 	<menu>
 		<menuId>status_remaining_skill_points</menuId>
-		<text>Puntos de Habilidad Restantes</text>
+		<text>Puntos de Habilidad</text>
 	</menu>
 
 	<!--						  SAVE MENU 					  -->
@@ -125,7 +125,7 @@
 	</menu>
 	<menu>
 		<menuId>item_name_high_potion</menuId>
-		<text>Súper Poción</text>
+		<text>Superpoción</text>
 	</menu>
 	<menu>
 		<menuId>item_description_high_potion</menuId>
@@ -133,7 +133,7 @@
 	</menu>
 	<menu>
 		<menuId>item_name_ultra_potion</menuId>
-		<text>Ultra Poción</text>
+		<text>Ultrapoción</text>
 	</menu>
 	<menu>
 		<menuId>item_description_ultra_potion</menuId>

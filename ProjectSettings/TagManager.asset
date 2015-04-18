@@ -35,6 +35,11 @@ TagManager:
   - PauseMenu
   - Chest
   - RewardPanel
+  - PauseMenuBody
+  - StatusBody
+  - PauseMenuTabs
+  - Recipe
+  - Material
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

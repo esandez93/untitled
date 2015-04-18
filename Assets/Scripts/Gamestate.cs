@@ -65,6 +65,7 @@ public class Gamestate : MonoBehaviour {
 
 	public void initialize(){
 		OptionsManager.Instance.initialize();
+		PauseMenuManager.Instance.hideCanvas();
 		enemiesToDisable = new List<string>();
 		openedChests = new List<string>();
 		//checkMap = false;
@@ -126,6 +127,10 @@ public class Gamestate : MonoBehaviour {
 		return allMonsters[monsterName];
 	}
 
+	public void setPlayer(Player player){
+		addPlayerData(player.getData());
+	}
+
 	public void setKnight(Knight knight, PlayerData data){
 		this.knight = knight;
 		setKnight(data);
@@ -143,8 +148,7 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void setRogue(PlayerData data){
-		this.rogue.populate(data);
-		addPlayer(this.rogue);
+		addPlayerData(data);
 	}
 
 	public void setMage(Mage mage, PlayerData data){

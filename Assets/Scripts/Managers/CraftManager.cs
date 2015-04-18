@@ -63,4 +63,10 @@ public class CraftManager : MonoBehaviour{
 			return inventory.hasNeededItems(item1, item1Quantity) && inventory.hasNeededItems(item2, item2Quantity);
 		}
 	}
+
+	public List<Craft> getRecipes(){
+		string sql = "SELECT * FROM CRAFTING;";
+
+		return DatabaseManager.Instance.getCrafts(sql);
+	}
 }

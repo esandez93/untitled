@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"FindC",
+				"FindChild"
+			],
+			[
+				"Game",
+				"GameObject	*()"
+			],
+			[
+				"SetAv",
+				"SetActive	value"
+			],
+			[
+				"detectC",
+				"detectClick"
+			],
+			[
+				"saveL",
+				"saveLoadBody"
+			],
+			[
 				"clickC",
 				"clickContinue"
 			],
@@ -152,19 +172,14 @@
 	"buffers":
 	[
 		{
-			"file": "Managers/BattleManager.cs",
+			"contents": "using UnityEngine;\nusing UnityEngine.UI;\nusing System.Collections;\nusing System.Collections.Generic;\n\npublic class PauseMenuManager : MonoBehaviour {\n\n	private List<Player> players;	\n\n	private GameObject menuBody;\n	private GameObject menuTabs;\n\n	// BODY\n	private GameObject statusBody;\n		private GameObject target;\n	private GameObject skillsBody;\n	private GameObject inventoryBody;\n		private GameObject inventoryDescription;\n	private GameObject craftBody;\n		private GameObject craftDescription;\n	private GameObject saveLoadBody;\n		private GameObject savingGames;\n		private GameObject loadingGames;\n	private GameObject nonTargetPlayers;\n\n	// TABS\n	private GameObject statusTab;\n	private GameObject skillsTab;\n	private GameObject inventoryTab;\n	private GameObject craftTab;\n	private GameObject saveLoadTab;\n\n	private bool initialized = false;\n\n	private static PauseMenuManager instance = null;\n	public static PauseMenuManager Instance{\n		get{\n			if (instance == null){\n				instance = new GameObject(\"PauseMenuManager\").AddComponent<PauseMenuManager>();\n				instance.initialize();\n				DontDestroyOnLoad(instance.gameObject);\n			}\n				\n			return instance;\n		}\n	}\n\n	void Start () {\n		\n	}\n	\n	void Update () {\n		if(Input.GetButtonDown(\"Quit Menu\")){\n			//Application.LoadLevel(\"Forest\");\n		}\n	}\n\n	private void initialize(){\n		if(!initialized){\n			instance.menuBody = GameObject.FindGameObjectWithTag(\"PauseMenuBody\");\n			instance.menuTabs = GameObject.FindGameObjectWithTag(\"PauseMenuTabs\");\n\n			//				BODY\n			Transform bodyTransform = instance.menuBody.transform;\n\n			instance.statusBody = bodyTransform.FindChild(\"StatusBody\").gameObject;\n				instance.target = bodyTransform.FindChild(\"StatusBody\").FindChild(\"Target\").gameObject;\n			instance.skillsBody = bodyTransform.FindChild(\"SkillsBody\").gameObject;\n			instance.inventoryBody = bodyTransform.FindChild(\"InventoryBody\").gameObject;\n				instance.inventoryDescription = bodyTransform.FindChild(\"InventoryBody\").FindChild(\"Description\").gameObject;\n			instance.craftBody = bodyTransform.FindChild(\"CraftBody\").gameObject;\n				instance.craftDescription = bodyTransform.FindChild(\"CraftBody\").FindChild(\"Description\").gameObject;\n			instance.saveLoadBody = bodyTransform.FindChild(\"SaveLoadBody\").gameObject;\n				instance.savingGames = bodyTransform.FindChild(\"SaveLoadBody\").FindChild(\"SavingGames\").gameObject;\n				instance.loadingGames = bodyTransform.FindChild(\"SaveLoadBody\").FindChild(\"LoadingGames\").gameObject;\n			instance.nonTargetPlayers = bodyTransform.FindChild(\"NonTargetPlayers\").gameObject;\n\n			//				TABS\n			Transform tabTransform = instance.menuTabs.transform;\n\n			instance.statusTab = tabTransform.FindChild(\"StatusTab\").gameObject;\n			instance.skillsTab = tabTransform.FindChild(\"SkillsTab\").gameObject;\n			instance.inventoryTab = tabTransform.FindChild(\"InventoryTab\").gameObject;\n			instance.craftTab = tabTransform.FindChild(\"CraftTab\").gameObject;\n			instance.saveLoadTab = tabTransform.FindChild(\"SaveLoadTab\").gameObject;\n\n			translateTabs();\n			translateBody();\n\n			hideAll();			\n\n			this.gameObject.SetActive(false);\n\n			Debug.Log(\"PauseMenuManager initialized.\");\n\n			initialized = true;\n		}		\n	}\n\n	private void setPlayers(){\n		Player player;\n		players = new List<Player>();\n\n		foreach(PlayerData data in Gamestate.instance.playersData){\n			player = buildPlayer(data);\n			player.populate(data);\n			instance.players.Add(player);\n		}\n	}\n\n	private Player buildPlayer(PlayerData data){\n		return GameObject.FindGameObjectWithTag(data.characterName).GetComponent<Player>();\n	}\n\n	private void hideAll(){\n		this.gameObject.SetActive(true);\n		hideBody(instance.statusBody);		\n		hideBody(instance.skillsBody);\n		hideBody(instance.inventoryBody);\n		hideBody(instance.craftBody);\n		hideBody(instance.saveLoadBody);\n		hideBody(instance.nonTargetPlayers);\n	}\n\n	public void showStatus(){\n		hideAll();\n\n		Player target = instance.players[0];\n\n		fillTarget(target);\n		fillNonTargets();\n\n		instance.statusBody.SetActive(true);\n		instance.nonTargetPlayers.SetActive(true);\n	}\n\n	private void fillTarget(Player targetPlayer){\n		Transform basicInfoTransform = instance.target.transform.FindChild(\"BasicInfo\");\n		basicInfoTransform.FindChild(\"PlayerPortrait\").GetComponent<Image>().sprite = Resources.Load <Sprite> (\"Portraits/\" + targetPlayer.name + \"Portrait\");\n		basicInfoTransform.FindChild(\"PlayerName\").GetComponent<Text>().text = targetPlayer.characterName;\n		basicInfoTransform.FindChild(\"PlayerLevel\").GetComponent<Text>().text = \"Lv \" + targetPlayer.level.ToString();\n		basicInfoTransform.FindChild(\"Health\").FindChild(\"HealthBar\").GetComponent<Image>().fillAmount = (targetPlayer.currHP / targetPlayer.maxHP);\n		basicInfoTransform.FindChild(\"Mana\").FindChild(\"ManaBar\").GetComponent<Image>().fillAmount = (targetPlayer.currMP / targetPlayer.maxMP);\n		basicInfoTransform.FindChild(\"Exp\").FindChild(\"ExpBar\").GetComponent<Image>().fillAmount = (targetPlayer.exp / targetPlayer.expForNextLevel);\n		basicInfoTransform.FindChild(\"Exp\").FindChild(\"CurrentExp\").GetComponent<Text>().text = \"(\" + targetPlayer.exp +  \"/\" + targetPlayer.expForNextLevel + \")\";\n\n		Transform basicStatsTransform = instance.target.transform.FindChild(\"BasicStats\");\n		basicStatsTransform.FindChild(\"STR\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.str.ToString();\n		basicStatsTransform.FindChild(\"VIT\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.vit.ToString();\n		basicStatsTransform.FindChild(\"AGI\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.agi.ToString();\n		basicStatsTransform.FindChild(\"INT\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.itg.ToString();\n		basicStatsTransform.FindChild(\"DEX\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.dex.ToString();\n		basicStatsTransform.FindChild(\"LUK\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.luk.ToString();\n\n		Transform secondStatsTransform = instance.target.transform.FindChild(\"SecondStats\");\n		secondStatsTransform.FindChild(\"ATK\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.atk.ToString();\n		secondStatsTransform.FindChild(\"MATK\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.matk.ToString();\n		secondStatsTransform.FindChild(\"DEF\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.def.ToString();\n		secondStatsTransform.FindChild(\"MDEF\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.mdef.ToString();\n		secondStatsTransform.FindChild(\"HIT\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.hit.ToString();\n		secondStatsTransform.FindChild(\"FLEE\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.flee.ToString();\n		secondStatsTransform.FindChild(\"CRITCH\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.critChance.ToString();\n		secondStatsTransform.FindChild(\"CRITDMG\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.critDmg.ToString();\n		secondStatsTransform.FindChild(\"HP REG\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.hpRegen.ToString();\n		secondStatsTransform.FindChild(\"MP REG\").FindChild(\"Value\").GetComponent<Text>().text = targetPlayer.mpRegen.ToString();\n\n		/*GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/PlayerPortrait\").transform.GetComponent<Image>().sprite = Resources.Load <Sprite> (\"Portraits/\" + targetPlayer.name + \"Portrait\");\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/PlayerName\").transform.GetComponent<Text>().text = targetPlayer.characterName;\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/PlayerLevel\").transform.GetComponent<Text>().text = \"Lv \" + targetPlayer.level.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Health/HealthBar\").transform.GetComponent<Image>().fillAmount = (targetPlayer.currHP / targetPlayer.maxHP);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Mana/ManaBar\").transform.GetComponent<Image>().fillAmount = (targetPlayer.currMP / targetPlayer.maxMP);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Exp/ExpBar\").transform.GetComponent<Image>().fillAmount = (targetPlayer.exp / targetPlayer.expForNextLevel);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Exp/CurrentExp\").transform.GetComponent<Text>().text = \"(\" + targetPlayer.exp +  \"/\" + targetPlayer.expForNextLevel + \")\";\n\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/STR/Value\").transform.GetComponent<Text>().text = targetPlayer.str.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/VIT/Value\").transform.GetComponent<Text>().text = targetPlayer.vit.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/AGI/Value\").transform.GetComponent<Text>().text = targetPlayer.agi.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/INT/Value\").transform.GetComponent<Text>().text = targetPlayer.itg.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/DEX/Value\").transform.GetComponent<Text>().text = targetPlayer.dex.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/LUK/Value\").transform.GetComponent<Text>().text = targetPlayer.luk.ToString();\n\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/ATK/Value\").transform.GetComponent<Text>().text = targetPlayer.atk.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/MATK/Value\").transform.GetComponent<Text>().text = targetPlayer.matk.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/DEF/Value\").transform.GetComponent<Text>().text = targetPlayer.def.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/MDEF/Value\").transform.GetComponent<Text>().text = targetPlayer.mdef.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/HIT/Value\").transform.GetComponent<Text>().text = targetPlayer.hit.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/FLEE/Value\").transform.GetComponent<Text>().text = targetPlayer.flee.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/CRITCH/Value\").transform.GetComponent<Text>().text = targetPlayer.critChance.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/CRITDMG/Value\").transform.GetComponent<Text>().text = targetPlayer.critDmg.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/HP REG/Value\").transform.GetComponent<Text>().text = targetPlayer.hpRegen.ToString();\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/MP REG/Value\").transform.GetComponent<Text>().text = targetPlayer.mpRegen.ToString();*/\n	}\n\n	private void fillNonTargets(){\n		if(instance.players.Count > 1){\n			Player nonTarget;\n			for(int i = 1; i < instance.players.Count; i++){\n				nonTarget = instance.players[i];\n				instance.nonTargetPlayers.transform.FindChild(\"Player\"+i).FindChild(\"PlayerPortrait\").GetComponent<Image>().sprite = Resources.Load <Sprite> (\"Portraits/\" + nonTarget.name + \"Portrait\");\n				instance.nonTargetPlayers.transform.FindChild(\"Player\"+i).FindChild(\"PlayerName\").GetComponent<Text>().text = nonTarget.characterName;\n				instance.nonTargetPlayers.transform.FindChild(\"Player\"+i).FindChild(\"PlayerLevel\").GetComponent<Text>().text = \"Lv \" + nonTarget.level.ToString();\n			}\n\n			if(instance.players.Count == 2){\n				instance.nonTargetPlayers.transform.FindChild(\"Player2\").gameObject.SetActive(false);\n			}\n		}\n		else{\n			instance.nonTargetPlayers.transform.FindChild(\"Player1\").gameObject.SetActive(false);\n			instance.nonTargetPlayers.transform.FindChild(\"Player2\").gameObject.SetActive(false);\n		}\n	}\n\n	public void showSkills(){\n		hideAll();\n\n		instance.skillsBody.SetActive(true);\n		instance.nonTargetPlayers.SetActive(true);\n	}\n\n	public void showInventory(){\n		hideAll();\n\n		instance.inventoryBody.SetActive(true);\n		instance.inventoryDescription.SetActive(false);\n\n		setItems();\n	}\n\n	private void setItems(){\n		List<Item> items = Singleton.Instance.inventory.getItems();\n\n		GameObject[] itemsGameObjects = GameObject.FindGameObjectsWithTag(\"Item\");\n\n		int i = 0;\n		foreach (GameObject item in itemsGameObjects){\n			if(i < items.Count){\n				setItemInfo(items[i], itemsGameObjects[i]);\n			}\n			else{\n				itemsGameObjects[i].SetActive(false);	\n			}\n			i++;\n		}\n	}\n\n	private void setItemInfo(Item item, GameObject itemGameObject){\n		itemGameObject.GetComponent<Item>().populate(item.id);\n\n		itemGameObject.transform.FindChild(\"Icon\").GetComponent<Image>().sprite = Resources.Load <Sprite> (\"Sprites/Items/\" + item.id);\n		itemGameObject.transform.FindChild(\"ItemName\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.id);\n		itemGameObject.transform.FindChild(\"ItemQuantity\").GetComponent<Text>().text = \"x\" + item.quantity.ToString();\n	}\n\n	//				NO HACER CON GAMEOBJECT.FIND 					\n\n	public void setItemDescription(GameObject itemGameObject){\n		instance.inventoryDescription.SetActive(true);\n\n		Item item = itemGameObject.GetComponent<Item>();\n\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Icon\").GetComponent<Image>().sprite = Resources.Load <Sprite> (\"Sprites/Items/\" + item.id);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Name\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.id);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Type\").GetComponent<Text>().text = item.type;\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Description\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.description);\n	}\n\n	public void showCraft(){\n		hideAll();\n\n		List<Craft> recipes = CraftManager.Instance.getRecipes();\n\n		instance.craftBody.SetActive(true);\n		instance.craftDescription.SetActive(false);\n\n		showRecipes(recipes);\n	}\n\n	private void showRecipes(List<Craft> recipes){\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text\").GetComponent<Text>().text);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text\").GetComponent<Text>().text);\n\n		GameObject[] recipesGameObjects = GameObject.FindGameObjectsWithTag(\"Recipe\");\n\n		int i = 0;\n		foreach (GameObject recipe in recipesGameObjects){\n			if(i < recipes.Count){\n				Debug.Log(recipes[i].result);\n				setRecipeInfo(recipes[i], recipesGameObjects[i]);\n			}\n			else{\n				recipesGameObjects[i].SetActive(false);	\n			}\n			i++;\n		}\n\n		GameObject[] materialsGameObjects = GameObject.FindGameObjectsWithTag(\"Material\");\n\n		foreach (GameObject material in materialsGameObjects){\n			material.SetActive(false);\n		}\n\n		instance.craftDescription.SetActive(false);\n	}\n\n	private void setRecipeInfo(Craft recipe, GameObject recipeGameObject){\n		instance.craftDescription.SetActive(true);\n\n		recipeGameObject.GetComponent<Item>().populate(recipe.result);\n\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Recipe/Icon\").GetComponent<Image>().sprite = Resources.Load <Sprite> (\"Sprites/Items/\" + recipe.result);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Recipe/ItemName\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.result);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Recipe/ItemQuantity\").GetComponent<Text>().text = recipe.resultQuantity.ToString();\n	}	\n\n	public void setRecipeDescription(GameObject recipeGameObject){\n		//Item item = Singleton.Instance.inventory.getItem(recipe.result);\n		instance.craftDescription.SetActive(true);\n\n		Item recipe = recipeGameObject.GetComponent<Item>();\n\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/Description/Item/Icon\").GetComponent<Image>().sprite = Resources.Load <Sprite> (\"Sprites/Items/\" + recipe.id);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/Description/Item/Name\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.id);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/Description/Item/Type\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.type);\n		GameObject.Find(\"Gamestate/PauseMenuCanvas/Body/CraftBody/Description/Item/Description\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.description);\n	}	\n\n	public void showSaveLoad(){\n		hideAll();		\n\n		instance.savingGames.SetActive(false);\n		instance.loadingGames.SetActive(false);\n		instance.saveLoadBody.SetActive(true);\n	}\n\n	public void clickSaveGameButton(){\n		if(instance.savingGames.activeInHierarchy){\n			hideSavingGames();\n		}\n		else{\n			showSavingGames();\n		}\n	}\n\n	public void clickLoadGameButton(){\n		if(instance.loadingGames.activeInHierarchy){\n			hideLoadingGames();\n		}\n		else{\n			showLoadingGames();\n		}\n	}\n\n	private void showSavingGames(){\n		instance.savingGames.SetActive(true);\n	}\n\n	private void showLoadingGames(){\n		instance.loadingGames.SetActive(true);\n	}\n\n	private void hideSavingGames(){\n		instance.savingGames.SetActive(false);\n	}\n\n	private void hideLoadingGames(){\n		instance.loadingGames.SetActive(false);\n	}\n\n	private void hideBody(GameObject body){\n		body.SetActive(false);\n	}\n\n	public void hideCanvas(){\n		menuBody.SetActive(false);\n		menuTabs.SetActive(false);\n	}\n\n	public void showCanvas(){\n		setPlayers();\n		menuBody.SetActive(true);\n		menuTabs.SetActive(true);\n		showStatus();\n	}\n\n	private void translateTabs(){\n		Text statusText = GameObject.Find(\"Gamestate/PauseMenuCanvas/Tabs/StatusTab/Text\").GetComponent<Text>();\n		statusText.text = LanguageManager.Instance.getMenuText(statusText.text);\n		//instance.statusTab.transform.FindChild(\"Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.statusTab.transform.FindChild(\"Text\").GetComponent<Text>().text);\n		instance.skillsTab.transform.FindChild(\"Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.skillsTab.transform.FindChild(\"Text\").GetComponent<Text>().text);\n		instance.inventoryTab.transform.FindChild(\"Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.inventoryTab.transform.FindChild(\"Text\").GetComponent<Text>().text);\n		instance.craftTab.transform.FindChild(\"Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.craftTab.transform.FindChild(\"Text\").GetComponent<Text>().text);\n		instance.saveLoadTab.transform.FindChild(\"Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.saveLoadTab.transform.FindChild(\"Text\").GetComponent<Text>().text);\n	}\n\n	private void translateBody(){\n		statusBody.transform.FindChild(\"Target\").FindChild(\"AdditionalStats\").FindChild(\"RemainingStatPoints\").FindChild(\"Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild(\"Target\").FindChild(\"AdditionalStats\").FindChild(\"RemainingStatPoints\").FindChild(\"Text\").GetComponent<Text>().text);\n		statusBody.transform.FindChild(\"Target\").FindChild(\"AdditionalStats\").FindChild(\"RemainingSkillPoints\").FindChild(\"Text\").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild(\"Target\").FindChild(\"AdditionalStats\").FindChild(\"RemainingSkillPoints\").FindChild(\"Text\").GetComponent<Text>().text);\n	}\n}",
+			"file": "Managers/PauseMenuManager.cs",
+			"file_size": 19927,
+			"file_write_time": 130737702978518915,
 			"settings":
 			{
-				"buffer_size": 24674,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "RewardsBehaviour.cs",
-			"settings":
-			{
-				"buffer_size": 8153,
-				"line_ending": "Windows"
+				"buffer_size": 19930,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -176,26 +191,23 @@
 			}
 		},
 		{
-			"file": "Objects/BattleResults.cs",
+			"file": "Managers/FileManager.cs",
 			"settings":
 			{
-				"buffer_size": 1492,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Managers/SaveManager.cs",
-			"settings":
-			{
-				"buffer_size": 6411,
+				"buffer_size": 16729,
 				"line_ending": "Windows"
 			}
 		}
 	],
 	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -243,43 +255,61 @@
 	"expanded_folders":
 	[
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Movement",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters"
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml"
 	],
 	"file_history":
 	[
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/AlteredStatus.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Item.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/LanguageManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/CraftItem.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Inventory.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusEN.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusES.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml/items.xml",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/InventoryItem.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Craft.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/CraftManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/DatabaseManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/Singleton.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/FileManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/PauseMenuManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/SaveManager.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/RewardsBehaviour.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Gamestate.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Player.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/Pause.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/MenuTabCraft.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/MenuTabSaveLoad.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/MenuTabStatus.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/MenuTabInventory.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/MenuTabSkills.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Character.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/DetectTabClick.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/BattleResults.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Player.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Knight.cs",
+		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/AlteredStatus.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleData.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/NewGame.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Mage.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/PlayerData.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters/Monster.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/RewardsBehaviour.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Characters.meta",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleManager.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/SaveManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/MonsterBehaviour.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml/skills.xml",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/LanguageManager.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Inventory.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Item.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/FileManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/MonsterInfo.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml/monsters.xml",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Movement/MagicMovement.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/EnterCollisionCheck.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Xml/items.xml",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Skill.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/CraftManager.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/DatabaseManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/DisplayItems.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Objects/Craft.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/DatabaseManager.cs.meta",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/LoadGame.cs.meta",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/getSkillButtonText.cs",
@@ -302,9 +332,6 @@
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/PlayerBehaviour.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/EnterBattleCheck.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/ResumeGame.cs",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusES.xml",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Gamedata/Lang/Menus/menusEN.xml",
-		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/Pause.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Buttons/ContinueGame.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Managers/BattleEncounterManager.cs",
 		"/C/Users/Public/Documents/Unity Projects/Untitled/Assets/Scripts/Movement/CommonMovementPlatform.cs",
@@ -323,7 +350,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -337,9 +364,25 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"Craft",
+			"Resources",
+			"FindGameObjectsWithTag",
+			"GameObject",
+			"transform.FindChild(\"EnemyData\")",
+			"transform.FindChild(\"PlayerData\")",
+			"instance.target.transform.FindChild(\"BasicInfo\")",
+			"gui",
+			"show",
+			"Tag",
+			"Forest",
+			"SetActive(true)",
+			"SetActive(tre)",
+			"hide",
+			".SetActive(false)",
+			"collider2D",
 			"inventory",
 			"player1",
 			"exp",
@@ -402,6 +445,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Transform",
+			"enemyDataTransform",
+			"playerDataTransform",
+			"basicInfoTransform",
+			")",
 			"player3",
 			"player2",
 			"player3",
@@ -438,24 +486,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Managers/BattleManager.cs",
+					"file": "Managers/PauseMenuManager.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 24674,
+						"buffer_size": 19930,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10459,
-								10500
+								13242,
+								13242
 							]
 						],
 						"settings":
@@ -464,43 +512,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4005.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "RewardsBehaviour.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8153,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8107,
-								8107
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2296.0,
+						"translation.y": 3564.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "Managers/LanguageManager.cs",
 					"semi_transient": false,
 					"settings":
@@ -512,8 +531,8 @@
 						"selection":
 						[
 							[
-								3449,
-								3449
+								3301,
+								3301
 							]
 						],
 						"settings":
@@ -521,69 +540,40 @@
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
-						"translation.y": 1575.0,
+						"translation.x": 0.0,
+						"translation.y": 1651.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Managers/FileManager.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16729,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8026,
+								8026
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3526.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Objects/BattleResults.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1492,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1004,
-								1004
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "Managers/SaveManager.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6411,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4706,
-								4706
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2319.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -624,15 +614,17 @@
 	{
 		"height": 0.0
 	},
+	"pinned_build_system": "",
 	"project": "sublime.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -641,6 +633,7 @@
 	"select_project":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -649,6 +642,7 @@
 	"select_symbol":
 	{
 		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -662,7 +656,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 258.0,
+	"side_bar_width": 233.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

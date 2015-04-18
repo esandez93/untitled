@@ -13,6 +13,10 @@ public class RewardsBehaviour : MonoBehaviour {
 	public string player2Name;
 	public string player3Name;*/
 
+	/*
+		Hacer struct con las variables y crear un array de 3. Así se puede acceder sin repetir código.
+	*/
+
 	//PLAYER 1
 	private Player player1;
 	private GameObject player1Frame;
@@ -204,6 +208,7 @@ public class RewardsBehaviour : MonoBehaviour {
 
 	private void fillPlayer1(){
 		bool leveledUp = player1.giveExp(battleResults.getExp());
+		Gamestate.instance.setPlayer(player1);
 
 		if(leveledUp){
 			player1LevelUp.text = "Level Up!";

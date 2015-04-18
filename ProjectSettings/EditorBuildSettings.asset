@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/Scenes/forestBattle.unity
   - enabled: 1
     path: Assets/Scenes/forestWinBattle.unity
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity

@@ -53,11 +53,11 @@
 
 	<menu>
 		<menuId>status_remaining_stat_points</menuId>
-		<text>Remaining Stat Points</text>
+		<text>Status Points</text>
 	</menu>
 	<menu>
 		<menuId>status_remaining_skill_points</menuId>
-		<text>Remaining Skill Points</text>
+		<text>Skill Points</text>
 	</menu>
 
 	<!--						  SAVE MENU 					  -->

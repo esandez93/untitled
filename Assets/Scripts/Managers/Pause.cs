@@ -9,16 +9,18 @@ public class Pause : MonoBehaviour{
 	private GameObject pauseMenu;
 
 	void Start(){
-		pauseCanvas = GameObject.FindGameObjectWithTag("PauseCanvas");
+		/*pauseCanvas = GameObject.FindGameObjectWithTag("PauseCanvas");
 		pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
-		pauseMenu.SetActive(false);
+		pauseMenu.SetActive(false);*/
 	}
 
 	void Update(){
-		if(pauseCanvas == null){
+		/*if(pauseCanvas == null){
 			pauseCanvas = GameObject.FindGameObjectWithTag("PauseCanvas");
+		}*/
+		if(paused && Input.GetButtonDown("Quit Menu")){
+			paused = togglePause();
 		}
-
 		if(Input.GetButtonDown("Pause") && Gamestate.instance.isPausable()){
 			paused = togglePause();
 		}
@@ -26,7 +28,7 @@ public class Pause : MonoBehaviour{
 
 	void OnGUI(){
 		if(paused){
-			GUILayout.Label("Game is paused!");
+			//GUILayout.Label("Game is paused!");
 		}
 	}
 
@@ -44,7 +46,7 @@ public class Pause : MonoBehaviour{
 	}
 
 	private void pause(){
-		pauseCanvas.SetActive(true);
+		/*pauseCanvas.SetActive(true);
 		pauseMenu.SetActive(true);
 
 		if(pauseBackground == null){
@@ -53,13 +55,18 @@ public class Pause : MonoBehaviour{
 		}
 
 		pauseBackground.CrossFadeAlpha(0.3f, 0.01f, false);
-		pauseBackground.enabled = true;
+		pauseBackground.enabled = true;*/
+
+		//Singleton.Instance.playerPositionInMap = GameObject.FindWithTag("Mage").transform.position;
+		//Application.LoadLevel("PauseMenu");
+		PauseMenuManager.Instance.showCanvas();
 	}
 
 	private void unpause(){
-		pauseCanvas.SetActive(false);
+		/*pauseCanvas.SetActive(false);
 		pauseMenu.SetActive(false);
-		pauseBackground.enabled = false;
+		pauseBackground.enabled = false;*/
+		PauseMenuManager.Instance.hideCanvas();
 	}
 
 	public bool isPaused(){

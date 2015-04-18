@@ -144,78 +144,36 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	void Start(){
-		//SaveManager.Instance.autoLoad();
-
 		currentMap = gamestate.map;
-
-		/*Transform transform = GameObject.FindGameObjectWithTag("BattleCanvas").transform;		
 		
-		playerData = transform.FindChild("PlayerData");
-		playerHealth = playerData.Find("Health");
-		playerMana = playerData.FindChild("Mana");
-
-		enemyData = transform.FindChild("EnemyData");
-		enemyHealth = playerData.FindChild("Health");
-		enemyMana = playerData.FindChild("Mana");
-
-		playerBackgroundGUI = playerData.GetComponent<Image>();
-		playerPortraitGUI = playerData.FindChild("PlayerPortrait").GetComponent<Image>();
-
-		playerNameGUI = playerData.FindChild("PlayerName").GetComponent<Text>();
-		playerLevelGUI = playerData.FindChild("PlayerLevel").GetComponent<Text>();
-
-		playerHealthGUI = playerHealth.FindChild("HealthBar").GetComponent<Image>();
-		playerHealthFrameGUI = playerHealth.FindChild("HealthBarFrame").GetComponent<Image>();
-		playerHealthTextGUI = playerHealth.FindChild("HealthText").GetComponent<Text>();
-
-		playerManaGUI = playerMana.FindChild("ManaBar").GetComponent<Image>();
-		playerManaFrameGUI = playerMana.FindChild("ManaBarFrame").GetComponent<Image>();
-		playerManaTextGUI = playerMana.FindChild("ManaText").GetComponent<Text>();*/
-
-
-		/*playerExpGUI = playerData.FindChild("Exp").FindChild("ExpBar").GetComponent<Image>();
-		playerExpFrameGUI = playerData.FindChild("Exp").FindChild("ExpBarFrame").GetComponent<Image>();		
-		playerExpTextGUI = playerData.FindChild("Exp").FindChild("ExpText").GetComponent<Text>();*/
-
-		/*enemyBackgroundGUI = enemyData.GetComponent<Image>();
-		enemyPortraitGUI = enemyData.FindChild("EnemyPortrait").GetComponent<Image>();
-
-		enemyNameGUI = enemyData.FindChild("EnemyName").GetComponent<Text>();
-		enemyLevelGUI = enemyData.FindChild("EnemyLevel").GetComponent<Text>();
-
-		enemyHealthGUI = enemyHealth.FindChild("HealthBar").GetComponent<Image>();
-		enemyHealthFrameGUI = enemyHealth.FindChild("HealthBarFrame").GetComponent<Image>();
-		enemyHealthTextGUI = enemyHealth.FindChild("HealthText").GetComponent<Text>();
-
-		enemyManaGUI = enemyMana.FindChild("ManaBar").GetComponent<Image>();
-		enemyManaFrameGUI = enemyMana.FindChild("ManaBarFrame").GetComponent<Image>();		
-		enemyManaTextGUI = enemyMana.FindChild("ManaText").GetComponent<Text>();*/		
 		Transform transform = GameObject.FindGameObjectWithTag("BattleCanvas").transform;
 		
-		playerBackgroundGUI = transform.FindChild("PlayerData").GetComponent<Image>();
-		playerPortraitGUI = transform.FindChild("PlayerData").FindChild("PlayerPortrait").GetComponent<Image>();
-		playerNameGUI = transform.FindChild("PlayerData").FindChild("PlayerName").GetComponent<Text>();
-		playerLevelGUI = transform.FindChild("PlayerData").FindChild("PlayerLevel").GetComponent<Text>();
-		playerHealthGUI = transform.FindChild("PlayerData").FindChild("Health").FindChild("HealthBar").GetComponent<Image>();
-		playerManaGUI = transform.FindChild("PlayerData").FindChild("Mana").FindChild("ManaBar").GetComponent<Image>();
-		playerExpGUI = transform.FindChild("PlayerData").FindChild("Exp").FindChild("ExpBar").GetComponent<Image>();
-		playerHealthFrameGUI = transform.FindChild("PlayerData").FindChild("Health").FindChild("HealthBarFrame").GetComponent<Image>();
-		playerManaFrameGUI = transform.FindChild("PlayerData").FindChild("Mana").FindChild("ManaBarFrame").GetComponent<Image>();
-		playerExpFrameGUI = transform.FindChild("PlayerData").FindChild("Exp").FindChild("ExpBarFrame").GetComponent<Image>();
-		playerHealthTextGUI = transform.FindChild("PlayerData").FindChild("Health").FindChild("HealthText").GetComponent<Text>();
-		playerManaTextGUI = transform.FindChild("PlayerData").FindChild("Mana").FindChild("ManaText").GetComponent<Text>();
-		playerExpTextGUI = transform.FindChild("PlayerData").FindChild("Exp").FindChild("ExpText").GetComponent<Text>();
+		Transform playerDataTransform = transform.FindChild("PlayerData");
+		playerBackgroundGUI = playerDataTransform.GetComponent<Image>();
+		playerPortraitGUI = playerDataTransform.FindChild("PlayerPortrait").GetComponent<Image>();
+		playerNameGUI = playerDataTransform.FindChild("PlayerName").GetComponent<Text>();
+		playerLevelGUI = playerDataTransform.FindChild("PlayerLevel").GetComponent<Text>();
+		playerHealthGUI = playerDataTransform.FindChild("Health").FindChild("HealthBar").GetComponent<Image>();
+		playerManaGUI = playerDataTransform.FindChild("Mana").FindChild("ManaBar").GetComponent<Image>();
+		playerExpGUI = playerDataTransform.FindChild("Exp").FindChild("ExpBar").GetComponent<Image>();
+		playerHealthFrameGUI = playerDataTransform.FindChild("Health").FindChild("HealthBarFrame").GetComponent<Image>();
+		playerManaFrameGUI = playerDataTransform.FindChild("Mana").FindChild("ManaBarFrame").GetComponent<Image>();
+		playerExpFrameGUI = playerDataTransform.FindChild("Exp").FindChild("ExpBarFrame").GetComponent<Image>();
+		playerHealthTextGUI = playerDataTransform.FindChild("Health").FindChild("HealthText").GetComponent<Text>();
+		playerManaTextGUI = playerDataTransform.FindChild("Mana").FindChild("ManaText").GetComponent<Text>();
+		playerExpTextGUI = playerDataTransform.FindChild("Exp").FindChild("ExpText").GetComponent<Text>();
 		
-		enemyBackgroundGUI = transform.FindChild("EnemyData").GetComponent<Image>();
-		enemyPortraitGUI = transform.FindChild("EnemyData").FindChild("EnemyPortrait").GetComponent<Image>();
-		enemyNameGUI = transform.FindChild("EnemyData").FindChild("EnemyName").GetComponent<Text>();
-		enemyLevelGUI = transform.FindChild("EnemyData").FindChild("EnemyLevel").GetComponent<Text>();
-		enemyHealthGUI = transform.FindChild("EnemyData").FindChild("Health").FindChild("HealthBar").GetComponent<Image>();
-		enemyManaGUI = transform.FindChild("EnemyData").FindChild("Mana").FindChild("ManaBar").GetComponent<Image>();
-		enemyHealthFrameGUI = transform.FindChild("EnemyData").FindChild("Health").FindChild("HealthBarFrame").GetComponent<Image>();
-		enemyManaFrameGUI = transform.FindChild("EnemyData").FindChild("Mana").FindChild("ManaBarFrame").GetComponent<Image>();
-		enemyHealthTextGUI = transform.FindChild("EnemyData").FindChild("Health").FindChild("HealthText").GetComponent<Text>();
-		enemyManaTextGUI = transform.FindChild("EnemyData").FindChild("Mana").FindChild("ManaText").GetComponent<Text>();
+		Transform enemyDataTransform = transform.FindChild("EnemyData");
+		enemyBackgroundGUI = enemyDataTransform.GetComponent<Image>();
+		enemyPortraitGUI = enemyDataTransform.FindChild("EnemyPortrait").GetComponent<Image>();
+		enemyNameGUI = enemyDataTransform.FindChild("EnemyName").GetComponent<Text>();
+		enemyLevelGUI = enemyDataTransform.FindChild("EnemyLevel").GetComponent<Text>();
+		enemyHealthGUI = enemyDataTransform.FindChild("Health").FindChild("HealthBar").GetComponent<Image>();
+		enemyManaGUI = enemyDataTransform.FindChild("Mana").FindChild("ManaBar").GetComponent<Image>();
+		enemyHealthFrameGUI = enemyDataTransform.FindChild("Health").FindChild("HealthBarFrame").GetComponent<Image>();
+		enemyManaFrameGUI = enemyDataTransform.FindChild("Mana").FindChild("ManaBarFrame").GetComponent<Image>();
+		enemyHealthTextGUI = enemyDataTransform.FindChild("Health").FindChild("HealthText").GetComponent<Text>();
+		enemyManaTextGUI = enemyDataTransform.FindChild("Mana").FindChild("ManaText").GetComponent<Text>();
 
 
 		background = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>();

@@ -11,6 +11,7 @@ public class Item : MonoBehaviour{
 
 	public string type;
 	public string name;
+	public string itemName;
 	public string description;
 	public int buyValue;
 	public int sellValue;
@@ -117,6 +118,18 @@ public class Item : MonoBehaviour{
 		this.buyValue = buyValue;
 		this.sellValue = sellValue;
 		this.sellable = sellable;
+	}
+
+	public void populate(string id){
+		this.id = id;
+
+		Item item = Singleton.Instance.inventory.getItem(id);
+
+		this.type = item.type;
+		this.name = LanguageManager.Instance.getMenuText(id);
+		this.description = item.description;
+
+		this.quantity = quantity;
 	}
 
 	public Item dropping(){
