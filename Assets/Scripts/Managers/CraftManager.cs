@@ -69,4 +69,10 @@ public class CraftManager : MonoBehaviour{
 
 		return DatabaseManager.Instance.getCrafts(sql);
 	}
+
+	public Craft getRecipe(string name){
+		string sql = "SELECT * FROM CRAFTING WHERE result = '" + name + "';";
+
+		return DatabaseManager.Instance.getCrafts(sql)[0];
+	}
 }

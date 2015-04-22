@@ -247,9 +247,29 @@
   Los demás pese a estar muertos a efectos del juego, seguían con la animación de standby.
 - Desarrollando la escena de recompensas tras la batalla. Actualmente se reciben a la perfección, pero no se muestran al usuario.
 
+26/03/2015
+- Escena de recompensas finalizada. Se muestra la experiencia recibida por cada personaje, la subida de nivel (si la hay) y los objetos recibidos.
+- Inicio de diseño de menús.
+
+30/04/2015 - 10/04/2015
+- Diseño de los menús, implementación gráfica y traducción.
+- Inicio de la programación de los menús
+
+11/04/2015 - 16/04/2015
+- Implementada casi al 100% la ventana de estado. Sólo falta poder cambiar el target sobre el que se muestra la información (haciendo click en el retrato de la esquiza inferior izquierda.
+- Implementación con algunos bugs de la ventana de inventario. Falta cambiar color a los objetos no usables y revisar los errores (de actualización en su mayoría).
+
+17/04/2015 - 22/04/2015
+- Implementación de la ventana de creación de objetos. Falta actualizar los datos una vez creado un objeto.
+
 TO DO:
-- Acabar de implementar skills
-- Acabar los menús
+- Inventario:
+	+ Objetos no usables en gris.
+	+ Usar objetos desde el inventario.
+- Craft:
+	+ Recetas no creables en rojo.
+- GENERAL:
+	+ Resaltar pestañas, botones, etc ACTIVOS 
 
 DIFICULTADES:
 - Aprender el manejo del motor Unity.
@@ -257,3 +277,4 @@ DIFICULTADES:
 - Todo el tema de tratar interfaz via código al principio se hizo complicado.
 - Manejar tantos ficheros y/o BBDD se puede llegar a hacer confuso.
 - Mantener un ritmo de producción más o menos constante sin caer en la desmotivación.
+- Sacar tiempo para mantener el ritmo del proyecto a la vez que se trabaja y/o estudia.

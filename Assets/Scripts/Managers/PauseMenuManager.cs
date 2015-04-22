@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,8 +16,13 @@ public class PauseMenuManager : MonoBehaviour {
 	private GameObject skillsBody;
 	private GameObject inventoryBody;
 		private GameObject inventoryDescription;
+		private GameObject[] itemsGameObjects;
 	private GameObject craftBody;
+		private GameObject targetRecipe;
 		private GameObject craftDescription;
+		private GameObject[] recipesGameObjects;
+		private GameObject[] materialsGameObjects;
+		private GameObject createButton;
 	private GameObject saveLoadBody;
 		private GameObject savingGames;
 		private GameObject loadingGames;
@@ -216,6 +221,8 @@ public class PauseMenuManager : MonoBehaviour {
 
 		instance.skillsBody.SetActive(true);
 		instance.nonTargetPlayers.SetActive(true);
+
+		// DO THINGS
 	}
 
 	public void showInventory(){
@@ -224,21 +231,24 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.inventoryBody.SetActive(true);
 		instance.inventoryDescription.SetActive(false);
 
+		if(instance.itemsGameObjects == null){
+			instance.itemsGameObjects = GameObject.FindGameObjectsWithTag("Item");
+		}		
+
 		setItems();
 	}
 
 	private void setItems(){
-		List<Item> items = Singleton.Instance.inventory.getItems();
-
-		GameObject[] itemsGameObjects = GameObject.FindGameObjectsWithTag("Item");
+		List<Item> items = Singleton.Instance.inventory.getItems();		
 
 		int i = 0;
-		foreach (GameObject item in itemsGameObjects){
+		foreach (GameObject item in instance.itemsGameObjects){
 			if(i < items.Count){
-				setItemInfo(items[i], itemsGameObjects[i]);
+				instance.itemsGameObjects[i].SetActive(true);	
+				instance.setItemInfo(items[i], instance.itemsGameObjects[i]);
 			}
 			else{
-				itemsGameObjects[i].SetActive(false);	
+				instance.itemsGameObjects[i].SetActive(false);	
 			}
 			i++;
 		}
@@ -252,7 +262,7 @@ public class PauseMenuManager : MonoBehaviour {
 		itemGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().text = "x" + item.quantity.ToString();
 	}
 
-	//				NO HACER CON GAMEOBJECT.FIND
+	//				NO HACER CON GAMEOBJECT.FIND 					
 
 	public void setItemDescription(GameObject itemGameObject){
 		instance.inventoryDescription.SetActive(true);
@@ -261,42 +271,58 @@ public class PauseMenuManager : MonoBehaviour {
 
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + item.id);
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Name").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.id);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Type").GetComponent<Text>().text = item.type;
+		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Type").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.type);
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Description").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.description);
 	}
 
 	public void showCraft(){
-		hideAll();
+		instance.hideAll();
 
 		List<Craft> recipes = CraftManager.Instance.getRecipes();
 
 		instance.craftBody.SetActive(true);
 		instance.craftDescription.SetActive(false);
 
-		showRecipes(recipes);
+		if(instance.createButton == null){
+			instance.createButton = GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/Create/Button");
+			instance.createButton.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.createButton.transform.FindChild("Text").GetComponent<Text>().text);
+		}
+		if(instance.materialsGameObjects != null){
+			foreach(GameObject material in instance.materialsGameObjects){
+				material.SetActive(false);
+			}
+		}
+		
+		instance.createButton.SetActive(false);
+
+		//instance.targetRecipe = null;
+		//instance.recipesGameObjects = null;
+		//instance.materialsGameObjects = null;
+
+		instance.showRecipes(recipes);
 	}
 
 	private void showRecipes(List<Craft> recipes){
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text);
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text);
 
-		GameObject[] recipesGameObjects = GameObject.FindGameObjectsWithTag("Recipe");
+		instance.recipesGameObjects = GameObject.FindGameObjectsWithTag("Recipe");
 
 		int i = 0;
-		foreach (GameObject recipe in recipesGameObjects){
+		foreach (GameObject recipe in instance.recipesGameObjects){
 			if(i < recipes.Count){
-				Debug.Log(recipes[i].result);
-				setRecipeInfo(recipes[i], recipesGameObjects[i]);
+//				Debug.Log(recipes[i].result);
+				instance.setRecipeInfo(recipes[i], instance.recipesGameObjects[i]);
 			}
 			else{
-				recipesGameObjects[i].SetActive(false);	
+				instance.recipesGameObjects[i].SetActive(false);	
 			}
 			i++;
 		}
 
-		GameObject[] materialsGameObjects = GameObject.FindGameObjectsWithTag("Material");
+		instance.materialsGameObjects = GameObject.FindGameObjectsWithTag("Material");
 
-		foreach (GameObject material in materialsGameObjects){
+		foreach (GameObject material in instance.materialsGameObjects){
 			material.SetActive(false);
 		}
 
@@ -304,17 +330,23 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	private void setRecipeInfo(Craft recipe, GameObject recipeGameObject){
-		instance.craftDescription.SetActive(true);
+		//instance.craftDescription.SetActive(true);
 
 		recipeGameObject.GetComponent<Item>().populate(recipe.result);
 
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Recipe/Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + recipe.result);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Recipe/ItemName").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.result);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Recipe/ItemQuantity").GetComponent<Text>().text = recipe.resultQuantity.ToString();
+		recipeGameObject.transform.FindChild("Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + recipe.result);
+		recipeGameObject.transform.FindChild("ItemName").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.result);
+		recipeGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().text = recipe.resultQuantity.ToString();
 	}	
 
+	private void setRecipeDescription(){
+		setRecipeDescription(instance.targetRecipe);
+	}
+
 	public void setRecipeDescription(GameObject recipeGameObject){
-		//Item item = Singleton.Instance.inventory.getItem(recipe.result);
+		// SETTING DESCRIPTION
+		instance.targetRecipe = recipeGameObject;
+
 		instance.craftDescription.SetActive(true);
 
 		Item recipe = recipeGameObject.GetComponent<Item>();
@@ -323,7 +355,75 @@ public class PauseMenuManager : MonoBehaviour {
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/Description/Item/Name").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.id);
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/Description/Item/Type").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.type);
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/Description/Item/Description").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.description);
-	}	
+
+		// SETTING MATERIALS
+		Craft materials = CraftManager.Instance.getRecipe(recipe.id);
+
+		instance.materialsGameObjects[0].SetActive(true);
+		instance.materialsGameObjects[0].GetComponent<Item>().populate(materials.item1);		
+		instance.materialsGameObjects[0].transform.FindChild("Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + materials.item1);
+		instance.materialsGameObjects[0].transform.FindChild("ItemName").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(materials.item1);
+		instance.materialsGameObjects[0].transform.FindChild("ItemQuantity").GetComponent<Text>().text = "x" + materials.item1Quantity.ToString();
+
+		instance.materialsGameObjects[1].SetActive(true);
+		instance.materialsGameObjects[1].GetComponent<Item>().populate(materials.item2);
+		instance.materialsGameObjects[1].transform.FindChild("Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + materials.item2);
+		instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(materials.item2);
+		instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().text = "x" + materials.item2Quantity.ToString();
+
+		if(Singleton.Instance.inventory.hasItem(materials.item1, materials.item1Quantity) && Singleton.Instance.inventory.hasItem(materials.item2, materials.item2Quantity)){
+			if(materials.item1.Equals(materials.item2)){
+				if(Singleton.Instance.inventory.hasItem(materials.item1, materials.item1Quantity + materials.item2Quantity)){
+					instance.createButton.SetActive(true);
+				}
+				else{
+					instance.createButton.SetActive(false);
+				}
+			}else{
+				instance.createButton.SetActive(true);
+			}			
+		}
+		else{
+			instance.createButton.SetActive(false);
+		}
+
+		// CHANGE COLOR IF ITEM IS NOT IN INVENTORY
+		if(!Singleton.Instance.inventory.hasItem(materials.item1, materials.item1Quantity)){
+			instance.materialsGameObjects[0].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+			instance.materialsGameObjects[0].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+		}
+		else{
+			instance.materialsGameObjects[0].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+			instance.materialsGameObjects[0].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+		}
+		if(materials.item1.Equals(materials.item2)){
+			if(!Singleton.Instance.inventory.hasItem(materials.item2, materials.item1Quantity + materials.item2Quantity)){
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+			}
+			else{
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+			}
+		}
+		else{
+			if(!Singleton.Instance.inventory.hasItem(materials.item2, materials.item2Quantity)){
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+			}
+			else{
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+			}
+		}
+		
+	}
+
+	public void craftItem(){
+		CraftManager.Instance.craft(instance.materialsGameObjects[0].GetComponent<Item>().id, instance.materialsGameObjects[1].GetComponent<Item>().id);
+
+		setRecipeDescription();
+	}
 
 	public void showSaveLoad(){
 		hideAll();		

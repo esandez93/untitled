@@ -19,6 +19,10 @@ public class Inventory{
 		return this.objects.ContainsKey(itemName);
 	}
 
+	public bool hasItem(string itemName, int itemQuantity){
+		return isItemInInventory(itemName) && this.objects[itemName].quantity >= itemQuantity;
+	}
+
 	public bool hasNeededItems(string itemName, int quantity){
 		if (isItemInInventory(itemName)){
 			if(this.objects[itemName].quantity >= quantity){
