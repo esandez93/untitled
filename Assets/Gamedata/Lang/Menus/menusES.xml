@@ -41,11 +41,7 @@
 	<menu>
 		<menuId>menu_tab_inventory</menuId>
 		<text>Inventario</text>
-	</menu>
-		<menu>
-			<menuId>menu_inventory_use_button</menuId>
-			<text>Usar</text>
-		</menu>
+	</menu>		
 	<menu>
 		<menuId>menu_tab_craft</menuId>
 		<text>Creación</text> <!-- Elaboración -->
@@ -54,8 +50,12 @@
 		<menuId>menu_tab_saveload</menuId>
 		<text>Guardar/Cargar Partida</text>
 	</menu>
+  <menu>
+    <menuId>new_savegame_text</menuId>
+    <text>Nueva partida guardada</text>
+  </menu>
 
-	<menu>
+  <menu>
 		<menuId>status_remaining_stat_points</menuId>
 		<text>Puntos de Atributo</text>
 	</menu>
@@ -73,6 +73,14 @@
 		<menuId>saved_games_head</menuId>
 		<text>Cargar Partida</text>
 	</menu>
+  <menu>
+    <menuId>save_game_button_text</menuId>
+    <text>Guardar Partida</text>
+  </menu>
+  <menu>
+    <menuId>load_game_button_text</menuId>
+    <text>Cargar Partida</text>
+  </menu>
 
 	<!--                          BATTLE MENU                     -->
 	<menu>

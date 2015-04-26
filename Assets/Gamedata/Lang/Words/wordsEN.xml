@@ -3,4 +3,8 @@
 		<wordId>is</wordId>
 		<text>is</text>
 	</word>
+  <word>
+    <wordId>menu_inventory_use_button</wordId>
+    <text>Use</text>
+  </word>
 </words>

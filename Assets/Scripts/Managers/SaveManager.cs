@@ -7,8 +7,8 @@ using System.IO;
 //using UnityEditor;
 
 public class SaveManager : MonoBehaviour{
-	private static string SAVE_PATH = "/Gamedata/Saves";
-	private static string AUTOSAVE_PATH = "/Gamedata/Saves";
+	public static string SAVE_PATH = "/Gamedata/Saves";
+	public static string AUTOSAVE_PATH = "/Gamedata/Saves";
 
 	private Gamestate gamestate;
 

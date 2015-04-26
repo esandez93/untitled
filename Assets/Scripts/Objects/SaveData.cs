@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Runtime.Serialization;
 
@@ -12,6 +13,7 @@ public class SaveData : ISerializable{
 	//public Vector2 currentposition;
 	//public Monster monsterCollided;
 	public int language;
+	public DateTime date;
 
 	public SaveData(){
 
@@ -24,6 +26,7 @@ public class SaveData : ISerializable{
 		inventory = (Inventory)info.GetValue("inventory", typeof(Inventory));	
 		map = (MapInfo)info.GetValue("map", typeof(MapInfo));
 		language = (int)info.GetValue("language", typeof(int));
+		date = DateTime.Now;
 	}
 	
 	//Serialization function.
@@ -33,6 +36,7 @@ public class SaveData : ISerializable{
 		info.AddValue("inventory", inventory);
 		info.AddValue("map", map);
 		info.AddValue("language", language);
+		info.AddValue("date", date);
 	}
 
 	public bool isEmpty(){

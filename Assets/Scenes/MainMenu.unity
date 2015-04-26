@@ -3763,7 +3763,7 @@ GameObject:
   - 224: {fileID: 299993500}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: SavingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3783,7 +3783,7 @@ RectTransform:
   - {fileID: 1606327983}
   - {fileID: 626304591}
   m_Father: {fileID: 667055647}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -438, y: 92}
@@ -4075,7 +4075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &345806253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4626,7 +4626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: cc00742d1d1727c449367657f99c7a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c477aa2d1d18b14bba67249e3a352e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5059,7 +5059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &435099773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8144,7 +8144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &626304591
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8581,10 +8581,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 213669481}
-  - {fileID: 299993500}
   - {fileID: 2123133253}
   - {fileID: 1327566315}
   - {fileID: 1478325775}
+  - {fileID: 299993500}
   m_Father: {fileID: 435099773}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
@@ -9987,7 +9987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: cc00742d1d1727c449367657f99c7a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c477aa2d1d18b14bba67249e3a352e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10438,7 +10438,7 @@ GameObject:
   - 224: {fileID: 790424420}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: LoadingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11445,7 +11445,7 @@ GameObject:
   - 224: {fileID: 903330032}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: LoadingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13979,7 +13979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: cc00742d1d1727c449367657f99c7a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c477aa2d1d18b14bba67249e3a352e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14714,7 +14714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: cc00742d1d1727c449367657f99c7a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c477aa2d1d18b14bba67249e3a352e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16210,7 +16210,7 @@ GameObject:
   - 224: {fileID: 1327566315}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: SavingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16230,7 +16230,7 @@ RectTransform:
   - {fileID: 1585004116}
   - {fileID: 1756782619}
   m_Father: {fileID: 667055647}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -438, y: -58}
@@ -16444,7 +16444,7 @@ GameObject:
   - 224: {fileID: 1335326014}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: LoadingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18260,7 +18260,7 @@ GameObject:
   - 224: {fileID: 1478325775}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: SavingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18280,7 +18280,7 @@ RectTransform:
   - {fileID: 277893239}
   - {fileID: 624093447}
   m_Father: {fileID: 667055647}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -438, y: -135}
@@ -19485,7 +19485,7 @@ GameObject:
   - 224: {fileID: 1591929811}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: LoadingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19558,7 +19558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: cc00742d1d1727c449367657f99c7a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c477aa2d1d18b14bba67249e3a352e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19710,7 +19710,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: savegame_id
+  m_Text: new_savegame_text
 --- !u!222 &1606327985
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19837,7 +19837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1614011758
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20061,7 +20061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: cc00742d1d1727c449367657f99c7a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c477aa2d1d18b14bba67249e3a352e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21695,8 +21695,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 363, y: -67}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 363, y: -29.9082642}
+  m_SizeDelta: {x: 400, y: 500}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1778005406
 MonoBehaviour:
@@ -21711,9 +21711,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: d854022df065c364691157c88ca6e4ca, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -24239,7 +24239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: cc00742d1d1727c449367657f99c7a82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c477aa2d1d18b14bba67249e3a352e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24299,7 +24299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .195999995, g: .195999995, b: .195999995, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
@@ -24312,9 +24312,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'menu_inventory_use_button
-
-'
+  m_Text: menu_inventory_use_button
 --- !u!222 &2026386853
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25535,7 +25533,7 @@ GameObject:
   - 224: {fileID: 2123133253}
   m_Layer: 5
   m_Name: Slot
-  m_TagString: Untagged
+  m_TagString: SavingGames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25555,7 +25553,7 @@ RectTransform:
   - {fileID: 1400881097}
   - {fileID: 477610316}
   m_Father: {fileID: 667055647}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -438, y: 18}

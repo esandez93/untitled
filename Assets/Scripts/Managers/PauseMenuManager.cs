@@ -9,6 +9,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private GameObject menuBody;
 	private GameObject menuTabs;
+	private GameObject menuLogo;
 
 	// BODY
 	private GameObject statusBody;
@@ -26,7 +27,12 @@ public class PauseMenuManager : MonoBehaviour {
 		private GameObject createButton;
 	private GameObject saveLoadBody;
 		private GameObject savingGames;
+		private GameObject[] savingGamesSavedGames;
 		private GameObject loadingGames;
+		private GameObject[] loadingGamesSavedGames;
+		private GameObject saveGameButton;
+		private GameObject loadGameButton;
+
 	private GameObject nonTargetPlayers;
 
 	// TABS
@@ -65,6 +71,7 @@ public class PauseMenuManager : MonoBehaviour {
 		if(!initialized){
 			instance.menuBody = GameObject.FindGameObjectWithTag("PauseMenuBody");
 			instance.menuTabs = GameObject.FindGameObjectWithTag("PauseMenuTabs");
+			instance.menuLogo = GameObject.Find("Gamestate/PauseMenuCanvas/Body/Logo");
 
 			//				BODY
 			Transform bodyTransform = instance.menuBody.transform;
@@ -74,11 +81,17 @@ public class PauseMenuManager : MonoBehaviour {
 			instance.skillsBody = bodyTransform.FindChild("SkillsBody").gameObject;
 			instance.inventoryBody = bodyTransform.FindChild("InventoryBody").gameObject;
 				instance.inventoryDescription = bodyTransform.FindChild("InventoryBody").FindChild("Description").gameObject;
+				instance.inventoryUseButton = instance.inventoryDescription.transform.FindChild("Button").gameObject;
+				instance.inventoryUseButton.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getWord(instance.inventoryUseButton.transform.FindChild("Text").GetComponent<Text>().text).getText();
 			instance.craftBody = bodyTransform.FindChild("CraftBody").gameObject;
 				instance.craftDescription = bodyTransform.FindChild("CraftBody").FindChild("Description").gameObject;
 			instance.saveLoadBody = bodyTransform.FindChild("SaveLoadBody").gameObject;
 				instance.savingGames = bodyTransform.FindChild("SaveLoadBody").FindChild("SavingGames").gameObject;
 				instance.loadingGames = bodyTransform.FindChild("SaveLoadBody").FindChild("LoadingGames").gameObject;
+				instance.savingGamesSavedGames = GameObject.FindGameObjectsWithTag("SavingGames");
+				instance.loadingGamesSavedGames = GameObject.FindGameObjectsWithTag("LoadingGames");
+				instance.saveGameButton = bodyTransform.FindChild("SaveLoadBody").FindChild("SaveButton").gameObject;
+				instance.loadGameButton = bodyTransform.FindChild("SaveLoadBody").FindChild("LoadButton").gameObject;
 			instance.nonTargetPlayers = bodyTransform.FindChild("NonTargetPlayers").gameObject;
 
 			//				TABS
@@ -231,12 +244,9 @@ public class PauseMenuManager : MonoBehaviour {
 
 		instance.inventoryBody.SetActive(true);
 
-		if (instance.inventoryUseButton == null){
-			instance.inventoryUseButton = GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Button");
-		}
-		else if (instance.inventoryUseButton.activeInHierarchy){
+		/*if (instance.inventoryUseButton.activeInHierarchy){
 			instance.inventoryUseButton.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.inventoryUseButton.transform.FindChild("Text").GetComponent<Text>().text);
-		}
+		}*/
 
 		instance.inventoryDescription.SetActive(false);
 
@@ -335,10 +345,7 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.showRecipes(recipes);
 	}
 
-	private void showRecipes(List<Craft> recipes){
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text);
-
+	private void showRecipes(List<Craft> recipes){	
 		instance.recipesGameObjects = GameObject.FindGameObjectsWithTag("Recipe");
 
 		int i = 0;
@@ -353,7 +360,9 @@ public class PauseMenuManager : MonoBehaviour {
 			i++;
 		}
 
-		instance.materialsGameObjects = GameObject.FindGameObjectsWithTag("Material");
+		if(instance.materialsGameObjects == null){
+			instance.materialsGameObjects = GameObject.FindGameObjectsWithTag("Material");
+		}
 
 		foreach (GameObject material in instance.materialsGameObjects){
 			material.SetActive(false);
@@ -459,11 +468,50 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	public void showSaveLoad(){
-		hideAll();		
+		hideAll();
+
+		List<SaveData> savegames = SaveManager.Instance.getFormattedSavegames();
+
+		instance.savingGamesSavedGames[0].transform.FindChild("Id").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.savingGamesSavedGames[0].transform.FindChild("Id").GetComponent<Text>().text);
+
+		for (int i = 1; i < instance.savingGamesSavedGames.Length; i++){
+			if(i <= savegames.Count){
+				formatSavegame(instance.savingGamesSavedGames[i], savegames[i-1], i);
+			}
+			else{
+				instance.savingGamesSavedGames[i].SetActive(false);
+			}
+		}
+
+		for (int i = 0; i < instance.loadingGamesSavedGames.Length; i++){
+			if(i < savegames.Count){
+				formatSavegame(instance.loadingGamesSavedGames[i], savegames[i], i+1);
+			}
+			else{
+				instance.loadingGamesSavedGames[i].SetActive(false);
+			}
+		}
 
 		instance.savingGames.SetActive(false);
 		instance.loadingGames.SetActive(false);
 		instance.saveLoadBody.SetActive(true);
+	}
+
+	private void formatSavegame(GameObject slot, SaveData savegame, int id){
+		Sprite sprite = null;
+
+		if(savegame.map.mapName.Contains("Forest")){
+			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Forest"); 
+		}
+		else if(savegame.map.mapName.Contains("Castle")){
+			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Castle");
+		}
+		
+		slot.transform.FindChild("Image").GetComponent<Image>().sprite = sprite;
+		slot.transform.FindChild("Id").GetComponent<Text>().text = id + ". ";
+		slot.transform.FindChild("Date").GetComponent<Text>().text = savegame.date.ToString("dd/MM/yyyy HH:mm");
+		slot.transform.FindChild("MapName").GetComponent<Text>().text = "Map: " + savegame.map.mapName;
+		slot.SetActive(true);
 	}
 
 	public void clickSaveGameButton(){
@@ -507,12 +555,14 @@ public class PauseMenuManager : MonoBehaviour {
 	public void hideCanvas(){
 		menuBody.SetActive(false);
 		menuTabs.SetActive(false);
+		menuLogo.SetActive(false);
 	}
 
 	public void showCanvas(){
 		setPlayers();
 		menuBody.SetActive(true);
 		menuTabs.SetActive(true);
+		menuLogo.SetActive(true);
 		showStatus();
 	}
 
@@ -529,6 +579,17 @@ public class PauseMenuManager : MonoBehaviour {
 	private void translateBody(){
 		statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text);
 		statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text);
+
+		craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text);
+		craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text);
+
+		/*GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text);
+		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text);*/
+		
+		instance.savingGames.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.savingGames.transform.FindChild("Text").GetComponent<Text>().text);
+		instance.loadingGames.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.loadingGames.transform.FindChild("Text").GetComponent<Text>().text);
+		instance.saveGameButton.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.saveGameButton.transform.FindChild("Text").GetComponent<Text>().text);
+		instance.loadGameButton.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.loadGameButton.transform.FindChild("Text").GetComponent<Text>().text);
 	}
 
 }

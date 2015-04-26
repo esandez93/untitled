@@ -54,8 +54,12 @@
 		<menuId>menu_tab_saveload</menuId>
 		<text>Save/Load Game</text>
 	</menu>
+    <menu>
+      <menuId>new_savegame_text</menuId>
+      <text>New Savegame</text>
+    </menu>  
 
-	<menu>
+  <menu>
 		<menuId>status_remaining_stat_points</menuId>
 		<text>Status Points</text>
 	</menu>
@@ -73,6 +77,14 @@
 		<menuId>saved_games_head</menuId>
 		<text>Load Game</text>
 	</menu>
+  <menu>
+    <menuId>save_game_button_text</menuId>
+    <text>Save Game</text>
+  </menu>
+  <menu>
+    <menuId>load_game_button_text</menuId>
+    <text>Load Game</text>
+  </menu>
 
 	<!--                          BATTLE MENU                     -->
 	<menu>

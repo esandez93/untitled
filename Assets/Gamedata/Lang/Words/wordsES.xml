@@ -3,4 +3,8 @@
 		<wordId>is</wordId>
 		<text>está</text>
 	</word>
+  <word>
+    <wordId>menu_inventory_use_button</wordId>
+    <text>Usar</text>
+  </word>
 </words>
