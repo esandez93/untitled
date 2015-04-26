@@ -10,6 +10,12 @@ public class AnyText {
 
 	}
 
+    public AnyText(string text)
+    {
+        this.textId = text;
+        this.text = text;
+    }
+
 	public AnyText (string textId, string text){
 		this.textId = textId;
 		this.text = text;

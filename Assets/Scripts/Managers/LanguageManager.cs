@@ -141,7 +141,7 @@ public class LanguageManager : MonoBehaviour{
 			Debug.Log(e.Message + ": " + id);
 		}	
 
-		return null;	
+		return new AnyText(id);	
 	}
 
 	public AnyText getWord(string id){
@@ -232,6 +232,18 @@ public class LanguageManager : MonoBehaviour{
 		foreach(KeyValuePair<string, AlteredStatus> entry in Singleton.Instance.allAlteredStatus){
 			entry.Value.translate();
 		}
+	}
+
+	public string getMenuId(string text){
+		string result = "";
+
+		foreach(KeyValuePair<string, AnyText> menu in menus){
+			if (menu.Value.getText().Equals(text)){
+				result = menu.Key;
+			}
+		}
+
+		return result;
 	}
 
 	public class Languages {

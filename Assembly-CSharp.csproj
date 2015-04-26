@@ -48,10 +48,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Buttons\ContinueGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\CraftItem.cs" />
-     <Compile Include="Assets\Scripts\Buttons\DetectTabClick.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplaySkills.cs" />
      <Compile Include="Assets\Scripts\Buttons\InventoryItem.cs" />
+     <Compile Include="Assets\Scripts\Buttons\InventoryUseButton.cs" />
      <Compile Include="Assets\Scripts\Buttons\LoadGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\QuitGame.cs" />

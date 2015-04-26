@@ -129,7 +129,7 @@ public class Item : MonoBehaviour{
 		this.name = LanguageManager.Instance.getMenuText(id);
 		this.description = item.description;
 
-		this.quantity = quantity;
+		//this.quantity = quantity;
 	}
 
 	public Item dropping(){
@@ -140,8 +140,24 @@ public class Item : MonoBehaviour{
 		return type.Equals(Properties.USABLE);
 	}
 
+	public bool isHealType(){
+		return idType == Type.HEAL;
+	}
+
+	public string toString(){
+		string result;
+
+		result = "ID: " + this.id;
+		result += "Type: " + this.type;
+		result += "Name: " + this.itemName;
+
+		return result;
+	}
+
 	public class Properties{
-		public const string USABLE = "Usable";
+		public const string USABLE = "item_type_usable";
+		public const string MATERIAL = "item_type_material";
+		public const string TRASH = "item_type_trash";
 	}
 
 	public class Type{

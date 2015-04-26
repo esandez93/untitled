@@ -41,6 +41,7 @@ public class Gamestate : MonoBehaviour {
 			Singleton.Instance.inventory.addItem("item_name_potion", 2);
 			CraftManager.Instance.craft("item_name_potion", "item_name_potion");
 			Singleton.Instance.inventory.addItem("item_name_grenade", 2);
+			Singleton.Instance.inventory.addItem("item_name_gunpowder", 2);
 		}
 	}
 
@@ -183,19 +184,31 @@ public class Gamestate : MonoBehaviour {
 		if(playersData == null){
 			playersData = new List<PlayerData>();
 		}
+		if(players == null){
+			players = new List<Player>();
+		}
+
+		Player p = new Player();
+		p.populate(data);
 
 		if(!playerDataExist(data.characterName)){
-			playersData.Add(data);
+			playersData.Add(data);			
 		}
 		else{
-			/*foreach(PlayerData d in this.playersData){ // Si da error, usar index
-				if(d.characterName.Equals(name)){
-					d = data;
-				}
-			}*/
 			for(int i = 0; i < this.playersData.Count; i++){
 				if(playersData[i].characterName.Equals(data.characterName)){					
 					playersData[i] = data;
+				}
+			}
+		}
+
+		if (!playerExist(p.characterName)){
+			players.Add(p);
+		}
+		else{
+			for (int i = 0; i < this.players.Count; i++){
+				if (players[i].characterName.Equals(p.characterName)){
+					players[i] = p;
 				}
 			}
 		}

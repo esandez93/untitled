@@ -737,7 +737,7 @@ public class BattleManager : MonoBehaviour {
 						currentPlayer.useSkill(skillName, currentObjective);
 					}
 					else if(item && !attackStarted){
-						currentPlayer.useItem(itemName, currentObjective);
+						currentPlayer.useItemInBattle(itemName, currentObjective);
 					}
 
 					if(currentObjective.isPlayer()){
@@ -756,7 +756,7 @@ public class BattleManager : MonoBehaviour {
 						currentPlayer.useSkill(skillName, currentObjective);
 					}					
 					else if(item && !attackStarted){
-						currentPlayer.useItem(itemName, currentObjective);
+						currentPlayer.useItemInBattle(itemName, currentObjective);
 					}
 
 					if(currentObjective.isPlayer()){

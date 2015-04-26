@@ -15,7 +15,7 @@ public class Inventory{
 		objects = new Dictionary<string, Item>();
 	}
 
-	private bool isItemInInventory(string itemName){
+	public bool isItemInInventory(string itemName){
 		return this.objects.ContainsKey(itemName);
 	}
 
@@ -82,7 +82,7 @@ public class Inventory{
 		}
 	}
 
-	public void useItem(string itemName, Character target){
+	public void useItemInBattle(string itemName, Character target){
 		if(this.isItemInInventory(itemName)){
 			Item item = objects[itemName];
 			if(item.type.Equals(Item.Properties.USABLE)){
@@ -99,7 +99,6 @@ public class Inventory{
 				}
 
 				foreach(Character character in targets){
-					//character.increaseStat(item.statAffected, item.quantityAffected);
 					character.receiveItemUsage(item);
 				}
 				
@@ -109,6 +108,21 @@ public class Inventory{
 		}
 		else{
 			BattleManager.Instance.backToStart();
+		}
+	}
+
+	public void useItem(string itemName, Character target){
+		if(this.isItemInInventory(itemName)){
+			Item item = objects[itemName];
+			if(item.type.Equals(Item.Properties.USABLE)){	
+				if(this.removeItem(itemName, 1)){
+					Debug.Log("ITEM: "+ item.itemName + ", TARGET: " + target.characterName);
+					target.receiveItemUsage(item);	
+				}	
+				else{
+					Debug.Log("THE FAILS");
+				}
+			}
 		}
 	}
 

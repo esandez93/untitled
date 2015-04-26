@@ -16,6 +16,7 @@ public class PauseMenuManager : MonoBehaviour {
 	private GameObject skillsBody;
 	private GameObject inventoryBody;
 		private GameObject inventoryDescription;
+        private GameObject inventoryUseButton;
 		private GameObject[] itemsGameObjects;
 	private GameObject craftBody;
 		private GameObject targetRecipe;
@@ -229,11 +230,19 @@ public class PauseMenuManager : MonoBehaviour {
 		hideAll();
 
 		instance.inventoryBody.SetActive(true);
+
+		if (instance.inventoryUseButton == null){
+			instance.inventoryUseButton = GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Button");
+		}
+		else if (instance.inventoryUseButton.activeInHierarchy){
+			instance.inventoryUseButton.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.inventoryUseButton.transform.FindChild("Text").GetComponent<Text>().text);
+		}
+
 		instance.inventoryDescription.SetActive(false);
 
 		if(instance.itemsGameObjects == null){
 			instance.itemsGameObjects = GameObject.FindGameObjectsWithTag("Item");
-		}		
+		}
 
 		setItems();
 	}
@@ -260,22 +269,46 @@ public class PauseMenuManager : MonoBehaviour {
 		itemGameObject.transform.FindChild("Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + item.id);
 		itemGameObject.transform.FindChild("ItemName").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.id);
 		itemGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().text = "x" + item.quantity.ToString();
-	}
 
-	//				NO HACER CON GAMEOBJECT.FIND 					
+		// CHANGE COLOR IF ITEM IS NOT USABLE
+		if(!item.isUsable()){
+			//Debug.Log(item.toString());
+			itemGameObject.transform.FindChild("ItemName").GetComponent<Text>().color = Color.grey;
+			itemGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.grey;
+		}
+	}
 
 	public void setItemDescription(GameObject itemGameObject){
 		instance.inventoryDescription.SetActive(true);
 
-		Item item = itemGameObject.GetComponent<Item>();
+		Item item = Singleton.Instance.inventory.getItem(itemGameObject.GetComponent<Item>().id);
 
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + item.id);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Name").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.id);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Type").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.type);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/InventoryBody/Description/Item/Description").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.description);
+        if(item.isUsable() && item.isHealType()){
+			instance.inventoryUseButton.SetActive(true);
+        }
+        else{
+			instance.inventoryUseButton.SetActive(false);
+        }
+
+		inventoryDescription.transform.FindChild("Item").FindChild("Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + item.id);
+		inventoryDescription.transform.FindChild("Item").FindChild("Name").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.id);
+		inventoryDescription.transform.FindChild("Item").FindChild("Type").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.type);
+		inventoryDescription.transform.FindChild("Item").FindChild("Description").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(item.description);
 	}
 
-	public void showCraft(){
+    public void clickUseItem(string itemId){
+		Player target = Gamestate.instance.getPlayer("Mage");
+
+		Singleton.Instance.inventory.useItem(itemId, target);
+
+		showInventory();
+
+		if(Singleton.Instance.inventory.isItemInInventory(itemId)){
+			instance.inventoryDescription.SetActive(true);
+		}
+    }
+
+    public void showCraft(){
 		instance.hideAll();
 
 		List<Craft> recipes = CraftManager.Instance.getRecipes();
@@ -389,31 +422,31 @@ public class PauseMenuManager : MonoBehaviour {
 
 		// CHANGE COLOR IF ITEM IS NOT IN INVENTORY
 		if(!Singleton.Instance.inventory.hasItem(materials.item1, materials.item1Quantity)){
-			instance.materialsGameObjects[0].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
-			instance.materialsGameObjects[0].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+			instance.materialsGameObjects[0].transform.FindChild("ItemName").GetComponent<Text>().color = Color.red;
+			instance.materialsGameObjects[0].transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.red;
 		}
 		else{
-			instance.materialsGameObjects[0].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
-			instance.materialsGameObjects[0].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+			instance.materialsGameObjects[0].transform.FindChild("ItemName").GetComponent<Text>().color = Color.white;
+			instance.materialsGameObjects[0].transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.white;
 		}
 		if(materials.item1.Equals(materials.item2)){
 			if(!Singleton.Instance.inventory.hasItem(materials.item2, materials.item1Quantity + materials.item2Quantity)){
-				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
-				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = Color.red;
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.red;
 			}
 			else{
-				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
-				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = Color.white;
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.white;
 			}
 		}
 		else{
 			if(!Singleton.Instance.inventory.hasItem(materials.item2, materials.item2Quantity)){
-				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
-				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 0.5f, 0.5f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = Color.red;
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.red;
 			}
 			else{
-				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
-				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = new Color(2.55f, 2.55f, 2.55f);
+				instance.materialsGameObjects[1].transform.FindChild("ItemName").GetComponent<Text>().color = Color.white;
+				instance.materialsGameObjects[1].transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.white;
 			}
 		}
 		
@@ -497,4 +530,5 @@ public class PauseMenuManager : MonoBehaviour {
 		statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text);
 		statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text);
 	}
+
 }

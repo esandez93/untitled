@@ -42,6 +42,10 @@
 		<menuId>menu_tab_inventory</menuId>
 		<text>Inventory</text>
 	</menu>
+		<menu>
+			<menuId>menu_inventory_use_button</menuId>
+			<text>Use</text>
+		</menu>
 	<menu>
 		<menuId>menu_tab_craft</menuId>
 		<text>Craft</text>

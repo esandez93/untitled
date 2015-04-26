@@ -551,8 +551,8 @@ public class Character : MonoBehaviour{
 		return hits;
 	}
 
-	public void useItem(string itemId, Character target){
-		Singleton.Instance.inventory.useItem(itemId, target);
+	public void useItemInBattle(string itemId, Character target){
+		Singleton.Instance.inventory.useItemInBattle(itemId, target);
 	}
 	
 	public void useSkill(string skillId, Character target){
