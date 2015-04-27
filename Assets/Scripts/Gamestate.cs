@@ -28,14 +28,14 @@ public class Gamestate : MonoBehaviour {
 	private int currentLevel = -1;
 
 	void OnGUI() {
-		/*if (GUI.Button (new Rect (730, 30, 150, 30), "Level Up")) { // DEBUG
+		if (GUI.Button (new Rect (530, 30, 150, 30), "Level Up")) { // DEBUG
 			Mage mage = findPlayer("Mage").GetComponent<Mage>();
-			mage.levelUp();
+			mage.addSkill("skill_name_fireball");
 		}
 
-		if (GUI.Button (new Rect (930, 30, 150, 30), "Save Game")) { // DEBUG
+		if (GUI.Button (new Rect (730, 30, 150, 30), "Save Game")) { // DEBUG
 			SaveManager.Instance.save();
-		}*/
+		}
 
 		if (GUI.Button (new Rect (930, 30, 150, 30), "Craft")) { // DEBUG
 			Singleton.Instance.inventory.addItem("item_name_potion", 2);
@@ -188,7 +188,7 @@ public class Gamestate : MonoBehaviour {
 			players = new List<Player>();
 		}
 
-		Player p = new Player();
+		Player p = new Player();		
 		p.populate(data);
 
 		if(!playerDataExist(data.characterName)){
@@ -202,7 +202,7 @@ public class Gamestate : MonoBehaviour {
 			}
 		}
 
-		if (!playerExist(p.characterName)){
+		/*if (!playerExist(p.characterName)){
 			players.Add(p);
 		}
 		else{
@@ -211,7 +211,7 @@ public class Gamestate : MonoBehaviour {
 					players[i] = p;
 				}
 			}
-		}
+		}*/
 	}
 
 	private bool playerExist(string name){

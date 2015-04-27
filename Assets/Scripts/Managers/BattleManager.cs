@@ -257,7 +257,7 @@ public class BattleManager : MonoBehaviour {
 			Debug.Log ("Players WIN!");
 			changePhase(BattlePhases.END);
 			giveRewards();
-			SaveManager.Instance.saveBattleStatus();
+			//SaveManager.Instance.saveBattleStatus();
 			//CHANGE SCENE TO BATTLE REWARDS
 			Application.LoadLevel("forestWinBattle");
 			deleteInstance();
@@ -596,7 +596,7 @@ public class BattleManager : MonoBehaviour {
 
 	private void setMonsters(){
 		//numMonsters = Random.Range(1, (playersInBattle.Count+1));
-		numMonsters = 2; // DEBUG
+		numMonsters = 1; // DEBUG
 
 		for(int i = 0; i < numMonsters; i++){
 			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();

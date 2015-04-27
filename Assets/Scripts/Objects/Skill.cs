@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Skill : MonoBehaviour{
+public class Skill {//: MonoBehaviour{
 
 	public static string EMPTY = "battle_menu_skills_empty";
 
@@ -173,35 +173,45 @@ public class Skill : MonoBehaviour{
 		setInfo();
 	}
 
-	public void updateSkill(){	
-		float[] currentLevelInfo = info.getCurrentLevelInfo(currLevel); // currLevel = 3 / info = [80, 80]		
+	public bool updateSkill(){	
+		float[] currentLevelInfo = info.getCurrentLevelInfo(currLevel+1); // currLevel = 3 / info = [80, 80]		
 
-		switch(idType){
-		case Type.ACTIVE_DAMAGE_AND_ADD_STATUS:
-			updateDamageStatus(currentLevelInfo);
-			break;
-		case Type.PASSIVE_BONUS_STAT:
-			updateBonusStat(currentLevelInfo);
-			break;
-		case Type.ACTIVE_HELP:
-			updateBonusStat(currentLevelInfo);
-			break;
+		if(currentLevelInfo != null){
+			switch(idType){
+				case Type.ACTIVE_DAMAGE_AND_ADD_STATUS:
+					updateDamageStatus(currentLevelInfo);
+					break;
+				case Type.PASSIVE_BONUS_STAT:
+					updateBonusStat(currentLevelInfo);
+					break;
+				case Type.ACTIVE_HELP:
+					updateBonusStat(currentLevelInfo);
+					break;
+			}
+
+			Debug.Log("Updated skill.");
+		}
+		else{
+			Debug.Log("Failed to update skill.");
+			return false;
 		}
 
 		if(name == null){
 			getData();
 		}
+
+		return true;
 	}
 
 	private void updateDamageStatus(float[] currentLevelInfo){
 		int i = 0;
 		foreach(string entry in info.evo){
 			switch(entry){
-			case Character.StatName.MATK:		
+			case Character.StatName.MATK:
 				damage = currentLevelInfo[i];
 				break;
 			case SkillEvo.STATUS:
-				chance = 100;//currentLevelInfo[i];
+				chance = 100; //chance = currentLevelInfo[i];  //DEBUG
 				break;
 			}
 
@@ -236,6 +246,9 @@ public class Skill : MonoBehaviour{
 		if(Singleton.Instance.allSkillInfo.ContainsKey(this.id)){
 			//Debug.Log (Singleton.Instance.allSkillInfo[this.name].skillName);
 			info = Singleton.Instance.allSkillInfo[this.id];
+		}
+		else{
+			Debug.Log("ERROR: SkillInfo for " + this.id + " not found.");
 		}
 	}
 
@@ -276,36 +289,20 @@ public class Skill : MonoBehaviour{
 	}
 
 	public void levelUp(){
-		currLevel++;
-
-		updateSkill();
+		if(updateSkill())
+			currLevel++;
 	}
 
 	public bool canLevelUp(){
-		if(this.maxLevel > this.currLevel){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return this.maxLevel > this.currLevel;
 	}
 
 	public bool isPassive(){
-		if(idType == Type.PASSIVE_ADD_STATUS || idType == Type.PASSIVE_BONUS_STAT){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return (idType == Type.PASSIVE_ADD_STATUS || idType == Type.PASSIVE_BONUS_STAT);
 	}
 
 	public bool hasBenefits(){
-		if(statsBenefits != null){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return statsBenefits != null;
 	}
 
 	public void getData(){
@@ -327,9 +324,9 @@ public class Skill : MonoBehaviour{
 	}
 
 	public string toString(){
-		string res = "";
+		string res;
 
-		res += "Name: " + name + ", chance: " + chance;
+		res = "Name: " + name + ", chance: " + chance;
 
 		return res;
 	}

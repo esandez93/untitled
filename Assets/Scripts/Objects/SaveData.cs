@@ -26,7 +26,7 @@ public class SaveData : ISerializable{
 		inventory = (Inventory)info.GetValue("inventory", typeof(Inventory));	
 		map = (MapInfo)info.GetValue("map", typeof(MapInfo));
 		language = (int)info.GetValue("language", typeof(int));
-		date = DateTime.Now;
+		date = (DateTime)info.GetValue("date", typeof(DateTime));
 	}
 	
 	//Serialization function.

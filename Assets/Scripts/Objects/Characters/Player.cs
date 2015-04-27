@@ -118,9 +118,8 @@ public class Player : Character{
 		this.mpRegen = data.mpRegen;
 		
 		this.alive = data.alive;
-		
-		this.skills = data.skills;
-		
+
+		this.skills = data.skills;		
 		this.alteredStatus = data.alteredStatus;
 		
 		this.job = data.job;

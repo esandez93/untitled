@@ -127,6 +127,9 @@ public class Character : MonoBehaviour{
 			skill.levelUp(); // for set it to lv 1
 			this.skills.Add(id, skill);
 		}
+		else{
+			this.skills[id].levelUp();
+		}
 	}
 
 	public float reduceStat(string stat, float quantity){

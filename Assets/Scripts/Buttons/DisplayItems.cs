@@ -52,8 +52,7 @@ public class DisplayItems : MonoBehaviour {
 							GameObject instance = createInstance();
 							text = languageManager.getMenuText(item.id) + " x" + item.quantity;
 							setTextToButton(instance, text);
-							instance.AddComponent<Item>();
-							instance.GetComponent<Item>().id = item.id;
+							instance.name = item.id;
 							
 							if(sameAsLast(i) || text.Equals(DEFAULT_ITEM_TEXT)){
 								itemButtons[i].SetActive(false);

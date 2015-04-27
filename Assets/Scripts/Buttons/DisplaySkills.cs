@@ -55,8 +55,9 @@ public class DisplaySkills : MonoBehaviour {
 							GameObject instance = createInstance();
 							text =  languageManager.getMenuText(skill.id) + " Lv. " + skill.currLevel;
 							setTextToButton(instance, text);
-							instance.AddComponent<Skill>();
-							instance.GetComponent<Skill>().id = skill.id;
+							instance.name = skill.id;
+							//instance.AddComponent<Skill>();
+							//instance.GetComponent<Skill>().id = skill.id;
 							
 							if(sameAsLast(i) || text.Equals(DEFAULT_SKILL_TEXT)){
 								skillButtons[i].SetActive(false);

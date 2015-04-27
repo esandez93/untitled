@@ -31,6 +31,6 @@ public class getSkillButtonText : MonoBehaviour {
 		string name = label.Remove(label.Length - 6); // Fireball Lv. 1
 
 		return name;*/
-		return this.gameObject.GetComponent<Skill>().id;
+		return this.gameObject.name;//GetComponent<Skill>().id;
 	}
 }

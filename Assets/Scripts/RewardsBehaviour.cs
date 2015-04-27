@@ -188,7 +188,6 @@ public class RewardsBehaviour : MonoBehaviour {
 
 	private void initializeDrops(){
 		for(int i = 0; i < 7; i++){
-			Debug.Log("ITEM " + i);
 			dropNames[i].text = "";
 			dropQuantities[i].text = "";
 		}
@@ -207,6 +206,7 @@ public class RewardsBehaviour : MonoBehaviour {
 	}
 
 	private void fillPlayer1(){
+		//Debug.Log(player1.ToString());
 		bool leveledUp = player1.giveExp(battleResults.getExp());
 		Gamestate.instance.setPlayer(player1);
 
@@ -221,6 +221,7 @@ public class RewardsBehaviour : MonoBehaviour {
 
 	private void fillPlayer2(){
 		bool leveledUp = player2.giveExp(battleResults.getExp());
+		//Gamestate.instance.setPlayer(player2);
 
 		if(leveledUp){
 			player2LevelUp.text = "Level Up!";
@@ -233,6 +234,7 @@ public class RewardsBehaviour : MonoBehaviour {
 
 	private void fillPlayer3(){
 		bool leveledUp = player3.giveExp(battleResults.getExp());
+		//Gamestate.instance.setPlayer(player3);
 
 		if(leveledUp){
 			player3LevelUp.text = "Level Up!";

@@ -33,7 +33,7 @@ public class getItemButtonText : MonoBehaviour {
 		for(int i = 0; i < label.Length-1; i++){
 			name += label[i];
 		}*/
-		return this.gameObject.GetComponent<Item>().id;
+		return this.gameObject.name;
 
 		//return name;
 	}

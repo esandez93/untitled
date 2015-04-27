@@ -10,7 +10,6 @@ public class BattleResults {
 
 	public BattleResults(){
 		droppedItems = new Dictionary<string, int>();
-		//gainedExp = new Dictionary<string, float>();
 		players = new List<Player>();
 	}
 

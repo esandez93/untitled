@@ -79,6 +79,7 @@ public class SaveManager : MonoBehaviour{
 					//gamestate.setKnight(data.knight);
 					//gamestate.setRogue(data.rogue);
 					gamestate.setMage(data.mage);
+					//Debug.Log(data.inventory.getItems().Count);
 					Singleton.Instance.inventory = data.inventory;
 					gamestate.setMap(data.map);
 
@@ -114,6 +115,7 @@ public class SaveManager : MonoBehaviour{
 				data.mage = gamestate.getPlayerData("Mage");//GameObject.Find("Mage").GetComponent<Mage>().getData();
 				data.inventory = Singleton.Instance.inventory;
 				data.map = gamestate.map;
+				data.date = DateTime.Now;
 				//data.currentposition = Singleton.Instance.playerPositionInMap;
 
 				//FileManager.Instance.writeToLog(data.mage.toString());
@@ -165,7 +167,7 @@ public class SaveManager : MonoBehaviour{
 
 			//knight.initializePlayer(Player.Job.KNIGHT);
 			//rogue.initializePlayer(Player.Job.ROGUE);
-			mage.initializePlayer(Player.Job.MAGE);			
+			mage.initializePlayer(Player.Job.MAGE);
 
 			MapInfo map = Singleton.Instance.allMaps["Forest"];
 
