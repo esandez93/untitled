@@ -262,10 +262,28 @@
 17/04/2015 - 22/04/2015
 - Implementación de la ventana de creación de objetos. Falta actualizar los datos una vez creado un objeto.
 
+24/04/2015
+- Arreglados los problemas con la actualización del inventario.
+- Implementación del uso de objetos desde el inventario.
+
+25/04/2015
+- Desarrollando la ventana de guardado y carga de partidas.
+
+26/04/2015
+- Implementación de la ventana de guardado y carga de partidas.
+- Añadidos iconos a todos los objetos y partidas guardadas.
+
+27/04/2015
+- Arreglados problemas graves con las partidas guardadas a raíz de un cambio en uno de los objetos que son serializados.
+- Arreglado bug que permitía subir las habilidades más allá de su nivel máximo y provocaba errores al usarlas.
+- Arreglado bug que devolvía un inventario nulo al cargar partida.
+- Arreglado bug que bloqueaba la pantalla de recompensas de batalla y subía de nivel indefinidamente hasta que el usuario salía mediante el botón.
+- Arreglado bug que paraba la ejecución al intentar traducir algo que ya estuviese traducido.
+- Arreglados errores varios con la traducción de objetos.
+
 TO DO:
-- Inventario:
-	+ Objetos no usables en gris.
-	+ Usar objetos desde el inventario.
+- SaveLoad:
+	+ 
 - Craft:
 	+ Recetas no creables en rojo.
 - GENERAL:
