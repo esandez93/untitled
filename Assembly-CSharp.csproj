@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Buttons\ClickButton.cs" />
+     <Compile Include="Assets\Scripts\Buttons\ClickTab.cs" />
      <Compile Include="Assets\Scripts\Buttons\ContinueGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\CraftItem.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
@@ -71,7 +73,7 @@
      <Compile Include="Assets\Scripts\Managers\LanguageManager.cs" />
      <Compile Include="Assets\Scripts\Managers\OptionsManager.cs" />
      <Compile Include="Assets\Scripts\Managers\OptionsMenu.cs" />
-     <Compile Include="Assets\Scripts\Managers\Pause.cs" />
+     <Compile Include="Assets\Scripts\Managers\PauseManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PauseMenuManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SQLite.cs" />
      <Compile Include="Assets\Scripts\Managers\SaveManager.cs" />

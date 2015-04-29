@@ -125,6 +125,7 @@ public class Singleton : MonoBehaviour {
 			allChestContents = fileManager.readChestContents();
 
 			Debug.Log ("Singleton initialized");
+			PauseManager.Instance.initialize();
 
 			initialized = true;
 		}

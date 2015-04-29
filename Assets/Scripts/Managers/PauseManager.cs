@@ -2,32 +2,53 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Pause : MonoBehaviour{
+public class PauseManager : MonoBehaviour{
 	private bool paused = false;
 	private Image pauseBackground;
 	private GameObject pauseCanvas;
 	private GameObject pauseMenu;
+	private bool initialized = false;
 
-	void Start(){
+	private static PauseManager instance = null;
+	public static PauseManager Instance{
+		get{
+			if (instance == null){
+				instance = new GameObject("PauseManager").AddComponent<PauseManager>();
+				instance.initialize();
+				DontDestroyOnLoad(instance.gameObject);
+			}
+				
+			return instance;
+		}
+	}
+
+	void Start() {
 		/*pauseCanvas = GameObject.FindGameObjectWithTag("PauseCanvas");
 		pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
 		pauseMenu.SetActive(false);*/
 	}
 
-	void Update(){
+	void Update() {
 		/*if(pauseCanvas == null){
 			pauseCanvas = GameObject.FindGameObjectWithTag("PauseCanvas");
 		}*/
-		if(paused && Input.GetButtonDown("Quit Menu")){
-			paused = togglePause();
+		if(instance.paused && Input.GetButtonDown("Quit Menu")){
+			instance.paused = togglePause();
 		}
 		if(Input.GetButtonDown("Pause") && Gamestate.instance.isPausable()){
-			paused = togglePause();
+			instance.paused = togglePause();
 		}
 	}
 
-	void OnGUI(){
-		if(paused){
+	public void initialize() {
+		if(!initialized) {
+			Debug.Log("PauseManager initialized");
+			initialized = true;
+		}
+	}
+
+	void OnGUI() {
+		if(instance.paused){
 			//GUILayout.Label("Game is paused!");
 		}
 	}
@@ -70,6 +91,6 @@ public class Pause : MonoBehaviour{
 	}
 
 	public bool isPaused(){
-		return paused;
+		return instance.paused;
 	}
 }

@@ -323,10 +323,10 @@ public class Gamestate : MonoBehaviour {
 				player = findPlayer(data.characterName);
 
 				player.GetComponent<Player>().populate(data);
+				/*player.GetComponent<Player>().addSkill("skill_name_fireball");
 				player.GetComponent<Player>().addSkill("skill_name_fireball");
 				player.GetComponent<Player>().addSkill("skill_name_fireball");
-				player.GetComponent<Player>().addSkill("skill_name_fireball");
-				player.GetComponent<Player>().addSkill("skill_name_fireball"); // DEBUG
+				player.GetComponent<Player>().addSkill("skill_name_fireball");*/ // DEBUG
 				player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
 			}
 
@@ -395,5 +395,23 @@ public class Gamestate : MonoBehaviour {
 
 	private bool positionIsDefault(){ // (0, 0)
 		return Singleton.Instance.playerPositionInMap.x == 0 && Singleton.Instance.playerPositionInMap.y == 0;
+	}
+
+	public float[] getPlayerPosition(){
+		Vector3 playerPosition = findPlayer("Mage").transform.position;
+		float[] position = new float[3];
+
+		position[0] = playerPosition.x;
+		position[1] = playerPosition.y;
+		position[2] = playerPosition.z;
+
+		return position;
+	}
+
+	public void setPlayerPosition(float[] position){
+		Vector3 playerPosition = new Vector3(position[0], position[1], position[2]);
+
+		findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+		//GameObject.FindWithTag("MainCamera").transform.position = playerPosition;
 	}
 }

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class PauseMenuManager : MonoBehaviour {
 
+	private Sprite NORMAL_BUTTON;
+	private Sprite ACTIVE_BUTTON;
+
 	private List<Player> players;	
 
 	private GameObject menuBody;
@@ -33,6 +36,9 @@ public class PauseMenuManager : MonoBehaviour {
 		private GameObject saveGameButton;
 		private GameObject loadGameButton;
 
+	private GameObject currentButton;
+	private GameObject currentTab;
+
 	private GameObject nonTargetPlayers;
 
 	// TABS
@@ -41,6 +47,8 @@ public class PauseMenuManager : MonoBehaviour {
 	private GameObject inventoryTab;
 	private GameObject craftTab;
 	private GameObject saveLoadTab;
+
+	private List<SaveData> savegames;
 
 	private bool initialized = false;
 
@@ -69,6 +77,9 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private void initialize(){
 		if(!initialized){
+			NORMAL_BUTTON = Resources.Load<Sprite>("Buttons/inactive");
+			ACTIVE_BUTTON = Resources.Load<Sprite>("Buttons/active");
+
 			instance.menuBody = GameObject.FindGameObjectWithTag("PauseMenuBody");
 			instance.menuTabs = GameObject.FindGameObjectWithTag("PauseMenuTabs");
 			instance.menuLogo = GameObject.Find("Gamestate/PauseMenuCanvas/Body/Logo");
@@ -139,6 +150,11 @@ public class PauseMenuManager : MonoBehaviour {
 		hideBody(instance.craftBody);
 		hideBody(instance.saveLoadBody);
 		hideBody(instance.nonTargetPlayers);
+
+		if(currentButton != null)
+			currentButton.GetComponent<Image>().sprite = NORMAL_BUTTON;
+
+		//currentButton = null;
 	}
 
 	public void showStatus(){
@@ -470,66 +486,62 @@ public class PauseMenuManager : MonoBehaviour {
 	public void showSaveLoad(){
 		hideAll();
 
-		List<SaveData> savegames = SaveManager.Instance.getFormattedSavegames();
+		instance.saveLoadBody.SetActive(true);
+		instance.savingGames.SetActive(true);
+		instance.loadingGames.SetActive(true);	
 
+		instance.savegames = SaveManager.Instance.getFormattedSavegames();
 		instance.savingGamesSavedGames[0].transform.FindChild("Id").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.savingGamesSavedGames[0].transform.FindChild("Id").GetComponent<Text>().text);
 
-		for (int i = 1; i < instance.savingGamesSavedGames.Length; i++){
-			if(i <= savegames.Count){
-				formatSavegame(instance.savingGamesSavedGames[i], savegames[i-1], i);
-			}
-			else{
-				instance.savingGamesSavedGames[i].SetActive(false);
-			}
+		for (int i = 1; i < instance.savingGamesSavedGames.Length; i++){			
+			if(i <= instance.savegames.Count)
+				formatSavegame(instance.savingGamesSavedGames[i], instance.savegames[i-1], i);			
+			else
+				instance.savingGamesSavedGames[i].SetActive(false);			
 		}
 
 		for (int i = 0; i < instance.loadingGamesSavedGames.Length; i++){
-			if(i < savegames.Count){
-				formatSavegame(instance.loadingGamesSavedGames[i], savegames[i], i+1);
-			}
-			else{
-				instance.loadingGamesSavedGames[i].SetActive(false);
-			}
+			if(i < instance.savegames.Count)
+				formatSavegame(instance.loadingGamesSavedGames[i], instance.savegames[i], i+1);			
+			else
+				instance.loadingGamesSavedGames[i].SetActive(false);			
 		}
 
 		instance.savingGames.SetActive(false);
-		instance.loadingGames.SetActive(false);
-		instance.saveLoadBody.SetActive(true);
+		instance.loadingGames.SetActive(false);		
 	}
 
 	private void formatSavegame(GameObject slot, SaveData savegame, int id){
+		slot.SetActive(true);
 		Sprite sprite = null;
+		//Debug.Log(id + " - " + slot.transform.GetComponentInChildren<Button>().gameObject.name);
 
-		if(savegame.map.mapName.Contains("Forest")){
-			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Forest"); 
-		}
-		else if(savegame.map.mapName.Contains("Castle")){
+		if(savegame.map.mapName.Contains("Forest"))
+			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Forest"); 		
+		else if(savegame.map.mapName.Contains("Castle"))
 			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Castle");
-		}
 		
 		slot.transform.FindChild("Image").GetComponent<Image>().sprite = sprite;
 		slot.transform.FindChild("Id").GetComponent<Text>().text = id + ". ";
 		slot.transform.FindChild("Date").GetComponent<Text>().text = savegame.date.ToString("dd/MM/yyyy HH:mm");
 		slot.transform.FindChild("MapName").GetComponent<Text>().text = "Map: " + savegame.map.mapName;
-		slot.SetActive(true);
+		if(savegame != null)
+			slot.transform.GetComponentInChildren<Button>().gameObject.name = savegame.getPath();
+		//slot.SetActive(true);
 	}
 
 	public void clickSaveGameButton(){
-		if(instance.savingGames.activeInHierarchy){
+		if (instance.savingGames.activeInHierarchy)
 			hideSavingGames();
-		}
-		else{
-			showSavingGames();
-		}
+		else
+			showSavingGames();		
 	}
 
 	public void clickLoadGameButton(){
-		if(instance.loadingGames.activeInHierarchy){
-			hideLoadingGames();
-		}
-		else{
-			showLoadingGames();
-		}
+		if(instance.loadingGames.activeInHierarchy)
+			hideLoadingGames();		
+		else
+			showLoadingGames();		
 	}
 
 	private void showSavingGames(){
@@ -553,16 +565,18 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	public void hideCanvas(){
-		menuBody.SetActive(false);
-		menuTabs.SetActive(false);
-		menuLogo.SetActive(false);
+		if(instance.currentTab != null)
+			instance.currentTab.GetComponent<Image>().sprite = NORMAL_BUTTON;
+		instance.menuBody.SetActive(false);
+		instance.menuTabs.SetActive(false);
+		instance.menuLogo.SetActive(false);
 	}
 
 	public void showCanvas(){
 		setPlayers();
-		menuBody.SetActive(true);
-		menuTabs.SetActive(true);
-		menuLogo.SetActive(true);
+		instance.menuBody.SetActive(true);
+		instance.menuTabs.SetActive(true);
+		instance.menuLogo.SetActive(true);
 		showStatus();
 	}
 
@@ -577,11 +591,11 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	private void translateBody(){
-		statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text);
-		statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text);
+		instance.statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text);
+		instance.statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text);
 
-		craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text);
-		craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text);
+		instance.craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text);
+		instance.craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text);
 
 		/*GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/FirstColumn/Text").GetComponent<Text>().text);
 		GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/PauseMenuCanvas/Body/CraftBody/SecondColumn/Text").GetComponent<Text>().text);*/
@@ -592,4 +606,42 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.loadGameButton.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.loadGameButton.transform.FindChild("Text").GetComponent<Text>().text);
 	}
 
+	public void clickSomeButton(GameObject button){
+		if(instance.currentButton != null)
+			instance.currentButton.GetComponent<Image>().sprite = NORMAL_BUTTON;
+
+		instance.currentButton = button;
+		instance.currentButton.GetComponent<Image>().sprite = ACTIVE_BUTTON;
+	}
+
+	public void clickSomeTab(GameObject tab){
+		if(instance.currentTab != null)
+			instance.currentTab.GetComponent<Image>().sprite = NORMAL_BUTTON;
+
+		instance.currentTab = tab;
+		instance.currentTab.GetComponent<Image>().sprite = ACTIVE_BUTTON;
+	}
+
+	public void clickSave(GameObject button){
+		if (instance.currentButton != null && instance.currentButton == button){
+			if(!button.name.Equals("Button"))
+				SaveManager.Instance.saveData(button.name);
+			else {
+				if (instance.savegames.Count == 0)
+					SaveManager.Instance.saveData(Application.dataPath + SaveManager.SAVE_PATH + "/New Savegame.sav");
+				else
+					SaveManager.Instance.saveData(Application.dataPath + SaveManager.SAVE_PATH + "/New Savegame("+instance.savegames.Count+").sav"); //
+			}
+
+			showSaveLoad();
+			showSavingGames();
+		}
+	}
+
+	public void clickLoad(GameObject button){
+		if (instance.currentButton != null && instance.currentButton == button) {
+			//Debug.Log("LOADING - " + button.name);
+			SaveManager.Instance.loadData(button.name);
+		}
+	}
 }

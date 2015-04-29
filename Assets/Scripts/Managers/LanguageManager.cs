@@ -138,7 +138,7 @@ public class LanguageManager : MonoBehaviour{
 			return menus[id];
 		}
 		catch(Exception e){
-			Debug.Log(e.Message + ": " + id);
+			//Debug.Log(e.Message + ": " + id);
 		}	
 
 		return new AnyText(id);	

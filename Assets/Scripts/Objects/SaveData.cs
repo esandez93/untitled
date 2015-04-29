@@ -14,6 +14,9 @@ public class SaveData : ISerializable{
 	//public Monster monsterCollided;
 	public int language;
 	public DateTime date;
+	public float[] positionInMap;
+
+	private string path;
 
 	public SaveData(){
 
@@ -27,6 +30,7 @@ public class SaveData : ISerializable{
 		map = (MapInfo)info.GetValue("map", typeof(MapInfo));
 		language = (int)info.GetValue("language", typeof(int));
 		date = (DateTime)info.GetValue("date", typeof(DateTime));
+		positionInMap = (float[])info.GetValue("positionInMap", typeof(float[]));
 	}
 	
 	//Serialization function.
@@ -37,6 +41,7 @@ public class SaveData : ISerializable{
 		info.AddValue("map", map);
 		info.AddValue("language", language);
 		info.AddValue("date", date);
+		info.AddValue("positionInMap", positionInMap);
 	}
 
 	public bool isEmpty(){
@@ -51,6 +56,14 @@ public class SaveData : ISerializable{
 
 	public void translate(){
 		mage.translate();
+	}
+
+	public void setPath(string path) {
+		this.path = path;
+	}
+
+	public string getPath() {
+		return this.path;
 	}
 }
 

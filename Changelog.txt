@@ -281,13 +281,17 @@
 - Arreglado bug que paraba la ejecución al intentar traducir algo que ya estuviese traducido.
 - Arreglados errores varios con la traducción de objetos.
 
+29/04/2015
+- Implementado el guardado y carga de partida desde el menú correspondiente.
+- Implementado el resaltado de objetos, recetas, partidas guardadas, etc seleccionados en ese momento.
+- Implementado el resaltado de la pestaña del menú activa en ese momento. !!! IMPORTANTE: Si se añaden datos para guardar en SaveData las partidas anteriores no serán válidas.
+- Solucionados varios errores con el guardado y la carga de partidas.
+- Solucionado un error menor donde al guardar partida salían desordenadas.
+
 TO DO:
-- SaveLoad:
-	+ 
 - Craft:
 	+ Recetas no creables en rojo.
-- GENERAL:
-	+ Resaltar pestañas, botones, etc ACTIVOS 
+- Implementar Skills.
 
 DIFICULTADES:
 - Aprender el manejo del motor Unity.

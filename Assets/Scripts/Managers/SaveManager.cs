@@ -82,12 +82,15 @@ public class SaveManager : MonoBehaviour{
 					//Debug.Log(data.inventory.getItems().Count);
 					Singleton.Instance.inventory = data.inventory;
 					gamestate.setMap(data.map);
+					Application.LoadLevel(data.map.mapName);
+					PauseManager.Instance.togglePause();
+					//gamestate.setPlayerPosition(data.positionInMap);
 
 					//Singleton.Instance.playerPositionInMap = data.currentposition;
 
 					//FileManager.Instance.writeToLog(data.mage.toString());
 					
-					Debug.Log("Game loaded successfully.");
+					//Debug.Log("Game loaded successfully.");
 					
 					res = true;
 				}
@@ -106,6 +109,7 @@ public class SaveManager : MonoBehaviour{
 
 		try{
 			if (savePath.Length != 0) {
+				Debug.Log(savePath);
 				SaveData data = new SaveData();
 				
 				//FileManager.Instance.initialize();
@@ -116,6 +120,7 @@ public class SaveManager : MonoBehaviour{
 				data.inventory = Singleton.Instance.inventory;
 				data.map = gamestate.map;
 				data.date = DateTime.Now;
+				data.positionInMap = Gamestate.instance.getPlayerPosition();
 				//data.currentposition = Singleton.Instance.playerPositionInMap;
 
 				//FileManager.Instance.writeToLog(data.mage.toString());
@@ -127,7 +132,7 @@ public class SaveManager : MonoBehaviour{
 				bf.Serialize(file, data);
 				file.Close();
 				
-				Debug.Log("Game saved successfully.");
+				//Debug.Log("Game saved successfully.");
 
 				res = true;
 			}
@@ -205,7 +210,7 @@ public class SaveManager : MonoBehaviour{
 					data = (SaveData)bf.Deserialize(file);
 					file.Close();
 					
-					Debug.Log("Game data loaded successfully.");
+					//Debug.Log("Game data loaded successfully.");
 				}
 			}
 		}
@@ -224,6 +229,7 @@ public class SaveManager : MonoBehaviour{
 
 	public SaveData getFormattedSavegame(string path){
 		SaveData data = getSavegameData(path);
+		data.setPath(path);
 
 		if(data.isEmpty()){
 			Debug.Log ("The savegame in " + path + " is empty.");
@@ -241,6 +247,7 @@ public class SaveManager : MonoBehaviour{
 			data = getSavegameData(game);
 
 			if(!data.isEmpty()){
+				data.setPath(game);
 				saveData.Add(data);
 			}
 		}
