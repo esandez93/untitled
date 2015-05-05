@@ -133,6 +133,7 @@
 	<skill>
 		<idType>6</idType>
 		<name>skill_name_fireball</name>
+		<branch>mage_branch_destruction</branch>
 		<maxLevel>5</maxLevel>
 		<type>Active</type>
 		<damageType>Magic</damageType>

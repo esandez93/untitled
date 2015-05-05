@@ -288,10 +288,18 @@
 - Solucionados varios errores con el guardado y la carga de partidas.
 - Solucionado un error menor donde al guardar partida salían desordenadas.
 
+05/05/2015
+- Implementada la subida de puntos de estado desde la interfaz.
+- 
+
 TO DO:
 - Craft:
 	+ Recetas no creables en rojo.
-- Implementar Skills.
+- Implementar Skills + subidas de nivel.
+- Crear escenarios.
+- Buscar personajes (?).
+- Implementar ninja de Selva.
+- Descubrir por qué peta SaveLoad si arranco el juego sin el body activado.
 
 DIFICULTADES:
 - Aprender el manejo del motor Unity.

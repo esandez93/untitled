@@ -91,6 +91,14 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 
+	public string[] getBranches(string job) {
+		string[] branches = new string[3];
+
+
+
+		return branches;
+	}
+
 	public void getExpNeeded(){
 		float exp = 0; 
 

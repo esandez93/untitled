@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PauseMenuManager : MonoBehaviour {
 
@@ -17,7 +18,11 @@ public class PauseMenuManager : MonoBehaviour {
 	// BODY
 	private GameObject statusBody;
 		private GameObject target;
+		private GameObject additionalStats;
+		private GameObject[] statButtons;
 	private GameObject skillsBody;
+		private GameObject skillTabs;
+		private GameObject[] skillItems;
 	private GameObject inventoryBody;
 		private GameObject inventoryDescription;
         private GameObject inventoryUseButton;
@@ -89,7 +94,11 @@ public class PauseMenuManager : MonoBehaviour {
 
 			instance.statusBody = bodyTransform.FindChild("StatusBody").gameObject;
 				instance.target = bodyTransform.FindChild("StatusBody").FindChild("Target").gameObject;
+				instance.additionalStats = bodyTransform.FindChild("StatusBody").FindChild("Target").FindChild("AdditionalStats").gameObject;
+				instance.statButtons = GameObject.FindGameObjectsWithTag("StatButton");
 			instance.skillsBody = bodyTransform.FindChild("SkillsBody").gameObject;
+				instance.skillTabs = bodyTransform.FindChild("SkillsBody").FindChild("SkillsFrame").FindChild("Tabs").gameObject;
+				instance.skillItems = GameObject.FindGameObjectsWithTag("Skill");
 			instance.inventoryBody = bodyTransform.FindChild("InventoryBody").gameObject;
 				instance.inventoryDescription = bodyTransform.FindChild("InventoryBody").FindChild("Description").gameObject;
 				instance.inventoryUseButton = instance.inventoryDescription.transform.FindChild("Button").gameObject;			
@@ -142,6 +151,10 @@ public class PauseMenuManager : MonoBehaviour {
 		return GameObject.FindGameObjectWithTag(data.characterName).GetComponent<Player>();
 	}
 
+	public Player getPlayer(string name){
+		return instance.players.Where<Player>(x => x.characterName == name).FirstOrDefault();
+	}
+
 	private void hideAll(){
 		this.gameObject.SetActive(true);
 		hideBody(instance.statusBody);		
@@ -157,16 +170,34 @@ public class PauseMenuManager : MonoBehaviour {
 		//currentButton = null;
 	}
 
+	#region status
+
 	public void showStatus(){
 		hideAll();
 
-		Player target = instance.players[0];
+		Player targetPlayer = instance.players[0];
+		instance.target.GetComponent<Player>().populate(targetPlayer.getData());
 
-		fillTarget(target);
+		fillTarget(targetPlayer);
 		fillNonTargets();
+
+		if (targetPlayer.statPoints > 0)
+			showStatButtons();
+		else
+			hideStatButtons();
 
 		instance.statusBody.SetActive(true);
 		instance.nonTargetPlayers.SetActive(true);
+	}
+
+	private void showStatButtons() {
+		foreach (GameObject button in instance.statButtons)
+			button.SetActive(true);
+	}
+
+	private void hideStatButtons() {
+		foreach (GameObject button in instance.statButtons)
+			button.SetActive(false);
 	}
 
 	private void fillTarget(Player targetPlayer){
@@ -183,7 +214,7 @@ public class PauseMenuManager : MonoBehaviour {
 		basicStatsTransform.FindChild("STR").FindChild("Value").GetComponent<Text>().text = targetPlayer.str.ToString();
 		basicStatsTransform.FindChild("VIT").FindChild("Value").GetComponent<Text>().text = targetPlayer.vit.ToString();
 		basicStatsTransform.FindChild("AGI").FindChild("Value").GetComponent<Text>().text = targetPlayer.agi.ToString();
-		basicStatsTransform.FindChild("INT").FindChild("Value").GetComponent<Text>().text = targetPlayer.itg.ToString();
+		basicStatsTransform.FindChild("ITG").FindChild("Value").GetComponent<Text>().text = targetPlayer.itg.ToString();
 		basicStatsTransform.FindChild("DEX").FindChild("Value").GetComponent<Text>().text = targetPlayer.dex.ToString();
 		basicStatsTransform.FindChild("LUK").FindChild("Value").GetComponent<Text>().text = targetPlayer.luk.ToString();
 
@@ -199,31 +230,11 @@ public class PauseMenuManager : MonoBehaviour {
 		secondStatsTransform.FindChild("HP REG").FindChild("Value").GetComponent<Text>().text = targetPlayer.hpRegen.ToString();
 		secondStatsTransform.FindChild("MP REG").FindChild("Value").GetComponent<Text>().text = targetPlayer.mpRegen.ToString();
 
-		/*GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/PlayerPortrait").transform.GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + targetPlayer.name + "Portrait");
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/PlayerName").transform.GetComponent<Text>().text = targetPlayer.characterName;
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/PlayerLevel").transform.GetComponent<Text>().text = "Lv " + targetPlayer.level.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Health/HealthBar").transform.GetComponent<Image>().fillAmount = (targetPlayer.currHP / targetPlayer.maxHP);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Mana/ManaBar").transform.GetComponent<Image>().fillAmount = (targetPlayer.currMP / targetPlayer.maxMP);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Exp/ExpBar").transform.GetComponent<Image>().fillAmount = (targetPlayer.exp / targetPlayer.expForNextLevel);
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicInfo/Exp/CurrentExp").transform.GetComponent<Text>().text = "(" + targetPlayer.exp +  "/" + targetPlayer.expForNextLevel + ")";
+		instance.additionalStats.transform.FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.additionalStats.transform.FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text);
+		instance.additionalStats.transform.FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.additionalStats.transform.FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text);
 
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/STR/Value").transform.GetComponent<Text>().text = targetPlayer.str.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/VIT/Value").transform.GetComponent<Text>().text = targetPlayer.vit.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/AGI/Value").transform.GetComponent<Text>().text = targetPlayer.agi.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/INT/Value").transform.GetComponent<Text>().text = targetPlayer.itg.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/DEX/Value").transform.GetComponent<Text>().text = targetPlayer.dex.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/BasicStats/LUK/Value").transform.GetComponent<Text>().text = targetPlayer.luk.ToString();
-
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/ATK/Value").transform.GetComponent<Text>().text = targetPlayer.atk.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/MATK/Value").transform.GetComponent<Text>().text = targetPlayer.matk.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/DEF/Value").transform.GetComponent<Text>().text = targetPlayer.def.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/MDEF/Value").transform.GetComponent<Text>().text = targetPlayer.mdef.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/HIT/Value").transform.GetComponent<Text>().text = targetPlayer.hit.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/FLEE/Value").transform.GetComponent<Text>().text = targetPlayer.flee.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/CRITCH/Value").transform.GetComponent<Text>().text = targetPlayer.critChance.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/CRITDMG/Value").transform.GetComponent<Text>().text = targetPlayer.critDmg.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/HP REG/Value").transform.GetComponent<Text>().text = targetPlayer.hpRegen.ToString();
-		GameObject.Find("Gamestate/PauseMenuCanvas/Body/StatusBody/Target/SecondStats/MP REG/Value").transform.GetComponent<Text>().text = targetPlayer.mpRegen.ToString();*/
+		instance.additionalStats.transform.FindChild("RemainingStatPoints").FindChild("Value").GetComponent<Text>().text = targetPlayer.statPoints.ToString();
+		instance.additionalStats.transform.FindChild("RemainingSkillPoints").FindChild("Value").GetComponent<Text>().text = targetPlayer.skillPoints.ToString();
 	}
 
 	private void fillNonTargets(){
@@ -246,14 +257,28 @@ public class PauseMenuManager : MonoBehaviour {
 		}
 	}
 
+	#endregion status
+
+	#region skills
+
 	public void showSkills(){
 		hideAll();
 
 		instance.skillsBody.SetActive(true);
 		instance.nonTargetPlayers.SetActive(true);
 
+		showSkillTabs();
+
 		// DO THINGS
 	}
+
+	private void showSkillTabs() {
+		
+	}
+
+	#endregion skills
+
+	#region inventory
 
 	public void showInventory(){
 		hideAll();
@@ -333,6 +358,10 @@ public class PauseMenuManager : MonoBehaviour {
 			instance.inventoryDescription.SetActive(true);
 		}
     }
+
+	#endregion inventory
+
+	#region craft
 
     public void showCraft(){
 		instance.hideAll();
@@ -483,6 +512,10 @@ public class PauseMenuManager : MonoBehaviour {
 		setRecipeDescription();
 	}
 
+	#endregion craft
+
+	#region saveLoad
+
 	public void showSaveLoad(){
 		hideAll();
 
@@ -560,6 +593,8 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.loadingGames.SetActive(false);
 	}
 
+	#endregion saveLoad
+
 	private void hideBody(GameObject body){
 		body.SetActive(false);
 	}
@@ -590,10 +625,7 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.saveLoadTab.transform.FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(instance.saveLoadTab.transform.FindChild("Text").GetComponent<Text>().text);
 	}
 
-	private void translateBody(){
-		instance.statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text);
-		instance.statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(statusBody.transform.FindChild("Target").FindChild("AdditionalStats").FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text);
-
+	private void translateBody(){		
 		instance.craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("FirstColumn").FindChild("Text").GetComponent<Text>().text);
 		instance.craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(craftBody.transform.FindChild("SecondColumn").FindChild("Text").GetComponent<Text>().text);
 

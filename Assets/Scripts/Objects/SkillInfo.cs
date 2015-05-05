@@ -10,6 +10,7 @@ public class SkillInfo{
 
 	public string id; // skill_name_bulwark
 	public string skillName; // Bulwark
+	public string branch;
 
 	public float[] level1; // [60, 60]
 	public float[] level2; // [70, 70]
@@ -90,8 +91,7 @@ public class SkillInfo{
 	}
 
 	public void populate(string[] row){
-		this.id = row[0];
-		//this.skillName = row[0];		
+		this.id = row[0];		
 		this.idType = Convert.ToInt32(row[1]);
 		
 		this.setLevel(1, row[2]);
@@ -101,6 +101,8 @@ public class SkillInfo{
 		this.setLevel(5, row[6]);
 		
 		this.setEvo(row[7]);
+
+		this.branch = row[8];
 	}
 
 	/*switch(evo){

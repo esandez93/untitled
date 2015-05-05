@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class Player : Character{
@@ -149,9 +150,30 @@ public class Player : Character{
 
 	public void statUp(string stat){
 		if(hasStatPoints()){
-			/*switch(stat){
+			switch(stat.ToLower()){
+				case Character.StatName.STR:
+					this.str++;
+					break;
+				case Character.StatName.VIT:
+					this.vit++;
+					break;
+				case Character.StatName.AGI:
+					this.agi++;
+					break;
+				case Character.StatName.INT:
+					this.itg++;
+					break;
+				case Character.StatName.DEX:
+					this.dex++;
+					break;
+				case Character.StatName.LUK:
+					this.luk++;
+					break;
+				default:
+					throw new Exception();
+			}
 
-			}*/
+			statPoints--;
 		}
 	}
 
@@ -164,15 +186,15 @@ public class Player : Character{
 	public void skillUp(Skill skill){
 		if(hasSkillPoints()){
 			if(hasSkill(skill.name)){
-				if(skill.canLevelUp()){
+				if (skill.canLevelUp()) {
 					skill.levelUp();
+					skillPoints--;
 				}
 			}
 			else{
 				this.addSkill(skill);
+				skillPoints--;
 			}
-
-			skillPoints--;
 		}
 	}
 

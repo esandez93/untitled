@@ -229,7 +229,7 @@
 		<text>Attack</text>
 	</menu>
 	<menu>
-		<menuId>supporting</menuId>
+		<menuId>knight_branch_supporting</menuId>
 		<text>Supporting</text>
 	</menu>
 

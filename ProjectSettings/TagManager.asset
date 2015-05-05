@@ -4,13 +4,13 @@
 TagManager:
   tags:
   - Limits
-  - Crate
+  - 
   - Enemy
   - Wall
-  - Obstacle
+  - 
   - GUI
-  - Bottom
-  - ExplosionFX
+  - 
+  - 
   - HealthBar
   - GroundCheck
   - Ground
@@ -42,6 +42,7 @@ TagManager:
   - Material
   - SavingGames
   - LoadingGames
+  - StatButton
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

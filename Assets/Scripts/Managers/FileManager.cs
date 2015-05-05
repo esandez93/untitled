@@ -295,37 +295,37 @@ public class FileManager : MonoBehaviour {
 
 		switch(Convert.ToInt32(itemInfo["idType"])){
 		case Skill.Type.ACTIVE_HELP:
-			newSkill = new Skill(itemInfo["name"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
+			newSkill = new Skill(itemInfo["name"], itemInfo["branch"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
 			                     Convert.ToBoolean(itemInfo["usableOutOfCombat"]), itemInfo["target"], Convert.ToInt32(itemInfo["mp"]), 
 			                     itemInfo["stat"], itemInfo["benefit"], Convert.ToInt32(itemInfo["duration"]));
 			break;
 		case Skill.Type.ACTIVE_ADD_STATUS:
-			newSkill = new Skill(itemInfo["name"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
+			newSkill = new Skill(itemInfo["name"], itemInfo["branch"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
 			                     Convert.ToBoolean(itemInfo["usableOutOfCombat"]), itemInfo["target"], Convert.ToInt32(itemInfo["mp"]), 
 			                     float.Parse(itemInfo["chance"]), itemInfo["status"], Convert.ToInt32(itemInfo["duration"]));
 			break;
 		case Skill.Type.ACTIVE_DAMAGE:
-			newSkill = new Skill(itemInfo["name"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
+			newSkill = new Skill(itemInfo["name"], itemInfo["branch"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
 			                     Convert.ToBoolean(itemInfo["usableOutOfCombat"]), itemInfo["target"], float.Parse(itemInfo["damage"]), 
 			                     Convert.ToInt32(itemInfo["element"]), Convert.ToInt32(itemInfo["mp"]), itemInfo["damageType"]);
 
 			break;
 		case Skill.Type.PASSIVE_BONUS_STAT:
-			newSkill = new Skill(itemInfo["name"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
+			newSkill = new Skill(itemInfo["name"], itemInfo["branch"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
 			                     Convert.ToBoolean(itemInfo["usableOutOfCombat"]), itemInfo["stat"], itemInfo["benefit"]);
 			break;
 		case Skill.Type.NO_TARGET:
-			newSkill = new Skill(itemInfo["name"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
+			newSkill = new Skill(itemInfo["name"], itemInfo["branch"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
 			                     Convert.ToBoolean(itemInfo["usableOutOfCombat"]));
 			break;
 		case Skill.Type.ACTIVE_DAMAGE_AND_ADD_STATUS:
-			newSkill = new Skill(itemInfo["name"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
+			newSkill = new Skill(itemInfo["name"], itemInfo["branch"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
 			                    Convert.ToBoolean(itemInfo["usableOutOfCombat"]), itemInfo["target"], float.Parse(itemInfo["damage"]), 
 			                    Convert.ToInt32(itemInfo["element"]), Convert.ToInt32(itemInfo["mp"]), itemInfo["damageType"], 
 			                    float.Parse(itemInfo["chance"]), itemInfo["status"], Convert.ToInt32(itemInfo["duration"]));
 			break;
 		default:
-			newSkill = new Skill(itemInfo["name"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
+			newSkill = new Skill(itemInfo["name"], itemInfo["branch"], Convert.ToInt32(itemInfo["maxLevel"]), itemInfo["type"], itemInfo["description"], 
 			                     Convert.ToBoolean(itemInfo["usableOutOfCombat"]));
 			break;
 		}

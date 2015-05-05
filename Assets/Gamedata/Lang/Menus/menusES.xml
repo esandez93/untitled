@@ -225,7 +225,7 @@
 		<text>Ataque</text>
 	</menu>
 	<menu>
-		<menuId>supporting</menuId>
+		<menuId>knight_branch_supporting</menuId>
 		<text>Apoyo</text>
 	</menu>
 		<!--				SKILLS 					-->

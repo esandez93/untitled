@@ -180,7 +180,7 @@ public class Gamestate : MonoBehaviour {
 		}
 	}
 
-	private void addPlayerData(PlayerData data){
+	public void addPlayerData(PlayerData data){
 		if(playersData == null){
 			playersData = new List<PlayerData>();
 		}

@@ -86,7 +86,8 @@ public class PauseManager : MonoBehaviour{
 	private void unpause(){
 		/*pauseCanvas.SetActive(false);
 		pauseMenu.SetActive(false);
-		pauseBackground.enabled = false;*/
+		pauseBackground.enabled = false;*/		
+
 		PauseMenuManager.Instance.hideCanvas();
 	}
 

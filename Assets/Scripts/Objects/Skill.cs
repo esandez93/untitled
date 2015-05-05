@@ -12,6 +12,7 @@ public class Skill {//: MonoBehaviour{
 
 	public string id;
 	public string name;
+	public string branch;
 	public int maxLevel;
 	public int currLevel;
 	public string type;
@@ -41,10 +42,11 @@ public class Skill {//: MonoBehaviour{
 
 	}	
 	
-	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string target, int mp, string stat, string benefit, int duration){
+	public Skill(string name, string branch, int maxLevel, string type, string description, bool usableOutOfCombat, string target, int mp, string stat, string benefit, int duration){
 		idType = Type.ACTIVE_HELP;
 		
 		this.id = name;
+		this.branch = branch;
 		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
@@ -63,10 +65,11 @@ public class Skill {//: MonoBehaviour{
 		setInfo();
 	}
 	
-	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string target, int mp, float chance, string status, int duration){
+	public Skill(string name, string branch, int maxLevel, string type, string description, bool usableOutOfCombat, string target, int mp, float chance, string status, int duration){
 		idType = Type.ACTIVE_ADD_STATUS;
 		
 		this.id = name;
+		this.branch = branch;
 		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
@@ -82,10 +85,11 @@ public class Skill {//: MonoBehaviour{
 		setInfo();
 	}
 	
-	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string target, float damage, int element, int mp, string damageType){
+	public Skill(string name, string branch, int maxLevel, string type, string description, bool usableOutOfCombat, string target, float damage, int element, int mp, string damageType){
 		idType = Type.ACTIVE_DAMAGE;
 		
 		this.id = name;
+		this.branch = branch;
 		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
@@ -101,10 +105,11 @@ public class Skill {//: MonoBehaviour{
 		setInfo();
 	}
 	
-	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string stat, string benefit){
+	public Skill(string name, string branch, int maxLevel, string type, string description, bool usableOutOfCombat, string stat, string benefit){
 		idType = Type.PASSIVE_BONUS_STAT;
 		
 		this.id = name;
+		this.branch = branch;
 		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
@@ -120,10 +125,11 @@ public class Skill {//: MonoBehaviour{
 		setInfo();
 	}
 
-	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat){
+	public Skill(string name, string branch, int maxLevel, string type, string description, bool usableOutOfCombat){
 		idType = Type.NO_TARGET;
 
 		this.id = name;
+		this.branch = branch;
 		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
@@ -134,12 +140,13 @@ public class Skill {//: MonoBehaviour{
 		setInfo();
 	}
 
-	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string target, float damage, int element, int mp, string damageType, 
+	public Skill(string name, string branch, int maxLevel, string type, string description, bool usableOutOfCombat, string target, float damage, int element, int mp, string damageType, 
 	             float chance, string status, int duration){
 
 		idType = Type.ACTIVE_DAMAGE_AND_ADD_STATUS;
 		
 		this.id = name;
+		this.branch = branch;
 		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
@@ -158,10 +165,11 @@ public class Skill {//: MonoBehaviour{
 		setInfo();
 	}
 
-	public Skill(string name, int maxLevel, string type, string description, bool usableOutOfCombat, string status){
+	public Skill(string name, string branch, int maxLevel, string type, string description, bool usableOutOfCombat, string status){
 		idType = Type.PASSIVE_ADD_STATUS;
 		
 		this.id = name;
+		this.branch = branch;
 		//this.name = LanguageManager.Instance.getMenuText(name);
 		this.maxLevel = maxLevel;
 		this.type = type;
