@@ -26026,6 +26026,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1729545795}
+  - 114: {fileID: 1729545796}
   m_Layer: 5
   m_Name: Target
   m_TagString: Untagged
@@ -26053,6 +26054,52 @@ RectTransform:
   m_AnchoredPosition: {x: -132.5, y: 110.5}
   m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: .5, y: .5}
+--- !u!114 &1729545796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1729545794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9d7308c732946418e987c177d0a672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackFinished: 0
+  body: {fileID: 0}
+  clickedObjective: {fileID: 0}
+  bIsPlayer: 0
+  characterName: 
+  level: 0
+  element: 0
+  maxHP: 0
+  maxMP: 0
+  currHP: 0
+  currMP: 0
+  str: 0
+  agi: 0
+  vit: 0
+  itg: 0
+  dex: 0
+  luk: 0
+  atk: 0
+  matk: 0
+  def: 0
+  mdef: 0
+  hit: 0
+  flee: 0
+  critChance: 0
+  critDmg: 0
+  hpRegen: 0
+  mpRegen: .0500000007
+  defending: 0
+  alive: 0
+  animator: {fileID: 0}
+  job: 0
+  exp: 0
+  expForNextLevel: 0
+  skillPoints: 0
+  statPoints: 0
 --- !u!1 &1735763757
 GameObject:
   m_ObjectHideFlags: 0

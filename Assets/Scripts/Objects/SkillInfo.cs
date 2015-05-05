@@ -105,110 +105,14 @@ public class SkillInfo{
 		this.branch = row[8];
 	}
 
-	/*switch(evo){
-			case Character.StatName.ATK:
-				break;
-			case Character.StatName.MATK:			
-				break;
-			case Character.StatName.DEF:
-				break;
-			case Character.StatName.MDEF:
-				break;
-			case Character.StatName.FLEE:
-				break;
-			case Character.StatName.HIT:
-				break;
-			case Character.StatName.CRITCHANCE:
-				break;
-			case Character.StatName.CRITDAMAGE:
-				break;
+	public string getReadableEvo(int currLevel) {
+		string result = "";
+		float[] info = getCurrentLevelInfo(currLevel);
 
-			case Character.StatName.HP_REGEN:
-				break;
-			case Character.StatName.MP_REGEN:
-				break;
+		for (int i = 0; i < evo.Length; i++) {
+			result += evo[i] + "+" + info[i] + "   ";
+		}
 
-			case SkillEvo.TURNS:
-				break;
-			case SkillEvo.STATUS:
-				break;
-			case SkillEvo.HITS:
-				break;
-			case SkillEvo.HEAL:
-				break;
-			case SkillEvo.DAMAGE:
-				break;
-			}*/
-	
-	/*public float bonusDamage; // +X% MATK, +X% ATK
-	public float[] bonusStat; // +X% DEF
-	public float bonusApplyChance; // +X% Bleed
-	public float bonusDuration; // +X Turns
-	public float bonusHit; // +X Hits
-	public float bonusHeal; // +X% HP
-	public float bonusLevel; // Creation of X level
-	public float bonusUseChance; // +X% of block
-
-	public SkillInfo(){
-
+		return result;
 	}
-
-	public SkillInfo(string skillName, float[] bonusStat, float bonusHeal, float bonusDuration){
-		idType = Skill.Type.ACTIVE_HELP;
-
-		this.skillName = skillName;
-		this.bonusStat = bonusStat;
-		this.bonusHeal = bonusHeal;
-		this.bonusDuration = bonusDuration;
-	}
-
-	public SkillInfo(string skillName, float bonusApplyChance, float bonusDuration){
-		idType = Skill.Type.ACTIVE_ADD_STATUS;
-		
-		this.skillName = skillName;
-		this.bonusApplyChance = bonusApplyChance;
-		this.bonusDuration = bonusDuration;
-	}
-
-	public SkillInfo(string skillName, float bonusDamage, float bonusHit, float bonusHeal){
-		idType = Skill.Type.ACTIVE_DAMAGE;
-		
-		this.skillName = skillName;
-		this.bonusDamage = bonusDamage;
-		this.bonusHit = bonusHit;
-		this.bonusHeal = bonusHeal;
-	}
-
-	public SkillInfo(string skillName, float bonusStat){
-		idType = Skill.Type.PASSIVE_BONUS_STAT;
-		
-		this.skillName = skillName;
-		this.bonusStat = bonusStat;
-	}
-
-	public SkillInfo(string skillName, float bonusLevel){
-		idType = Skill.Type.NO_TARGET;
-		
-		this.skillName = skillName;
-		this.bonusLevel = bonusLevel;
-	}
-
-	public SkillInfo(string skillName, float bonusDamage, float bonusHit, float bonusHeal, float bonusApplyChance, float bonusDuration){
-		idType = Skill.Type.ACTIVE_DAMAGE_AND_ADD_STATUS;
-		
-		this.skillName = skillName;
-		this.bonusDamage = bonusDamage;
-		this.bonusHit = bonusHit;
-		this.bonusHeal = bonusHeal;
-		this.bonusApplyChance = bonusApplyChance;
-		this.bonusDuration = bonusDuration;
-	}
-
-	public SkillInfo(string skillName, float bonusUseChance, float bonusDuration){
-		idType = Skill.Type.PASSIVE_ADD_STATUS;
-		
-		this.skillName = skillName;
-		this.bonusUseChance = bonusUseChance;
-		this.bonusDuration = bonusDuration;
-	}*/
 }

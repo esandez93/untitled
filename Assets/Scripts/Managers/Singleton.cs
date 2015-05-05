@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Singleton : MonoBehaviour {
 
@@ -91,12 +92,8 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 
-	public string[] getBranches(string job) {
-		string[] branches = new string[3];
-
-
-
-		return branches;
+	public List<string> getBranches(string job) {
+		return allMenus.Select(z => z).Where(x => x.Key.Contains(job)).Select(y => y.Value.getText()).ToList<string>();
 	}
 
 	public void getExpNeeded(){

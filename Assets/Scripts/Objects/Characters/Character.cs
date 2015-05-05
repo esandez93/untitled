@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable] 
 public class Character : MonoBehaviour{
@@ -932,6 +933,10 @@ public class Character : MonoBehaviour{
 
 	public void finishCurrentAttack(){
 		attackFinished = true;
+	}
+
+	public List<Skill> getSkillsByBranch(string branch) {
+		return this.skills.Where(x => x.Value.branch.Equals(branch)).Select(y => y.Value).ToList<Skill>();
 	}
 
 	public class Stat{		
