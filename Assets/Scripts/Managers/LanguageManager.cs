@@ -145,7 +145,14 @@ public class LanguageManager : MonoBehaviour{
 	}
 
 	public AnyText getWord(string id){
-		return words[id];
+		try{
+			return words[id];
+		}
+		catch(Exception e){
+			//Debug.Log(e.Message + ": " + id);
+		}	
+
+		return new AnyText(id);	
 	}
 
 	public string getMenuText(string id){

@@ -125,12 +125,12 @@ public class PauseMenuManager : MonoBehaviour {
 			instance.craftTab = tabTransform.FindChild("CraftTab").gameObject;
 			instance.saveLoadTab = tabTransform.FindChild("SaveLoadTab").gameObject;
 
-			instance.players = new List<Player>();
+			//instance.players = new List<Player>();
 
 			translateTabs();
 			translateBody();
 
-			hideAll();			
+			//hideAll();			
 
 			this.gameObject.SetActive(false);
 
@@ -142,7 +142,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private void setPlayers(){
 		Player player;
-		//instance.players = new List<Player>();
+		instance.players = new List<Player>();
 
 		foreach(PlayerData data in Gamestate.instance.playersData){
 			player = buildPlayer(data);
@@ -178,9 +178,16 @@ public class PauseMenuManager : MonoBehaviour {
 
 	public void showStatus(){
 		hideAll();
+		
+		instance.statusBody.SetActive(true);
+		instance.nonTargetPlayers.SetActive(true);
 
 		Player targetPlayer = instance.players[0];
-		instance.target.GetComponent<Player>().populate(targetPlayer.getData());
+
+		if(instance.target.GetComponent<Player>() != null)
+			instance.target.GetComponent<Player>().populate(targetPlayer.getData());
+		else
+			instance.target.AddComponent<Player>().populate(targetPlayer.getData());
 
 		fillTarget(targetPlayer, "Status");
 		fillNonTargets();
@@ -189,9 +196,6 @@ public class PauseMenuManager : MonoBehaviour {
 			showStatButtons();
 		else
 			hideStatButtons();
-
-		instance.statusBody.SetActive(true);
-		instance.nonTargetPlayers.SetActive(true);
 	}
 
 	private void showStatButtons() {
@@ -247,6 +251,12 @@ public class PauseMenuManager : MonoBehaviour {
 			basicInfoTransform.FindChild("PlayerPortrait").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + targetPlayer.characterName + "Portrait");
 			basicInfoTransform.FindChild("PlayerName").GetComponent<Text>().text = targetPlayer.characterName;
 			basicInfoTransform.FindChild("PlayerLevel").GetComponent<Text>().text = "Lv " + targetPlayer.level.ToString();
+
+			basicInfoTransform.FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(basicInfoTransform.FindChild("RemainingStatPoints").FindChild("Text").GetComponent<Text>().text);
+			basicInfoTransform.FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(basicInfoTransform.FindChild("RemainingSkillPoints").FindChild("Text").GetComponent<Text>().text);
+
+			basicInfoTransform.FindChild("RemainingStatPoints").FindChild("Value").GetComponent<Text>().text = targetPlayer.statPoints.ToString();
+			basicInfoTransform.FindChild("RemainingSkillPoints").FindChild("Value").GetComponent<Text>().text = targetPlayer.skillPoints.ToString();
 		}
 	}
 
@@ -294,10 +304,16 @@ public class PauseMenuManager : MonoBehaviour {
 	private void showSkillTabs() {
 		string target = instance.skillsTarget.GetComponent<Player>().characterName.ToLower();
 
-		List<string> branches = Singleton.Instance.getBranches(target);
+		List<string[]> branches = Singleton.Instance.getBranches(target);
+		GameObject tab;
+		for(int i = 1; i <= 3; i++) {
+			tab = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Tabs/Tab" + i);
+			if(tab == null)
+				tab = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Tabs/" + branches[i - 1][0]);
 
-		for(int i = 1; i <= 3; i++) 
-			GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Tabs/Tab"+i+"/Text").GetComponent<Text>().text = branches[i-1];
+			tab.name = branches[i - 1][0];
+			tab.transform.FindChild("Text").GetComponent<Text>().text = branches[i - 1][1];
+		}
 		
 	}
 
@@ -663,7 +679,10 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.menuBody.SetActive(true);
 		instance.menuTabs.SetActive(true);
 		instance.menuLogo.SetActive(true);
+		initialize();
+
 		showStatus();
+		//instance.statusTab.transform.FindChild("Button").gameObject.GetComponent<ClickButton>().click();
 	}
 
 	private void translateTabs(){
@@ -691,7 +710,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	public void clickSomeButton(GameObject button){
 		if(instance.currentButton != null)
-			instance.currentButton.GetComponent<Image>().sprite = NORMAL_BUTTON;
+			instance.currentButton.GetComponent<Image>().sprite = NORMAL_BUTTON;		
 
 		instance.currentButton = button;
 		instance.currentButton.GetComponent<Image>().sprite = ACTIVE_BUTTON;
