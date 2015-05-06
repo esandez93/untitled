@@ -144,6 +144,9 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	void Start(){
+		//GameObject.Find("BattleCanvas").GetComponent<AudioSource>().Play();
+		Resources.Load<AudioSource>("Sounds/Otherworld.mp3").Play();
+
 		currentMap = gamestate.map;
 		
 		Transform transform = GameObject.FindGameObjectWithTag("BattleCanvas").transform;

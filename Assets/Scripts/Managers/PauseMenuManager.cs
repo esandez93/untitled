@@ -748,6 +748,8 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	public void clickSomeTab(GameObject tab){
+		//menuTabs.GetComponent<AudioSource>().Play();
+
 		if(instance.currentTab != null)
 			instance.currentTab.GetComponent<Image>().sprite = NORMAL_BUTTON;
 
