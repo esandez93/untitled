@@ -32,9 +32,9 @@ public class PauseManager : MonoBehaviour{
 		/*if(pauseCanvas == null){
 			pauseCanvas = GameObject.FindGameObjectWithTag("PauseCanvas");
 		}*/
-		if(instance.paused && Input.GetButtonDown("Quit Menu")){
+		/*if(instance.paused && Input.GetButtonDown("Quit Menu")){
 			instance.paused = togglePause();
-		}
+		}*/
 		if(Input.GetButtonDown("Pause") && Gamestate.instance.isPausable()){
 			instance.paused = togglePause();
 		}

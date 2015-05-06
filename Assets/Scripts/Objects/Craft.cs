@@ -21,4 +21,8 @@ public class Craft {
     public string result { get; set; }
     [Column("RESULT_QUANTITY")]
     public int resultQuantity { get; set; }
+
+	public bool hasMaterials() {
+		return (Singleton.Instance.inventory.hasNeededItems(item1, item1Quantity) && Singleton.Instance.inventory.hasNeededItems(item2, item2Quantity));
+	}
 }

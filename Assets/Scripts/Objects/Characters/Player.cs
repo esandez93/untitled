@@ -187,13 +187,13 @@ public class Player : Character{
 		if(hasSkillPoints()){
 			if(hasSkill(skill.name)){
 				if (skill.canLevelUp()) {
-					skill.levelUp();
-					skillPoints--;
+					if(skill.levelUp())					
+						skillPoints--;
 				}
 			}
 			else{
-				this.addSkill(skill);
-				skillPoints--;
+				if(this.addSkill(skill))
+					skillPoints--;
 			}
 		}
 	}

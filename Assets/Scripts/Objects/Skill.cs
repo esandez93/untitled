@@ -296,9 +296,12 @@ public class Skill {//: MonoBehaviour{
 		}*/
 	}
 
-	public void levelUp(){
-		if(updateSkill())
+	public bool levelUp(){
+		bool success = updateSkill();
+		if(success)
 			currLevel++;
+
+		return success;
 	}
 
 	public bool canLevelUp(){

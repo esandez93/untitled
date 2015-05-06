@@ -107,11 +107,23 @@ public class SkillInfo{
 
 	public string getReadableEvo(int currLevel) {
 		string result = "";
-		float[] info = getCurrentLevelInfo(currLevel);
+		float[] info = getCurrentLevelInfo(currLevel+1);
 
-		for (int i = 0; i < evo.Length; i++) {
-			result += evo[i] + "+" + info[i] + "   ";
-		}
+		if(info != null)
+			for (int i = 0; i < evo.Length; i++) {
+				string e = evo[i];
+				string inf = info[i].ToString();
+ 
+				if (e.ToLower().Equals("status"))
+					e = LanguageManager.Instance.getMenuText(Singleton.Instance.allSkills[this.id].status);
+				else
+					e = e.ToUpper();
+
+				if (true)
+					inf += "% ";
+
+				result += inf + e + "   ";
+			}
 
 		return result;
 	}

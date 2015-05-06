@@ -293,12 +293,13 @@
 - Desarrollo de la ventana de habilidades:
 	+ Implementadas las ramas de habilidades según el personaje activo en ese momento.
 	+ Desarrollando la muestra de las habilidades según la rama seleccionada.
-	
+
+06/05/2015
+- Implementada la subida de habilidades desde la interfaz.
+- Finalizada la ventana de habilidades.
+- Recetas sin todos los materiales disponibles ahora aparecen en rojo.
 
 TO DO:
-- Craft:
-	+ Recetas no creables en rojo.
-- Implementar Skills + subidas de nivel. (WORKING)
 - Crear escenarios. (WORKING)
 - Buscar personajes (?).
 - Implementar ninja de Selva.

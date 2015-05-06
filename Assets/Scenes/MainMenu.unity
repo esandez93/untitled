@@ -5558,8 +5558,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 69.1999969, y: 43.4000015}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 61.5999985, y: 43.4000015}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &381538037
 MonoBehaviour:
@@ -7184,7 +7184,7 @@ GameObject:
   - 114: {fileID: 467848704}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11053,7 +11053,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -32, y: 43.2999992}
+  m_AnchoredPosition: {x: -46.5, y: 43.2999992}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &717331263
@@ -11167,7 +11167,7 @@ GameObject:
   - 114: {fileID: 721421114}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14111,8 +14111,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 69.1999969, y: 43.4000015}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 61.5999985, y: 43.4000015}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &922078046
 MonoBehaviour:
@@ -16108,7 +16108,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -32, y: 43.2999992}
+  m_AnchoredPosition: {x: -46.5, y: 43.2999992}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1078907497
@@ -16929,8 +16929,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 69.1999969, y: 43.4000015}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 61.5999985, y: 43.4000015}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1121140148
 MonoBehaviour:
@@ -17359,7 +17359,7 @@ GameObject:
   - 114: {fileID: 1136866013}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18058,8 +18058,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 69.1999969, y: 43.4000015}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 61.5999985, y: 43.4000015}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1164822357
 MonoBehaviour:
@@ -18823,9 +18823,10 @@ GameObject:
   - 222: {fileID: 1221050191}
   - 114: {fileID: 1221050190}
   - 114: {fileID: 1221050189}
+  - 114: {fileID: 1221050192}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18886,7 +18887,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1221050190}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1221050192}
+        m_MethodName: click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1221050190
@@ -18916,6 +18929,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1221050187}
+--- !u!114 &1221050192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1221050187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa74bb8c549265646b5a2fa3df0aa643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1221320363
 GameObject:
   m_ObjectHideFlags: 0
@@ -20528,7 +20552,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -32, y: 43.2999992}
+  m_AnchoredPosition: {x: -46.5, y: 43.2999992}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1313296681
@@ -21928,7 +21952,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -32, y: 43.2999992}
+  m_AnchoredPosition: {x: -46.5, y: 43.2999992}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1424979191
@@ -25267,8 +25291,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 69.1999969, y: 43.4000015}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 61.5999985, y: 43.4000015}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1627821500
 MonoBehaviour:
@@ -26351,7 +26375,7 @@ GameObject:
   - 114: {fileID: 1735763759}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28822,7 +28846,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -32, y: 43.2999992}
+  m_AnchoredPosition: {x: -46.5, y: 43.2999992}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1868068701
@@ -30010,7 +30034,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -32, y: 43.2999992}
+  m_AnchoredPosition: {x: -46.5, y: 43.2999992}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1961016360
@@ -30076,8 +30100,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 69.1999969, y: 43.4000015}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 61.5999985, y: 43.4000015}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1962132667
 MonoBehaviour:
@@ -31373,7 +31397,7 @@ GameObject:
   - 114: {fileID: 2043976735}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: SkillButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

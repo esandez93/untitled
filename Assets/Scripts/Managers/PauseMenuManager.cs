@@ -24,6 +24,7 @@ public class PauseMenuManager : MonoBehaviour {
 		private GameObject skillsTarget;
 		private GameObject skillTabs;
 		private GameObject[] skillItems;
+		private GameObject[] skillButtons;
 	private GameObject inventoryBody;
 		private GameObject inventoryDescription;
         private GameObject inventoryUseButton;
@@ -42,8 +43,8 @@ public class PauseMenuManager : MonoBehaviour {
 		private GameObject saveGameButton;
 		private GameObject loadGameButton;
 
-	private GameObject currentButton;
-	private GameObject currentTab;
+	public GameObject currentButton;
+	public GameObject currentTab;
 
 	private GameObject nonTargetPlayers;
 
@@ -101,6 +102,7 @@ public class PauseMenuManager : MonoBehaviour {
 				instance.skillsTarget = bodyTransform.FindChild("SkillsBody").FindChild("Target").gameObject;
 				instance.skillTabs = bodyTransform.FindChild("SkillsBody").FindChild("SkillsFrame").FindChild("Tabs").gameObject;
 				instance.skillItems = GameObject.FindGameObjectsWithTag("Skill");
+				instance.skillButtons = GameObject.FindGameObjectsWithTag("SkillButton");
 			instance.inventoryBody = bodyTransform.FindChild("InventoryBody").gameObject;
 				instance.inventoryDescription = bodyTransform.FindChild("InventoryBody").FindChild("Description").gameObject;
 				instance.inventoryUseButton = instance.inventoryDescription.transform.FindChild("Button").gameObject;			
@@ -284,7 +286,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	#region skills
 
-	public void showSkills(){
+	public void showSkills() {
 		hideAll();
 
 		instance.skillsBody.SetActive(true);
@@ -298,10 +300,25 @@ public class PauseMenuManager : MonoBehaviour {
 
 		showSkillTabs();
 		hideSkills();
+
+		if (targetPlayer.skillPoints > 0)
+			showSkillButtons();
+		else
+			hideSkillButtons();
 		//showCurrentSkills("mage_branch_destruction");
 	}
 
-	private void showSkillTabs() {
+	private void showSkillButtons() {
+		foreach (GameObject button in instance.skillButtons)
+			button.SetActive(true);
+	}
+
+	private void hideSkillButtons() {
+		foreach (GameObject button in instance.skillButtons)
+			button.SetActive(false);
+	}
+
+	public void showSkillTabs() {
 		string target = instance.skillsTarget.GetComponent<Player>().characterName.ToLower();
 
 		List<string[]> branches = Singleton.Instance.getBranches(target);
@@ -323,18 +340,23 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	public void showCurrentSkills(string branch) {
-		// USAR DESDE CLICK EN LA TAB DE LA BRANCH
 		Player target = instance.skillsTarget.GetComponent<Player>();
 		List<Skill> skillsInBranch = target.getSkillsByBranch(branch);
 
 		for (int i = 0; i < instance.skillItems.Length; i++) {
 			if(i < skillsInBranch.Count) {
 				instance.skillItems[i].SetActive(true);
+				instance.skillItems[i].name = skillsInBranch[i].id;
 				instance.skillItems[i].transform.FindChild("Name").GetComponent<Text>().text = skillsInBranch[i].name;
 				instance.skillItems[i].transform.FindChild("Level").GetComponent<Text>().text = "Lv. " + skillsInBranch[i].currLevel.ToString();
 
 				// MIRAR BIEN, ESTÁ LA BASE PERO DEPENDE DE LA SKILL DEBERÁ MOSTRAR UNA INFO U OTRA
 				instance.skillItems[i].transform.FindChild("NextLevelInfo").GetComponent<Text>().text = skillsInBranch[i].info.getReadableEvo(skillsInBranch[i].currLevel);
+
+				if(!skillsInBranch[i].canLevelUp())
+					instance.skillItems[i].transform.FindChild("Button").gameObject.SetActive(false);
+				else
+					instance.skillItems[i].transform.FindChild("Button").gameObject.SetActive(true);
 			}
 			else {
 				instance.skillItems[i].SetActive(false);
@@ -483,13 +505,22 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	private void setRecipeInfo(Craft recipe, GameObject recipeGameObject){
-		//instance.craftDescription.SetActive(true);
-
+		//Craft materials = CraftManager.Instance.getRecipe(recipe.id);
+		
 		recipeGameObject.name = recipe.result;
 
 		recipeGameObject.transform.FindChild("Icon").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Items/" + recipe.result);
 		recipeGameObject.transform.FindChild("ItemName").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(recipe.result);
-		recipeGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().text = recipe.resultQuantity.ToString();
+		recipeGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().text = "x" + recipe.resultQuantity.ToString();
+
+		if (recipe.hasMaterials()) {
+			recipeGameObject.transform.FindChild("ItemName").GetComponent<Text>().color = Color.white;
+			recipeGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.white;
+		}
+		else {
+			recipeGameObject.transform.FindChild("ItemName").GetComponent<Text>().color = Color.red;
+			recipeGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.red;
+		}
 	}	
 
 	private void setRecipeDescription(){
@@ -742,7 +773,6 @@ public class PauseMenuManager : MonoBehaviour {
 
 	public void clickLoad(GameObject button){
 		if (instance.currentButton != null && instance.currentButton == button) {
-			//Debug.Log("LOADING - " + button.name);
 			SaveManager.Instance.loadData(button.name);
 		}
 	}

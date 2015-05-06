@@ -115,22 +115,25 @@ public class Character : MonoBehaviour{
 		return this.currMP;
 	}
 
-	public void addSkill(string id){
-		addSkill(id, Singleton.Instance.allSkills[id]);
+	public bool addSkill(string id){
+		return addSkill(id, Singleton.Instance.allSkills[id]);
 	}
 
-	public void addSkill(Skill skill){
-		addSkill(skill.id, skill);
+	public bool addSkill(Skill skill){
+		return addSkill(skill.id, skill);
 	}
 
-	public void addSkill(string id, Skill skill){
+	public bool addSkill(string id, Skill skill){
+		bool success;
 		if(!this.skills.ContainsKey(id)){
-			skill.levelUp(); // for set it to lv 1
+			success = skill.levelUp(); // for set it to lv 1
 			this.skills.Add(id, skill);
 		}
 		else{
-			this.skills[id].levelUp();
+			success = this.skills[id].levelUp();
 		}
+
+		return success;
 	}
 
 	public float reduceStat(string stat, float quantity){
@@ -937,6 +940,10 @@ public class Character : MonoBehaviour{
 
 	public List<Skill> getSkillsByBranch(string branch) {
 		return this.skills.Where(x => x.Value.branch.Equals(branch)).Select(y => y.Value).ToList<Skill>();
+	}
+
+	public string getBranch(string skillName) {
+		return this.skills.Where(x => x.Key.Equals(skillName)).Select(y => y.Value.branch).FirstOrDefault().ToString();
 	}
 
 	public class Stat{		

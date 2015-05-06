@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\QuitGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\ResumeGame.cs" />
+     <Compile Include="Assets\Scripts\Buttons\UpdateSkill.cs" />
      <Compile Include="Assets\Scripts\Buttons\UpdateStat.cs" />
      <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
      <Compile Include="Assets\Scripts\Buttons\getSkillButtonText.cs" />
