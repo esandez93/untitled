@@ -145,7 +145,9 @@ public class BattleManager : MonoBehaviour {
 
 	void Start(){
 		//GameObject.Find("BattleCanvas").GetComponent<AudioSource>().Play();
-		Resources.Load<AudioSource>("Sounds/Otherworld.mp3").Play();
+		AudioSource audio = Resources.Load<AudioSource>("Sounds/Otherworld.mp3");
+		if (audio != null)
+			audio.Play();
 
 		currentMap = gamestate.map;
 		
@@ -177,7 +179,6 @@ public class BattleManager : MonoBehaviour {
 		enemyManaFrameGUI = enemyDataTransform.FindChild("Mana").FindChild("ManaBarFrame").GetComponent<Image>();
 		enemyHealthTextGUI = enemyDataTransform.FindChild("Health").FindChild("HealthText").GetComponent<Text>();
 		enemyManaTextGUI = enemyDataTransform.FindChild("Mana").FindChild("ManaText").GetComponent<Text>();
-
 
 		background = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>();
 
@@ -299,6 +300,7 @@ public class BattleManager : MonoBehaviour {
 			listAux.Add(monster);
 		}
 
+		Debug.Log("asjascnjklacnjas" + totalCharacters);
 		for(int i = 0; i < totalCharacters; i++){
 			Character characterAux = null;
 			float agi = 0;
@@ -625,18 +627,7 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	private Player buildPlayer(PlayerData data){
-		/*switch(data.job){
-			case Player.Job.MAGE:
-				return GameObject.FindWithTag("Mage").GetComponent<Mage>();
-			case Player.Job.KNIGHT:
-				return GameObject.FindWithTag("Knight").GetComponent<Knight>();
-			case Player.Job.ROGUE:
-				return GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
-			default: 
-				return null;
-		}*/
-		//return Gamestate.findPlayer(data.characterName).GetComponent<Player>();
+	private Player buildPlayer(PlayerData data){		
 		return GameObject.FindGameObjectWithTag(data.characterName).GetComponent<Player>();
 	}
 

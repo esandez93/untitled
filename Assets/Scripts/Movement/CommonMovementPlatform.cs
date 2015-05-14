@@ -4,7 +4,7 @@ using System.Collections;
 public class CommonMovementPlatform : MonoBehaviour
 {	
 	//This will be our maximum speed as we will always be multiplying by 1
-	public float maxSpeed = 4f;
+	private float maxSpeed = 4f;
 	//a boolean value to represent whether we are facing left or not
 	bool facingRight = true;
 	//a value to represent our Animator
@@ -12,7 +12,7 @@ public class CommonMovementPlatform : MonoBehaviour
 	//to check ground and to have a jumpforce we can change in the editor
 	bool isGrounded = false;
 //	float groundRadius = 1f;
-	public float jumpForce = 600f;
+	private float jumpForce = 625f;
 	
 	// Use this for initialization
 	void Start () {

@@ -299,11 +299,24 @@
 - Finalizada la ventana de habilidades.
 - Recetas sin todos los materiales disponibles ahora aparecen en rojo.
 
+09/05/2015 - 13/05/2015
+- Creación del escenario del bosque.
+
+14/05/2015
+- Inicio de la implementación del nuevo escenario.
+
+15/05/2015
+- Acabada implementación del nuevo escenario.
+- Arreglado un bug con la detección de suelo.
+- Inicio de script para ocultar al personaje al entrar en una zona secreta.
+
 TO DO:
-- Crear escenarios. (WORKING)
+- Implementar zonas secretas por código.
 - Buscar personajes (?).
 - Implementar ninja de Selva.
-- Descubrir por qué peta SaveLoad si arranco el juego sin el body activado. (No urgente, funciona si se inicia el juego con el GameObject de SaveLoadBody activado)
+- Descubrir por qué peta SaveLoad si arranco el juego sin el body activado. (No urgente, funciona si se inicia el juego con el GameObject de SaveLoadBody activado) 
+	+ ACTUALIZACIÓN: También pasa con las Skills.
+- Incluir un campo en el XML de Skills que diferencie quién puede aprenderla.
 
 DIFICULTADES:
 - Aprender el manejo del motor Unity.

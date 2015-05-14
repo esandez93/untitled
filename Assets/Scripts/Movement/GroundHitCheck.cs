@@ -11,9 +11,9 @@ public class GroundHitCheck : MonoBehaviour {
 
 	public Transform groundCheck;
 	public int groundLayers;
-	public float radius = 0.5f;
+	public float radius = 1f;
 
-	public Vector2 vec = new Vector2(0.2f,0);
+	public Vector2 vec = new Vector2(0.05f,0);
 
 	void FixedUpdate(){
 		/*groundLayers = 1 << LayerMask.NameToLayer ("Ground");
@@ -27,9 +27,24 @@ public class GroundHitCheck : MonoBehaviour {
 	}
 
 	private void checkGrounded(){
-		isGroundedLeft = Physics2D.Raycast((Vector2)transform.position - vec, -Vector2.up, radius);
-		isGroundedCenter = Physics2D.Raycast(transform.position, -Vector2.up, radius);
-		isGroundedRight = Physics2D.Raycast((Vector2)transform.position + vec, -Vector2.up, radius);
+		bool left = Physics2D.Raycast((Vector2)transform.position - vec, -Vector2.up, radius);
+		bool center = Physics2D.Raycast(transform.position, -Vector2.up, radius);
+		bool right = Physics2D.Raycast((Vector2)transform.position + vec, -Vector2.up, radius);
+
+		if (left)
+			isGroundedLeft = Physics2D.Raycast((Vector2)transform.position - vec, -Vector2.up, radius).transform.gameObject.tag.Equals("Ground");
+		else
+			isGroundedLeft = false;
+
+		if (center)
+			isGroundedCenter = Physics2D.Raycast(transform.position, -Vector2.up, radius).transform.gameObject.tag.Equals("Ground");
+		else
+			isGroundedCenter = false;
+
+		if (right)
+			isGroundedRight = Physics2D.Raycast((Vector2)transform.position + vec, -Vector2.up, radius).transform.gameObject.tag.Equals("Ground");
+		else
+			isGroundedRight = false;
 	}
 
 	private bool grounded(){

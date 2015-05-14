@@ -72,16 +72,6 @@ public class PauseMenuManager : MonoBehaviour {
 		}
 	}
 
-	void Start () {
-		
-	}
-	
-	void Update () {
-		if(Input.GetButtonDown("Quit Menu")){
-			//Application.LoadLevel("Forest");
-		}
-	}
-
 	private void initialize(){
 		if(!initialized){
 			NORMAL_BUTTON = Resources.Load<Sprite>("Buttons/inactive");

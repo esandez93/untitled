@@ -23,6 +23,9 @@ public class Craft {
     public int resultQuantity { get; set; }
 
 	public bool hasMaterials() {
-		return (Singleton.Instance.inventory.hasNeededItems(item1, item1Quantity) && Singleton.Instance.inventory.hasNeededItems(item2, item2Quantity));
+		if(item1.Equals(item2))
+			return (Singleton.Instance.inventory.hasNeededItems(item1, item1Quantity+item2Quantity));
+		else
+			return (Singleton.Instance.inventory.hasNeededItems(item1, item1Quantity) && Singleton.Instance.inventory.hasNeededItems(item2, item2Quantity));
 	}
 }
