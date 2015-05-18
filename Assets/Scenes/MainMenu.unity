@@ -25677,6 +25677,7 @@ MonoBehaviour:
   skillName: 
   currentAnimationState: 3
   isAttacking: 0
+  isBlocking: 0
   startReceivingDamage: 0
   startDeath: 0
   moving: 1
@@ -29147,7 +29148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1877364616
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29539,6 +29540,7 @@ GameObject:
   - 95: {fileID: 1913298758}
   - 61: {fileID: 1913298757}
   - 114: {fileID: 1913298756}
+  - 114: {fileID: 1913298762}
   m_Layer: 11
   m_Name: Rogue
   m_TagString: Rogue
@@ -29610,9 +29612,9 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1913298755}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2e4d908e85dc99441be3d569b65c2646, type: 2}
+  m_Controller: {fileID: 9100000, guid: f0b30751f7951f14c925b36123f0b555, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -29653,7 +29655,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2511236001
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1091b4054767b8b4c8ec790aeea85eb7, type: 3}
+  m_Sprite: {fileID: 21300040, guid: 7269263c71cdd8c41bbf9b9c060cfece, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1913298761
 Transform:
@@ -29667,6 +29669,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &1913298762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913298755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aaf602b5e0534445b5b90178d9c70e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 10
+  isTurn: 0
+  action: 0
+  objective: {fileID: 0}
+  skillName: 
+  currentAnimationState: 0
+  isAttacking: 0
+  isBlocking: 0
+  startReceivingDamage: 0
+  startDeath: 0
+  moving: 1
 --- !u!1 &1920544976
 GameObject:
   m_ObjectHideFlags: 0

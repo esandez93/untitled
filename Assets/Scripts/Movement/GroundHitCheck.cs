@@ -13,7 +13,7 @@ public class GroundHitCheck : MonoBehaviour {
 	public int groundLayers;
 	public float radius = 1f;
 
-	public Vector2 vec = new Vector2(0.05f,0);
+	public Vector2 vec = new Vector2(0.6f,0);
 
 	void FixedUpdate(){
 		/*groundLayers = 1 << LayerMask.NameToLayer ("Ground");

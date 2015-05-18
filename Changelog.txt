@@ -310,9 +310,15 @@
 - Arreglado un bug con la detección de suelo.
 - Inicio de script para ocultar al personaje al entrar en una zona secreta.
 
+19/05/2015
+- Iniciada la implementación de los nuevos gráficos para los personajes jugables. Por el momento, movimiento de plataformas del personaje principal (Rogue).
+- Creados los nuevos retratos de los personajes.
+
 TO DO:
+- Crear animaciones para las batallas (todos los personajes).
+- Implementar landing (no urgente).
+- Revisar las colisiones y la detección de suelo.
 - Implementar zonas secretas por código.
-- Buscar personajes (?).
 - Implementar ninja de Selva.
 - Descubrir por qué peta SaveLoad si arranco el juego sin el body activado. (No urgente, funciona si se inicia el juego con el GameObject de SaveLoadBody activado) 
 	+ ACTUALIZACIÓN: También pasa con las Skills.

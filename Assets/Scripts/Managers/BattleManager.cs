@@ -300,7 +300,6 @@ public class BattleManager : MonoBehaviour {
 			listAux.Add(monster);
 		}
 
-		Debug.Log("asjascnjklacnjas" + totalCharacters);
 		for(int i = 0; i < totalCharacters; i++){
 			Character characterAux = null;
 			float agi = 0;
@@ -589,9 +588,11 @@ public class BattleManager : MonoBehaviour {
 		}
 		else if(go.tag.Equals("Knight")){
 			go.GetComponent<Knight>().enabled = true;
+			go.GetComponent<Animator>().enabled = true;
 		}
 		else if(go.tag.Equals("Rogue")){
 			go.GetComponent<Rogue>().enabled = true;
+			go.GetComponent<Animator>().enabled = true;
 		}
 	}
 

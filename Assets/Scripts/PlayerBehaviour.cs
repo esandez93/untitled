@@ -20,10 +20,11 @@ public class PlayerBehaviour : MonoBehaviour {
 	public animationState currentAnimationState;
 
 	public enum animationState{
-		MOVING, ATTACKING, USINGSKILL, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING
+		MOVING, ATTACKING, USINGSKILL, BLOCKING, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING
 	}
 
 	public bool isAttacking = false;
+	public bool isBlocking = false;
 	public bool startReceivingDamage = false;
 	public bool startDeath = false;
 
@@ -39,50 +40,40 @@ public class PlayerBehaviour : MonoBehaviour {
 		currentAnimationState = animationState.STANDING;
 	}
 
-	void FixedUpdate () {		
-		//if(enemy != null){
-		//if(BattleManager.Instance.isPlayerTurn()){
-			switch(currentAnimationState){
-				case animationState.STANDING:
-					stand();
-					break;
-				case animationState.MOVING:
-					goToObjective();
-					break;
-				case animationState.ATTACKING:
-					attack();
-					break;
-				case animationState.USINGSKILL:
-					skill();
-					break;
-				case animationState.MOVINGBACK: 
-					backToPosition();
-					break;
-				case animationState.RECEIVINGDAMAGE:
-					if(startReceivingDamage){
-						receiveDamage();
-					}
-					else{
-						stand ();
-						//BattleManager.Instance.attackFinished = true;
-						//BattleManager.finishCurrentAttack();
-					}
-					break;
-				case animationState.DYING:
-					if(startDeath){
-						die();
-					}
-					else{
-						BattleManager.Instance.deathFinished = true;
-					}
-					/*else{
-						stand ();
-					}*/
-					break;
-			}
-		//}			
-		
-		//}
+	void FixedUpdate () {
+		switch(currentAnimationState){
+			case animationState.STANDING:
+				stand();
+				break;
+			case animationState.MOVING:
+				goToObjective();
+				break;
+			case animationState.ATTACKING:
+				attack();
+				break;
+			case animationState.USINGSKILL:
+				skill();
+				break;
+			case animationState.BLOCKING:
+				break;
+			case animationState.MOVINGBACK: 
+				backToPosition();
+				break;
+			case animationState.RECEIVINGDAMAGE:
+				if(startReceivingDamage)
+					receiveDamage();					
+				else
+					stand ();
+					
+				break;
+			case animationState.DYING:
+				if(startDeath)
+					die();					
+				else
+					BattleManager.Instance.deathFinished = true;
+					
+				break;
+		}
 	}
 	
 	private void goToObjective(){		
@@ -259,5 +250,6 @@ public class PlayerBehaviour : MonoBehaviour {
 		public const int MOVE_BACK = 4;
 		public const int RECEIVE_DAMAGE = 5;
 		public const int DIE = 6;
+		public const int BLOCK = 7;
 	}
 }

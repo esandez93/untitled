@@ -199,21 +199,11 @@ public class Player : Character{
 	}
 
 	public bool hasSkillPoints(){
-		if(this.skillPoints > 0){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return this.skillPoints > 0;
 	}
 
 	public bool hasStatPoints(){
-		if(this.statPoints > 0){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return this.statPoints > 0;
 	}
 	
 	/*public void useItem(string itemName, Character target){

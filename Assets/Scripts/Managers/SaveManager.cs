@@ -76,8 +76,8 @@ public class SaveManager : MonoBehaviour{
 						data.translate();
 					}
 
-					//gamestate.setKnight(data.knight);
-					//gamestate.setRogue(data.rogue);
+					gamestate.setKnight(data.knight);
+					gamestate.setRogue(data.rogue);
 					gamestate.setMage(data.mage);
 					//Debug.Log(data.inventory.getItems().Count);
 					Singleton.Instance.inventory = data.inventory;
@@ -114,8 +114,8 @@ public class SaveManager : MonoBehaviour{
 				
 				//FileManager.Instance.initialize();
 
-				//data.knight = gamestate.getPlayerData("Knight");//GameObject.Find("Knight").GetComponent<Knight>().getData();
-				//data.rogue = gamestate.getPlayerData("Rogue");//GameObject.Find("Rogue").GetComponent<Rogue>().getData();
+				data.knight = gamestate.getPlayerData("Knight");//GameObject.Find("Knight").GetComponent<Knight>().getData();
+				data.rogue = gamestate.getPlayerData("Rogue");//GameObject.Find("Rogue").GetComponent<Rogue>().getData();
 				data.mage = gamestate.getPlayerData("Mage");//GameObject.Find("Mage").GetComponent<Mage>().getData();
 				data.inventory = Singleton.Instance.inventory;
 				data.map = gamestate.map;
@@ -149,9 +149,9 @@ public class SaveManager : MonoBehaviour{
 		bool res = false;
 
 		try{
-			gamestate.setMage(gamestate.getPlayerData("Mage"));
+			//gamestate.setMage(gamestate.getPlayerData("Mage"));
 			//gamestate.setKnight(GameObject.Find("Knight").GetComponent<Knight>().getData());
-			//gamestate.setRogue(GameObject.Find("Rogue").GetComponent<Rogue>().getData());
+			gamestate.setRogue(GameObject.Find("Rogue").GetComponent<Rogue>().getData());
 		}
 		catch(Exception e){
 			res = false;
@@ -166,20 +166,20 @@ public class SaveManager : MonoBehaviour{
 		bool res = false;
 
 		try{
-			//Knight knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
-			//Rogue rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
+			Knight knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
+			Rogue rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
 			Mage mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
 
-			//knight.initializePlayer(Player.Job.KNIGHT);
-			//rogue.initializePlayer(Player.Job.ROGUE);
+			knight.initializePlayer(Player.Job.KNIGHT);
+			rogue.initializePlayer(Player.Job.ROGUE);
 			mage.initializePlayer(Player.Job.MAGE);
 
 			MapInfo map = Singleton.Instance.allMaps["Forest"];
 
 			//FileManager.Instance.writeToLog(map.toString());
 
-			//gamestate.setKnight(knight, knight.getData());
-			//gamestate.setRogue(rogue, rogue.getData());
+			gamestate.setKnight(knight, knight.getData());
+			gamestate.setRogue(rogue, rogue.getData());
 			gamestate.setMage(mage, mage.getData());
 
 			gamestate.setMap(map);

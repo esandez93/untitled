@@ -5,8 +5,8 @@ using System.Runtime.Serialization;
 
 [System.Serializable]
 public class SaveData : ISerializable{
-	//public PlayerData knight;
-	//public PlayerData rogue;
+	public PlayerData knight;
+	public PlayerData rogue;
 	public PlayerData mage;
 	public Inventory inventory;
 	public MapInfo map;
@@ -26,6 +26,8 @@ public class SaveData : ISerializable{
 		//Get the values from info and assign them to the appropriate properties 
 		
 		mage = (PlayerData)info.GetValue("mage", typeof(PlayerData)); 
+		knight = (PlayerData)info.GetValue("knight", typeof(PlayerData)); 
+		rogue = (PlayerData)info.GetValue("rogue", typeof(PlayerData)); 
 		inventory = (Inventory)info.GetValue("inventory", typeof(Inventory));	
 		map = (MapInfo)info.GetValue("map", typeof(MapInfo));
 		language = (int)info.GetValue("language", typeof(int));
@@ -37,6 +39,8 @@ public class SaveData : ISerializable{
 
 	public void GetObjectData (SerializationInfo info, StreamingContext ctxt){		
 		info.AddValue("mage", mage);
+		info.AddValue("knight", knight);
+		info.AddValue("rogue", rogue);
 		info.AddValue("inventory", inventory);
 		info.AddValue("map", map);
 		info.AddValue("language", language);

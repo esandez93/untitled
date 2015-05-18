@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic; 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
 
 public class Gamestate : MonoBehaviour {	
 	public static Gamestate instance;
@@ -49,7 +50,8 @@ public class Gamestate : MonoBehaviour {
 		if(instance == null){
 			DontDestroyOnLoad(gameObject);
 			instance = this;
-			findPlayer("Mage").GetComponent<PlayerBehaviour>().enabled = false;
+			//findPlayer("Mage").GetComponent<PlayerBehaviour>().enabled = false;
+			findPlayer("Rogue").GetComponent<PlayerBehaviour>().enabled = false;
 		}
 		else if (instance != this){
 			Destroy(gameObject);
@@ -87,6 +89,7 @@ public class Gamestate : MonoBehaviour {
 		//knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
 		//rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
 		mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
+		rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
 		map = Singleton.Instance.allMaps["Forest"];
 		players = new List<Player>();
 		
@@ -321,17 +324,20 @@ public class Gamestate : MonoBehaviour {
 			GameObject player;
 			foreach(PlayerData data in playersData){
 				player = findPlayer(data.characterName);
-
-				player.GetComponent<Player>().populate(data);
+				
+				if(player != null) {
+					player.GetComponent<Player>().populate(data);
+					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
+				}
 				/*player.GetComponent<Player>().addSkill("skill_name_fireball");
 				player.GetComponent<Player>().addSkill("skill_name_fireball");
 				player.GetComponent<Player>().addSkill("skill_name_fireball");
 				player.GetComponent<Player>().addSkill("skill_name_fireball");*/ // DEBUG
-				player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
 			}
 
 			if(!positionIsDefault()){					
-				findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+				//findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+				findPlayer("Rogue").transform.position = Singleton.Instance.playerPositionInMap;
 				GameObject.FindWithTag("MainCamera").transform.position = new Vector3(Singleton.Instance.playerPositionInMap.x, Singleton.Instance.playerPositionInMap.y, -1);
 			}
 		}
@@ -398,7 +404,8 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public float[] getPlayerPosition(){
-		Vector3 playerPosition = findPlayer("Mage").transform.position;
+		//Vector3 playerPosition = findPlayer("Mage").transform.position;
+		Vector3 playerPosition = findPlayer("Rogue").transform.position;
 		float[] position = new float[3];
 
 		position[0] = playerPosition.x;
@@ -411,7 +418,8 @@ public class Gamestate : MonoBehaviour {
 	public void setPlayerPosition(float[] position){
 		Vector3 playerPosition = new Vector3(position[0], position[1], position[2]);
 
-		findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+		//findPlayer("Mage").transform.position = Singleton.Instance.playerPositionInMap;
+		findPlayer("Rogue").transform.position = Singleton.Instance.playerPositionInMap;
 		//GameObject.FindWithTag("MainCamera").transform.position = playerPosition;
 	}
 }

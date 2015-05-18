@@ -184,7 +184,7 @@ public class PauseMenuManager : MonoBehaviour {
 		fillTarget(targetPlayer, "Status");
 		fillNonTargets();
 
-		if (targetPlayer.statPoints > 0)
+		if (targetPlayer.hasStatPoints())
 			showStatButtons();
 		else
 			hideStatButtons();
@@ -197,7 +197,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private void hideStatButtons() {
 		foreach (GameObject button in instance.statButtons)
-			button.SetActive(false);
+			button.SetActive(false); 
 	}
 
 	private void fillTarget(Player targetPlayer, string from){
@@ -291,7 +291,7 @@ public class PauseMenuManager : MonoBehaviour {
 		showSkillTabs();
 		hideSkills();
 
-		if (targetPlayer.skillPoints > 0)
+		if (targetPlayer.hasSkillPoints())
 			showSkillButtons();
 		else
 			hideSkillButtons();
@@ -343,7 +343,7 @@ public class PauseMenuManager : MonoBehaviour {
 				// MIRAR BIEN, ESTÁ LA BASE PERO DEPENDE DE LA SKILL DEBERÁ MOSTRAR UNA INFO U OTRA
 				instance.skillItems[i].transform.FindChild("NextLevelInfo").GetComponent<Text>().text = skillsInBranch[i].info.getReadableEvo(skillsInBranch[i].currLevel);
 
-				if(!skillsInBranch[i].canLevelUp())
+				if(!skillsInBranch[i].canLevelUp() || !target.hasSkillPoints())
 					instance.skillItems[i].transform.FindChild("Button").gameObject.SetActive(false);
 				else
 					instance.skillItems[i].transform.FindChild("Button").gameObject.SetActive(true);
@@ -426,7 +426,8 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
     public void clickUseItem(string itemId){
-		Player target = Gamestate.instance.getPlayer("Mage");
+		//Player target = Gamestate.instance.getPlayer("Mage");
+		Player target = Gamestate.instance.getPlayer("Rogue");
 
 		Singleton.Instance.inventory.useItem(itemId, target);
 
