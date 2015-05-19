@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CommonMovementPlatform : MonoBehaviour {	
-	private float maxSpeed = 4f;
+	private float maxSpeed = 6f;
 	bool facingRight = true;
 	Animator anim;
 	bool isGrounded = false;
@@ -25,17 +25,16 @@ public class CommonMovementPlatform : MonoBehaviour {
 		else if (move > 0 && !facingRight) 
 			Flip ();		
 
-		if(rigidbody2D.velocity.x == 0 || (anim.GetInteger("AnimationState") == Animations.FALL && isGrounded))
+		if(rigidbody2D.velocity.x == 0 || (anim.GetInteger("AnimationState") == Animations.FALL && isGrounded) || (anim.GetInteger("AnimationState") == Animations.JUMP && isGrounded))
 			anim.SetInteger("AnimationState", Animations.STAND);
 		else
 			anim.SetInteger("AnimationState", Animations.MOVE);
 	}
 	
 	void Update(){
-		if(isGrounded && Input.GetButtonDown("Jump")){
-			Debug.Log("JUMPING");
+		if(isGrounded && Input.GetButtonDown("Jump"))
 			rigidbody2D.AddForce (new Vector2(0,jumpForce));
-		}
+		
 
 		if(!isGrounded && rigidbody2D.velocity.y > 0)
 			anim.SetInteger("AnimationState", Animations.JUMP);

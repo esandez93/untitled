@@ -132,15 +132,73 @@ public class PauseMenuManager : MonoBehaviour {
 		}		
 	}
 
-	private void setPlayers(){
-		Player player;
+	private void setPlayers () {
+		setPlayers(null);
+	}
+
+	private void setPlayers(string newTarget){
+		Player player;		
+		List<Player> aux = new List<Player>();
+		string[] names = getOrder(newTarget);
 		instance.players = new List<Player>();
+
+		foreach(string s in names)
+			Debug.Log(s);
 
 		foreach(PlayerData data in Gamestate.instance.playersData){
 			player = buildPlayer(data);
 			player.populate(data);
-			instance.players.Add(player);
+			aux.Add(player);
 		}
+		
+		// I do this for setting the default order. It is not important, but I like the characters in this order.
+		for (int i = 0; i < 3; i++) {
+			player = null;
+			player = aux.Where(x => x.characterName.Equals(names[i])).FirstOrDefault();
+
+			if (player != null)
+				instance.players.Add(player);
+		}
+	}
+
+	private string[] getOrder(string first) {
+		string[] defaultOrder = { "Rogue", "Mage", "Knight" };
+		string[] last;
+
+		if (first == null)
+			return defaultOrder;
+		else {	
+			last = new string[3];
+			int lastPos = -1;
+			for(int i = 0; i < instance.players.Count; i++) {
+				last[i] = instance.players[i].characterName;
+				if(last[i].Equals(first))
+					lastPos = i;
+			}
+
+			string[] order = new string[3];
+			
+			order[0] = first;
+			if(lastPos == 1) {
+				order[1] = last[0];
+				order[2] = last[2];
+			}
+			else {
+				order[1] = last[1];
+				order[2] = last[0];
+			}
+
+			return order;
+		}
+	}
+
+	public void changeTarget (string newTarget) {
+		setPlayers(newTarget);
+
+		if (instance.statusBody.activeInHierarchy)
+			showStatus();
+		else if (instance.skillsBody.activeInHierarchy)
+			showSkills();
 	}
 
 	private Player buildPlayer(PlayerData data){
@@ -174,7 +232,7 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.statusBody.SetActive(true);
 		instance.nonTargetPlayers.SetActive(true);
 
-		Player targetPlayer = instance.players[0];
+		Player targetPlayer = instance.players[0];//getDefaultPlayer();
 
 		if(instance.target.GetComponent<Player>() != null)
 			instance.target.GetComponent<Player>().populate(targetPlayer.getData());
@@ -201,7 +259,9 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	private void fillTarget(Player targetPlayer, string from){
-		if(from.Equals("Status")) {		
+		if(from.Equals("Status")) {
+			instance.target.name = targetPlayer.characterName;
+
 			Transform basicInfoTransform = instance.target.transform.FindChild("BasicInfo");
 			basicInfoTransform.FindChild("PlayerPortrait").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + targetPlayer.name + "Portrait");
 			basicInfoTransform.FindChild("PlayerName").GetComponent<Text>().text = targetPlayer.characterName;
@@ -253,10 +313,13 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	private void fillNonTargets(){
+		//Debug.Log(instance.players.Count);
 		if(instance.players.Count > 1){
 			Player nonTarget;
 			for(int i = 1; i < instance.players.Count; i++){
 				nonTarget = instance.players[i];
+				//Debug.Log(i + " - " + nonTarget.characterName);
+				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("Button").tag = nonTarget.characterName;
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerPortrait").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + nonTarget.name + "Portrait");
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerName").GetComponent<Text>().text = nonTarget.characterName;
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerLevel").GetComponent<Text>().text = "Lv " + nonTarget.level.ToString();
@@ -282,7 +345,7 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.skillsBody.SetActive(true);
 		instance.nonTargetPlayers.SetActive(true);
 
-		Player targetPlayer = instance.players[0];
+		Player targetPlayer = instance.players.Where(x => x.characterName.Equals("Rogue")).FirstOrDefault();
 		instance.skillsTarget.GetComponent<Player>().populate(targetPlayer.getData());
 
 		fillTarget(targetPlayer, "Skills");

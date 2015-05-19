@@ -133,13 +133,13 @@ public class BattleManager : MonoBehaviour {
 		if(!ended){
 			checkGUI();
 
-			if (GUI.Button (new Rect (530, 30, 150, 30), "Check GameState")) { // DEBUG
+			/*if (GUI.Button (new Rect (530, 30, 150, 30), "Check GameState")) { // DEBUG
 				Debug.Log ("State: " + currentState + ", Phase: " + currentPhase);
 			}
 			if (GUI.Button (new Rect (730, 30, 150, 30), "Add potion")) { // DEBUG
 				Singleton.Instance.inventory.addItem("Potion", 1);
 				//DisplayItems.repopulate();
-			}
+			}*/
 		}
 	}
 
@@ -584,7 +584,7 @@ public class BattleManager : MonoBehaviour {
 		}
 		else if(go.tag.Equals("Mage")){
 			go.GetComponent<Mage>().enabled = true;
-			go.GetComponent<Animator>().enabled = true; // DEBUG
+			go.GetComponent<Animator>().enabled = true;
 		}
 		else if(go.tag.Equals("Knight")){
 			go.GetComponent<Knight>().enabled = true;
@@ -601,8 +601,8 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void setMonsters(){
-		//numMonsters = Random.Range(1, (playersInBattle.Count+1));
-		numMonsters = 1; // DEBUG
+		numMonsters = Random.Range(1, (playersInBattle.Count+1));
+		//numMonsters = 1; // DEBUG
 
 		for(int i = 0; i < numMonsters; i++){
 			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();
@@ -621,15 +621,25 @@ public class BattleManager : MonoBehaviour {
 
 		foreach(PlayerData data in gamestate.playersData){
 			player = buildPlayer(data);
-			player.populate(data);
-			playersInBattle.Add(player);
-			enableComponents(player.gameObject);
-			player.enablePassives();
+			if(player != null) {
+				Debug.Log("SUCCESS " + data.characterName);
+				player.populate(data);
+				playersInBattle.Add(player);
+				enableComponents(player.gameObject);
+				player.enablePassives();
+			}
+			else {
+				Debug.Log("FAILED " + data.characterName);
+			}
 		}
 	}
 
-	private Player buildPlayer(PlayerData data){		
-		return GameObject.FindGameObjectWithTag(data.characterName).GetComponent<Player>();
+	private Player buildPlayer(PlayerData data){
+		GameObject player = GameObject.FindGameObjectWithTag(data.characterName);
+		if (player != null)
+			return player.GetComponent<Player>();
+		else
+			return null;
 	}
 
 	private void giveRewards(){

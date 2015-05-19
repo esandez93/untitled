@@ -29,7 +29,7 @@ public class Gamestate : MonoBehaviour {
 	private int currentLevel = -1;
 
 	void OnGUI() {
-		if (GUI.Button (new Rect (530, 30, 150, 30), "Level Up")) { // DEBUG
+		/*if (GUI.Button (new Rect (530, 30, 150, 30), "Level Up")) { // DEBUG
 			Mage mage = findPlayer("Mage").GetComponent<Mage>();
 			mage.addSkill("skill_name_fireball");
 		}
@@ -43,7 +43,7 @@ public class Gamestate : MonoBehaviour {
 			CraftManager.Instance.craft("item_name_potion", "item_name_potion");
 			Singleton.Instance.inventory.addItem("item_name_grenade", 2);
 			Singleton.Instance.inventory.addItem("item_name_gunpowder", 2);
-		}
+		}*/
 	}
 
 	void Awake() {
@@ -141,9 +141,7 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void setKnight(PlayerData data){
-		//this.knight.populate(data);
-		//addPlayer(this.knight);
-
+		addPlayerData(data);
 	}
 
 	public void setRogue(Rogue rogue, PlayerData data){
@@ -369,8 +367,10 @@ public class Gamestate : MonoBehaviour {
 			GameObject player;
 			foreach(PlayerData data in playersData){
 				player = findPlayer(data.characterName);
-				player.GetComponent<PlayerBehaviour>().enabled = true;
-				player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Battle");
+				if(player != null) {
+					player.GetComponent<PlayerBehaviour>().enabled = true;
+					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Battle");
+				}
 			}
 		}
 	}
