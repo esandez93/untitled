@@ -54,22 +54,19 @@ public class MonsterBehaviour : MonoBehaviour {
 			backToPosition();
 			break;
 		case animationState.RECEIVINGDAMAGE:
-			if(startReceivingDamage){
+			if(startReceivingDamage)
 				receiveDamage();
-			}
-			else{
+			
+			else
 				stand ();
 				//BattleManager.Instance.attackFinished = true;
-				//BattleManager.finishCurrentAttack();
-			}
+				//BattleManager.finishCurrentAttack();			
 			break;
 		case animationState.DYING:
-			if(startDeath){
-				die();
-			}
-			else{
-				BattleManager.Instance.deathFinished = true;
-			}
+			if(startDeath)
+				die();			
+			else
+				BattleManager.Instance.deathFinished = true;			
 			/*else{
 				stand ();
 			}*/
@@ -98,7 +95,7 @@ public class MonsterBehaviour : MonoBehaviour {
 			animator.SetInteger("AnimationState", Animations.ATTACK);
 		}
 		if(!isAttacking){
-			print (thisMonster.name + " attacked to " + enemy.name);
+			//Debug.Log(thisMonster.name + " attacked to " + enemy.name);
 			thisMonster.basicAttack(enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
 			changeAnimationState(animationState.MOVINGBACK);
@@ -156,7 +153,7 @@ public class MonsterBehaviour : MonoBehaviour {
 
 	private void changeAnimationState(animationState state){
 		if(currentAnimationState != state){
-			Debug.Log("Changing state - Previous: " + currentAnimationState + ", actual: " + state);
+			//Debug.Log("Changing state - Previous: " + currentAnimationState + ", actual: " + state);
 			currentAnimationState = state;
 		}		
 	}
@@ -181,7 +178,7 @@ public class MonsterBehaviour : MonoBehaviour {
 		startDeath = false;
 		BattleManager.Instance.finishCurrentAttack();
 		animator.enabled = false;
-		Debug.Log("FINISH DEATH");
+		//Debug.Log("FINISH DEATH");
 	}
 	
 	public class Animations{

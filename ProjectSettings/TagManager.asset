@@ -44,6 +44,15 @@ TagManager:
   - LoadingGames
   - StatButton
   - SkillButton
+  - mage_branch_creation
+  - mage_branch_destruction
+  - mage_branch_benevolence
+  - rogue_branch_alteration
+  - rogue_branch_massacre
+  - rogue_branch_gambit
+  - knight_branch_protection
+  - knight_branch_attack
+  - knight_branch_supporting
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

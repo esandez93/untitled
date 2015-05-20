@@ -326,6 +326,9 @@ public class Gamestate : MonoBehaviour {
 				if(player != null) {
 					player.GetComponent<Player>().populate(data);
 					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
+
+					if(player.GetComponent<Player>().characterName.Equals("Mage"))
+						player.GetComponent<Player>().addSkill("skill_name_fireball");
 				}
 				/*player.GetComponent<Player>().addSkill("skill_name_fireball");
 				player.GetComponent<Player>().addSkill("skill_name_fireball");

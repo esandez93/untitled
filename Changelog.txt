@@ -310,16 +310,25 @@
 - Arreglado un bug con la detección de suelo.
 - Inicio de script para ocultar al personaje al entrar en una zona secreta.
 
-19/05/2015
+18/05/2015
 - Iniciada la implementación de los nuevos gráficos para los personajes jugables. Por el momento, movimiento de plataformas del personaje principal (Rogue).
 - Creados los nuevos retratos de los personajes.
 
-20/05/2015
+19/05/2015
 - Implementadas todas las animaciones nuevas. Falta test completo (especialmente en batalla).
 - Implementación de la visión de los datos de los diferentes personajes en los respectivos menús.
 
+20/05/2015
+- Arreglado un bug NonTargetPlayers. Ahora cambia correctamente el target tanto en Status como en Skill.
+- Mejoradas las batallas. Falta testear en profundidad la gestión de los turnos.
+- Arreglado un bug donde un personaje muerto podía seguir siendo objetivo de ataques.
+- Arreglado un bug donde al cambiar de personaje en el menú no se mostraban correctament las ramas de habilidades.
+
 TO DO:
-- Acabar y revisar el funcionamiento de NonTargetPlayers. Sólo funciona bien en Status, en Skill no cambia el target.
+- Revisar el movimiento de los personajes en batalla.
+- Implementar batallas de boss.
+- Balancear personajes.
+- BattleRewards erróneos, check.
 - Crear animaciones para las batallas (todos los personajes).
 - Implementar landing (no urgente).
 - Revisar las colisiones y la detección de suelo.

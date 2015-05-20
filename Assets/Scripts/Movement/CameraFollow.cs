@@ -17,14 +17,14 @@ public class CameraFollow : MonoBehaviour {
 	void Awake ()	{
 		// Setting up the reference.
 		try{
-			player = GameObject.FindGameObjectWithTag("Mage").transform;
+			player = GameObject.FindGameObjectWithTag("Rogue").transform;
 		}
 		catch{
 			try{
 				player = GameObject.FindGameObjectWithTag("Knight").transform;
 			}
 			catch{
-				player = GameObject.FindGameObjectWithTag("Rogue").transform;
+				player = GameObject.FindGameObjectWithTag("Mage").transform;
 			}
 		}
 	}

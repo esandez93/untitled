@@ -9,7 +9,7 @@ class ClickTab : MonoBehaviour {
 	}
 
 	public void clickSkillTab(){
-		PauseMenuManager.Instance.showCurrentSkills(this.gameObject.transform.parent.gameObject.name);
+		PauseMenuManager.Instance.showCurrentSkills(this.gameObject.transform.parent.gameObject.tag);
 	}
 }
 

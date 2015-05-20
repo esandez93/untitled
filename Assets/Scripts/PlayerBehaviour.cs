@@ -63,15 +63,14 @@ public class PlayerBehaviour : MonoBehaviour {
 				if(startReceivingDamage)
 					receiveDamage();					
 				else
-					stand ();
-					
+					stand ();					
 				break;
 			case animationState.DYING:
+				//Debug.Log("STARTDEATH: " + startDeath);
 				if(startDeath)
 					die();					
 				else
-					BattleManager.Instance.deathFinished = true;
-					
+					BattleManager.Instance.deathFinished = true;					
 				break;
 		}
 	}
@@ -96,7 +95,7 @@ public class PlayerBehaviour : MonoBehaviour {
 			animator.SetInteger("AnimationState", Animations.ATTACK);
 		}
 		else{
-			Debug.Log(thisPlayer.name + " attacked to " + enemy.name);
+			//Debug.Log(thisPlayer.name + " attacked to " + enemy.name);
 			thisPlayer.basicAttack(enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
 
@@ -114,7 +113,7 @@ public class PlayerBehaviour : MonoBehaviour {
 			animator.SetInteger("AnimationState", Animations.USE_SKILL);
 		}
 		else{
-			Debug.Log(thisPlayer.name + " attacked to " + enemy.name + " // SKILL");
+			//Debug.Log(thisPlayer.name + " attacked to " + enemy.name + " // SKILL");
 			thisPlayer.useSkill(skillName, enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
 
@@ -234,6 +233,8 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	public void deathStarted(){
 		startDeath = true;
+		animator.SetInteger("AnimationState", Animations.DIE);
+		changeAnimationState(animationState.DYING);
 	}
 
 	public void finishDeath(){

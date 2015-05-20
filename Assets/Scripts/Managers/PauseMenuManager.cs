@@ -142,9 +142,6 @@ public class PauseMenuManager : MonoBehaviour {
 		string[] names = getOrder(newTarget);
 		instance.players = new List<Player>();
 
-		foreach(string s in names)
-			Debug.Log(s);
-
 		foreach(PlayerData data in Gamestate.instance.playersData){
 			player = buildPlayer(data);
 			player.populate(data);
@@ -345,7 +342,7 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.skillsBody.SetActive(true);
 		instance.nonTargetPlayers.SetActive(true);
 
-		Player targetPlayer = instance.players.Where(x => x.characterName.Equals("Rogue")).FirstOrDefault();
+		Player targetPlayer = instance.players[0];
 		instance.skillsTarget.GetComponent<Player>().populate(targetPlayer.getData());
 
 		fillTarget(targetPlayer, "Skills");
@@ -358,7 +355,6 @@ public class PauseMenuManager : MonoBehaviour {
 			showSkillButtons();
 		else
 			hideSkillButtons();
-		//showCurrentSkills("mage_branch_destruction");
 	}
 
 	private void showSkillButtons() {
@@ -373,18 +369,14 @@ public class PauseMenuManager : MonoBehaviour {
 
 	public void showSkillTabs() {
 		string target = instance.skillsTarget.GetComponent<Player>().characterName.ToLower();
-
 		List<string[]> branches = Singleton.Instance.getBranches(target);
 		GameObject tab;
 		for(int i = 1; i <= 3; i++) {
 			tab = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Tabs/Tab" + i);
-			if(tab == null)
-				tab = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Tabs/" + branches[i - 1][0]);
 
-			tab.name = branches[i - 1][0];
+			tab.tag = branches[i - 1][0];
 			tab.transform.FindChild("Text").GetComponent<Text>().text = branches[i - 1][1];
-		}
-		
+		}		
 	}
 
 	private void hideSkills() {

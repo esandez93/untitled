@@ -473,13 +473,8 @@ public class Character : MonoBehaviour{
 	
 	public bool isCritical(){
 		int random = Random.Range(0,100);
-		
-		if(random >= 0 && random <= this.critChance){
-			return true;
-		}
-		else{
-			return false;
-		}
+
+		return random >= 0 && random <= this.critChance;
 	}
 
 	public void restoreHP(float heal){
@@ -511,15 +506,13 @@ public class Character : MonoBehaviour{
 			
 			damage = addPercentVariation(damage, PERCENT_DAMAGE_VARIATION);
 			
-			if(isCrit){
-				damage *= this.critDmg;
-			}
+			if(isCrit)
+				damage *= this.critDmg;			
 
 			damage -= enemy.def;
 			
-			if(damage <= 0){
-				damage = 1;
-			}
+			if(damage <= 0)
+				damage = 1;			
 			
 			//Debug.Log("isCrit: " + isCrit + ", ATK: " + this.atk + ", MonsDEF: " + enemy.def + ", DMG: " + damage);
 			
@@ -607,13 +600,11 @@ public class Character : MonoBehaviour{
 		float modifier;
 		float damage = 0f;
 
-		if(skill.damageType == "Physic"){
-			physic = true;
-		}
-		else if(skill.damageType == "Magic"){
+		if(skill.damageType == "Physic") 
+			physic = true;		
+		else if(skill.damageType == "Magic")
 			physic = false;
-		}
-
+		
 		foreach(Character target in targets){
 			modifier = getElementalModifier(skill.element, target.element);
 
@@ -622,7 +613,7 @@ public class Character : MonoBehaviour{
 				damage -= target.def;
 				Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
 			}
-			else{
+			else {
 				damage = this.matk * (skill.damage/100);
 				damage -= target.mdef;
 				Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", MATK: " + this.matk + " * " + skill.damage + "%, MonsMDEF: " + target.mdef + ", DMG: " + (damage*modifier));
@@ -640,7 +631,7 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void doElementalDamage(float damage, float modifier, string status, float chance){
-		switch((int)(modifier*100)){
+		switch((int)(modifier*100)) {
 		case 0: Debug.Log("No afecta");
 			break;
 		case 50: Debug.Log("No es muy efectivo");
@@ -815,13 +806,10 @@ public class Character : MonoBehaviour{
 	
 	public void die(){		
 		alive = false;
-		/*if(BattleManager.Instance.deathFinished){
-			Debug.Log(this.name + " is dead!");
-			BattleManager.Instance.checkIfEnded();
-		}
-		else{*/
+		
 		if(this.isPlayer()){
-			
+			gameObject.GetComponent<PlayerBehaviour>().deathStarted();
+			gameObject.GetComponent<PlayerBehaviour>().die();
 		}
 		else{
 			gameObject.GetComponent<MonsterBehaviour>().deathStarted();
@@ -869,6 +857,8 @@ public class Character : MonoBehaviour{
 	}
 
 	public void startTurn(){
+		Debug.Log("BEGIN TURN " + this.characterName);
+
 		if(this.isAlive()){
 			this.restoreMP(this.maxMP * mpRegen);
 			this.restoreHP(this.maxHP * hpRegen);		
@@ -896,6 +886,9 @@ public class Character : MonoBehaviour{
 		else if(!this.isPlayer() && BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
 			numObjective = Random.Range(0, BattleManager.Instance.numPlayers);
 			objective = BattleManager.Instance.getPlayerInBattle(numObjective);
+
+			if (objective == null || !objective.isAlive())
+				return null;
 		}
 
 		return objective;
