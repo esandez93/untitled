@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour {
 	public bool ended = false;
 	public bool attackObjective = false;
 	public Player playerObjective = null;
+	public Character enemyObjective = null;
 	public int action = -1;
 
 	public bool basicAttack = false;
@@ -112,7 +113,6 @@ public class BattleManager : MonoBehaviour {
 	public static BattleManager Instance{
 		get{
 			if (instance == null){				
-				//instance = (BattleManager)FindObjectOfType(typeof(BattleManager));
 				instance = new GameObject("BattleManager").AddComponent<BattleManager>();
 				instance.initialize();
 				DontDestroyOnLoad(instance.gameObject);
@@ -130,17 +130,8 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if(!instance.ended){
-			checkGUI();
-
-			/*if (GUI.Button (new Rect (530, 30, 150, 30), "Check GameState")) { // DEBUG
-				Debug.Log ("State: " + currentState + ", Phase: " + currentPhase);
-			}
-			if (GUI.Button (new Rect (730, 30, 150, 30), "Add potion")) { // DEBUG
-				Singleton.Instance.inventory.addItem("Potion", 1);
-				//DisplayItems.repopulate();
-			}*/
-		}
+		if(!instance.ended)
+			checkGUI();		
 	}
 
 	void Start(){
@@ -204,28 +195,22 @@ public class BattleManager : MonoBehaviour {
 			instance.currentPlayer = (Player) instance.currentCharacter;
 			setGUIPlayerInfo(instance.currentPlayer);
 
-			if(instance.currentPhase == BattlePhases.AFFECT){
-				instance.currentPlayer.startTurn();
-				//Debug.Log("BEGIN TURN " + instance.currentPlayer.characterName);
-			}
+			if(instance.currentPhase == BattlePhases.AFFECT)
+				instance.currentPlayer.startTurn();			
 
-			if(instance.currentObjective == null){				
-				hideGUIEnemyInfo();
-			}
+			if(instance.currentObjective == null)		
+				hideGUIEnemyInfo();			
 			else{
-				if(instance.currentObjective.isPlayer()){
-					setGUIPlayerInfo((Player) instance.currentObjective);
-				}
-				else{
+				if(instance.currentObjective.isPlayer())
+					setGUIPlayerInfo((Player) instance.currentObjective);				
+				else
 					setGUIEnemyInfo((Monster) instance.currentObjective);
-				}				
 			}
-
 			break;
 		case BattleStates.ENEMYTURN:
-			instance.currentMonster = (Monster) instance.currentCharacter;
-			
+			instance.currentMonster = (Monster) instance.currentCharacter;			
 			setGUIEnemyInfo(instance.currentMonster);
+
 			if(instance.currentPhase == BattlePhases.AFFECT){
 				instance.currentMonster.startTurn();
 				hideGUIPlayerInfo();				
@@ -253,16 +238,13 @@ public class BattleManager : MonoBehaviour {
 			Debug.Log ("Monsters WIN!");
 			changePhase(BattlePhases.END);
 			//CHANGE SCENE TO LOAD LAST SAVEGAME
-			if(SaveManager.Instance.load()){
-				Application.LoadLevel(gamestate.map.mapName);
-			}			
+			if(SaveManager.Instance.load())
+				Application.LoadLevel(gamestate.map.mapName);				
 			break;
 		case BattleStates.WIN:
 			Debug.Log ("Players WIN!");
 			changePhase(BattlePhases.END);
 			giveRewards();
-			//SaveManager.Instance.saveBattleStatus();
-			//CHANGE SCENE TO BATTLE REWARDS
 			Application.LoadLevel("forestWinBattle");
 			deleteInstance();
 			break;
@@ -290,17 +272,18 @@ public class BattleManager : MonoBehaviour {
 
 		List<Character> listAux = new List<Character>();
 
-		foreach(Player player in instance.playersInBattle){
-			listAux.Add(player);
-		}
+		foreach(Player player in instance.playersInBattle)
+			if(player.isAlive())
+				listAux.Add(player);		
 
-		foreach(Monster monster in instance.monstersInBattle){
-			listAux.Add(monster);
-		}
+		foreach(Monster monster in instance.monstersInBattle)
+			if(monster.isAlive())
+				listAux.Add(monster);
 
+		float agi;
 		for(int i = 0; i < totalCharacters; i++){
 			Character characterAux = null;
-			float agi = 0;
+			agi = 0;
 
 			foreach(Character character in listAux){				
 				if(character.agi > agi){
@@ -308,7 +291,7 @@ public class BattleManager : MonoBehaviour {
 					characterAux = character;
 				}
 			}
-
+			
 			instance.turns.Add(characterAux);
 			listAux.Remove(characterAux);
 		}
@@ -317,12 +300,13 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void endTurn(){
+		if(instance.currentCharacter != null)
+			Debug.Log("ENDING " + instance.currentCharacter.characterName + " TURN");
+
 		if(instance.turn < instance.maxTurns)
 			instance.turn++;
 		else
 			instance.turn = 1;		
-
-		Debug.Log("END TURN " + instance.currentCharacter.characterName);
 
 		cleanVariables(instance.currentCharacter);
 
@@ -330,19 +314,19 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void checkIfPlayerTurn(){
-		Debug.Log("TURNS COUNT = " + instance.turns.Count);
-		Debug.Log("TURN = " + instance.turn);
-		Debug.Log("MAX TURNS = " + instance.maxTurns);
 		instance.currentCharacter = instance.turns[instance.turn - 1];
 
-		if(instance.currentCharacter.isAlive()){
+		if(instance.currentCharacter.isAlive()){//instance.currentCharacter.isAlive()){
 			if(!instance.ended){
+				instance.currentCharacter = instance.turns[instance.turn - 1];
+				Debug.Log("CURRENT TURN ("+instance.turn+"/"+instance.maxTurns+"): " + instance.currentCharacter.characterName + (instance.currentCharacter.isAlive() ? " - ALIVE " : " - DEAD ") + "- ISPLAYER: " + instance.currentCharacter.isPlayer());
 				if(instance.currentCharacter.isPlayer()){
 					hideGUIEnemyInfo();
 					instance.playerTurn = true;
 					instance.currentMonster = null;
 					instance.currentPlayer = (Player) instance.currentCharacter;
 					changeState(BattleStates.PLAYERTURN);
+					Debug.Log("ENTERING PLAYER TURN " + instance.currentCharacter.characterName);
 				}
 				else{
 					hideGUIPlayerInfo();
@@ -352,12 +336,13 @@ public class BattleManager : MonoBehaviour {
 					instance.currentPlayer = null;
 					changeState(BattleStates.ENEMYTURN);
 				}
-			}
 
-			changePhase(BattlePhases.AFFECT);
+				changePhase(BattlePhases.AFFECT);
+			}
 		}
 		else{
-			checkIfEnded();
+			//checkIfEnded();
+			Debug.Log("ENDING DEAD CHARACTER'S TURN");
 			endTurn();
 		}
 	}
@@ -368,20 +353,17 @@ public class BattleManager : MonoBehaviour {
 		instance.playerLevelGUI.text = "Lv " + player.level.ToString();
 		instance.playerHealthGUI.fillAmount = (player.currHP / player.maxHP);
 		instance.playerManaGUI.fillAmount = (player.currMP / player.maxMP);
-		//playerExpGUI.fillAmount = (player.exp / player.expForNextLevel);
 
 		instance.playerBackgroundGUI.fillAmount = 1;
 		instance.playerHealthFrameGUI.fillAmount = 1;
 		instance.playerManaFrameGUI.fillAmount = 1;
-		//playerExpFrameGUI.fillAmount = 1;
 		instance.playerPortraitGUI.fillAmount = 1;
 
 		instance.playerHealthTextGUI.text = "HP";
 		instance.playerManaTextGUI.text = "MP";
-		//playerExpTextGUI.text = "EXP";
 	}
 
-	public void setGUIEnemyInfo(Character enemy){//Monster monster){
+	public void setGUIEnemyInfo(Character enemy){
 		instance.enemyPortraitGUI.sprite = Resources.Load <Sprite> ("Portraits/" + enemy.name + "Portrait");
 		instance.enemyNameGUI.text = LanguageManager.Instance.getMenuText(enemy.name);
 		instance.enemyLevelGUI.text = "Lv " + enemy.level.ToString();
@@ -398,36 +380,26 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void hideGUIPlayerInfo(){
-		if(instance.playerDataBundle == null){
-			instance.playerDataBundle = GameObject.FindGameObjectsWithTag("PlayerData"); 
-		}
+		GameObject[] asdf = instance.playerDataBundle = GameObject.FindGameObjectsWithTag("PlayerData"); 		
 		
-		foreach(GameObject gameObject in instance.playerDataBundle){
-			foreach(Image image in gameObject.GetComponentsInChildren<Image>()){
-				image.fillAmount = 0;
-			}
+		foreach(GameObject gameObject in asdf){
+			foreach(Image image in gameObject.GetComponentsInChildren<Image>())
+				image.fillAmount = 0;			
 			
-			foreach(Text text in gameObject.GetComponentsInChildren<Text>()){
-				text.text = "";
-			}			
+			foreach(Text text in gameObject.GetComponentsInChildren<Text>())
+				text.text = "";						
 		}
 	}
 
 	public void hideGUIEnemyInfo(){
-		/*if(enemyDataBundle == null){
-			enemyDataBundle = GameObject.FindGameObjectsWithTag("EnemyData"); 
-		}	*/
-
 		GameObject[] asdf = GameObject.FindGameObjectsWithTag("EnemyData"); 
 
-		foreach(GameObject gameObject in asdf){//enemyDataBundle){
-			foreach(Image image in gameObject.GetComponentsInChildren<Image>()){
-				image.fillAmount = 0;
-			}
+		foreach(GameObject gameObject in asdf){
+			foreach(Image image in gameObject.GetComponentsInChildren<Image>())
+				image.fillAmount = 0;			
 			
-			foreach(Text text in gameObject.GetComponentsInChildren<Text>()){
-				text.text = "";
-			}
+			foreach(Text text in gameObject.GetComponentsInChildren<Text>())
+				text.text = "";			
 		}
 	}
 
@@ -460,10 +432,6 @@ public class BattleManager : MonoBehaviour {
 		// PLAYER TURN AND CHOSING ACTION
 		if(instance.playerTurn && instance.currentPhase == BattlePhases.CHOSEACTION)
 			instance.showPlayerCommandsGUI = true;
-		
-		/*else{
-			showPlayerCommandsGUI = false;
-		}*/
 	}
 
 	public bool checkIfEnded(){
@@ -493,61 +461,58 @@ public class BattleManager : MonoBehaviour {
 
 	// Check if the current phase can be changed
 	private bool checkPhase(BattlePhases battlePhase){
-		if(battlePhase == BattlePhases.NONE)
-			return true;		
-		else if(instance.currentPhase == BattlePhases.NONE && battlePhase == BattlePhases.AFFECT)
-			return true;
-		else if(instance.currentPhase == BattlePhases.AFFECT && battlePhase == BattlePhases.CHOSEACTION)
-			return true;
-		else if(instance.currentPhase == BattlePhases.CHOSEACTION && battlePhase == BattlePhases.CHOSEOBJECTIVE)
-			return true;
-		else if(instance.currentPhase == BattlePhases.CHOSEOBJECTIVE && battlePhase == BattlePhases.CHOSEACTION && checkIfCurrentCharacterIsPlayer())
-			return true;
-		else if(instance.currentPhase == BattlePhases.CHOSEOBJECTIVE && battlePhase == BattlePhases.DOACTION)
-			return true;
-		else if(instance.currentPhase == BattlePhases.DOACTION && battlePhase == BattlePhases.AFFECT)
-			return true;
-		else
-			return false;
+		return true;
+			/*battlePhase == BattlePhases.NONE ||
+			(instance.currentPhase == BattlePhases.NONE && battlePhase == BattlePhases.AFFECT) ||
+			(instance.currentPhase == BattlePhases.AFFECT && battlePhase == BattlePhases.CHOSEACTION) ||
+			(instance.currentPhase == BattlePhases.CHOSEACTION && battlePhase == BattlePhases.CHOSEOBJECTIVE) ||
+			(instance.currentPhase == BattlePhases.CHOSEOBJECTIVE && battlePhase == BattlePhases.CHOSEACTION && checkIfCurrentCharacterIsPlayer()) ||
+			(instance.currentPhase == BattlePhases.CHOSEOBJECTIVE && battlePhase == BattlePhases.DOACTION) ||
+			(instance.currentPhase == BattlePhases.DOACTION && battlePhase == BattlePhases.AFFECT);*/
 	}
 
 	public bool changePhase(BattlePhases battlePhase){
-		if(instance.currentPhase != battlePhase){
-			instance.currentPhase = battlePhase;				
-			//Debug.Log ("Phase: " + currentPhase);
+		//if(instance.currentPhase != battlePhase){
+			instance.currentPhase = battlePhase;	
 			return true;
-		}
+		//}
 
-		return false;
+		//return false;
 	}
 
 	public void changeState(BattleStates battleState){
 		instance.currentState = battleState;
-		//Debug.Log ("State: " + currentState);
 	}
 
 	public void cleanVariables(Character character){
+		instance.playerTurn = false;
+		instance.currentCharacter = null;
+		instance.currentPlayer = null;
+		instance.currentMonster = null;
 		instance.playerObjective = null;
+		instance.enemyObjective = null;
 		instance.currentObjective = null;
 		instance.attackObjective = false;
 		instance.attackFinished = false;
 		instance.attackStarted = false;
-		instance.basicAttack = false;
 		instance.damageReceived = false;
 		instance.deathFinished = false;
+		instance.basicAttack = false;
 		instance.skill = false;
 		instance.item = false;
+		instance.defend = false;
 		instance.skillName = null;
 		instance.itemName = null;
 		instance.action = -1;
 
-		character.cleanVariables();
+		if (character != null)
+			character.cleanVariables();
 
 		//if (!character.isAlive())
 			//killCharacter(character);		
 	}
 
-	private void killCharacter (Character character) {
+	/*private void killCharacter (Character character) {
 		instance.turns.Remove(character);
 
 		if (character.isPlayer())
@@ -556,14 +521,14 @@ public class BattleManager : MonoBehaviour {
 			instance.monstersInBattle.Remove((Monster)character);
 
 		instance.maxTurns--;
-	}
+	}*/
 
 	private void enableComponents(GameObject go){
 		go.GetComponent<SpriteRenderer>().enabled = true;
 		go.GetComponent<Animator>().enabled = true;
 		go.GetComponent<BoxCollider2D>().enabled = true;
 
-		if(go.tag.Equals("Monster1") || go.tag.Equals("Monster2") || go.tag.Equals("Monster3")){
+		if(go.tag.Contains("Monster")){
 			go.GetComponent<MonsterBehaviour>().enabled = true;
 			go.GetComponent<Monster>().enabled = true;
 		}
@@ -586,29 +551,23 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void setMonsters(){
-		//Debug.Log("P IN B: " + instance.playersInBattle.Count);
 		//instance.numMonsters = Random.Range(1, (instance.playersInBattle.Count+1));
-		numMonsters = 3; // DEBUG
+		instance.numMonsters = 3; // DEBUG
 
-		for(int i = 0; i < instance.numMonsters; i++){
-			Monster monster = GameObject.FindWithTag("Monster"+(i+1)).GetComponent<Monster>();
+		for(int i = 1; i <= instance.numMonsters; i++){
+			Monster monster = GameObject.FindWithTag("Monster"+(i)).GetComponent<Monster>();
 			monster.initializeMonster(instance.gamestate.map.getRandomMonster());
-			monstersInBattle.Add(monster);
-
 			enableComponents(monster.gameObject);
+			instance.monstersInBattle.Add(monster);
 		}
 	}
 
 	private void setPlayers(){
-		//numPlayers = playersInBattle.Count;
-		//playersInBattle = BattleData.players;
-		//gamestate.players;
 		Player player;
 
 		foreach(PlayerData data in instance.gamestate.playersData){
 			player = buildPlayer(data);
 			if(player != null) {
-				//Debug.Log("SUCCESS " + data.characterName);
 				player.populate(data);
 				instance.playersInBattle.Add(player);
 				enableComponents(player.gameObject);
@@ -631,9 +590,8 @@ public class BattleManager : MonoBehaviour {
 	private void giveRewards(){
 		instance.battleResults = new BattleResults();
 
-		foreach(Player player in instance.playersInBattle){
-			instance.battleResults.addPlayer(player);
-		}
+		foreach(Player player in instance.playersInBattle)
+			instance.battleResults.addPlayer(player);		
 
 		foreach(Monster monster in instance.monstersInBattle){
 			instance.battleResults.addExp(monster.giveExp());
@@ -691,14 +649,13 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void clickDefend(){
-		//changePhase(BattlePhases.DOACTION);
 		instance.currentObjective = null;
 		instance.defend = true;
 	}
 
 	public void battleListener(){
 		if(!instance.ended){
-			if(isPlayerTurn()){ // COMANDS
+			if(isPlayerTurn()){ // COMANDS	
 				if(instance.defend){
 					instance.currentPlayer.defend();
 					instance.attackFinished = true;
@@ -726,8 +683,7 @@ public class BattleManager : MonoBehaviour {
 					if(instance.currentObjective.isPlayer())
 						setGUIPlayerInfo((Player) instance.currentObjective);					
 					else
-						setGUIEnemyInfo((Monster) instance.currentObjective);
-					
+						setGUIEnemyInfo((Monster) instance.currentObjective);					
 				}
 				else if(currentObjective != null && attackObjective){
 					if(instance.basicAttack && !instance.attackStarted)
@@ -757,6 +713,7 @@ public class BattleManager : MonoBehaviour {
 
 	public void backToStart(){
 		instance.playerObjective = null;
+		instance.enemyObjective = null;
 		instance.hideGUIEnemyInfo();
 		instance.attackObjective = false;
 		instance.attackFinished = false;
@@ -775,6 +732,7 @@ public class BattleManager : MonoBehaviour {
 
 	private void initializeVariables(){
 		instance.playerObjective = null;
+		instance.enemyObjective = null;
 		instance.hideGUIEnemyInfo();
 		instance.attackObjective = false;
 		instance.attackFinished = false;

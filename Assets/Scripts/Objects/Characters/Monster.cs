@@ -25,6 +25,7 @@ public class Monster : Character{
 
 	public void initializeMonster(MonsterInfo monsterInfo){
 		this.type = monsterInfo.type;
+		this.characterName = monsterInfo.name;
 		this.name = monsterInfo.name;
 		this.level = monsterInfo.level;
 		this.element = monsterInfo.element;

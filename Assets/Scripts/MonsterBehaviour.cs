@@ -16,6 +16,7 @@ public class MonsterBehaviour : MonoBehaviour {
 	Vector2 initialPosition;
 	Vector2 objectivePosition;
 
+
 	public animationState currentAnimationState;
 
 	public enum animationState{
@@ -26,53 +27,49 @@ public class MonsterBehaviour : MonoBehaviour {
 	public bool startReceivingDamage = false;
 	public bool startDeath = false;
 
+
+	public bool moving = true;
+
 	void Start () {
 		thisMonster = GetComponent<Monster>();
 
 		animator = GetComponent<Animator>();
 		rigidBody = GetComponent<Rigidbody2D>();
 
-		initialPosition = rigidBody.position;
+		initialPosition = transform.position;
 		currentAnimationState = animationState.STANDING;
 	}
 
-	void FixedUpdate () {		
-		//if(enemy != null){	
+	void Update () {		
 		switch(currentAnimationState){
-		case animationState.STANDING:
-			stand();
-			break;
-		case animationState.MOVING:
-			goToObjective();
-			break;
-		case animationState.ATTACKING:
-			attack();
-			break;
-		case animationState.SKILL:
-			break;		
-		case animationState.MOVINGBACK: 
-			backToPosition();
-			break;
-		case animationState.RECEIVINGDAMAGE:
-			if(startReceivingDamage)
-				receiveDamage();
-			
-			else
-				stand ();
-				//BattleManager.Instance.attackFinished = true;
-				//BattleManager.finishCurrentAttack();			
-			break;
-		case animationState.DYING:
-			if(startDeath)
-				die();			
-			else
-				BattleManager.Instance.deathFinished = true;			
-			/*else{
-				stand ();
-			}*/
-			break;
+			case animationState.STANDING:
+				stand();
+				break;
+			case animationState.MOVING:
+				goToObjective();
+				break;
+			case animationState.ATTACKING:
+				attack();
+				break;
+			case animationState.SKILL:
+
+				break;		
+			case animationState.MOVINGBACK: 
+				backToPosition();
+				break;
+			case animationState.RECEIVINGDAMAGE:
+				if(startReceivingDamage)
+					receiveDamage();			
+				else
+					stand ();		
+				break;
+			case animationState.DYING:
+				if(startDeath)
+					die();			
+				else
+					BattleManager.Instance.deathFinished = true;
+				break;
 		}
-		//}
 	}
 	
 	private void goToObjective(){		
@@ -91,11 +88,9 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 
 	private void attack(){
-		if(isAttacking){
-			animator.SetInteger("AnimationState", Animations.ATTACK);
-		}
+		if(isAttacking)
+			animator.SetInteger("AnimationState", Animations.ATTACK);		
 		if(!isAttacking){
-			//Debug.Log(thisMonster.name + " attacked to " + enemy.name);
 			thisMonster.basicAttack(enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
 			changeAnimationState(animationState.MOVINGBACK);
@@ -108,7 +103,7 @@ public class MonsterBehaviour : MonoBehaviour {
 			changeAnimationState(animationState.MOVINGBACK);
 
 			Vector2 direction = initialPosition - (Vector2)transform.position;
-			rigidbody2D.velocity = new Vector2 (movementSpeed, direction.y);
+			rigidbody2D.velocity = new Vector2 (movementSpeed, direction.y*5);
 		}
 		else{
 			BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
@@ -131,7 +126,7 @@ public class MonsterBehaviour : MonoBehaviour {
 
 		if(!BattleManager.Instance.attackStarted){
 			changeAnimationState(animationState.MOVING);
-			initialPosition = rigidbody2D.position;
+			//initialPosition = rigidbody2D.position;
 		}
 
 		BattleManager.Instance.attackStarted = true;

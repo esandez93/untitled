@@ -13,7 +13,7 @@ public class Character : MonoBehaviour{
 	public Rigidbody2D body;
 
 	public static Character character;
-	public Character clickedObjective;
+	//public Character clickedObjective;
 
 	int numObjective;
 	Character objective;
@@ -76,7 +76,7 @@ public class Character : MonoBehaviour{
 	}
 
 	public float getMaxHP(){
-		return this.maxHP + (this.vit * 10);
+		return this.maxHP + (this.vit * 5);
 	}
 
 	public float getMaxMP(){
@@ -84,7 +84,7 @@ public class Character : MonoBehaviour{
 	}
 
 	public float getDef(){
-		return this.def + this.vit;
+		return this.def + (this.vit / 2);
 	}
 
 	public float getMdef(){
@@ -104,7 +104,7 @@ public class Character : MonoBehaviour{
 	}
 
 	public float getCritDamage(){
-		return this.critDmg + (this.str / 2) + (this.dex / 2);
+		return this.critDmg + (this.str / 20) + (this.dex / 15);
 	}
 
 	public float getCurrHP(){
@@ -145,7 +145,6 @@ public class Character : MonoBehaviour{
 				this.maxMP -= quantity;
 				break;
 			case StatName.CURRHP:
-				//this.currHP -= quantity;
 				this.receiveDamage(quantity);
 				break;
 			case StatName.CURRMP:
@@ -481,9 +480,8 @@ public class Character : MonoBehaviour{
 		if(this.currHP < this.maxHP){
 			this.currHP += heal;
 			
-			if(this.currHP > this.maxHP){
-				this.currHP = this.maxHP;
-			}
+			if(this.currHP > this.maxHP)
+				this.currHP = this.maxHP;			
 		}
 	}
 
@@ -491,9 +489,8 @@ public class Character : MonoBehaviour{
 		if(this.currMP < this.maxMP){
 			this.currMP += heal;
 			
-			if(this.currMP > this.maxMP){
-				this.currMP = this.maxMP;
-			}
+			if(this.currMP > this.maxMP)
+				this.currMP = this.maxMP;			
 		}
 	}
 	
@@ -501,20 +498,17 @@ public class Character : MonoBehaviour{
 		BattleManager.Instance.startCurrentAttack();
 		
 		if(hits(enemy)){
-			bool isCrit = isCritical();
 			float damage = this.atk;
 			
 			damage = addPercentVariation(damage, PERCENT_DAMAGE_VARIATION);
 			
-			if(isCrit)
+			if(isCritical())
 				damage *= this.critDmg;			
 
 			damage -= enemy.def;
 			
 			if(damage <= 0)
 				damage = 1;			
-			
-			//Debug.Log("isCrit: " + isCrit + ", ATK: " + this.atk + ", MonsDEF: " + enemy.def + ", DMG: " + damage);
 			
 			enemy.receiveDamage(damage);
 		}
@@ -537,15 +531,13 @@ public class Character : MonoBehaviour{
 		float result = enemy.flee - this.hit;
 		bool hits = false;
 		
-		if(result <= 0 && rand < 100){
-			hits = true;
-		}
+		if(result <= 0 && rand < 100)
+			hits = true;		
 		else if(result > 0){
 			float prob = 100 - result;
 			
-			if(rand <= prob){
-				hits = true;
-			}
+			if(rand <= prob)
+				hits = true;			
 		}
 		
 		return hits;
@@ -556,21 +548,18 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void useSkill(string skillId, Character target){
-		if(this.hasSkill(skillId)){//skills.ContainsKey(skillId)){
-			//string skillId = Singleton.Instance.skillNameId[skillName];
+		if(this.hasSkill(skillId)){
 			List<Character> targets = new List<Character>();
 
 			Skill skill = skills[skillId];
 			if(skill.target == Target.GROUP){
 				GameObject[] gos = GameObject.FindGameObjectsWithTag(target.gameObject.tag);
 
-				foreach(GameObject go in gos){
-					targets.Add(go.GetComponent<Character>());
-				}
+				foreach(GameObject go in gos)
+					targets.Add(go.GetComponent<Character>());				
 			}
-			else{
-				targets.Add(target);
-			}
+			else
+				targets.Add(target);			
 
 			if(!BattleManager.Instance.attackStarted){
 				if(skill.mp <= this.currMP){
@@ -579,9 +568,8 @@ public class Character : MonoBehaviour{
 					
 					this.currMP -= skill.mp;
 					
-					if(skill.idType == Skill.Type.ACTIVE_DAMAGE_AND_ADD_STATUS){
-						useDamageSkill(skill, targets, skill.status, instance);
-					}
+					if(skill.idType == Skill.Type.ACTIVE_DAMAGE_AND_ADD_STATUS)
+						useDamageSkill(skill, targets, skill.status, instance);					
 				}
 			}
 		}
@@ -632,19 +620,18 @@ public class Character : MonoBehaviour{
 	
 	public void doElementalDamage(float damage, float modifier, string status, float chance){
 		switch((int)(modifier*100)) {
-		case 0: Debug.Log("No afecta");
-			break;
-		case 50: Debug.Log("No es muy efectivo");
-			break;
-		case 100: Debug.Log("Efecto normal");
-			break;
-		case 200: Debug.Log("Es muy efectivo");
-			break;
+			case 0: Debug.Log("No afecta");
+				break;
+			case 50: Debug.Log("No es muy efectivo");
+				break;
+			case 100: Debug.Log("Efecto normal");
+				break;
+			case 200: Debug.Log("Es muy efectivo");
+				break;
 		}
 		
-		if(status != null){
-			trySetAlteredStatus(status, chance);
-		}
+		if(status != null)
+			trySetAlteredStatus(status, chance);		
 		
 		this.receiveDamage(damage);
 	}
@@ -654,12 +641,10 @@ public class Character : MonoBehaviour{
 		int rand = Random.Range(0,101);
 		
 		if(rand <= chance){ // Success
-			if(!this.alteredStatus.ContainsKey(status)){
-				this.addAlteredStatus(Singleton.Instance.allAlteredStatus[status]);
-			}
-			else{
-				this.alteredStatus[status].resetDuration();
-			}
+			if(!this.alteredStatus.ContainsKey(status))
+				this.addAlteredStatus(Singleton.Instance.allAlteredStatus[status]);			
+			else
+				this.alteredStatus[status].resetDuration();			
 			
 			setStatusMessage(getStatusName(status));
 		}
@@ -686,12 +671,12 @@ public class Character : MonoBehaviour{
 	}
 
 	public void receiveDamage(float damage, bool trueDamage){
+		bool goingToDie = false;
 		if(!BattleManager.Instance.damageReceived){
 			showBattleData();
 			
-			if(this.isDefending() && !trueDamage){
-				damage /= 2;
-			}
+			if(this.isDefending() && !trueDamage)
+				damage /= 2;			
 
 			damage = applyDifficultyDamage(damage, OptionsManager.Instance.getDifficulty());
 
@@ -699,7 +684,7 @@ public class Character : MonoBehaviour{
 			
 			if(this.currHP <= 0){
 				this.currHP = 0;
-				this.die();
+				goingToDie = true;
 			}
 			
 			showBattleData();
@@ -716,13 +701,11 @@ public class Character : MonoBehaviour{
 			gameObject.GetComponent<PlayerBehaviour>().receiveDamage();
 		}
 		
-		if(!alive){
+		if(goingToDie)
 			this.die();
-		}
 		
-		if((alive && BattleManager.Instance.attackFinished)|| (!alive && BattleManager.Instance.deathFinished)){
-			BattleManager.Instance.finishCurrentAttack();
-		}
+		if((alive && BattleManager.Instance.attackFinished)|| (!alive && BattleManager.Instance.deathFinished))
+			BattleManager.Instance.finishCurrentAttack();		
 	}
 
 	private float applyDifficultyDamage(float damage, string difficulty){
@@ -796,26 +779,28 @@ public class Character : MonoBehaviour{
 	}
 	
 	private void showBattleData(){
-		if(isPlayer()){
-			BattleManager.Instance.setGUIPlayerInfo((Player)this);
-		}
-		else{
-			BattleManager.Instance.setGUIEnemyInfo((Monster)this);
-		}
+		if(isPlayer())
+			BattleManager.Instance.setGUIPlayerInfo((Player)this);		
+		else
+			BattleManager.Instance.setGUIEnemyInfo((Monster)this);		
 	}
 	
-	public void die(){		
-		alive = false;
-		
-		if(this.isPlayer()){
-			gameObject.GetComponent<PlayerBehaviour>().deathStarted();
-			gameObject.GetComponent<PlayerBehaviour>().die();
+	public void die(){
+		if (alive){
+			Debug.Log(this.characterName + " is dying!");
+			alive = false;
+
+			if (this.isPlayer()){
+				gameObject.GetComponent<PlayerBehaviour>().deathStarted();
+				gameObject.GetComponent<PlayerBehaviour>().die();
+			}
+			else{
+				gameObject.GetComponent<MonsterBehaviour>().deathStarted();
+				gameObject.GetComponent<MonsterBehaviour>().die();
+			}
 		}
-		else{
-			gameObject.GetComponent<MonsterBehaviour>().deathStarted();
-			gameObject.GetComponent<MonsterBehaviour>().die();
-		}
-		//}
+		else
+			Debug.Log(this.characterName + " is already dead!");
 	}
 	
 	public bool isAlive(){
@@ -823,8 +808,6 @@ public class Character : MonoBehaviour{
 	}
 
 	public bool hasSkill(string skillId){
-		//string skillId = Singleton.Instance.skillNameId[skillName];
-
 		return this.skills.ContainsKey(skillId);
 	}
 
@@ -837,9 +820,8 @@ public class Character : MonoBehaviour{
 	}
 
 	public void removeAlteredStatus(string statusName){
-		if(hasAlteredStatus(statusName)){
-			this.alteredStatus[statusName].cure(this);
-		}
+		if(hasAlteredStatus(statusName))
+			this.alteredStatus[statusName].cure(this);		
 	}
 
 	public bool hasAlteredStatus(string name){
@@ -851,21 +833,17 @@ public class Character : MonoBehaviour{
 	}
 
 	public void affectAlteredStatus(){
-		foreach(KeyValuePair<string, AlteredStatus> status in this.alteredStatus){
-			status.Value.affect(this);
-		}
+		foreach(KeyValuePair<string, AlteredStatus> status in this.alteredStatus)
+			status.Value.affect(this);		
 	}
 
 	public void startTurn(){
-		Debug.Log("BEGIN TURN " + this.characterName);
-
 		if(this.isAlive()){
 			this.restoreMP(this.maxMP * mpRegen);
 			this.restoreHP(this.maxHP * hpRegen);		
 
-			if(this.hasSomeAlteredStatus()){
-				this.affectAlteredStatus();
-			}
+			if(this.hasSomeAlteredStatus())
+				this.affectAlteredStatus();			
 		}
 
 		BattleManager.Instance.changePhase(BattleManager.BattlePhases.CHOSEACTION);
@@ -880,9 +858,8 @@ public class Character : MonoBehaviour{
 	}
 	
 	public Character decideObjective(){
-		if(this.isPlayer() && BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
-			objective = clickedObjective;
-		}
+		if(this.isPlayer() && BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE)
+			objective = this;		
 		else if(!this.isPlayer() && BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){
 			numObjective = Random.Range(0, BattleManager.Instance.numPlayers);
 			objective = BattleManager.Instance.getPlayerInBattle(numObjective);
@@ -900,12 +877,11 @@ public class Character : MonoBehaviour{
 			
 			if(collider2D.OverlapPoint(mousePosition)){				
 				if (BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){						
-					if(clickedObjective != null && clickedObjective == this){
-						BattleManager.Instance.attackObjective = true;
-					}
+					if(BattleManager.Instance.enemyObjective != null && BattleManager.Instance.enemyObjective.gameObject/*.tag*/ == this.gameObject/*.tag*/ && !BattleManager.Instance.enemyObjective.isPlayer())
+						BattleManager.Instance.attackObjective = true;					
 					else{
-						clickedObjective = this;						
-						BattleManager.Instance.currentObjective = clickedObjective;
+						BattleManager.Instance.enemyObjective = this;						
+						BattleManager.Instance.currentObjective = BattleManager.Instance.enemyObjective;
 					}
 				}			
 			}
@@ -913,18 +889,16 @@ public class Character : MonoBehaviour{
 	}
 
 	public void cleanVariables(){
-		clickedObjective = null;
+		//clickedObjective = null;
 		objective = null;
 		numObjective = -1;
 	}
 
 	public void showInfo(){
-		if(isPlayer()){
-			BattleManager.Instance.setGUIPlayerInfo((Player)this);
-		}
-		else{
-			BattleManager.Instance.setGUIEnemyInfo((Monster)this);
-		}
+		if(isPlayer())
+			BattleManager.Instance.setGUIPlayerInfo((Player)this);		
+		else
+			BattleManager.Instance.setGUIEnemyInfo((Monster)this);		
 	}
 
 	public void finishCurrentAttack(){

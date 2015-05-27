@@ -324,12 +324,17 @@
 - Arreglado un bug donde un personaje muerto podía seguir siendo objetivo de ataques.
 - Arreglado un bug donde al cambiar de personaje en el menú no se mostraban correctament las ramas de habilidades.
 
+27/05/2015
+- Arreglado un fallo que provocaba que si dos jugadores con turnos consecutivos querían atacar a un objetivo, no dejase seleccionarlo.
+- Arreglado un fallo en los cálculos de las trayectorias donde al volver del ataque volvían a una posición más hacia el centro en el eje Y, provocando que en los combates largos se agolpasen todos los personajes en un mismo punto.
+
+
 TO DO:
-- Revisar el movimiento de los personajes en batalla.
+- Batalla: Cuando mueren personajes, los enemigos atacan muchos a la vez y se quedan bug. URGENTE.
+- Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
 - Implementar batallas de boss.
 - Balancear personajes.
 - BattleRewards erróneos, check.
-- Crear animaciones para las batallas (todos los personajes).
 - Implementar landing (no urgente).
 - Revisar las colisiones y la detección de suelo.
 - Implementar zonas secretas por código.
