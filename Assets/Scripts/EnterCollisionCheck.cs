@@ -28,12 +28,13 @@ public class EnterCollisionCheck : MonoBehaviour {
 		if(enterBattle){
 			if(enemyCollider != null){				
 				GameObject monsterCollided = enemyCollider.gameObject;
+				Gamestate.instance.bossBattle = monsterCollided.tag.Equals("Boss");
 				Gamestate.instance.disableEnemy(monsterCollided);
 			}
 
 			Singleton.Instance.playerPositionInMap = this.transform.parent.position;
-			//SaveManager.Instance.autoSave();
-			Application.LoadLevel("forestBattle");
+
+			Application.LoadLevel("forestBattle");			
 		}
 
 		if(interactable){

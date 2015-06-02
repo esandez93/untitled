@@ -2,9 +2,6 @@
 using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
-	// In TestMap maxXAndY -> (3.5, 2.4)
-	// In TestMap minXAndY -> (-3.4, -3)
-
 	public float xMargin = 1f;		// Distance in the x axis the player can move before the camera follows.
 	public float yMargin = 1f;		// Distance in the y axis the player can move before the camera follows.
 	public float xSmooth = 2f;		// How smoothly the camera catches up with it's target movement in the x axis.
@@ -17,14 +14,14 @@ public class CameraFollow : MonoBehaviour {
 	void Awake ()	{
 		// Setting up the reference.
 		try{
-			player = GameObject.FindGameObjectWithTag("Rogue").transform;
+			player = GameObject.FindGameObjectWithTag("Strider").transform;
 		}
 		catch{
 			try{
-				player = GameObject.FindGameObjectWithTag("Knight").transform;
+				player = GameObject.FindGameObjectWithTag("Gilgamesh").transform;
 			}
 			catch{
-				player = GameObject.FindGameObjectWithTag("Mage").transform;
+				player = GameObject.FindGameObjectWithTag("Ki").transform;
 			}
 		}
 	}

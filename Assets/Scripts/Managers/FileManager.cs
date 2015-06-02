@@ -70,33 +70,22 @@ public class FileManager : MonoBehaviour {
 
 	// checks to see whether the passed directory exists, returning true of false 
 	private bool checkDirectory(string directory) { 
-		if(Directory.Exists(path + "/" + directory)) { 
-			return true; 
-		} 
-		else { 
-			return false; 
-		} 
+		return Directory.Exists(path + "/" + directory);
 	}
 
 	// creates a new directory
 	private void createDirectory(string directory) { 
-		if(checkDirectory(directory) == false) {
+		if(!checkDirectory(directory)) {
 			print ("Creating directory: " + directory); 		
 			Directory.CreateDirectory(path + "/" + directory); 
 		} 
-		else { 
-			print("Error: You are trying to create the directory " + directory + " but it already exists!"); 
-		}
+		else 
+			print("Error: You are trying to create the directory " + directory + " but it already exists!"); 		
 	}
 
 	// checks to see whether a file exists 
 	public bool checkFile(string filePath) { 
-		if(File.Exists(path + "/" + filePath)) { 
-			return true; 
-		} 
-		else { 
-			return false; 
-		} 
+		return File.Exists(path + "/" + filePath);
 	}
 
 	public void createFile(string filePath, string name, string extension) { 
@@ -107,9 +96,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> chestContents = parseXMLFile(XML_PATH, "chestContents", "chestContent");
 		Dictionary<string, string> parsedChestContents = new Dictionary<string, string>();
 		
-		foreach(KeyValuePair<string, System.Object> entry in chestContents){
+		foreach(KeyValuePair<string, System.Object> entry in chestContents)
 			parsedChestContents.Add(entry.Key, (string)entry.Value);		
-		}
 		
 		return parsedChestContents;
 	}
@@ -118,9 +106,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> words = parseXMLFile(LANG_PATH, "Words/words" + LanguageManager.Instance.getLanguage(), "word");
 		Dictionary<string, AnyText> parsedWords = new Dictionary<string, AnyText>();
 		
-		foreach(KeyValuePair<string, System.Object> entry in words){
-			parsedWords.Add(entry.Key, (AnyText)entry.Value);		
-		}
+		foreach(KeyValuePair<string, System.Object> entry in words)
+			parsedWords.Add(entry.Key, (AnyText)entry.Value);				
 		
 		return parsedWords;
 	}
@@ -129,9 +116,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> menus = parseXMLFile(LANG_PATH, "Menus/menus" + LanguageManager.Instance.getLanguage(), "menu");
 		Dictionary<string, AnyText> parsedMenus = new Dictionary<string, AnyText>();
 		
-		foreach(KeyValuePair<string, System.Object> entry in menus){
-			parsedMenus.Add(entry.Key, (AnyText)entry.Value);		
-		}
+		foreach(KeyValuePair<string, System.Object> entry in menus)
+			parsedMenus.Add(entry.Key, (AnyText)entry.Value);				
 		
 		return parsedMenus;
 	}
@@ -140,9 +126,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> dialogues = parseXMLFile(LANG_PATH, "Dialogues/dialogues" + LanguageManager.Instance.getLanguage(), "dialogue");
 		Dictionary<string, AnyText> parsedDialogues = new Dictionary<string, AnyText>();
 		
-		foreach(KeyValuePair<string, System.Object> entry in dialogues){
+		foreach(KeyValuePair<string, System.Object> entry in dialogues)
 			parsedDialogues.Add(entry.Key, (AnyText)entry.Value);		
-		}
 		
 		return parsedDialogues;
 	}
@@ -151,9 +136,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> items = parseXMLFile(XML_PATH, "items", "item");
 		Dictionary<string, Item> parsedItems = new Dictionary<string, Item>();
 
-		foreach(KeyValuePair<string, System.Object> entry in items){
-			parsedItems.Add(entry.Key, (Item)entry.Value);		
-		}
+		foreach(KeyValuePair<string, System.Object> entry in items)
+			parsedItems.Add(entry.Key, (Item)entry.Value);			
 
 		return parsedItems;
 	}
@@ -162,9 +146,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> monsters = parseXMLFile(XML_PATH, "monsters", "monster");
 		Dictionary<string, MonsterInfo> parsedMonsters = new Dictionary<string, MonsterInfo>();
 		
-		foreach(KeyValuePair<string, System.Object> entry in monsters){
-			parsedMonsters.Add(entry.Key, (MonsterInfo)entry.Value);		
-		}
+		foreach(KeyValuePair<string, System.Object> entry in monsters)
+			parsedMonsters.Add(entry.Key, (MonsterInfo)entry.Value);	
 		
 		return parsedMonsters;
 	}
@@ -172,10 +155,9 @@ public class FileManager : MonoBehaviour {
 	public Dictionary<string, Skill> readSkills(){
 		Dictionary<string, System.Object> skills = parseXMLFile(XML_PATH, "skills", "skill");
 		Dictionary<string, Skill> parsedSkills = new Dictionary<string, Skill>();
-		
-		foreach(KeyValuePair<string, System.Object> entry in skills){
-			parsedSkills.Add(entry.Key, (Skill)entry.Value);		
-		}
+	
+		foreach(KeyValuePair<string, System.Object> entry in skills)
+			parsedSkills.Add(entry.Key, (Skill)entry.Value);	
 		
 		return parsedSkills;
 	}
@@ -184,9 +166,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> maps = parseXMLFile(XML_PATH, "maps", "map");
 		Dictionary<string, MapInfo> parsedMaps = new Dictionary<string, MapInfo>();
 		
-		foreach(KeyValuePair<string, System.Object> entry in maps){
-			parsedMaps.Add(entry.Key, (MapInfo)entry.Value);		
-		}
+		foreach(KeyValuePair<string, System.Object> entry in maps)
+			parsedMaps.Add(entry.Key, (MapInfo)entry.Value);
 		
 		return parsedMaps;
 	}
@@ -195,9 +176,8 @@ public class FileManager : MonoBehaviour {
 		Dictionary<string, System.Object> alteredStatus = parseXMLFile(XML_PATH, "alteredStats", "alteredStat");
 		Dictionary<string, AlteredStatus> parsedAlteredStatus = new Dictionary<string, AlteredStatus>();
 		
-		foreach(KeyValuePair<string, System.Object> entry in alteredStatus){
-			parsedAlteredStatus.Add(entry.Key, (AlteredStatus)entry.Value);		
-		}
+		foreach(KeyValuePair<string, System.Object> entry in alteredStatus)
+			parsedAlteredStatus.Add(entry.Key, (AlteredStatus)entry.Value);	
 		
 		return parsedAlteredStatus;
 	}
@@ -216,9 +196,8 @@ public class FileManager : MonoBehaviour {
 			XmlNodeList listContent = item.ChildNodes;
 			Dictionary<string, string> itemInfo = new Dictionary<string, string>();
 
-			foreach (XmlNode itemChild in listContent) {
-				itemInfo.Add(itemChild.Name, itemChild.InnerText);
-			} 
+			foreach (XmlNode itemChild in listContent) 
+				itemInfo.Add(itemChild.Name, itemChild.InnerText);			
 
 			switch(item.Name){
 			case XmlTypes.ITEM:

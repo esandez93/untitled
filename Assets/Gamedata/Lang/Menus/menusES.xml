@@ -193,39 +193,39 @@
 	<!--                          SKILLS                      -->
 		<!--				BRANCHES				-->		
 	<menu>
-		<menuId>mage_branch_creation</menuId>
+		<menuId>ki_branch_creation</menuId>
 		<text>Creación</text>
 	</menu>
 	<menu>
-		<menuId>mage_branch_destruction</menuId>
+		<menuId>ki_branch_destruction</menuId>
 		<text>Destrucción</text>
 	</menu>
 	<menu>
-		<menuId>mage_branch_benevolence</menuId>
+		<menuId>ki_branch_benevolence</menuId>
 		<text>Benevolencia</text>
 	</menu>
 	<menu>
-		<menuId>rogue_branch_alteration</menuId>
+		<menuId>strider_branch_alteration</menuId>
 		<text>Alteración</text>
 	</menu>
 	<menu>
-		<menuId>rogue_branch_massacre</menuId>
+		<menuId>strider_branch_massacre</menuId>
 		<text>Masacre</text>
 	</menu>
 	<menu>
-		<menuId>rogue_branch_gambit</menuId>
+		<menuId>strider_branch_gambit</menuId>
 		<text>Táctica</text>
 	</menu>
 	<menu>
-		<menuId>knight_branch_protection</menuId>
+		<menuId>gilgamesh_branch_protection</menuId>
 		<text>Protección</text>
 	</menu>
 	<menu>
-		<menuId>knight_branch_attack</menuId>
+		<menuId>gilgamesh_branch_attack</menuId>
 		<text>Ataque</text>
 	</menu>
 	<menu>
-		<menuId>knight_branch_supporting</menuId>
+		<menuId>gilgamesh_branch_supporting</menuId>
 		<text>Apoyo</text>
 	</menu>
 		<!--				SKILLS 					-->
@@ -273,6 +273,36 @@
 	<menu>
 		<menuId>status_affected</menuId>
 		<text>es afectado por su @status</text>
+	</menu>
+	<menu>
+		<menuId>run_success</menuId>
+		<text>El grupo ha huido!</text>
+	</menu>
+	<menu>
+		<menuId>run_failed</menuId>
+		<text>El grupo no ha podido huir!</text>
+	</menu>
+	<menu>
+		<menuId>failed_attack</menuId>
+		<text>falló</text>
+	</menu>
+	<menu>
+		<menuId>attack_no_effect</menuId>
+		<text>El ataque no ha tenido ningún efecto...</text>
+	</menu>
+	<menu>
+		<menuId>attack_no_effective</menuId>
+		<text>El ataque no es muy efectivo</text>
+	</menu>	
+	<menu>
+		<menuId>attack_effective</menuId>
+		<text>El ataque es muy efectivo!</text>
+	</menu>
+
+	<!-- 						  ACTIONS 					   -->
+	<menu>
+		<menuId>open_chest_1</menuId>
+		<text>Has abierto el cofre y has encontrado</text>
 	</menu>
 
 	<!--                          ENEMIES                      -->

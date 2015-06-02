@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\QuitGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\ResumeGame.cs" />
+     <Compile Include="Assets\Scripts\Buttons\RunAway.cs" />
      <Compile Include="Assets\Scripts\Buttons\UpdateSkill.cs" />
      <Compile Include="Assets\Scripts\Buttons\UpdateStat.cs" />
      <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
@@ -85,6 +86,7 @@
      <Compile Include="Assets\Scripts\MonsterBehaviour.cs" />
      <Compile Include="Assets\Scripts\Movement\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\Movement\CommonMovementPlatform.cs" />
+     <Compile Include="Assets\Scripts\Movement\Credits.cs" />
      <Compile Include="Assets\Scripts\Movement\GroundHitCheck.cs" />
      <Compile Include="Assets\Scripts\Movement\IgnoreCollisionIfJumpingFromBelow.cs" />
      <Compile Include="Assets\Scripts\Movement\MagicMovement.cs" />

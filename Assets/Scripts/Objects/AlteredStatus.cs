@@ -81,36 +81,34 @@ public class AlteredStatus {
 
 	public void affect(Character character){
 		switch(this.idType){
-		case Type.REDUCE_STAT:
-			if(isFirstTurn()){
-				affectReduceStat(character);
-			}
-			break;
-		case Type.REDUCE_STAT_AND_DOT:
-			if(isFirstTurn()){
-				affectReduceStat(character);
-			}
-			affectDamagePerTurn(character);
-			break;
-		case Type.VINCULATING:
-			//affectVinculating(character);
-			break;
-		case Type.PROTECT_OR_ADD_ELEMENT:
-			//affectProtectOrAddElement(character);
-			break;
-		case Type.MISC:
-			//affectMisc(character);
-			break;
+			case Type.REDUCE_STAT:
+				if(isFirstTurn()){
+					affectReduceStat(character);
+				}
+				break;
+			case Type.REDUCE_STAT_AND_DOT:
+				if(isFirstTurn()){
+					affectReduceStat(character);
+				}
+				affectDamagePerTurn(character);
+				break;
+			case Type.VINCULATING:
+				//affectVinculating(character);
+				break;
+			case Type.PROTECT_OR_ADD_ELEMENT:
+				//affectProtectOrAddElement(character);
+				break;
+			case Type.MISC:
+				//affectMisc(character);
+				break;
 		}
-
-		//Debug.Log (character.name + " affected by " + this.name);
-		Debug.Log (LanguageManager.Instance.getStatusAffection(character.name, this.getStatusName()));
+		
+		Gamestate.instance.showMessage(LanguageManager.Instance.getStatusAffection(character.characterName, this.getStatusName()));
 
 		this.duration--;
 
-		if(this.duration <= 0){
-			cure(character);
-		}
+		if(this.duration <= 0)
+			cure(character);		
 	}
 
 	private void affectReduceStat(Character character){
@@ -123,24 +121,24 @@ public class AlteredStatus {
 
 	private void restoreStat(Character character, float stat){
 		switch(this.statAffected){
-		case Character.StatName.DEF:
-			character.def += stat;
-			break;
-		case Character.StatName.ATK:
-			character.atk += stat;
-			break;
-		case Character.StatName.VIT:
-			character.vit += stat;
-			break;
-		/*case Character.StatName.DEF:
-			character.def = stat;
-			break;
-		case Character.StatName.DEF:
-			character.def = stat;
-			break;
-		case Character.StatName.DEF:
-			character.def = stat;
-			break;*/
+			case Character.StatName.DEF:
+				character.def += stat;
+				break;
+			case Character.StatName.ATK:
+				character.atk += stat;
+				break;
+			case Character.StatName.VIT:
+				character.vit += stat;
+				break;
+			/*case Character.StatName.DEF:
+				character.def = stat;
+				break;
+			case Character.StatName.DEF:
+				character.def = stat;
+				break;
+			case Character.StatName.DEF:
+				character.def = stat;
+				break;*/
 		}
 	}
 
@@ -149,12 +147,7 @@ public class AlteredStatus {
 	}
 
 	public bool isFirstTurn(){
-		if(duration == maxDuration){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return duration == maxDuration;
 	}
 
 	public void resetDuration(){

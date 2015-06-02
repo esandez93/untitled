@@ -90,6 +90,7 @@ public class Player : Character{
 	public void populate(PlayerData data){
 		this.bIsPlayer = data.bIsPlayer;
 
+		//this.name = data.characterName;
 		this.characterName = data.characterName;
 		this.level = data.level;
 		this.element = data.element;
@@ -254,6 +255,11 @@ public class Player : Character{
 
 	public void doSkill(Character objective, string skillName){
 		GetComponent<PlayerBehaviour>().useSkill(objective, skillName);
+	}
+
+	public void run() {
+		Debug.Log("run() from Player");
+		GetComponent<PlayerBehaviour>().run();
 	}
 
 	/*public void doAction(int action, Player objective){

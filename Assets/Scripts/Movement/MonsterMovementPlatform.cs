@@ -30,9 +30,8 @@ public class MonsterMovementPlatform : MonoBehaviour{
 			animator.SetInteger("AnimationState", Animations.MOVE);
 			rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
 		} 
-		else {
-			stand();
-		}
+		else 
+			stand();		
 	}
 	
 	void Update(){
@@ -41,25 +40,19 @@ public class MonsterMovementPlatform : MonoBehaviour{
 
 	private float getDirection(){
 		if(canGetDirection){
-			if(isInBorder() && facingRight){
-				return -1;
-			}
-			else if(isInBorder() && !facingRight){
-				return 1;
-			}
-			else if(!isInBorder() && facingRight){
-				return 1;
-			}
-			else if(!isInBorder() && !facingRight){
-				return -1;
-			}
-			else{
-				return 0;
-			}
+			if(isInBorder() && facingRight)
+				return -1;			
+			else if(isInBorder() && !facingRight)
+				return 1;			
+			else if(!isInBorder() && facingRight)
+				return 1;			
+			else if(!isInBorder() && !facingRight)
+				return -1;			
+			else
+				return 0;			
 		}
-		else{
-			return 0;
-		}
+		else
+			return 0;		
 	}
 
 	private void stand(){

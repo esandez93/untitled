@@ -7,8 +7,8 @@ public class Rogue : Player
 		//DontDestroyOnLoad(gameObject);
 		base.Start();
 		
-		this.name = "Rogue";
-		this.characterName = "Rogue";
+		this.name = "Strider";
+		this.characterName = "Strider";
 		this.job = Player.Job.ROGUE;
 		
 		//initializePlayer(this.job);

@@ -1,142 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-	<ProductVersion>10.0.20506</ProductVersion>
-	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{68B96012-62E2-EB6E-D159-884EB7E830EB}</ProjectGuid>
-	<OutputType>Library</OutputType>
-	<AppDesignerFolder>Properties</AppDesignerFolder>
-	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
-	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-	<FileAlignment>512</FileAlignment>
-	<BaseDirectory>Assets</BaseDirectory>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68B96012-62E2-EB6E-D159-884EB7E830EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>Assets</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	<DebugSymbols>true</DebugSymbols>
-	<DebugType>full</DebugType>
-	<Optimize>false</Optimize>
-	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_64;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
-	<ErrorReport>prompt</ErrorReport>
-	<WarningLevel>4</WarningLevel>
-	<NoWarn>0169</NoWarn>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_64;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	<DebugType>pdbonly</DebugType>
-	<Optimize>true</Optimize>
-	<OutputPath>Temp\bin\Release\</OutputPath>
-	<DefineConstants>TRACE</DefineConstants>
-	<ErrorReport>prompt</ErrorReport>
-	<WarningLevel>4</WarningLevel>
-	<NoWarn>0169</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="System" />
+    <Reference Include="System" />
     <Reference Include="System.XML" />
-	<Reference Include="System.Core" />
-	<Reference Include="System.Xml.Linq" />
-	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Data/Managed/UnityEngine.dll</HintPath>
-	</Reference>
-	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Data/Managed/UnityEditor.dll</HintPath>
-	</Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:/Program Files (x86)/Unity/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:/Program Files (x86)/Unity/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Buttons\ChangeTarget.cs" />
-     <Compile Include="Assets\Scripts\Buttons\ClickButton.cs" />
-     <Compile Include="Assets\Scripts\Buttons\ClickTab.cs" />
-     <Compile Include="Assets\Scripts\Buttons\ContinueGame.cs" />
-     <Compile Include="Assets\Scripts\Buttons\CraftItem.cs" />
-     <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
-     <Compile Include="Assets\Scripts\Buttons\DisplaySkills.cs" />
-     <Compile Include="Assets\Scripts\Buttons\InventoryItem.cs" />
-     <Compile Include="Assets\Scripts\Buttons\InventoryUseButton.cs" />
-     <Compile Include="Assets\Scripts\Buttons\LoadGame.cs" />
-     <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
-     <Compile Include="Assets\Scripts\Buttons\QuitGame.cs" />
-     <Compile Include="Assets\Scripts\Buttons\ResumeGame.cs" />
-     <Compile Include="Assets\Scripts\Buttons\UpdateSkill.cs" />
-     <Compile Include="Assets\Scripts\Buttons\UpdateStat.cs" />
-     <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
-     <Compile Include="Assets\Scripts\Buttons\getSkillButtonText.cs" />
-     <Compile Include="Assets\Scripts\CheckBorder.cs" />
-     <Compile Include="Assets\Scripts\EnterCollisionCheck.cs" />
-     <Compile Include="Assets\Scripts\Game.cs" />
-     <Compile Include="Assets\Scripts\Gamestate.cs" />
-     <Compile Include="Assets\Scripts\Managers\BattleData.cs" />
-     <Compile Include="Assets\Scripts\Managers\BattleEncounterManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\BattleManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\CraftManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\DatabaseManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\FileManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\LanguageManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\OptionsManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\OptionsMenu.cs" />
-     <Compile Include="Assets\Scripts\Managers\PauseManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\PauseMenuManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\SQLite.cs" />
-     <Compile Include="Assets\Scripts\Managers\SaveManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\Singleton.cs" />
-     <Compile Include="Assets\Scripts\Managers\VersionDeserializationBinder.cs" />
-     <Compile Include="Assets\Scripts\MonsterBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Movement\CameraFollow.cs" />
-     <Compile Include="Assets\Scripts\Movement\CommonMovementPlatform.cs" />
-     <Compile Include="Assets\Scripts\Movement\GroundHitCheck.cs" />
-     <Compile Include="Assets\Scripts\Movement\IgnoreCollisionIfJumpingFromBelow.cs" />
-     <Compile Include="Assets\Scripts\Movement\MagicMovement.cs" />
-     <Compile Include="Assets\Scripts\Movement\MonsterMovementPlatform.cs" />
-     <Compile Include="Assets\Scripts\Movement\MovementIsometric.cs" />
-     <Compile Include="Assets\Scripts\Objects\AlteredStatus.cs" />
-     <Compile Include="Assets\Scripts\Objects\AnyText.cs" />
-     <Compile Include="Assets\Scripts\Objects\BattleResults.cs" />
-     <Compile Include="Assets\Scripts\Objects\Characters\Character.cs" />
-     <Compile Include="Assets\Scripts\Objects\Characters\Knight.cs" />
-     <Compile Include="Assets\Scripts\Objects\Characters\Mage.cs" />
-     <Compile Include="Assets\Scripts\Objects\Characters\Monster.cs" />
-     <Compile Include="Assets\Scripts\Objects\Characters\Player.cs" />
-     <Compile Include="Assets\Scripts\Objects\Characters\Rogue.cs" />
-     <Compile Include="Assets\Scripts\Objects\Chest.cs" />
-     <Compile Include="Assets\Scripts\Objects\Craft.cs" />
-     <Compile Include="Assets\Scripts\Objects\Inventory.cs" />
-     <Compile Include="Assets\Scripts\Objects\Item.cs" />
-     <Compile Include="Assets\Scripts\Objects\MapInfo.cs" />
-     <Compile Include="Assets\Scripts\Objects\MonsterInfo.cs" />
-     <Compile Include="Assets\Scripts\Objects\PlayerData.cs" />
-     <Compile Include="Assets\Scripts\Objects\SaveData.cs" />
-     <Compile Include="Assets\Scripts\Objects\Skill.cs" />
-     <Compile Include="Assets\Scripts\Objects\SkillInfo.cs" />
-     <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
-     <Compile Include="Assets\Scripts\RewardsBehaviour.cs" />
-     <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />
-     <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesEN.xml" />
-     <None Include="Assets\Gamedata\Xml\alteredStats.xml" />
-     <None Include="Assets\Gamedata\Lang\Words\wordsES.xml" />
-     <None Include="Assets\Gamedata\Xml\skills.xml" />
-     <None Include="Assets\Gamedata\Xml\Plantillas\menus.xml" />
-     <None Include="Assets\Gamedata\Xml\Plantillas\monsters.xml" />
-     <None Include="Assets\Gamedata\Xml\chestContents.xml" />
-     <None Include="Assets\Gamedata\Xml\Plantillas\dialogues.xml" />
-     <None Include="Assets\Gamedata\Xml\Plantillas\items.xml" />
-     <None Include="Assets\Gamedata\Xml\monsters.xml" />
-     <None Include="Assets\Gamedata\Lang\Words\wordsEN.xml" />
-     <None Include="Assets\Gamedata\Xml\skillsInfo.xml" />
-     <None Include="Assets\Gamedata\Lang\Menus\menusEN.xml" />
-     <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesES.xml" />
-     <None Include="Assets\Gamedata\Xml\maps.xml" />
-     <None Include="Assets\Gamedata\Xml\items.xml" />
-     <None Include="Assets\Gamedata\Logs\log.txt" />
-     <None Include="Assets\Gamedata\Xml\skills - copia.xml" />
-     <None Include="Assets\Gamedata\Lang\Menus\menusES.xml" />
- <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files (x86)/Unity/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="SQLite4Unity3d">
- <HintPath>C:/Users/Public/Documents/Unity Projects/Untitled/Assets/Plugins/SQLite4Unity3d.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\Scripts\Buttons\ChangeTarget.cs" />
+    <Compile Include="Assets\Scripts\Buttons\ClickButton.cs" />
+    <Compile Include="Assets\Scripts\Buttons\ClickTab.cs" />
+    <Compile Include="Assets\Scripts\Buttons\ContinueGame.cs" />
+    <Compile Include="Assets\Scripts\Buttons\CraftItem.cs" />
+    <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
+    <Compile Include="Assets\Scripts\Buttons\DisplaySkills.cs" />
+    <Compile Include="Assets\Scripts\Buttons\InventoryItem.cs" />
+    <Compile Include="Assets\Scripts\Buttons\InventoryUseButton.cs" />
+    <Compile Include="Assets\Scripts\Buttons\LoadGame.cs" />
+    <Compile Include="Assets\Scripts\Buttons\NewGame.cs" />
+    <Compile Include="Assets\Scripts\Buttons\QuitGame.cs" />
+    <Compile Include="Assets\Scripts\Buttons\ResumeGame.cs" />
+    <Compile Include="Assets\Scripts\Buttons\RunAway.cs" />
+    <Compile Include="Assets\Scripts\Buttons\UpdateSkill.cs" />
+    <Compile Include="Assets\Scripts\Buttons\UpdateStat.cs" />
+    <Compile Include="Assets\Scripts\Buttons\getItemButtonText.cs" />
+    <Compile Include="Assets\Scripts\Buttons\getSkillButtonText.cs" />
+    <Compile Include="Assets\Scripts\CheckBorder.cs" />
+    <Compile Include="Assets\Scripts\EnterCollisionCheck.cs" />
+    <Compile Include="Assets\Scripts\Game.cs" />
+    <Compile Include="Assets\Scripts\Gamestate.cs" />
+    <Compile Include="Assets\Scripts\Managers\BattleData.cs" />
+    <Compile Include="Assets\Scripts\Managers\BattleEncounterManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\BattleManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\CraftManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\DatabaseManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\FileManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\LanguageManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\OptionsManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\OptionsMenu.cs" />
+    <Compile Include="Assets\Scripts\Managers\PauseManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\PauseMenuManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\SQLite.cs" />
+    <Compile Include="Assets\Scripts\Managers\SaveManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Managers\VersionDeserializationBinder.cs" />
+    <Compile Include="Assets\Scripts\MonsterBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Movement\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Movement\CommonMovementPlatform.cs" />
+    <Compile Include="Assets\Scripts\Movement\Credits.cs" />
+    <Compile Include="Assets\Scripts\Movement\GroundHitCheck.cs" />
+    <Compile Include="Assets\Scripts\Movement\IgnoreCollisionIfJumpingFromBelow.cs" />
+    <Compile Include="Assets\Scripts\Movement\MagicMovement.cs" />
+    <Compile Include="Assets\Scripts\Movement\MonsterMovementPlatform.cs" />
+    <Compile Include="Assets\Scripts\Movement\MovementIsometric.cs" />
+    <Compile Include="Assets\Scripts\Objects\AlteredStatus.cs" />
+    <Compile Include="Assets\Scripts\Objects\AnyText.cs" />
+    <Compile Include="Assets\Scripts\Objects\BattleResults.cs" />
+    <Compile Include="Assets\Scripts\Objects\Characters\Character.cs" />
+    <Compile Include="Assets\Scripts\Objects\Characters\Knight.cs" />
+    <Compile Include="Assets\Scripts\Objects\Characters\Mage.cs" />
+    <Compile Include="Assets\Scripts\Objects\Characters\Monster.cs" />
+    <Compile Include="Assets\Scripts\Objects\Characters\Player.cs" />
+    <Compile Include="Assets\Scripts\Objects\Characters\Rogue.cs" />
+    <Compile Include="Assets\Scripts\Objects\Chest.cs" />
+    <Compile Include="Assets\Scripts\Objects\Craft.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Objects\Item.cs" />
+    <Compile Include="Assets\Scripts\Objects\MapInfo.cs" />
+    <Compile Include="Assets\Scripts\Objects\MonsterInfo.cs" />
+    <Compile Include="Assets\Scripts\Objects\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\Objects\SaveData.cs" />
+    <Compile Include="Assets\Scripts\Objects\Skill.cs" />
+    <Compile Include="Assets\Scripts\Objects\SkillInfo.cs" />
+    <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
+    <Compile Include="Assets\Scripts\RewardsBehaviour.cs" />
+    <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />
+    <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesEN.xml" />
+    <None Include="Assets\Gamedata\Xml\alteredStats.xml" />
+    <None Include="Assets\Gamedata\Lang\Words\wordsES.xml" />
+    <None Include="Assets\Gamedata\Xml\skills.xml" />
+    <None Include="Assets\Gamedata\Xml\Plantillas\menus.xml" />
+    <None Include="Assets\Gamedata\Xml\Plantillas\monsters.xml" />
+    <None Include="Assets\Gamedata\Xml\chestContents.xml" />
+    <None Include="Assets\Gamedata\Xml\Plantillas\dialogues.xml" />
+    <None Include="Assets\Gamedata\Xml\Plantillas\items.xml" />
+    <None Include="Assets\Gamedata\Xml\monsters.xml" />
+    <None Include="Assets\Gamedata\Lang\Words\wordsEN.xml" />
+    <None Include="Assets\Gamedata\Xml\skillsInfo.xml" />
+    <None Include="Assets\Gamedata\Lang\Menus\menusEN.xml" />
+    <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesES.xml" />
+    <None Include="Assets\Gamedata\Xml\maps.xml" />
+    <None Include="Assets\Gamedata\Xml\items.xml" />
+    <None Include="Assets\Gamedata\Logs\log.txt" />
+    <None Include="Assets\Gamedata\Xml\skills - copia.xml" />
+    <None Include="Assets\Gamedata\Lang\Menus\menusES.xml" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:/Program Files (x86)/Unity/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLite4Unity3d">
+      <HintPath>C:/Users/Public/Documents/Unity Projects/Untitled/Assets/Plugins/SQLite4Unity3d.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -146,5 +149,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

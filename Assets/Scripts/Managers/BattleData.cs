@@ -18,7 +18,7 @@ public class BattleData {
 	
 	private static bool playerExist(Player player){
 		foreach(Player p in players){
-			if(p.name.Equals(player.name)){
+			if(p.characterName.Equals(player.characterName)){
 				return true;
 			}
 		}

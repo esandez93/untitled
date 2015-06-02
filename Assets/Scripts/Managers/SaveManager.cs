@@ -114,9 +114,9 @@ public class SaveManager : MonoBehaviour{
 				
 				//FileManager.Instance.initialize();
 
-				data.knight = gamestate.getPlayerData("Knight");//GameObject.Find("Knight").GetComponent<Knight>().getData();
-				data.rogue = gamestate.getPlayerData("Rogue");//GameObject.Find("Rogue").GetComponent<Rogue>().getData();
-				data.mage = gamestate.getPlayerData("Mage");//GameObject.Find("Mage").GetComponent<Mage>().getData();
+				data.knight = gamestate.getPlayerData("Gilgamesh");//GameObject.Find("Knight").GetComponent<Knight>().getData();
+				data.rogue = gamestate.getPlayerData("Strider");//GameObject.Find("Rogue").GetComponent<Rogue>().getData();
+				data.mage = gamestate.getPlayerData("Ki");//GameObject.Find("Mage").GetComponent<Mage>().getData();
 				data.inventory = Singleton.Instance.inventory;
 				data.map = gamestate.map;
 				data.date = DateTime.Now;
@@ -151,7 +151,7 @@ public class SaveManager : MonoBehaviour{
 		try{
 			//gamestate.setMage(gamestate.getPlayerData("Mage"));
 			//gamestate.setKnight(GameObject.Find("Knight").GetComponent<Knight>().getData());
-			gamestate.setRogue(GameObject.Find("Rogue").GetComponent<Rogue>().getData());
+			gamestate.setRogue(GameObject.Find("Strider").GetComponent<Rogue>().getData());
 		}
 		catch(Exception e){
 			res = false;
@@ -166,9 +166,9 @@ public class SaveManager : MonoBehaviour{
 		bool res = false;
 
 		try{
-			Knight knight = GameObject.FindWithTag("Knight").GetComponent<Knight>();
-			Rogue rogue = GameObject.FindWithTag("Rogue").GetComponent<Rogue>();
-			Mage mage = GameObject.FindWithTag("Mage").GetComponent<Mage>();
+			Knight knight = GameObject.FindWithTag("Gilgamesh").GetComponent<Knight>();
+			Rogue rogue = GameObject.FindWithTag("Strider").GetComponent<Rogue>();
+			Mage mage = GameObject.FindWithTag("Ki").GetComponent<Mage>();
 
 			knight.initializePlayer(Player.Job.KNIGHT);
 			rogue.initializePlayer(Player.Job.ROGUE);

@@ -12,10 +12,10 @@ public class MonsterBehaviour : MonoBehaviour {
 	Character enemy;
 	public int action;
 	public Character objective;
-	Rigidbody2D rigidBody;
 	Vector2 initialPosition;
 	Vector2 objectivePosition;
-
+	
+	public AudioSource hitSound;
 
 	public animationState currentAnimationState;
 
@@ -27,17 +27,40 @@ public class MonsterBehaviour : MonoBehaviour {
 	public bool startReceivingDamage = false;
 	public bool startDeath = false;
 
-
 	public bool moving = true;
 
 	void Start () {
 		thisMonster = GetComponent<Monster>();
+		
+		loadSounds();
 
 		animator = GetComponent<Animator>();
-		rigidBody = GetComponent<Rigidbody2D>();
 
 		initialPosition = transform.position;
 		currentAnimationState = animationState.STANDING;
+	}
+
+	public void loadSounds() {
+		this.hitSound = this.gameObject.AddComponent<AudioSource>();
+
+		string soundName = "";
+
+		switch(thisMonster.characterName) {
+			case "enemy_name_wolf": 
+				soundName = "bite";
+				break;
+			case "enemy_name_ninja": 
+				soundName = "sword_slash";
+				break; 
+		}
+
+		AudioClip audio = Resources.Load<AudioClip>("Sounds/Effects/" + soundName);
+		if (audio != null){
+			this.hitSound.minDistance = 10f;
+			this.hitSound.maxDistance = 10f;
+			this.hitSound.loop = false;
+			this.hitSound.clip = audio;
+		}
 	}
 
 	void Update () {		
@@ -93,7 +116,11 @@ public class MonsterBehaviour : MonoBehaviour {
 		if(!isAttacking){
 			thisMonster.basicAttack(enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
-			changeAnimationState(animationState.MOVINGBACK);
+			
+			if(moving)
+				changeAnimationState(animationState.MOVINGBACK);				
+			else
+				changeAnimationState(animationState.STANDING);	
 		}
 	}
 
@@ -121,12 +148,31 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 
 	public void basicAttack(Character player){
-		enemy = player;
+		this.moving = true;
+
+		basicAttack(player, true);
+		/*enemy = player;
 		objectivePosition = enemy.body.position;
 
 		if(!BattleManager.Instance.attackStarted){
 			changeAnimationState(animationState.MOVING);
 			//initialPosition = rigidbody2D.position;
+		}
+
+		BattleManager.Instance.attackStarted = true;*/
+	}
+
+	public void basicAttack(Character objective, bool moving){
+		this.moving = moving;
+
+		this.enemy = objective;
+		this.objectivePosition = enemy.body.position;
+
+		if(!BattleManager.Instance.attackStarted){
+			if(moving)
+				changeAnimationState(animationState.MOVING);			
+			else
+				changeAnimationState(animationState.ATTACKING);					
 		}
 
 		BattleManager.Instance.attackStarted = true;
@@ -147,10 +193,10 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 
 	private void changeAnimationState(animationState state){
-		if(currentAnimationState != state){
+		//if(currentAnimationState != state){
 			//Debug.Log("Changing state - Previous: " + currentAnimationState + ", actual: " + state);
 			currentAnimationState = state;
-		}		
+		//}		
 	}
 
 	public void attackFinished(){

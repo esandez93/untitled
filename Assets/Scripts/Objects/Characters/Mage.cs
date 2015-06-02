@@ -7,8 +7,8 @@ public class Mage : Player
 		//DontDestroyOnLoad(gameObject);
 		base.Start();
 
-		this.name = "Mage";
-		this.characterName = "Mage";
+		this.name = "Ki";
+		this.characterName = "Ki";
 		this.job = Player.Job.MAGE;
 
 		//initializePlayer(this.job);

@@ -12,15 +12,16 @@ public class PlayerBehaviour : MonoBehaviour {
 	Character enemy;
 	public int action;
 	public Character objective;
-	Rigidbody2D rigidBody;
 	Vector2 initialPosition;
 	Vector2 objectivePosition;
 	public string skillName;
+		
+	public AudioSource hitSound;
 
 	public animationState currentAnimationState;
 
 	public enum animationState{
-		MOVING, ATTACKING, USINGSKILL, BLOCKING, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING
+		MOVING, ATTACKING, USINGSKILL, BLOCKING, MOVINGBACK, STANDING, RECEIVINGDAMAGE, DYING, RUNNING
 	}
 
 	public bool isAttacking = false;
@@ -31,13 +32,27 @@ public class PlayerBehaviour : MonoBehaviour {
 	public bool moving = true;
 
 	void Start () {
+		loadSounds();
+
 		thisPlayer = GetComponent<Player>();
 
 		animator = GetComponent<Animator>();
-		rigidBody = GetComponent<Rigidbody2D>();
 
 		initialPosition = transform.position;
 		currentAnimationState = animationState.STANDING;
+	}
+
+	public void loadSounds() {
+		this.hitSound = this.gameObject.AddComponent<AudioSource>();
+
+		AudioClip audio = Resources.Load<AudioClip>("Sounds/Effects/sword_slash");
+
+		if (audio != null){
+			this.hitSound.minDistance = 10f;
+			this.hitSound.maxDistance = 10f;
+			this.hitSound.loop = false;
+			this.hitSound.clip = audio;
+		}
 	}
 
 	void Update () {
@@ -71,6 +86,9 @@ public class PlayerBehaviour : MonoBehaviour {
 				else
 					BattleManager.Instance.deathFinished = true;					
 				break;
+			case animationState.RUNNING:
+				run();
+				break;
 		}
 	}
 	
@@ -90,8 +108,10 @@ public class PlayerBehaviour : MonoBehaviour {
 	}
 
 	private void attack(){
-		if(isAttacking)
+		if(isAttacking) {
 			animator.SetInteger("AnimationState", Animations.ATTACK);		
+			this.hitSound.Play();
+		}
 		else{
 			thisPlayer.basicAttack(enemy);
 			BattleManager.Instance.setGUIPlayerInfo(enemy);
@@ -193,10 +213,18 @@ public class PlayerBehaviour : MonoBehaviour {
 	}
 
 	public void die(){
-		if(startDeath){
+		//if(startDeath){
 			animator.SetInteger("AnimationState", Animations.DIE);
 			changeAnimationState(animationState.DYING);
-		}
+		//}
+	}
+
+	public void run() {
+		animator.SetInteger("AnimationState", Animations.MOVE_BACK);
+		changeAnimationState(animationState.RUNNING);
+		rigidbody2D.velocity = new Vector2(-movementSpeed, 0);
+		
+		BattleManager.Instance.attackStarted = true;
 	}
 
 	private void changeAnimationState(animationState state){

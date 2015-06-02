@@ -2,27 +2,27 @@
 	<!--                          MAIN MENU                     -->
 	<menu>
 		<menuId>main_menu_continue</menuId>
-		<text>Continue</text>
+		<text> Continue</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_new_game</menuId>
-		<text>New game</text>
+		<text> New game</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_load_game</menuId>
-		<text>Load game</text>
+		<text> Load game</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_options</menuId>
-		<text>Options</text>
+		<text> Options</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_credits</menuId>
-		<text>Credits</text>
+		<text> Credits</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_quit</menuId>
-		<text>Quit</text>
+		<text> Quit</text>
 	</menu>
 
 	<!--                          PAUSE MENU                     -->
@@ -197,39 +197,39 @@
 	<!--                          SKILLS                      -->
 		<!--				BRANCHES				-->		
 	<menu>
-		<menuId>mage_branch_creation</menuId>
+		<menuId>ki_branch_creation</menuId>
 		<text>Creation</text>
 	</menu>
 	<menu>
-		<menuId>mage_branch_destruction</menuId>
+		<menuId>ki_branch_destruction</menuId>
 		<text>Destruction</text>
 	</menu>
 	<menu>
-		<menuId>mage_branch_benevolence</menuId>
+		<menuId>ki_branch_benevolence</menuId>
 		<text>Benevolence</text>
 	</menu>
 	<menu>
-		<menuId>rogue_branch_alteration</menuId>
+		<menuId>strider_branch_alteration</menuId>
 		<text>Alteration</text>
 	</menu>
 	<menu>
-		<menuId>rogue_branch_massacre</menuId>
+		<menuId>strider_branch_massacre</menuId>
 		<text>Massacre</text>
 	</menu>
 	<menu>
-		<menuId>rogue_branch_gambit</menuId>
+		<menuId>strider_branch_gambit</menuId>
 		<text>Gambit</text>
 	</menu>
 	<menu>
-		<menuId>knight_branch_protection</menuId>
+		<menuId>gilgamesh_branch_protection</menuId>
 		<text>Protection</text>
 	</menu>
 	<menu>
-		<menuId>knight_branch_attack</menuId>
+		<menuId>gilgamesh_branch_attack</menuId>
 		<text>Attack</text>
 	</menu>
 	<menu>
-		<menuId>knight_branch_supporting</menuId>
+		<menuId>gilgamesh_branch_supporting</menuId>
 		<text>Supporting</text>
 	</menu>
 
@@ -286,6 +286,36 @@
 	<menu>
 		<menuId>status_affected</menuId>
 		<text>is affected by its @status</text>
+	</menu>
+	<menu>
+		<menuId>run_success</menuId>
+		<text>The team ran away!</text>
+	</menu>
+	<menu>
+		<menuId>run_failed</menuId>
+		<text>The team couldn't run away!</text>
+	</menu>
+	<menu>
+		<menuId>failed_attack</menuId>
+		<text>failed</text>
+	</menu>
+	<menu>
+		<menuId>attack_no_effect</menuId>
+		<text>The attack had no effect...</text>
+	</menu>
+	<menu>
+		<menuId>attack_no_effective</menuId>
+		<text>The attack isn't effective</text>
+	</menu>	
+	<menu>
+		<menuId>attack_effective</menuId>
+		<text>The attack is very effective!</text>
+	</menu>
+
+	<!-- 						  ACTIONS 					   -->
+	<menu>
+		<menuId>open_chest_1</menuId>
+		<text>You have opened the chest and found</text>
 	</menu>
 
 	<!--                          ENEMIES                      -->

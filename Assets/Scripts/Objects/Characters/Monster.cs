@@ -99,12 +99,13 @@ public class Monster : Character{
 	}
 	
 	public void doAction(int action, Player objective){
-		BattleManager.Instance.damageReceived = false;
-
-		switch(action){
-			case Character.Actions.BASIC_ATTACK:
-				GetComponent<MonsterBehaviour>().basicAttack(objective);
-				break;
+		//BattleManager.Instance.damageReceived = false;
+		if (BattleManager.Instance.currentCharacter == this){
+			switch(action){
+				case Character.Actions.BASIC_ATTACK:
+					GetComponent<MonsterBehaviour>().basicAttack(objective);
+					break;
+			}
 		}
 	}
 

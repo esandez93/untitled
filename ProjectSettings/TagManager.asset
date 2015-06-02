@@ -4,7 +4,7 @@
 TagManager:
   tags:
   - Limits
-  - 
+  - Boss
   - Enemy
   - Wall
   - 
@@ -15,9 +15,9 @@ TagManager:
   - GroundCheck
   - Ground
   - PlatformEdge
-  - Mage
-  - Knight
-  - Rogue
+  - Ki
+  - Gilgamesh
+  - Strider
   - Monster1
   - Monster2
   - Monster3
@@ -44,15 +44,19 @@ TagManager:
   - LoadingGames
   - StatButton
   - SkillButton
-  - mage_branch_creation
-  - mage_branch_destruction
-  - mage_branch_benevolence
-  - rogue_branch_alteration
-  - rogue_branch_massacre
-  - rogue_branch_gambit
-  - knight_branch_protection
-  - knight_branch_attack
-  - knight_branch_supporting
+  - ki_branch_creation
+  - ki_branch_destruction
+  - ki_branch_benevolence
+  - strider_branch_alteration
+  - strider_branch_massacre
+  - strider_branch_gambit
+  - gilgamesh_branch_protection
+  - gilgamesh_branch_attack
+  - gilgamesh_branch_supporting
+  - 
+  - Rogue
+  - Knight
+  - Mage
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

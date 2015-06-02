@@ -7,8 +7,8 @@ public class Knight : Player
 		//DontDestroyOnLoad(gameObject);
 		base.Start();
 		
-		this.name = "Knight";
-		this.characterName = "Knight";
+		this.name = "Gilgamesh";
+		this.characterName = "Gilgamesh";
 		this.job = Player.Job.KNIGHT;
 		
 		//initializePlayer(this.job);

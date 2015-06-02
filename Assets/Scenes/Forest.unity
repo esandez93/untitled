@@ -171,6 +171,7 @@ MonoBehaviour:
     mapName: 
     monsters: []
   monstersInBattle: []
+  bossBattle: 0
   players: []
   playersData: []
   openedChests: []
@@ -372,7 +373,7 @@ GameObject:
   - 114: {fileID: 628779770}
   m_Layer: 10
   m_Name: Monster3
-  m_TagString: Monster3
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -416,7 +417,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -596,7 +596,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -814,7 +813,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -1789,8 +1787,8 @@ GameObject:
   - 114: {fileID: 1561192615}
   - 114: {fileID: 1561192621}
   m_Layer: 11
-  m_Name: Rogue
-  m_TagString: Rogue
+  m_Name: Strider
+  m_TagString: Strider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1808,7 +1806,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -2184,8 +2181,8 @@ GameObject:
   - 114: {fileID: 1955660513}
   - 114: {fileID: 1955660519}
   m_Layer: 11
-  m_Name: Knight
-  m_TagString: Knight
+  m_Name: Gilgamesh
+  m_TagString: Gilgamesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2203,7 +2200,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -2337,8 +2333,8 @@ GameObject:
   - 114: {fileID: 1977410730}
   - 114: {fileID: 1977410729}
   m_Layer: 11
-  m_Name: Mage
-  m_TagString: Mage
+  m_Name: Ki
+  m_TagString: Ki
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2444,7 +2440,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0

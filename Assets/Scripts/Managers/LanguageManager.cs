@@ -210,7 +210,7 @@ public class LanguageManager : MonoBehaviour{
 	}
 
 	private bool isEnemy(string target){
-		return !target.Equals("Mage") && !target.Equals("Rogue") && !target.Equals("Knight");
+		return !target.Equals("Ki") && !target.Equals("Strider") && !target.Equals("Gilgamesh");
 	}
 
 	public bool compareLanguage(int language){

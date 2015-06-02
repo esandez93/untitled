@@ -513,7 +513,7 @@ public class Character : MonoBehaviour{
 			enemy.receiveDamage(damage);
 		}
 		else{
-			Debug.Log ("El ataque de " + this.name + " contra " + enemy.name + " ha fallado!");
+			Gamestate.instance.showMessage(isPlayer() ? this.characterName : LanguageManager.Instance.getMenuText("enemy_status") + " " + LanguageManager.Instance.getMenuText("failed_attack"));
 			BattleManager.Instance.finishCurrentAttack();
 		}
 	}
@@ -619,16 +619,22 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void doElementalDamage(float damage, float modifier, string status, float chance){
+		string message = "";
 		switch((int)(modifier*100)) {
-			case 0: Debug.Log("No afecta");
+			case 0:
+				message = LanguageManager.Instance.getMenuText("attack_no_effect");
 				break;
 			case 50: Debug.Log("No es muy efectivo");
 				break;
-			case 100: Debug.Log("Efecto normal");
+			case 100: 
+				message = LanguageManager.Instance.getMenuText("attack_no_effective");
 				break;
-			case 200: Debug.Log("Es muy efectivo");
+			case 200: 
+				message = LanguageManager.Instance.getMenuText("attack_effective");
 				break;
 		}
+		if (message != "")
+			Gamestate.instance.showMessage(message);
 		
 		if(status != null)
 			trySetAlteredStatus(status, chance);		
@@ -646,7 +652,7 @@ public class Character : MonoBehaviour{
 			else
 				this.alteredStatus[status].resetDuration();			
 			
-			setStatusMessage(getStatusName(status));
+			Gamestate.instance.showMessage(getStatusName(status));
 		}
 	}
 
@@ -703,8 +709,12 @@ public class Character : MonoBehaviour{
 		
 		if(goingToDie)
 			this.die();
-		
-		if((alive && BattleManager.Instance.attackFinished)|| (!alive && BattleManager.Instance.deathFinished))
+		/*Debug.Log("alive: " + alive);
+		Debug.Log("BattleManager.Instance.attackFinished: " + BattleManager.Instance.attackFinished);
+		Debug.Log("alive && BattleManager.Instance.attackFinished: " + (alive && BattleManager.Instance.attackFinished));
+		Debug.Log("!alive && BattleManager.Instance.deathFinished: " + (!alive && BattleManager.Instance.deathFinished));*/
+
+		if((alive && BattleManager.Instance.attackFinished) || (!alive && BattleManager.Instance.deathFinished))
 			BattleManager.Instance.finishCurrentAttack();		
 	}
 
@@ -712,31 +722,22 @@ public class Character : MonoBehaviour{
 		float newDamage = 0;
 
 		if(difficulty.Equals(OptionsManager.Difficulty.EASY)){
-			if(this.isPlayer()){
+			if(this.isPlayer())
 				newDamage = damage - (damage * DIFFICULTY_DAMAGE_VARIATION); // total - 25%
-			}
-			else{
+			else
 				newDamage = damage + (damage * DIFFICULTY_DAMAGE_VARIATION); // total + 25%
-			}
-
-			return newDamage;
-		}
-		else if(difficulty.Equals(OptionsManager.Difficulty.NORMAL)){
-			return newDamage;
 		}
 		else if(difficulty.Equals(OptionsManager.Difficulty.HARD)){
-			if(this.isPlayer()){
-				newDamage = damage + (damage * DIFFICULTY_DAMAGE_VARIATION); // total + 25%
-			}
-			else{
-				newDamage = damage - (damage * DIFFICULTY_DAMAGE_VARIATION); // total - 25%
-			}
-
-			return newDamage;
-		}
+			if(this.isPlayer())
+				newDamage = damage + (damage * DIFFICULTY_DAMAGE_VARIATION); // total + 25%			
+			else
+				newDamage = damage - (damage * DIFFICULTY_DAMAGE_VARIATION); // total - 25%			
+		}			
+		else if(difficulty.Equals(OptionsManager.Difficulty.NORMAL))
+			newDamage = damage;		
 		else{
-			Debug.Log("Using not defined difficulty.");
-			
+			Debug.Log("Using not defined difficulty. DEFAULT: Normal");	
+			newDamage = damage;
 		}
 
 		return newDamage;
@@ -748,9 +749,8 @@ public class Character : MonoBehaviour{
 
 			this.currMP -= damage;
 			
-			if(this.currMP <= 0){
-				this.currMP = 0;
-			}
+			if(this.currMP <= 0)
+				this.currMP = 0;			
 			
 			showBattleData();
 			
@@ -786,7 +786,7 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void die(){
-		if (alive){
+		if (isAlive()){
 			Debug.Log(this.characterName + " is dying!");
 			alive = false;
 
@@ -804,7 +804,7 @@ public class Character : MonoBehaviour{
 	}
 	
 	public bool isAlive(){
-		return alive;
+		return this.alive;
 	}
 
 	public bool hasSkill(string skillId){

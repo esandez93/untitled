@@ -92,8 +92,8 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 
-	public List<string[]> getBranches(string job) {
-		return allMenus.Select(z => z).Where(x => x.Key.Contains(job)).Select(y => new string[2] { y.Key, y.Value.getText() } ).ToList<string[]>();
+	public List<string[]> getBranches(string name) {
+		return allMenus.Select(z => z).Where(x => x.Key.StartsWith(name)).Select(y => new string[2] { y.Key, y.Value.getText() } ).ToList<string[]>();
 	}
 
 	public void getExpNeeded(){

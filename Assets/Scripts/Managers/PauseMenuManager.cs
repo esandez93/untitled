@@ -159,7 +159,7 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	private string[] getOrder(string first) {
-		string[] defaultOrder = { "Rogue", "Mage", "Knight" };
+		string[] defaultOrder = { "Strider", "Ki", "Gilgamesh" };
 		string[] last;
 
 		if (first == null)
@@ -257,7 +257,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private void fillTarget(Player targetPlayer, string from){
 		if(from.Equals("Status")) {
-			instance.target.name = targetPlayer.characterName;
+			instance.target.tag = targetPlayer.characterName;
 
 			Transform basicInfoTransform = instance.target.transform.FindChild("BasicInfo");
 			basicInfoTransform.FindChild("PlayerPortrait").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + targetPlayer.name + "Portrait");
@@ -317,7 +317,7 @@ public class PauseMenuManager : MonoBehaviour {
 				nonTarget = instance.players[i];
 				//Debug.Log(i + " - " + nonTarget.characterName);
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("Button").tag = nonTarget.characterName;
-				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerPortrait").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + nonTarget.name + "Portrait");
+				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerPortrait").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + nonTarget.characterName + "Portrait");
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerName").GetComponent<Text>().text = nonTarget.characterName;
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerLevel").GetComponent<Text>().text = "Lv " + nonTarget.level.ToString();
 			}
@@ -373,7 +373,6 @@ public class PauseMenuManager : MonoBehaviour {
 		GameObject tab;
 		for(int i = 1; i <= 3; i++) {
 			tab = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Tabs/Tab" + i);
-
 			tab.tag = branches[i - 1][0];
 			tab.transform.FindChild("Text").GetComponent<Text>().text = branches[i - 1][1];
 		}		
@@ -482,7 +481,7 @@ public class PauseMenuManager : MonoBehaviour {
 
     public void clickUseItem(string itemId){
 		//Player target = Gamestate.instance.getPlayer("Mage");
-		Player target = Gamestate.instance.getPlayer("Rogue");
+		Player target = Gamestate.instance.getPlayer("Strider");
 
 		Singleton.Instance.inventory.useItem(itemId, target);
 

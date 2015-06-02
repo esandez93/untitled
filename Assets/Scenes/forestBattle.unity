@@ -339,12 +339,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 1047215538}
+        m_MethodName: clickRun
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -492,11 +493,11 @@ GameObject:
   - 50: {fileID: 255125567}
   - 95: {fileID: 255125566}
   - 61: {fileID: 255125565}
-  - 114: {fileID: 255125564}
   - 114: {fileID: 255125570}
+  - 114: {fileID: 255125564}
   m_Layer: 11
-  m_Name: Rogue
-  m_TagString: Rogue
+  m_Name: Strider
+  m_TagString: Strider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -514,7 +515,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -638,6 +638,7 @@ MonoBehaviour:
   action: 0
   objective: {fileID: 0}
   skillName: 
+  hitSound: {fileID: 0}
   currentAnimationState: 5
   isAttacking: 0
   isBlocking: 0
@@ -717,11 +718,11 @@ GameObject:
   - 50: {fileID: 322833252}
   - 95: {fileID: 322833251}
   - 61: {fileID: 322833249}
-  - 114: {fileID: 322833248}
   - 114: {fileID: 322833254}
+  - 114: {fileID: 322833248}
   m_Layer: 11
-  m_Name: Mage
-  m_TagString: Mage
+  m_Name: Ki
+  m_TagString: Ki
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -739,7 +740,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 322833252}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -863,6 +863,7 @@ MonoBehaviour:
   action: 0
   objective: {fileID: 0}
   skillName: 
+  hitSound: {fileID: 0}
   currentAnimationState: 5
   isAttacking: 0
   isBlocking: 0
@@ -903,7 +904,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -948,10 +948,12 @@ MonoBehaviour:
   isTurn: 1
   action: 0
   objective: {fileID: 0}
+  hitSound: {fileID: 0}
   currentAnimationState: 3
   isAttacking: 0
   startReceivingDamage: 0
   startDeath: 0
+  moving: 1
 --- !u!61 &331172434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1407,6 +1409,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 604771419}
   - 212: {fileID: 604771418}
+  - 61: {fileID: 604771421}
+  - 114: {fileID: 604771420}
   m_Layer: 0
   m_Name: Background
   m_TagString: Background
@@ -1448,6 +1452,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &604771420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 604771417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b018911445ea1445a5ffd69c92cddbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &604771421
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 604771417}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Size: {x: .706293762, y: 6.75}
+  m_Center: {x: -6.16672516, y: 0}
 --- !u!1 &606439549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,7 +2095,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -2114,10 +2139,12 @@ MonoBehaviour:
   isTurn: 1
   action: 0
   objective: {fileID: 0}
+  hitSound: {fileID: 0}
   currentAnimationState: 3
   isAttacking: 0
   startReceivingDamage: 0
   startDeath: 0
+  moving: 1
 --- !u!61 &901815438
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2421,10 +2448,12 @@ MonoBehaviour:
   isTurn: 1
   action: 0
   objective: {fileID: 0}
+  hitSound: {fileID: 0}
   currentAnimationState: 3
   isAttacking: 0
   startReceivingDamage: 0
   startDeath: 0
+  moving: 1
 --- !u!50 &988809581
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -2453,7 +2482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -2591,6 +2619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turn: 1
+  bossBattle: 0
   currentMap:
     mapName: 
     monsters: []
@@ -2599,6 +2628,7 @@ MonoBehaviour:
   ended: 0
   attackObjective: 0
   playerObjective: {fileID: 0}
+  enemyObjective: {fileID: 0}
   action: -1
   basicAttack: 0
   skill: 0
@@ -2612,6 +2642,19 @@ MonoBehaviour:
   deathFinished: 0
   showPlayerStatGUI: 0
   showMonsterStatGUI: 0
+  currentObjective: {fileID: 0}
+  currentState: 0
+  currentPhase: 0
+  maxTurns: 0
+  currentCharacter: {fileID: 0}
+  currentMonster: {fileID: 0}
+  currentPlayer: {fileID: 0}
+  numPlayers: 0
+  numMonsters: 0
+  thisMonster: 0
+  monstersInBattle: []
+  playersInBattle: []
+  turns: []
   playerBackgroundGUI: {fileID: 0}
   playerPortraitGUI: {fileID: 0}
   playerNameGUI: {fileID: 0}
@@ -2635,20 +2678,8 @@ MonoBehaviour:
   enemyManaFrameGUI: {fileID: 0}
   enemyHealthTextGUI: {fileID: 0}
   enemyManaTextGUI: {fileID: 0}
+  ost: {fileID: 0}
   background: {fileID: 0}
-  currentObjective: {fileID: 0}
-  currentState: 0
-  currentPhase: 0
-  maxTurns: 0
-  currentCharacter: {fileID: 0}
-  currentMonster: {fileID: 0}
-  currentPlayer: {fileID: 0}
-  numPlayers: 0
-  numMonsters: 0
-  thisMonster: 0
-  monstersInBattle: []
-  playersInBattle: []
-  turns: []
 --- !u!82 &1047215539
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2959,8 +2990,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .322000027, y: .769337893}
   m_AnchorMax: {x: .322000027, y: 1}
-  m_AnchoredPosition: {x: 41.9999695, y: -12.2610474}
-  m_SizeDelta: {x: 63.4000015, y: -.878059387}
+  m_AnchoredPosition: {x: 66.1999969, y: -12.3000002}
+  m_SizeDelta: {x: 110, y: -.878059387}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1177735073
 MonoBehaviour:
@@ -3091,8 +3122,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .322000027, y: .769337893}
   m_AnchorMax: {x: .322000027, y: 1}
-  m_AnchoredPosition: {x: -37, y: -8}
-  m_SizeDelta: {x: 63.4000015, y: -.878044128}
+  m_AnchoredPosition: {x: -14.3000002, y: -8}
+  m_SizeDelta: {x: 110, y: -.878044128}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1219519525
 MonoBehaviour:
@@ -3138,11 +3169,11 @@ GameObject:
   - 50: {fileID: 1269034458}
   - 95: {fileID: 1269034457}
   - 61: {fileID: 1269034456}
-  - 114: {fileID: 1269034455}
   - 114: {fileID: 1269034461}
+  - 114: {fileID: 1269034455}
   m_Layer: 11
-  m_Name: Knight
-  m_TagString: Knight
+  m_Name: Gilgamesh
+  m_TagString: Gilgamesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3160,7 +3191,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFinished: 0
   body: {fileID: 0}
-  clickedObjective: {fileID: 0}
   bIsPlayer: 0
   characterName: 
   level: 0
@@ -3284,6 +3314,7 @@ MonoBehaviour:
   action: 0
   objective: {fileID: 0}
   skillName: 
+  hitSound: {fileID: 0}
   currentAnimationState: 5
   isAttacking: 0
   isBlocking: 0
@@ -3968,6 +3999,7 @@ MonoBehaviour:
     mapName: 
     monsters: []
   monstersInBattle: []
+  bossBattle: 0
   players: []
   playersData: []
   openedChests: []
@@ -4064,7 +4096,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1849094247}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047215538}
+        m_MethodName: clickDefend
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1849094247
