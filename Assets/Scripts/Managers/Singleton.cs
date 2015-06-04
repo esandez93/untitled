@@ -14,8 +14,11 @@ public class Singleton : MonoBehaviour {
 	public static string elementalModifiersFileName = "Modificadores elemento.csv";
 	public static string skillInfosFileName = "Skills por lv.csv";
 	public static string exceptionSkillsName = "exceptionSkills.csv";
+	public static string bossMonstersName = "BossMonsters.csv";
+
 	public float[,] statsPerLv;
 	public float[,] elementalModifiers;
+	public Dictionary<string, string> bossMonsters;
 	public Dictionary<int, float> expNeeded;
 
 	public Dictionary<string, Item> allItems;
@@ -78,6 +81,15 @@ public class Singleton : MonoBehaviour {
 		}
 	}
 	
+	public void getBossMonsters(){
+		List<string[]> bosses = fileManager.readStringCsv(fileManager.path, bossMonstersName);
+
+		bossMonsters = new Dictionary<string, string>();
+		foreach(string[] row in bosses){
+			populateBossMonsters(row);
+		}
+	}
+	
 	public void populateSkillInfo(string[] row){
 		SkillInfo skillInfo = new SkillInfo();
 		
@@ -87,9 +99,12 @@ public class Singleton : MonoBehaviour {
 	}
 
 	public void populateExceptionSkills(string[] row){
-		foreach(string exception in row){
-			exceptionSkills.Add(exception);
-		}
+		foreach(string exception in row)
+			exceptionSkills.Add(exception);		
+	}
+
+	public void populateBossMonsters(string[] row){
+		bossMonsters.Add(row[0], row[1]);
 	}
 
 	public List<string[]> getBranches(string name) {
@@ -118,6 +133,7 @@ public class Singleton : MonoBehaviour {
 			Singleton.Instance.getElementalModifiersFromFile();
 			Singleton.Instance.getSkillInfoFromFile();
 			Singleton.Instance.getExceptionSkills();
+			Singleton.Instance.getBossMonsters();
 
 			allItems = fileManager.readItems();
 			allMonsters = fileManager.readMonsters();

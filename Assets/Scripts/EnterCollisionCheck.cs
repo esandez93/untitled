@@ -22,8 +22,8 @@ public class EnterCollisionCheck : MonoBehaviour {
 		enemyCollider = Physics2D.OverlapCircle(collideCheck.position, 0.2f, monsterLayers);
 
 		interactableLayers = 1 << LayerMask.NameToLayer("Interactable");
-		interactable = Physics2D.OverlapCircle(collideCheck.position, 0.3f, interactableLayers);
-		interactableCollider = Physics2D.OverlapCircle(collideCheck.position, 0.3f, interactableLayers);
+		interactable = Physics2D.OverlapCircle(collideCheck.position, 0.5f, interactableLayers);
+		interactableCollider = Physics2D.OverlapCircle(collideCheck.position, 0.5f, interactableLayers);
 
 		if(enterBattle){
 			if(enemyCollider != null){				

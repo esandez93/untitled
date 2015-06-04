@@ -6,29 +6,15 @@ public class OptionsMenu : MonoBehaviour {
 	
 	public static bool showMenu = true;
 	private string settings;
-	public static float environmentLevel = 1.0f; // 
-	public static bool fullscreen = true; // Default
-	public static string displayWidth = "1680"; // Default
-	public static string displayHeight = "1050"; // Default
+	public static float environmentLevel = 1.0f;
+	public static bool fullscreen = true;
+	public static string displayWidth = "1680";
+	public static string displayHeight = "1050";
 	public static string language = "EN";
 
-	void Awake(){
-
-	}
-
-	// Use this for initialization
 	void Start () {
-		//GameObject.FindGameObjectWithTag("Menu").SetActive(false);
-
 		OptionsManager.Instance.getSettings();
-
-		//Screen.SetResolution(int.Parse(displayWidth), int.Parse(displayHeight), fullscreen);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}	
 	
 	public void OnGUI(){
 		GUI.depth = 1000;

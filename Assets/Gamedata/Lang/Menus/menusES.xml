@@ -25,6 +25,66 @@
 		<text>Salir</text>
 	</menu>
 
+	<!-- 						  OPTIONS MENU 					 -->
+	<menu>
+		<menuId>options_menu_video_label</menuId>
+		<text>Video</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_resolution_label</menuId>
+		<text>Resolución</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_fullscreen_label</menuId>
+		<text>Pantalla completa</text>
+	</menu>
+
+	<menu>
+		<menuId>options_menu_game_label</menuId>
+		<text>Jugabilidad</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_language_label</menuId>
+		<text>Lenguaje</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_language_spanish</menuId>
+		<text>Español</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_language_english</menuId>
+		<text>Inglés</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_label</menuId>
+		<text>Dificultad</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_easy</menuId>
+		<text>Fácil</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_normal</menuId>
+		<text>Normal</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_hard</menuId>
+		<text>Difícil</text>
+	</menu>
+
+	<menu>
+		<menuId>options_menu_sound_label</menuId>
+		<text>Sonido</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_sound_ambient</menuId>
+		<text>Ambiente</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_sound_effects</menuId>
+		<text>Efectos</text>
+	</menu>
+
 	<!--                          PAUSE MENU                     -->
 	<menu>
 		<menuId>pause_menu_resume</menuId>

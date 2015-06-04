@@ -34,8 +34,11 @@ public class Gamestate : MonoBehaviour {
 
 	private int currentLevel = -1;
 
-	/*void OnGUI() {
-		if (GUI.Button (new Rect (530, 30, 150, 30), "Level Up")) { // DEBUG
+	void OnGUI() {
+		if (GUI.Button (new Rect (530, 30, 150, 30), "Give Potion")) { // DEBUG
+			Singleton.Instance.inventory.addItem("item_name_potion", 1);
+		}
+		/*if (GUI.Button (new Rect (530, 30, 150, 30), "Level Up")) { // DEBUG
 			Mage mage = findPlayer("Mage").GetComponent<Mage>();
 			mage.addSkill("skill_name_fireball");
 		}
@@ -49,8 +52,8 @@ public class Gamestate : MonoBehaviour {
 			CraftManager.Instance.craft("item_name_potion", "item_name_potion");
 			Singleton.Instance.inventory.addItem("item_name_grenade", 2);
 			Singleton.Instance.inventory.addItem("item_name_gunpowder", 2);
-		}
-	}*/
+		}*/
+	}
 
 	void Awake() {
 		if(instance == null){
@@ -216,7 +219,7 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void showMessage(string message) {
-		StartCoroutine(showMessage(message, 1));
+		StartCoroutine(showMessage(message, 2));
 	}
 
 	IEnumerator showMessage(string message, int time) {

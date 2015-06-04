@@ -213,10 +213,8 @@ public class PlayerBehaviour : MonoBehaviour {
 	}
 
 	public void die(){
-		//if(startDeath){
-			animator.SetInteger("AnimationState", Animations.DIE);
-			changeAnimationState(animationState.DYING);
-		//}
+		animator.SetInteger("AnimationState", Animations.DIE);
+		changeAnimationState(animationState.DYING);		
 	}
 
 	public void run() {

@@ -25,6 +25,66 @@
 		<text> Quit</text>
 	</menu>
 
+	<!-- 						  OPTIONS MENU 					 -->
+	<menu>
+		<menuId>options_menu_video_label</menuId>
+		<text>Video</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_resolution_label</menuId>
+		<text>Resolution</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_fullscreen_label</menuId>
+		<text>Fullscreen</text>
+	</menu>
+
+	<menu>
+		<menuId>options_menu_game_label</menuId>
+		<text>Game</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_language_label</menuId>
+		<text>Language</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_language_spanish</menuId>
+		<text>Spanish</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_language_english</menuId>
+		<text>English</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_label</menuId>
+		<text>Difficulty</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_easy</menuId>
+		<text>Easy</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_normal</menuId>
+		<text>Normal</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_difficulty_hard</menuId>
+		<text>Hard</text>
+	</menu>
+
+	<menu>
+		<menuId>options_menu_sound_label</menuId>
+		<text>Sound</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_sound_ambient</menuId>
+		<text>Ambient</text>
+	</menu>
+	<menu>
+		<menuId>options_menu_sound_effects</menuId>
+		<text>Effects</text>
+	</menu>
+
 	<!--                          PAUSE MENU                     -->
 	<menu>
 		<menuId>pause_menu_resume</menuId>

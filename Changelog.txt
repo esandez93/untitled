@@ -328,13 +328,20 @@
 - Arreglado un fallo que provocaba que si dos jugadores con turnos consecutivos querían atacar a un objetivo, no dejase seleccionarlo.
 - Arreglado un fallo en los cálculos de las trayectorias donde al volver del ataque volvían a una posición más hacia el centro en el eje Y, provocando que en los combates largos se agolpasen todos los personajes en un mismo punto.
 
+28/05/2015 - 02/06/2015
+- Creado fondo para el menú principal y rediseño del mismo.
+- Arreglado el fallo de las batallas que ocasionaba que todos los enemigos atacasen a la vez una vez alguien moría.
+- Implementadas batallas de boss.
+- Arreglado un error con BattleRewards.
+- Revisado ligeramente el balanceo de personajes.
+- Mejorado el sistema de cofres.
+- Implementado el sistema de mensajes por pantalla.
 
 TO DO:
-- Batalla: Cuando mueren personajes, los enemigos atacan muchos a la vez y se quedan bug. URGENTE.
+- Revisar todo lo que sean daños grupales. URGENTE.
+- Implementar créditos. URGENTE.
 - Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
-- Implementar batallas de boss.
 - Balancear personajes.
-- BattleRewards erróneos, check.
 - Implementar landing (no urgente).
 - Revisar las colisiones y la detección de suelo.
 - Implementar zonas secretas por código.

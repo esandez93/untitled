@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Buttons\CraftItem.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplayItems.cs" />
      <Compile Include="Assets\Scripts\Buttons\DisplaySkills.cs" />
+     <Compile Include="Assets\Scripts\Buttons\GetSliderValue.cs" />
      <Compile Include="Assets\Scripts\Buttons\InventoryItem.cs" />
      <Compile Include="Assets\Scripts\Buttons\InventoryUseButton.cs" />
      <Compile Include="Assets\Scripts\Buttons\LoadGame.cs" />

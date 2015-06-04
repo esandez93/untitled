@@ -598,12 +598,24 @@ public class BattleManager : MonoBehaviour {
 	}*/
 
 	private void setMonsters(){
-		//instance.numMonsters = Random.Range(1, (instance.playersInBattle.Count+1));
-		instance.numMonsters = 1; // DEBUG
-
+		if (isBossBattle())
+			instance.numMonsters = 3;
+		else {
+			//instance.numMonsters = Random.Range(1, (instance.playersInBattle.Count+1));
+			instance.numMonsters = 1; // DEBUG
+		}
+		
+		Monster monster;
 		for(int i = 1; i <= instance.numMonsters; i++){
-			Monster monster = GameObject.FindWithTag("Monster"+(i)).GetComponent<Monster>();
-			monster.initializeMonster(instance.gamestate.map.getRandomMonster());
+			if(isBossBattle() && i == 2){
+				monster = GameObject.FindWithTag("Monster2").GetComponent<Monster>();
+				monster.initializeMonster(instance.gamestate.map.getBossMonster());	
+			}
+			else{
+				monster = GameObject.FindWithTag("Monster"+(i)).GetComponent<Monster>();
+				monster.initializeMonster(instance.gamestate.map.getRandomMonster());				
+			}
+
 			enableComponents(monster.gameObject);
 			instance.monstersInBattle.Add(monster);
 		}

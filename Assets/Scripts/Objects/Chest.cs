@@ -53,8 +53,9 @@ public class Chest : MonoBehaviour{
 			if (i != 0)
 				message += ", ";
 
-			message += " x" + item.Value + " " + item.Key;
+			message += " x" + item.Value + " " + LanguageManager.Instance.getMenuText(item.Key);
 			Singleton.Instance.inventory.addItem(item.Key, item.Value);
+			i++;
 		}
 
 		Gamestate.instance.showMessage(message);
