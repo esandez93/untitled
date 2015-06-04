@@ -99,9 +99,8 @@ public class Inventory {
 							gos.Add(GameObject.FindGameObjectWithTag(p.characterName));
 					}
 					
-					foreach(GameObject go in gos) {
-						targets.Add(go.GetComponent<Character>());	
-					}
+					foreach(GameObject go in gos)
+						targets.Add(go.GetComponent<Character>());						
 				}
 				else
 					targets.Add(target);				
@@ -126,9 +125,8 @@ public class Inventory {
 					Debug.Log("ITEM: "+ item.itemName + ", TARGET: " + target.characterName);
 					target.receiveItemUsage(item);	
 				}	
-				else{
-					Debug.Log("THE FAILS");
-				}
+				else
+					Debug.Log("DEM FAILS");
 			}
 		}
 	}
@@ -136,9 +134,8 @@ public class Inventory {
 	public List<Item> getItems(){
 		List<Item> items = new List<Item>();
 
-		foreach(KeyValuePair<string,Item> entry in objects){
-			items.Add(entry.Value);
-		}
+		foreach(KeyValuePair<string,Item> entry in objects)
+			items.Add(entry.Value);		
 
 		return items;
 	}
@@ -147,9 +144,8 @@ public class Inventory {
 		List<Item> items = new List<Item>();
 		
 		foreach(KeyValuePair<string,Item> entry in objects){
-			if(entry.Value.isUsable()){
-				items.Add(entry.Value);
-			}
+			if(entry.Value.isUsable())
+				items.Add(entry.Value);			
 		}
 		
 		return items;
@@ -165,14 +161,12 @@ public class Inventory {
 
 	// If the money is enough to spend it, return true
 	public bool spendMoney(float quantity){
-		if(money >= quantity){
+		bool canSpend = money >= quantity;
+
+		if(canSpend)
 			money -= quantity;
 
-			return true;
-		}
-		else{
-			return false;
-		}
+		return canSpend;
 	}
 
 	public int getTotalItems(){

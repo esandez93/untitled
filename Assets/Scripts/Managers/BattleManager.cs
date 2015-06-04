@@ -201,7 +201,6 @@ public class BattleManager : MonoBehaviour {
 				if (!instance.playerInterface.activeInHierarchy)
 					instance.playerInterface.SetActive(true);
 
-				//cleanVariables();
 				instance.currentPlayer = (Player) instance.currentCharacter;
 				setGUIPlayerInfo(instance.currentPlayer);
 
@@ -221,8 +220,7 @@ public class BattleManager : MonoBehaviour {
 				}
 				
 				break;
-			case BattleStates.ENEMYTURN:
-				//cleanVariables();				
+			case BattleStates.ENEMYTURN:			
 				if (instance.playerInterface.activeInHierarchy)
 					instance.playerInterface.SetActive(false);
 
@@ -249,11 +247,8 @@ public class BattleManager : MonoBehaviour {
 
 							instance.currentMonster.doAction(instance.action, instance.playerObjective);
 				
-							if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION){
-								//changePhase(BattlePhases.DOACTION);
-								//if(canEndTurn())
-									endTurn();
-							}
+							if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION)								
+									endTurn();							
 						}
 					}
 				}				
@@ -558,18 +553,7 @@ public class BattleManager : MonoBehaviour {
 		//if (!character.isAlive())
 			//killCharacter(character);		
 	}
-
-	/*private void killCharacter (Character character) {
-		instance.turns.Remove(character);
-
-		if (character.isPlayer())
-			instance.playersInBattle.Remove((Player)character);
-		else
-			instance.monstersInBattle.Remove((Monster)character);
-
-		instance.maxTurns--;
-	}*/
-
+	
 	private void enableComponents(GameObject go){
 		go.GetComponent<SpriteRenderer>().enabled = true;
 		go.GetComponent<Animator>().enabled = true;
@@ -592,10 +576,6 @@ public class BattleManager : MonoBehaviour {
 			go.GetComponent<Animator>().enabled = true;
 		}
 	}
-
-	/*private bool checkIfCurrentCharacterIsPlayer(){
-		return instance.currentCharacter.bIsPlayer;
-	}*/
 
 	private void setMonsters(){
 		if (isBossBattle())

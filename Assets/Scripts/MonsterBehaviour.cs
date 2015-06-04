@@ -151,15 +151,6 @@ public class MonsterBehaviour : MonoBehaviour {
 		this.moving = true;
 
 		basicAttack(player, true);
-		/*enemy = player;
-		objectivePosition = enemy.body.position;
-
-		if(!BattleManager.Instance.attackStarted){
-			changeAnimationState(animationState.MOVING);
-			//initialPosition = rigidbody2D.position;
-		}
-
-		BattleManager.Instance.attackStarted = true;*/
 	}
 
 	public void basicAttack(Character objective, bool moving){
@@ -186,17 +177,12 @@ public class MonsterBehaviour : MonoBehaviour {
 	}
 
 	public void die(){
-		//if(startDeath){
-			animator.SetInteger("AnimationState", Animations.DIE);
-			changeAnimationState(animationState.DYING);
-		//}
+		animator.SetInteger("AnimationState", Animations.DIE);
+		changeAnimationState(animationState.DYING);
 	}
 
 	private void changeAnimationState(animationState state){
-		//if(currentAnimationState != state){
-			//Debug.Log("Changing state - Previous: " + currentAnimationState + ", actual: " + state);
-			currentAnimationState = state;
-		//}		
+		currentAnimationState = state;
 	}
 
 	public void attackFinished(){
@@ -219,7 +205,6 @@ public class MonsterBehaviour : MonoBehaviour {
 		startDeath = false;
 		BattleManager.Instance.finishCurrentAttack();
 		animator.enabled = false;
-		//Debug.Log("FINISH DEATH");
 	}
 	
 	public class Animations{

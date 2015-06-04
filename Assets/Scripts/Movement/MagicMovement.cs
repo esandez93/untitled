@@ -45,12 +45,12 @@ public class MagicMovement : MonoBehaviour {
 	void FixedUpdate () {		
 		if(enemy != null){			
 			switch(currentAnimationState){
-			case animationState.MOVING:
-				goToObjective();
-				break;
-			case animationState.HIT:
-				attack();
-				break;
+				case animationState.MOVING:
+					goToObjective();
+					break;
+				case animationState.HIT:
+					attack();
+					break;
 			}
 		}
 	}
@@ -71,27 +71,10 @@ public class MagicMovement : MonoBehaviour {
 		}
 	}
 	
-	/*private void goToObjective(){
-
-		if(transform.position.x > (objectivePosition.x)){
-			animator.SetInteger("AnimationState", Animations.MOVE);
-			changeAnimationState(animationState.MOVING);
-			
-			Vector2 direction = objectivePosition - (Vector2)transform.position;
-			rigidBody.velocity = new Vector2 (-movementSpeed, direction.y);
-		}
-		else{
-			rigidBody.velocity = new Vector2 (0,0);
-			changeAnimationState(animationState.HIT);
-			isAttacking = true;
-		}
-	}*/
-	
 	private void attack(){
 		stand ();
-		if(isAttacking){
-			animator.SetInteger("AnimationState", Animations.HIT);
-		}
+		if(isAttacking)
+			animator.SetInteger("AnimationState", Animations.HIT);		
 		if(!isAttacking){
 			spriteRenderer.enabled = false;
 			enemy.doElementalDamage(damage, modifier, status, skill.chance, false);	
@@ -116,9 +99,7 @@ public class MagicMovement : MonoBehaviour {
 		this.skill = skill;
 		objectivePosition = enemy.body.position;
 
-		//if(BattleManager.attackStarted){
-			changeAnimationState(animationState.MOVING);
-		//}
+		changeAnimationState(animationState.MOVING);
 	}
 	
 	private void changeAnimationState(animationState state){

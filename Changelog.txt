@@ -339,22 +339,22 @@
 
 03/06/2015
 - Arreglo de bugs generales.
+- Implementación del ninja (nuevo enemigo) como jefe final.
 
 04/06/2015
 - Arreglado un bug con los turnos.
 - Arreglado error de visualización de los objetos en combate.
 - Desarrollo del menú de opciones.
 - Implementado el bloqueo. (parte visual de la funcionalidad que ya existía a través del fichero settings.ini)
+- Arreglados los daños grupales, ya funcionan.
 
 TO DO:
-- Revisar todo lo que sean daños grupales. URGENTE.
 - Implementar créditos. URGENTE.
 - Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
 - Balancear personajes.
 - Implementar landing (no urgente).
 - Revisar las colisiones y la detección de suelo.
 - Implementar zonas secretas por código.
-- Implementar ninja de Selva.
 - Descubrir por qué peta SaveLoad si arranco el juego sin el body activado. (No urgente, funciona si se inicia el juego con el GameObject de SaveLoadBody activado) 
 	+ ACTUALIZACIÓN: También pasa con las Skills.
 - Incluir un campo en el XML de Skills que diferencie quién puede aprenderla.
