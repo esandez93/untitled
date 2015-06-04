@@ -90,25 +90,22 @@ public class Inventory {
 				if(item.target.Equals(Character.Target.GROUP)){
 					GameObject[] gos = GameObject.FindGameObjectsWithTag(target.gameObject.tag);
 
-					foreach(GameObject go in gos){
-						targets.Add(go.GetComponent<Character>());
-					}
+					foreach(GameObject go in gos)
+						targets.Add(go.GetComponent<Character>());					
 				}
-				else{
-					targets.Add(target);
-				}
+				else
+					targets.Add(target);				
 
-				foreach(Character character in targets){
-					character.receiveItemUsage(item);
-				}
+				foreach(Character character in targets)
+					character.receiveItemUsage(item);				
 				
 				this.removeItem(itemName, 1);
+				BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
 				BattleManager.Instance.finishCurrentAttack();
 			}
 		}
-		else{
-			BattleManager.Instance.backToStart();
-		}
+		else
+			BattleManager.Instance.backToStart();		
 	}
 
 	public void useItem(string itemName, Character target){

@@ -85,6 +85,19 @@
 		<text>Effects</text>
 	</menu>
 
+	<menu>
+		<menuId>options_menu_button_save</menuId>
+		<text>Save Settings</text>
+	</menu>	
+	<menu>
+		<menuId>options_menu_button_load_default</menuId>
+		<text>Load Default</text>
+	</menu>	
+	<menu>
+		<menuId>options_menu_button_cancel</menuId>
+		<text>Cancel</text>
+	</menu>	
+
 	<!--                          PAUSE MENU                     -->
 	<menu>
 		<menuId>pause_menu_resume</menuId>

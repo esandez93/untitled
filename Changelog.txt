@@ -337,6 +337,15 @@
 - Mejorado el sistema de cofres.
 - Implementado el sistema de mensajes por pantalla.
 
+03/06/2015
+- Arreglo de bugs generales.
+
+04/06/2015
+- Arreglado un bug con los turnos.
+- Arreglado error de visualización de los objetos en combate.
+- Desarrollo del menú de opciones.
+- Implementado el bloqueo.
+
 TO DO:
 - Revisar todo lo que sean daños grupales. URGENTE.
 - Implementar créditos. URGENTE.

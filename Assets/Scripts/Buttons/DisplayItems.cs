@@ -54,7 +54,7 @@ public class DisplayItems : MonoBehaviour {
 							setTextToButton(instance, text);
 							instance.name = item.id;
 							
-							if(sameAsLast(i) || text.Equals(DEFAULT_ITEM_TEXT)){
+							if(sameAsLast(i) || (text.Equals(DEFAULT_ITEM_TEXT) && items.Count == 0)){
 								itemButtons[i].SetActive(false);
 								numInactives++;
 							}
@@ -89,7 +89,13 @@ public class DisplayItems : MonoBehaviour {
 	}
 
 	private void clean(){
-		Destroy (GameObject.Find("ItemButton(Clone)"));
+		//Destroy (GameObject.Find("ItemButton(Clone)"));
+		List<GameObject> children = new List<GameObject>();
+		foreach (Transform child in transform) 
+			children.Add(child.gameObject);
+			
+		children.ForEach(child => Destroy(child));
+
 		itemButtons.Clear();
 	}
 	
@@ -97,10 +103,8 @@ public class DisplayItems : MonoBehaviour {
 		if(position > 0){
 			string last = getItemName(itemButtons[position-1].GetComponentInChildren<Text>().text);
 			string actual = getItemName(itemButtons[position].GetComponentInChildren<Text>().text);
-
-			if(last.Equals(actual)){
-				return true;
-			}
+			//Debug.Log("LAST = " + last + ", ACTUAL = " + actual);
+			return last.Equals(actual);
 		}
 		
 		return false;

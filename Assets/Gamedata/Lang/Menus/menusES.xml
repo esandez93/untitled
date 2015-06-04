@@ -85,6 +85,19 @@
 		<text>Efectos</text>
 	</menu>
 
+	<menu>
+		<menuId>options_menu_button_save</menuId>
+		<text>Guardar Configuración</text>
+	</menu>	
+	<menu>
+		<menuId>options_menu_button_load_default</menuId>
+		<text>Cargar Predeterminado</text>
+	</menu>	
+	<menu>
+		<menuId>options_menu_button_cancel</menuId>
+		<text>Cancelar</text>
+	</menu>	
+
 	<!--                          PAUSE MENU                     -->
 	<menu>
 		<menuId>pause_menu_resume</menuId>

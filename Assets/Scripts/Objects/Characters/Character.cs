@@ -624,10 +624,10 @@ public class Character : MonoBehaviour{
 			case 0:
 				message = LanguageManager.Instance.getMenuText("attack_no_effect");
 				break;
-			case 50: Debug.Log("No es muy efectivo");
+			case 50: 
+				message = LanguageManager.Instance.getMenuText("attack_no_effective");
 				break;
 			case 100: 
-				message = LanguageManager.Instance.getMenuText("attack_no_effective");
 				break;
 			case 200: 
 				message = LanguageManager.Instance.getMenuText("attack_effective");
@@ -636,7 +636,7 @@ public class Character : MonoBehaviour{
 		if (message != "")
 			Gamestate.instance.showMessage(message);
 		
-		if(status != null)
+		if(status != null && damage < this.currHP)
 			trySetAlteredStatus(status, chance);		
 		
 		this.receiveDamage(damage);
@@ -652,7 +652,7 @@ public class Character : MonoBehaviour{
 			else
 				this.alteredStatus[status].resetDuration();			
 			
-			Gamestate.instance.showMessage(getStatusName(status));
+			Gamestate.instance.showMessage(LanguageManager.Instance.getStatus(LanguageManager.Instance.getMenuText(this.name), getStatusName(status)));
 		}
 	}
 
@@ -709,13 +709,16 @@ public class Character : MonoBehaviour{
 		
 		if(goingToDie)
 			this.die();
+
 		/*Debug.Log("alive: " + alive);
 		Debug.Log("BattleManager.Instance.attackFinished: " + BattleManager.Instance.attackFinished);
 		Debug.Log("alive && BattleManager.Instance.attackFinished: " + (alive && BattleManager.Instance.attackFinished));
 		Debug.Log("!alive && BattleManager.Instance.deathFinished: " + (!alive && BattleManager.Instance.deathFinished));*/
 
-		if((alive && BattleManager.Instance.attackFinished) || (!alive && BattleManager.Instance.deathFinished))
-			BattleManager.Instance.finishCurrentAttack();		
+		if((alive && BattleManager.Instance.attackFinished) || (!alive && BattleManager.Instance.deathFinished) || (BattleManager.Instance.skill) || (BattleManager.Instance.item) || (BattleManager.Instance.defend)) {
+			BattleManager.Instance.finishCurrentAttack();			
+			BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
+		}
 	}
 
 	private float applyDifficultyDamage(float damage, string difficulty){
@@ -877,7 +880,7 @@ public class Character : MonoBehaviour{
 			
 			if(collider2D.OverlapPoint(mousePosition)){				
 				if (BattleManager.Instance.currentPhase == BattleManager.BattlePhases.CHOSEOBJECTIVE){						
-					if(BattleManager.Instance.enemyObjective != null && BattleManager.Instance.enemyObjective.gameObject/*.tag*/ == this.gameObject/*.tag*/ && !BattleManager.Instance.enemyObjective.isPlayer())
+					if(BattleManager.Instance.enemyObjective != null && BattleManager.Instance.enemyObjective.gameObject.Equals(this.gameObject))// && !BattleManager.Instance.enemyObjective.isPlayer())
 						BattleManager.Instance.attackObjective = true;					
 					else{
 						BattleManager.Instance.enemyObjective = this;						

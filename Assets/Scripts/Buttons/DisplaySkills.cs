@@ -69,7 +69,7 @@ public class DisplaySkills : MonoBehaviour {
 				}
 				else{
 					GameObject instance = createInstance();
-					LanguageManager.Instance.getMenuText(Skill.EMPTY);
+					setTextToButton(instance, LanguageManager.Instance.getMenuText(Skill.EMPTY));
 					instance.GetComponent<getSkillButtonText>().enabled = false;
 				}
 
@@ -97,9 +97,7 @@ public class DisplaySkills : MonoBehaviour {
 			string last = skillButtons[position-1].GetComponentInChildren<Text>().text;
 			string actual = skillButtons[position].GetComponentInChildren<Text>().text;
 
-			if(last.Equals(actual)){
-				return true;
-			}
+			return last.Equals(actual);
 		}
 
 		return false;

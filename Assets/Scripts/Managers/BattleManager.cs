@@ -748,7 +748,6 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void run() {		
-		
 		foreach(Player p in instance.playersInBattle) {
 			if (p.isAlive())
 				p.run();

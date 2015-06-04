@@ -1,22 +1,53 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
-using System.Text.RegularExpressions;
 
 public class OptionsMenu : MonoBehaviour {
 	
-	public static bool showMenu = true;
+	public bool showMenu;
 	private string settings;
-	public static float environmentLevel = 1.0f;
-	public static bool fullscreen = true;
-	public static string displayWidth = "1680";
-	public static string displayHeight = "1050";
-	public static string language = "EN";
+	public float environmentLevel;
+	public bool fullscreen;
+	public string displayWidth;
+	public string displayHeight;
+	public string language;
 
 	void Start () {
+		initialize();
 		OptionsManager.Instance.getSettings();
 	}
+
+	private void initialize() {
+		translateAll();
+	}
+
+	private void loadDefault() {
+		environmentLevel = 1.0f;
+		fullscreen = true;
+		displayWidth = "1680";
+		displayHeight = "1050";
+		language = "EN";
+
+		OptionsManager.Instance.loadDefault();
+	}
+
+	private void translateAll() {
+		Text[] texts = this.gameObject.GetComponentsInChildren<Text>();
+
+		foreach(Text t in texts) {
+			t.text = LanguageManager.Instance.getMenuText(t.text);
+		}
+	}
+
+	public void saveSettings() {		
+		OptionsManager.Instance.getSettingsFromGUI();
+	}
+
+	public void cancel() {		
+		OptionsManager.Instance.cancel();
+	}
 	
-	public void OnGUI(){
+	/*public void OnGUI(){
 		GUI.depth = 1000;
 		
 		if(showMenu){
@@ -39,5 +70,5 @@ public class OptionsMenu : MonoBehaviour {
 		}
 		
 		GUI.depth = 0;
-	}
+	}*/
 }
