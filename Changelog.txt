@@ -344,7 +344,7 @@
 - Arreglado un bug con los turnos.
 - Arreglado error de visualización de los objetos en combate.
 - Desarrollo del menú de opciones.
-- Implementado el bloqueo.
+- Implementado el bloqueo. (parte visual de la funcionalidad que ya existía a través del fichero settings.ini)
 
 TO DO:
 - Revisar todo lo que sean daños grupales. URGENTE.

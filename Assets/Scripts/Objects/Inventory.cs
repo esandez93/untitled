@@ -88,17 +88,27 @@ public class Inventory {
 			if(item.type.Equals(Item.Properties.USABLE)){
 				List<Character> targets = new List<Character>();
 				if(item.target.Equals(Character.Target.GROUP)){
-					GameObject[] gos = GameObject.FindGameObjectsWithTag(target.gameObject.tag);
-
-					foreach(GameObject go in gos)
-						targets.Add(go.GetComponent<Character>());					
+					List<GameObject> gos = new List<GameObject>();
+					
+					if(target.gameObject.tag.ToLower().Contains("monster")) {
+						for(int i = 1; i <= 3; i++)
+							gos.Add(GameObject.FindGameObjectWithTag("Monster"+i));
+					}
+					else{
+						foreach (Player p in BattleManager.Instance.playersInBattle)
+							gos.Add(GameObject.FindGameObjectWithTag(p.characterName));
+					}
+					
+					foreach(GameObject go in gos) {
+						targets.Add(go.GetComponent<Character>());	
+					}
 				}
 				else
 					targets.Add(target);				
 
 				foreach(Character character in targets)
 					character.receiveItemUsage(item);				
-				
+
 				this.removeItem(itemName, 1);
 				BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
 				BattleManager.Instance.finishCurrentAttack();

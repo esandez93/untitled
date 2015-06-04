@@ -602,7 +602,7 @@ public class BattleManager : MonoBehaviour {
 			instance.numMonsters = 3;
 		else {
 			//instance.numMonsters = Random.Range(1, (instance.playersInBattle.Count+1));
-			instance.numMonsters = 1; // DEBUG
+			instance.numMonsters = 3; // DEBUG
 		}
 		
 		Monster monster;

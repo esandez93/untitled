@@ -618,7 +618,7 @@ public class Character : MonoBehaviour{
 		// RETOCAR PARA QUE VAYA AL DEL MEDIO. USAR NUMERO DE TAG
 	}
 	
-	public void doElementalDamage(float damage, float modifier, string status, float chance){
+	public void doElementalDamage(float damage, float modifier, string status, float chance, bool isItem){
 		string message = "";
 		switch((int)(modifier*100)) {
 			case 0:
@@ -639,7 +639,7 @@ public class Character : MonoBehaviour{
 		if(status != null && damage < this.currHP)
 			trySetAlteredStatus(status, chance);		
 		
-		this.receiveDamage(damage);
+		this.receiveDamage(isItem, damage);
 	}
 	
 	private void trySetAlteredStatus(string status, float chance){
@@ -669,14 +669,18 @@ public class Character : MonoBehaviour{
 	}
 	
 	public void receivePercentDamage(float damage){
-		receiveDamage(this.maxHP * (damage/100), true);
+		receiveDamage(false, this.maxHP * (damage/100), true);
+	}
+	
+	public void receiveDamage(bool isItem, float damage){
+		receiveDamage(isItem, damage, false);
 	}
 	
 	public void receiveDamage(float damage){
-		receiveDamage(damage, false);
+		receiveDamage(false, damage, false);
 	}
 
-	public void receiveDamage(float damage, bool trueDamage){
+	public void receiveDamage(bool isItem, float damage, bool trueDamage){
 		bool goingToDie = false;
 		if(!BattleManager.Instance.damageReceived){
 			showBattleData();
@@ -695,7 +699,8 @@ public class Character : MonoBehaviour{
 			
 			showBattleData();
 			
-			BattleManager.Instance.damageReceived = true;
+			if(!isItem)
+				BattleManager.Instance.damageReceived = true;
 		}
 		
 		if(!this.isPlayer()){
@@ -715,7 +720,7 @@ public class Character : MonoBehaviour{
 		Debug.Log("alive && BattleManager.Instance.attackFinished: " + (alive && BattleManager.Instance.attackFinished));
 		Debug.Log("!alive && BattleManager.Instance.deathFinished: " + (!alive && BattleManager.Instance.deathFinished));*/
 
-		if((alive && BattleManager.Instance.attackFinished) || (!alive && BattleManager.Instance.deathFinished) || (BattleManager.Instance.skill) || (BattleManager.Instance.item) || (BattleManager.Instance.defend)) {
+		if(!isItem && ((alive && BattleManager.Instance.attackFinished) || (!alive && BattleManager.Instance.deathFinished) || (BattleManager.Instance.skill) || (BattleManager.Instance.defend))) {
 			BattleManager.Instance.finishCurrentAttack();			
 			BattleManager.Instance.changePhase(BattleManager.BattlePhases.DOACTION);
 		}
@@ -768,7 +773,7 @@ public class Character : MonoBehaviour{
 				break;
 			case Item.Type.DAMAGE:
 				float modifier = getElementalModifier(item.element, this.element);
-				this.doElementalDamage(item.damage, modifier, item.status, item.chance);
+				this.doElementalDamage(item.damage, modifier, item.status, item.chance, true);
 				break;
 		}
 	}

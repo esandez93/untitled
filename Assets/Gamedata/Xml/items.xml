@@ -42,7 +42,7 @@
 		<buyValue>300</buyValue>
 		<sellValue>80</sellValue>
 		<sellable>true</sellable>
-		<damage>75</damage>
+		<damage>25</damage>
 		<target>Group</target>
 		<element>0</element>
 	</item>

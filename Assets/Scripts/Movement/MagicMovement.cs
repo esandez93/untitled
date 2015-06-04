@@ -94,7 +94,7 @@ public class MagicMovement : MonoBehaviour {
 		}
 		if(!isAttacking){
 			spriteRenderer.enabled = false;
-			enemy.doElementalDamage(damage, modifier, status, skill.chance);	
+			enemy.doElementalDamage(damage, modifier, status, skill.chance, false);	
 			enemy.showInfo();
 			this.gameObject.SetActive(false);
 		}
