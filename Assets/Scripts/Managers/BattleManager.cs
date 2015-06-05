@@ -258,7 +258,7 @@ public class BattleManager : MonoBehaviour {
 				Debug.Log ("Monsters WIN!");
 				changePhase(BattlePhases.END);
 				//CHANGE SCENE TO LOAD LAST SAVEGAME
-				if(SaveManager.Instance.load())
+				if(SaveManager.Instance.autoLoad())
 					Application.LoadLevel(gamestate.map.mapName);				
 				break;
 			case BattleStates.WIN:

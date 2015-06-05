@@ -41,21 +41,22 @@ public class OptionsManager : MonoBehaviour{
 	}
 
 	public void initialize(){	
-		if(!initialized){			
-			source = GameObject.Find("Gamestate/OptionsCanvas/Frame");
-			video = source.transform.FindChild("Video").gameObject;
-			game = source.transform.FindChild("Game").gameObject;
-			sound = source.transform.FindChild("Sound").gameObject;
+		if(!initialized){	
+			//SaveManager.Instance.loadGameFrame = GameObject.Find("Gamestate/loadGameCanvas/Frame");		
+			instance.source = GameObject.Find("Gamestate/OptionsCanvas/Frame");
+			instance.video = source.transform.FindChild("Video").gameObject;
+			instance.game = source.transform.FindChild("Game").gameObject;
+			instance.sound = source.transform.FindChild("Sound").gameObject;
 
 			getSettings();
 			applySettings();
 			Debug.Log("OptionsManager initialized.");
-			initialized = true;
+			instance.initialized = true;
 		}
 	}
 
 	public void getSettings(){
-		settings = System.IO.File.ReadAllText(@"settings.ini"); // Load the settings.
+		instance.settings = System.IO.File.ReadAllText(@"settings.ini"); // Load the settings.
 		string[] settingsLines = Regex.Split(settings,"\r\n");
 		
 		foreach(string line in settingsLines){
@@ -69,24 +70,25 @@ public class OptionsManager : MonoBehaviour{
 			string value = thisLine[1].Trim();
 
 			if(command.Equals("AmbientAudio"))
-				ambientLevel = float.Parse(value)/100;			
+				instance.ambientLevel = float.Parse(value)/100;			
 			else if (command.Equals("EffectsAudio"))
-				effectsLevel = float.Parse(value)/100;			
+				instance.effectsLevel = float.Parse(value)/100;			
 			else if(command.Equals("FullScreen"))
-				fullscreen = value.ToLower().Equals("true");			
+				instance.fullscreen = value.ToLower().Equals("true");			
 			else if(command.Equals("DisplayWidth"))
-				displayWidth = value;			
+				instance.displayWidth = value;			
 			else if(command.Equals("DisplayHeight"))
-				displayHeight = value;			
+				instance.displayHeight = value;			
 			else if(command.Equals("Language"))
-				language = value;			
+				instance.language = value;			
 			else if(command.Equals("Difficulty"))
-				difficulty = value;			
+				instance.difficulty = value;			
 		}
 	}
 
 	public void showMenu() {
-		source.SetActive(true);
+		instance.source.SetActive(true);
+		setSettingsToGUI();
 	}
 
 	public void getSettingsFromGUI() {
@@ -101,40 +103,40 @@ public class OptionsManager : MonoBehaviour{
 
 	private void getVideoSettings() {
 		string x = video.transform.FindChild("Resolution").FindChild("XInput").FindChild("Text").GetComponent<Text>().text;
-		displayWidth = string.IsNullOrEmpty(x) ? currWidth : x;
+		instance.displayWidth = string.IsNullOrEmpty(x) ? instance.currWidth : x;
 
 		string y = video.transform.FindChild("Resolution").FindChild("YInput").FindChild("Text").GetComponent<Text>().text;
-		displayHeight = string.IsNullOrEmpty(y) ? currHeight : y;
+		instance.displayHeight = string.IsNullOrEmpty(y) ? instance.currHeight : y;
 
-		fullscreen = video.transform.FindChild("Fullscreen").GetComponent<Toggle>().isOn;
+		instance.fullscreen = instance.video.transform.FindChild("Fullscreen").GetComponent<Toggle>().isOn;
 	}
 
 	private void getGameSettings() {
-		if (game.transform.FindChild("Language").FindChild("SpanishToggle").GetComponent<Toggle>().isOn)
-			language = "ES";
-		else if (game.transform.FindChild("Language").FindChild("EnglishToggle").GetComponent<Toggle>().isOn)
-			language = "EN";
+		if (instance.game.transform.FindChild("Language").FindChild("SpanishToggle").GetComponent<Toggle>().isOn)
+			instance.language = "ES";
+		else if (instance.game.transform.FindChild("Language").FindChild("EnglishToggle").GetComponent<Toggle>().isOn)
+			instance.language = "EN";
 		else
-			language = "EN";
+			instance.language = "EN";
 
-		if (game.transform.FindChild("Difficulty").FindChild("EasyToggle").GetComponent<Toggle>().isOn)
-			difficulty = Difficulty.EASY;
-		else if (game.transform.FindChild("Difficulty").FindChild("NormalToggle").GetComponent<Toggle>().isOn)
-			difficulty = Difficulty.NORMAL;
-		else if (game.transform.FindChild("Difficulty").FindChild("HardToggle").GetComponent<Toggle>().isOn)
-			difficulty = Difficulty.HARD;
+		if (instance.game.transform.FindChild("Difficulty").FindChild("EasyToggle").GetComponent<Toggle>().isOn)
+			instance.difficulty = Difficulty.EASY;
+		else if (instance.game.transform.FindChild("Difficulty").FindChild("NormalToggle").GetComponent<Toggle>().isOn)
+			instance.difficulty = Difficulty.NORMAL;
+		else if (instance.game.transform.FindChild("Difficulty").FindChild("HardToggle").GetComponent<Toggle>().isOn)
+			instance.difficulty = Difficulty.HARD;
 		else
-			difficulty = Difficulty.NORMAL;
+			instance.difficulty = Difficulty.NORMAL;
 	}
 
 	private void getSoundSettings() {
-		ambientLevel = sound.transform.FindChild("Ambient").FindChild("Slider").GetComponent<Slider>().value;
-		effectsLevel = sound.transform.FindChild("Effects").FindChild("Slider").GetComponent<Slider>().value;
+		instance.ambientLevel = sound.transform.FindChild("Ambient").FindChild("Slider").GetComponent<Slider>().value;
+		instance.effectsLevel = sound.transform.FindChild("Effects").FindChild("Slider").GetComponent<Slider>().value;
 	}
 
 	public void setSettingsToGUI() {
-		if (!source.activeInHierarchy)
-			source.SetActive(true);
+		if (!instance.source.activeInHierarchy)
+			instance.source.SetActive(true);
 
 		setVideoSettings();
 		setGameSettings();
@@ -142,87 +144,91 @@ public class OptionsManager : MonoBehaviour{
 	}
 
 	private void setVideoSettings() {
-		video.transform.FindChild("Resolution").FindChild("XInput").FindChild("Text").GetComponent<Text>().text = displayWidth;
-		video.transform.FindChild("Resolution").FindChild("YInput").FindChild("Text").GetComponent<Text>().text = displayHeight;
+		instance.video.transform.FindChild("Resolution").FindChild("XInput").FindChild("Text").GetComponent<Text>().text = string.IsNullOrEmpty(instance.displayWidth) ? currWidth : instance.displayWidth;
+		instance.video.transform.FindChild("Resolution").FindChild("YInput").FindChild("Text").GetComponent<Text>().text = string.IsNullOrEmpty(instance.displayHeight) ? currHeight : instance.displayHeight;
 		
-		video.transform.FindChild("Resolution").FindChild("XInput").FindChild("Placeholder").GetComponent<Text>().text = "";
-		video.transform.FindChild("Resolution").FindChild("YInput").FindChild("Placeholder").GetComponent<Text>().text = "";
+		instance.video.transform.FindChild("Resolution").FindChild("XInput").FindChild("Placeholder").GetComponent<Text>().text = "";
+		instance.video.transform.FindChild("Resolution").FindChild("YInput").FindChild("Placeholder").GetComponent<Text>().text = "";
 
-		video.transform.FindChild("Fullscreen").GetComponent<Toggle>().isOn = fullscreen;
+		instance.video.transform.FindChild("Fullscreen").GetComponent<Toggle>().isOn = instance.fullscreen;
 	}
 
 	private void setGameSettings() {
-		if (language.Equals("ES"))
-			game.transform.FindChild("Language").FindChild("SpanishToggle").GetComponent<Toggle>().isOn = true;
+		if (instance.language.Equals("ES"))
+			instance.game.transform.FindChild("Language").FindChild("SpanishToggle").GetComponent<Toggle>().isOn = true;
 		else
-			game.transform.FindChild("Language").FindChild("SpanishToggle").GetComponent<Toggle>().isOn = false;
+			instance.game.transform.FindChild("Language").FindChild("SpanishToggle").GetComponent<Toggle>().isOn = false;
 
-		if (language.Equals("EN"))
-			game.transform.FindChild("Language").FindChild("EnglishToggle").GetComponent<Toggle>().isOn = true;
+		if (instance.language.Equals("EN"))
+			instance.game.transform.FindChild("Language").FindChild("EnglishToggle").GetComponent<Toggle>().isOn = true;
 		else
-			game.transform.FindChild("Language").FindChild("EnglishToggle").GetComponent<Toggle>().isOn = false;
+			instance.game.transform.FindChild("Language").FindChild("EnglishToggle").GetComponent<Toggle>().isOn = false;
 		
 
-		if (difficulty.Equals(Difficulty.EASY))
-			game.transform.FindChild("Difficulty").FindChild("EasyToggle").GetComponent<Toggle>().isOn = true;
+		if (instance.difficulty.Equals(Difficulty.EASY))
+			instance.game.transform.FindChild("Difficulty").FindChild("EasyToggle").GetComponent<Toggle>().isOn = true;
 		else
-			game.transform.FindChild("Difficulty").FindChild("EasyToggle").GetComponent<Toggle>().isOn = false;
+			instance.game.transform.FindChild("Difficulty").FindChild("EasyToggle").GetComponent<Toggle>().isOn = false;
 
-		if (difficulty.Equals(Difficulty.NORMAL))
-			game.transform.FindChild("Difficulty").FindChild("NormalToggle").GetComponent<Toggle>().isOn = true;
+		if (instance.difficulty.Equals(Difficulty.NORMAL))
+			instance.game.transform.FindChild("Difficulty").FindChild("NormalToggle").GetComponent<Toggle>().isOn = true;
 		else 
-			game.transform.FindChild("Difficulty").FindChild("NormalToggle").GetComponent<Toggle>().isOn = false;
+			instance.game.transform.FindChild("Difficulty").FindChild("NormalToggle").GetComponent<Toggle>().isOn = false;
 
-		if (difficulty.Equals(Difficulty.HARD))
-			game.transform.FindChild("Difficulty").FindChild("HardToggle").GetComponent<Toggle>().isOn = true;
+		if (instance.difficulty.Equals(Difficulty.HARD))
+			instance.game.transform.FindChild("Difficulty").FindChild("HardToggle").GetComponent<Toggle>().isOn = true;
 		else
-			game.transform.FindChild("Difficulty").FindChild("HardToggle").GetComponent<Toggle>().isOn = false;
+			instance.game.transform.FindChild("Difficulty").FindChild("HardToggle").GetComponent<Toggle>().isOn = false;
 	}
 
 	private void setSoundSettings() {
-		sound.transform.FindChild("Ambient").FindChild("Slider").GetComponent<Slider>().value = ambientLevel;
-		sound.transform.FindChild("Effects").FindChild("Slider").GetComponent<Slider>().value = effectsLevel;
+		instance.sound.transform.FindChild("Ambient").FindChild("Slider").GetComponent<Slider>().value = instance.ambientLevel;
+		instance.sound.transform.FindChild("Effects").FindChild("Slider").GetComponent<Slider>().value = instance.effectsLevel;
 	}
 
 	public void applySettings(){
 		if(compareResolution()){
-			Screen.SetResolution(int.Parse(displayWidth), int.Parse(displayHeight), fullscreen);
+			Screen.SetResolution(int.Parse(instance.displayWidth), int.Parse(instance.displayHeight), instance.fullscreen);
 			
-			currWidth = displayWidth;
-			currHeight = displayHeight;
+			instance.currWidth = instance.displayWidth;
+			instance.currHeight = instance.displayHeight;
 		}
 		
-		if(Screen.fullScreen != fullscreen)
-			Screen.fullScreen = fullscreen;		
+		if(Screen.fullScreen != instance.fullscreen)
+			Screen.fullScreen = instance.fullscreen;		
 
-		LanguageManager.setLanguage(language);
+		LanguageManager.setLanguage(instance.language);
 
 		if(Application.loadedLevelName.Equals("MainMenu"))
-			LanguageManager.Instance.translateButtons();		
+			LanguageManager.Instance.translateButtons();
+
+		saveSettings();
 	}
 
 	public void loadDefault() {
-		ambientLevel = 1.0f;
-		effectsLevel = 1.0f;
-		fullscreen = true;
-		displayWidth = "1680";
-		displayHeight = "1050";
-		currWidth = "1680";
-		currHeight = "1050";
-		language = "EN";
-		difficulty = "Normal";
+		instance.ambientLevel = 1.0f;
+		instance.effectsLevel = 1.0f;
+		instance.fullscreen = true;
+		instance.displayWidth = "1680";
+		instance.displayHeight = "1050";
+		instance.currWidth = "1680";
+		instance.currHeight = "1050";
+		instance.language = "EN";
+		instance.difficulty = "Normal";
+
+		setSettingsToGUI();
 	}
 
 	public void cancel() {
-		source.SetActive(false);
+		instance.source.SetActive(false);
 	}
 
 	public bool compareResolution(){
-		return displayWidth.Equals(currWidth) && displayHeight.Equals(currHeight);
+		return instance.displayWidth.Equals(instance.currWidth) && instance.displayHeight.Equals(instance.currHeight);
 	}
 
 	public string getDifficulty(){
-		return difficulty;
+		return instance.difficulty;
 	}
 
 	public void OnApplicationQuit() { 
@@ -235,15 +241,15 @@ public class OptionsManager : MonoBehaviour{
 	
 	public void saveSettings(){		
 		string output = "[Audio]";
-		output += "\r\nAmbientAudio="+((int)(ambientLevel * 100)).ToString();
-		output += "\r\nEffectsAudio="+((int)(effectsLevel * 100)).ToString();
+		output += "\r\nAmbientAudio="+((int)(instance.ambientLevel * 100)).ToString();
+		output += "\r\nEffectsAudio="+((int)(instance.effectsLevel * 100)).ToString();
 		output += "\r\n[Graphics]";		
-		output += "\r\nDisplayWidth="+displayWidth;
-		output += "\r\nDisplayHeight="+displayHeight;
-		output += "\r\nFullScreen="+fullscreen;
+		output += "\r\nDisplayWidth="+instance.displayWidth;
+		output += "\r\nDisplayHeight="+instance.displayHeight;
+		output += "\r\nFullScreen="+instance.fullscreen;
 		output += "\r\n[Game]";
-		output += "\r\nLanguage="+language;
-		output += "\r\nDifficulty="+difficulty;
+		output += "\r\nLanguage="+instance.language;
+		output += "\r\nDifficulty="+instance.difficulty;
 
 		FileManager.Instance.writeSettings(output);
 	}

@@ -4,7 +4,8 @@ using System.Collections;
 public class LoadGame : MonoBehaviour{
 
 	void Start (){
-		try{ 
+		PauseMenuManager.Instance.showLoadMenuData();
+		/*try{ 
 			if(SaveManager.Instance.load()){
 				Application.LoadLevel(Gamestate.instance.map.mapName);
 			}
@@ -16,7 +17,8 @@ public class LoadGame : MonoBehaviour{
 			Debug.Log ("Load game failed.");
 		}
 		
-		this.enabled = false;
+		this.enabled = false;*/
+
 	}
 }
 

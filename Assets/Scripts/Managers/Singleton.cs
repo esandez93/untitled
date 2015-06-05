@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Singleton : MonoBehaviour {
 
@@ -147,6 +148,9 @@ public class Singleton : MonoBehaviour {
 
 			Debug.Log ("Singleton initialized");
 			PauseManager.Instance.initialize();
+			
+			if(SaveManager.Instance.getSavegames().Count == 0)
+				GameObject.Find("Canvas/Menu/Continue").GetComponent<Button>().interactable = false;
 
 			initialized = true;
 		}

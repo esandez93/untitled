@@ -91,12 +91,10 @@ public class LanguageManager : MonoBehaviour{
 	public string getStatusAffection(string target, string status){
 		string result = "";
 
-		if(isEnemy(target)){
-			result = formatText(getMenuText("enemy_status"), "@name", target);
-		}
-		else{
-			result = target;
-		}
+		if(isEnemy(target))
+			result = formatText(getMenuText("enemy_status"), "@name", target);		
+		else
+			result = target;		
 
 		result += " " + formatText(getMenuText("status_affected"), getMenuText("status_affected_"+status.ToLower())) + ".";
 

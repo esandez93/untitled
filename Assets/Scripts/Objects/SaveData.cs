@@ -49,17 +49,11 @@ public class SaveData : ISerializable{
 	}
 
 	public bool isEmpty(){
-		bool res = false;
-
-		if(mage == null ){//|| rogue == null || knight == null){
-			res = true;
-		}
-
-		return res;
+		return rogue == null;
 	}
 
 	public void translate(){
-		mage.translate();
+		rogue.translate();
 	}
 
 	public void setPath(string path) {

@@ -41,6 +41,7 @@ public class OptionsMenu : MonoBehaviour {
 
 	private void setBegin() {
 		OptionsManager.Instance.setSettingsToGUI();
+		cancel();
 	}
 
 	public void saveSettings() {		

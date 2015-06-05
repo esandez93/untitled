@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic; 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.UI;
 //using UnityEditor;
 
 public class SaveManager : MonoBehaviour{
@@ -28,8 +29,8 @@ public class SaveManager : MonoBehaviour{
 	}
 	public void initialize(){
 		if(!initialized){
-			gamestate = Gamestate.instance;
-			Debug.Log("SaveManager initialized.");
+			gamestate = Gamestate.instance;			
+			Debug.Log("SaveManager initialized.");			
 			initialized = true;
 		}
 	}
@@ -53,7 +54,7 @@ public class SaveManager : MonoBehaviour{
 	}
 	
 	public bool autoLoad(){
-		string openPath = Application.dataPath + AUTOSAVE_PATH + "/autosave.asav"; 
+		string openPath = getLastSavegame();//Application.dataPath + AUTOSAVE_PATH + "/autosave.asav"; 
 		
 		return loadData(openPath);
 	}
@@ -72,9 +73,8 @@ public class SaveManager : MonoBehaviour{
 					data = (SaveData)bf.Deserialize(file);
 					file.Close();
 					
-					if(LanguageManager.Instance.compareLanguage(data.language)){ //if current language is different than the SaveData language
-						data.translate();
-					}
+					if(LanguageManager.Instance.compareLanguage(data.language)) //if current language is different than the SaveData language
+						data.translate();					
 
 					gamestate.setKnight(data.knight);
 					gamestate.setRogue(data.rogue);
@@ -227,6 +227,21 @@ public class SaveManager : MonoBehaviour{
 		return savegames;
 	}
 
+	public string getLastSavegame() {
+		List<string> savegames = getSavegames();
+		string path = "";
+
+		DateTime? date = null;
+		foreach(string save in savegames) {		
+			if(date == null || date > File.GetLastWriteTime(save)) {
+				date = File.GetLastWriteTime(save);
+				path = save;
+			}
+		}
+
+		return path;
+	}
+
 	public SaveData getFormattedSavegame(string path){
 		SaveData data = getSavegameData(path);
 		data.setPath(path);
@@ -253,6 +268,25 @@ public class SaveManager : MonoBehaviour{
 		}
 
 		return saveData;
+	}
+
+	private void formatSavegame(GameObject slot, SaveData savegame, int id){
+		slot.SetActive(true);
+		Sprite sprite = null;
+		//Debug.Log(id + " - " + slot.transform.GetComponentInChildren<Button>().gameObject.name);
+
+		if(savegame.map.mapName.Contains("Forest"))
+			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Forest"); 		
+		else if(savegame.map.mapName.Contains("Castle"))
+			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Castle");
+		
+		slot.transform.FindChild("Image").GetComponent<Image>().sprite = sprite;
+		slot.transform.FindChild("Id").GetComponent<Text>().text = id + ". ";
+		slot.transform.FindChild("Date").GetComponent<Text>().text = savegame.date.ToString("dd/MM/yyyy HH:mm");
+		slot.transform.FindChild("MapName").GetComponent<Text>().text = "Map: " + savegame.map.mapName;
+		if(savegame != null)
+			slot.transform.GetComponentInChildren<Button>().gameObject.name = savegame.getPath();
+		//slot.SetActive(true);
 	}
 }
 

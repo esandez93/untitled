@@ -347,6 +347,7 @@
 - Desarrollo del menú de opciones.
 - Implementado el bloqueo. (parte visual de la funcionalidad que ya existía a través del fichero settings.ini)
 - Arreglados los daños grupales, ya funcionan.
+- Arreglado el botón de continuar partida (carga el último guardado)
 
 TO DO:
 - Implementar créditos. URGENTE.

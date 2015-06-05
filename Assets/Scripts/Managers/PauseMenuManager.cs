@@ -43,6 +43,8 @@ public class PauseMenuManager : MonoBehaviour {
 		private GameObject saveGameButton;
 		private GameObject loadGameButton;
 
+	private GameObject loadGameFrame;
+
 	public GameObject currentButton;
 	public GameObject currentTab;
 
@@ -107,6 +109,8 @@ public class PauseMenuManager : MonoBehaviour {
 				instance.saveGameButton = bodyTransform.FindChild("SaveLoadBody").FindChild("SaveButton").gameObject;
 				instance.loadGameButton = bodyTransform.FindChild("SaveLoadBody").FindChild("LoadButton").gameObject;
 			instance.nonTargetPlayers = bodyTransform.FindChild("NonTargetPlayers").gameObject;
+
+			instance.loadGameFrame = GameObject.Find("Gamestate/LoadGameCanvas/Frame");			
 
 			//				TABS
 			Transform tabTransform = instance.menuTabs.transform;
@@ -208,6 +212,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private void hideAll(){
 		this.gameObject.SetActive(true);
+		hideBody(instance.loadGameFrame);
 		hideBody(instance.statusBody);		
 		hideBody(instance.skillsBody);
 		hideBody(instance.inventoryBody);
@@ -734,6 +739,37 @@ public class PauseMenuManager : MonoBehaviour {
 	private void hideLoadingGames(){
 		instance.loadingGames.SetActive(false);
 	}
+
+	
+
+	public void fillLoadMenuData() {
+		if (instance.loadGameFrame == null) 
+			instance.loadGameFrame = GameObject.Find("Gamestate/LoadGameCanvas/Frame");	
+		
+		/*if(!instance.loadGameFrame.activeInHierarchy)
+			instance.loadGameFrame.SetActive(true);*/
+
+		GameObject.Find("Gamestate/LoadGameCanvas/Frame/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/LoadGameCanvas/Frame/Text").GetComponent<Text>().text);
+		List<SaveData> savegames = SaveManager.Instance.getFormattedSavegames();		
+		
+		GameObject[] children = GameObject.FindGameObjectsWithTag("LoadFromMenu");
+
+		for (int i = 0; i < children.Length; i++){
+			if(i < savegames.Count)
+				formatSavegame(children[i], savegames[i], i+1);			
+			else
+				children[i].SetActive(false);			
+		}
+
+		instance.loadGameFrame.SetActive(false);
+	}	
+
+	public void showLoadMenuData() {
+		fillLoadMenuData();
+		//instance.loadGameFrame.SetActive(true);
+	}
+
+
 
 	#endregion saveLoad
 

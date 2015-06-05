@@ -2,27 +2,27 @@
 	<!--                          MAIN MENU                     -->
 	<menu>
 		<menuId>main_menu_continue</menuId>
-		<text>Continuar</text>
+		<text> Continuar</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_new_game</menuId>
-		<text>Nueva partida</text>
+		<text> Nueva partida</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_load_game</menuId>
-		<text>Cargar partida</text>
+		<text> Cargar partida</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_options</menuId>
-		<text>Opciones</text>
+		<text> Opciones</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_credits</menuId>
-		<text>Créditos</text>
+		<text> Créditos</text>
 	</menu>
 	<menu>
 		<menuId>main_menu_quit</menuId>
-		<text>Salir</text>
+		<text> Salir</text>
 	</menu>
 
 	<!-- 						  OPTIONS MENU 					 -->

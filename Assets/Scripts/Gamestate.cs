@@ -190,8 +190,13 @@ public class Gamestate : MonoBehaviour {
 		return playerData;
 	}
 
-	private static GameObject findPlayer(string tag){
-		return GameObject.FindGameObjectWithTag(tag);
+	public static GameObject findPlayer(string tag){
+		foreach(GameObject go in GameObject.FindGameObjectsWithTag(tag)) {
+			if (go.layer == 11)
+				return go;
+		}
+
+		return null;
 	}
 
 	public Player getPlayer(string name){
@@ -266,8 +271,7 @@ public class Gamestate : MonoBehaviour {
 			GameObject player;
 			foreach(PlayerData data in playersData){
 				player = findPlayer(data.characterName);
-				
-				if(player != null) {
+				if(player != null && data != null) {
 					try{
 						if(data.characterName.Equals("Ki")) {
 							data.skills.Add("skill_name_fireball", Singleton.Instance.allSkills["skill_name_fireball"]);
@@ -280,12 +284,14 @@ public class Gamestate : MonoBehaviour {
 					catch(Exception e) {
 					}
 
+					player.AddComponent<Player>();
 					player.GetComponent<Player>().populate(data);
 					player.GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/"+data.characterName+"/Platform");
 				}
 			}
 
-			if(!positionIsDefault()){					
+			if(!positionIsDefault()){
+				Debug.Log("POSITION NOT DEFAULT");	
 				findPlayer("Strider").transform.position = Singleton.Instance.playerPositionInMap;
 				GameObject.FindWithTag("MainCamera").transform.position = new Vector3(Singleton.Instance.playerPositionInMap.x, Singleton.Instance.playerPositionInMap.y, -1);
 			}
