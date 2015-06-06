@@ -400,4 +400,70 @@
 		<menuId>enemy_name_ninja</menuId>
 		<text>Ninja</text>
 	</menu>
+
+	<menu>
+		<menuId>credits_text</menuId>
+		<text>
+			UNTITLED
+			
+
+			PRODUCERS 
+			Happy Sloth Games 
+			Eric Sández 
+			Marc Sampedro 
+			 
+
+			PROGRAMMERS 
+			Eric Sández 
+			Marc Sampedro 
+			 
+
+			MAIN ARTISTS
+			Eric Sández 
+			Selva Mateo 
+			Oriol Pelino 
+			 
+
+			SOUNDTRACK 
+			Nobuo Uematsu 
+			Faunts 
+			 
+
+			LEVEL DESIGN 
+			Eric Sández 
+			 
+
+			FINANCIAL DIRECTOR 
+			Marc Sampedro 
+			 
+
+			MARKETING 
+			Marc Sampedro 
+			 
+
+			LOCALIZATION 
+			Eric Sández 
+			Diandra Ortiz 
+			 
+			 
+			SPECIAL THANKS 
+			Selva Mateo 
+			Oriol Pelino 
+			SquareSoft 
+
+
+
+			 
+			LICENSED BY HAPPY SLOTH GAMES 
+			 
+			DISTRIBUTED BY HAPPY SLOTH GAMES 
+			 
+			ALL RIGHTS RESERVED 
+			 
+
+			 
+			 
+			THANK YOU ALL FOR PLAYING!
+		</text>
+	</menu>
 </menus>

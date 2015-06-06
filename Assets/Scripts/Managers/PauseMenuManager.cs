@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class PauseMenuManager : MonoBehaviour {
 
@@ -44,6 +45,11 @@ public class PauseMenuManager : MonoBehaviour {
 		private GameObject loadGameButton;
 
 	private GameObject loadGameFrame;
+
+	private bool creditsShowing;
+	private GameObject menuCanvas;
+	private GameObject creditsCanvas;
+	private AudioClip creditsSound;
 
 	public GameObject currentButton;
 	public GameObject currentTab;
@@ -110,7 +116,11 @@ public class PauseMenuManager : MonoBehaviour {
 				instance.loadGameButton = bodyTransform.FindChild("SaveLoadBody").FindChild("LoadButton").gameObject;
 			instance.nonTargetPlayers = bodyTransform.FindChild("NonTargetPlayers").gameObject;
 
-			instance.loadGameFrame = GameObject.Find("Gamestate/LoadGameCanvas/Frame");			
+			instance.loadGameFrame = GameObject.Find("Gamestate/LoadGameCanvas/Frame");
+			instance.creditsCanvas = GameObject.Find("Gamestate/CreditsCanvas");
+			instance.creditsSound = Resources.Load<AudioClip>("Sounds/OST/M4");
+			instance.menuCanvas = GameObject.Find("Canvas");
+			creditsShowing = false;
 
 			//				TABS
 			Transform tabTransform = instance.menuTabs.transform;
@@ -126,7 +136,7 @@ public class PauseMenuManager : MonoBehaviour {
 			translateTabs();
 			translateBody();
 
-			//hideAll();			
+			hideAll();			
 
 			this.gameObject.SetActive(false);
 
@@ -134,6 +144,11 @@ public class PauseMenuManager : MonoBehaviour {
 
 			initialized = true;
 		}		
+	}
+
+	void Update() {
+		if (instance.creditsShowing && Input.anyKey && Application.loadedLevelName.Equals("MainMenu"))
+			hideCredits();		
 	}
 
 	private void setPlayers () {
@@ -212,6 +227,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private void hideAll(){
 		this.gameObject.SetActive(true);
+		instance.creditsCanvas.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Buttons/inactive");	
 		hideBody(instance.loadGameFrame);
 		hideBody(instance.statusBody);		
 		hideBody(instance.skillsBody);
@@ -662,8 +678,22 @@ public class PauseMenuManager : MonoBehaviour {
 	#endregion craft
 
 	#region saveLoad
+	
+	public void showLoadMenuData() {
+		if (!instance.loadGameFrame.activeInHierarchy){
+			hideAll();
+			instance.loadGameFrame.SetActive(true);
+			fillLoadMenuData();
+		}
+		else
+			hideAll();
+	}
+	
+	public void hideMenuData(){
+		hideAll();
+	}
 
-	public void showSaveLoad(){
+	public void showSaveLoad(){		
 		hideAll();
 
 		instance.saveLoadBody.SetActive(true);
@@ -739,9 +769,7 @@ public class PauseMenuManager : MonoBehaviour {
 	private void hideLoadingGames(){
 		instance.loadingGames.SetActive(false);
 	}
-
 	
-
 	public void fillLoadMenuData() {
 		if (instance.loadGameFrame == null) 
 			instance.loadGameFrame = GameObject.Find("Gamestate/LoadGameCanvas/Frame");	
@@ -761,17 +789,42 @@ public class PauseMenuManager : MonoBehaviour {
 				children[i].SetActive(false);			
 		}
 
-		instance.loadGameFrame.SetActive(false);
+		//instance.loadGameFrame.SetActive(false);
 	}	
 
-	public void showLoadMenuData() {
-		fillLoadMenuData();
-		//instance.loadGameFrame.SetActive(true);
+	#endregion saveLoad
+
+	public void showCredits() {
+		Debug.Log("SHOWING CREDITS");
+		instance.creditsCanvas.SetActive(true);
+		instance.creditsShowing = true;
+		instance.creditsCanvas.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Buttons/black");
+		
+		if(Application.loadedLevelName.Equals("MainMenu"))
+			if (instance.menuCanvas.GetComponent<AudioSource>().isPlaying)
+				instance.menuCanvas.GetComponent<AudioSource>().Stop();
+		else if (Application.loadedLevelName.Equals("forestBattle")) {
+			if (BattleManager.Instance.GetComponent<AudioSource>().isPlaying)
+				BattleManager.Instance.GetComponent<AudioSource>().Stop();
+		}
+
+		Debug.Log("PLAYING " + instance.creditsSound.name);
+
+		instance.creditsCanvas.GetComponent<AudioSource>().clip = instance.creditsSound;
+		instance.creditsCanvas.GetComponent<AudioSource>().Play();
+		instance.creditsCanvas.GetComponent<Credits>().enabled = true;
+
+		if(Application.loadedLevelName.Equals("MainMenu"))
+			instance.menuCanvas.SetActive(false);
 	}
 
+	public void hideCredits() {
+		instance.creditsShowing = false;
+		instance.creditsCanvas.SetActive(false);
 
-
-	#endregion saveLoad
+		if(Application.loadedLevelName.Equals("MainMenu"))
+			instance.menuCanvas.SetActive(true);
+	}
 
 	private void hideBody(GameObject body){
 		body.SetActive(false);

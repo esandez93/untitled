@@ -348,14 +348,15 @@
 - Implementado el bloqueo. (parte visual de la funcionalidad que ya existía a través del fichero settings.ini)
 - Arreglados los daños grupales, ya funcionan.
 - Arreglado el botón de continuar partida (carga el último guardado)
+- Implementando la carga de partida desde el menú principal
 
 TO DO:
-- Implementar créditos. URGENTE.
-- Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
+- Implementar créditos. URGENTE. <- 2
+- Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE. <- 3
+- Implementar zonas secretas por código. URGENTE <- 1
 - Balancear personajes.
 - Implementar landing (no urgente).
 - Revisar las colisiones y la detección de suelo.
-- Implementar zonas secretas por código.
 - Descubrir por qué peta SaveLoad si arranco el juego sin el body activado. (No urgente, funciona si se inicia el juego con el GameObject de SaveLoadBody activado) 
 	+ ACTUALIZACIÓN: También pasa con las Skills.
 - Incluir un campo en el XML de Skills que diferencie quién puede aprenderla.

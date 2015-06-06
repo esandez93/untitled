@@ -58,8 +58,6 @@ public class MapInfo{
 	}
 
 	public MonsterInfo getBossMonster(){
-		Debug.Log("1   -    " + Singleton.Instance.bossMonsters[this.mapName]);		
-		Debug.Log("2   -    " + Singleton.Instance.allMonsters[Singleton.Instance.bossMonsters[this.mapName]]);
 		return Singleton.Instance.allMonsters[Singleton.Instance.bossMonsters[this.mapName]];
 	}
 

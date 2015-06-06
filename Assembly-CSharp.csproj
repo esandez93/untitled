@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Buttons\ChangeTarget.cs" />
      <Compile Include="Assets\Scripts\Buttons\ClickButton.cs" />
+     <Compile Include="Assets\Scripts\Buttons\ClickCredits.cs" />
      <Compile Include="Assets\Scripts\Buttons\ClickTab.cs" />
      <Compile Include="Assets\Scripts\Buttons\ContinueGame.cs" />
      <Compile Include="Assets\Scripts\Buttons\CraftItem.cs" />

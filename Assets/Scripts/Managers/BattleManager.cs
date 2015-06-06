@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class BattleManager : MonoBehaviour {
 
+	private bool playingEndgame = false;
+
 	public int turn = 1;
 	public bool bossBattle = false;
 
@@ -99,7 +101,8 @@ public class BattleManager : MonoBehaviour {
 		PLAYERTURN,
 		ENEMYTURN,
 		LOSE,
-		WIN
+		WIN,
+		ENDGAME
 	}
 	
 	public enum BattlePhases{
@@ -134,13 +137,11 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	void OnGUI() {
+	/*void OnGUI() {
 		if (GUI.Button (new Rect (930, 30, 150, 30), "End Turn")) { // DEBUG
 			endTurn();
 		}
-		/*if(!instance.ended)
-			checkGUI();	*/	
-	}
+	}*/
 
 	void Start(){
 		instance.currentMap = gamestate.map;
@@ -264,9 +265,21 @@ public class BattleManager : MonoBehaviour {
 			case BattleStates.WIN:
 				Debug.Log ("Players WIN!");
 				changePhase(BattlePhases.END);
-				giveRewards();
-				Application.LoadLevel("forestWinBattle");
-				deleteInstance();
+				instance.ost.Stop();
+				if (!isBossBattle()){
+					giveRewards();
+					Application.LoadLevel("forestWinBattle");
+				}
+				else
+					changeState(BattleStates.ENDGAME);
+				
+				break;
+			case BattleStates.ENDGAME:
+				if(!playingEndgame) {
+					GameObject.Find("BattleCanvas").SetActive(false);
+					PauseMenuManager.Instance.showCredits();
+					playingEndgame = true;
+				}
 				break;
 		}
 	}
