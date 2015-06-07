@@ -115,6 +115,7 @@
      <Compile Include="Assets\Scripts\Objects\SkillInfo.cs" />
      <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
      <Compile Include="Assets\Scripts\RewardsBehaviour.cs" />
+     <Compile Include="Assets\Scripts\SecretZones.cs" />
      <None Include="Assets\Gamedata\Xml\Plantillas\skills.xml" />
      <None Include="Assets\Gamedata\Lang\Dialogues\dialoguesEN.xml" />
      <None Include="Assets\Gamedata\Xml\alteredStats.xml" />

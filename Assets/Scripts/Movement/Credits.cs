@@ -20,7 +20,7 @@
      private void OnGUI(){
 		GUI.BeginGroup(this.viewArea);
 
-		Rect position = new Rect(0, this.offset, this.viewArea.width, 5000);//this.viewArea.height);
+		Rect position = new Rect(0, this.offset, this.viewArea.width, 5000);
 		string text = LanguageManager.Instance.getMenuText("credits_text");
 
 		style.fontSize = 24;

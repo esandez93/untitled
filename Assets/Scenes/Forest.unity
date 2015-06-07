@@ -1935,6 +1935,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1607131410}
   - 61: {fileID: 1607131411}
+  - 114: {fileID: 1607131412}
   m_Layer: 0
   m_Name: SecretZone
   m_TagString: Untagged
@@ -1965,6 +1966,17 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_Size: {x: 1.47776949, y: 1.2697413}
   m_Center: {x: 6.42349386, y: -1.27415919}
+--- !u!114 &1607131412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1607131409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f6b7bdaaa9d924c862adf79f33148e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1761622226
 GameObject:
   m_ObjectHideFlags: 0

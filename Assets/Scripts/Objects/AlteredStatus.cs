@@ -103,7 +103,7 @@ public class AlteredStatus {
 				break;
 		}
 		
-		Gamestate.instance.showMessage(LanguageManager.Instance.getStatusAffection(character.characterName, this.getStatusName()));
+		Gamestate.instance.showMessage(LanguageManager.Instance.getStatusAffection(character.isPlayer() ? character.characterName : LanguageManager.Instance.getMenuText(character.characterName), this.getStatusName()));
 
 		this.duration--;
 

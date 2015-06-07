@@ -350,16 +350,22 @@
 - Arreglado el botón de continuar partida (carga el último guardado)
 - Implementando la carga de partida desde el menú principal
 
+06/05/2015
+- Finalizados los créditos. Se lanzan desde el menú principal o al acabar la batalla con el jefe final.
+- Finalizada la implementación de la carga de partida desde el menú principal.
+
+07/05/2015
+- Implementadas las zonas secretas.
+
+
 TO DO:
-- Implementar créditos. URGENTE. <- 2
-- Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE. <- 3
-- Implementar zonas secretas por código. URGENTE <- 1
+- Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
+- Revisar las colisiones y la detección de suelo. URGENTE.
 - Balancear personajes.
+- Incluir un campo en el XML de Skills que diferencie quién puede aprenderla.
 - Implementar landing (no urgente).
-- Revisar las colisiones y la detección de suelo.
 - Descubrir por qué peta SaveLoad si arranco el juego sin el body activado. (No urgente, funciona si se inicia el juego con el GameObject de SaveLoadBody activado) 
 	+ ACTUALIZACIÓN: También pasa con las Skills.
-- Incluir un campo en el XML de Skills que diferencie quién puede aprenderla.
 
 DIFICULTADES:
 - Aprender el manejo del motor Unity.
