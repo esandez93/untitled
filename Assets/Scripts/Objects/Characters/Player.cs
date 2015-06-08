@@ -225,26 +225,22 @@ public class Player : Character{
 				benefits = skill.getBenefits();
 
 				foreach(KeyValuePair<string, float> benefit in benefits){
-					if(Singleton.Instance.exceptionSkills.Contains(skill.name)){ // Don't use percent, just constant numbers
-						increaseStat(benefit.Key, benefit.Value);
-					}
-					else{
-						increasePercentStat(benefit.Key, benefit.Value);
-					}
+					if(Singleton.Instance.exceptionSkills.Contains(skill.name)) // Don't use percent, just constant numbers
+						increaseStat(benefit.Key, benefit.Value);					
+					else
+						increasePercentStat(benefit.Key, benefit.Value);					
 				}
 			}
-			else if(skill.idType == Skill.Type.PASSIVE_ADD_STATUS){
-				addAlteredStatus(Singleton.Instance.allAlteredStatus[skill.status]);
-			}
+			else if(skill.idType == Skill.Type.PASSIVE_ADD_STATUS)
+				addAlteredStatus(Singleton.Instance.allAlteredStatus[skill.status]);			
 		}
 	}
 
 	public List<Skill> getSkills(){
 		List<Skill> playerSkills = new List<Skill>();
 
-		foreach(KeyValuePair<string, Skill> entry in skills){
-			playerSkills.Add(entry.Value);
-		}
+		foreach(KeyValuePair<string, Skill> entry in skills)
+			playerSkills.Add(entry.Value);		
 
 		return playerSkills;
 	}

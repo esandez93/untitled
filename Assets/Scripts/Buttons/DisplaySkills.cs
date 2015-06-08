@@ -11,7 +11,7 @@ public class DisplaySkills : MonoBehaviour {
 	public List<GameObject> skillButtons;
 	public bool finished = false;
 
-	public BattleManager bm;
+	//public BattleManager bm;
 
 	public Player player;
 	public List<Skill> skills;
@@ -23,9 +23,8 @@ public class DisplaySkills : MonoBehaviour {
 	private LanguageManager languageManager;
 
 	void Start () {
-		bm = BattleManager.Instance;
+		//bm = BattleManager.Instance;
 		languageManager = LanguageManager.Instance;
-		//this.gameObject.SetActive(false);
 
 		skillButtons = new List<GameObject>();
 
@@ -33,21 +32,34 @@ public class DisplaySkills : MonoBehaviour {
 	}
 
 	void Update () {
-		if(bm != null && bm.isPlayerTurn()){
-			player = bm.getCurrentPlayer();
-			if(player != null){
-				skills = player.getSkills();
-
-				populateButtons();
-				allocatePanel();
+		if(BattleManager.Instance.isPlayerTurn()){
+			if (player == null || !player.characterName.Equals(BattleManager.Instance.getCurrentPlayer().characterName)) {
+				reloadSkills();
+				player = BattleManager.Instance.getCurrentPlayer();
+				if(player != null){
+					populateButtons();
+					allocatePanel();
+				}
 			}
 		}
 	}
 
+	public void reloadSkills(){
+		//this.player = player;
+		/*skills = player.getSkills();
+
+		populateButtons();
+		allocatePanel();*/
+		finished = false;
+	}
+
 	private void populateButtons(){
+		skills = player.getSkills();
+
 		if(skills != null){
 			if(!finished){
 				int i = 0;
+				clean();
 				if(skills.Count > 0){
 					string text;
 					foreach(Skill skill in skills){
@@ -56,8 +68,6 @@ public class DisplaySkills : MonoBehaviour {
 							text =  languageManager.getMenuText(skill.id) + " Lv. " + skill.currLevel;
 							setTextToButton(instance, text);
 							instance.name = skill.id;
-							//instance.AddComponent<Skill>();
-							//instance.GetComponent<Skill>().id = skill.id;
 							
 							if(sameAsLast(i) || text.Equals(DEFAULT_SKILL_TEXT)){
 								skillButtons[i].SetActive(false);
@@ -76,6 +86,17 @@ public class DisplaySkills : MonoBehaviour {
 				finished = true;
 			}
 		}
+	}	
+
+	private void clean(){
+		//Destroy (GameObject.Find("ItemButton(Clone)"));
+		List<GameObject> children = new List<GameObject>();
+		foreach (Transform child in transform) 
+			children.Add(child.gameObject);
+			
+		children.ForEach(child => Destroy(child));
+
+		skillButtons.Clear();
 	}
 	
 	private GameObject createInstance(){

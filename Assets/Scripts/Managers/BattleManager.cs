@@ -33,6 +33,7 @@ public class BattleManager : MonoBehaviour {
 
 	public bool showPlayerStatGUI;
 	public bool showMonsterStatGUI;
+	public GameObject skillsGUI;
 
 	public Character currentObjective;
 
@@ -149,7 +150,8 @@ public class BattleManager : MonoBehaviour {
 		Transform transform = GameObject.FindGameObjectWithTag("BattleCanvas").transform;
 
 		instance.playerInterface = transform.FindChild("PlayerInterface").gameObject;
-		
+		//instance.skillsGUI = GameObject.Find("BattleCanvas/PlayerInterface/SkillButton/Skills");
+
 		Transform playerDataTransform = transform.FindChild("PlayerData");
 		instance.playerBackgroundGUI = playerDataTransform.GetComponent<Image>();
 		instance.playerPortraitGUI = playerDataTransform.FindChild("PlayerPortrait").GetComponent<Image>();
@@ -207,7 +209,8 @@ public class BattleManager : MonoBehaviour {
 
 				if(instance.currentPhase == BattlePhases.AFFECT) {
 					instance.currentPlayer.startTurn();	
-					hideGUIEnemyInfo();
+					hideGUIEnemyInfo();					
+					//instance.skillsGUI.GetComponent<DisplaySkills>().reloadSkills(currentPlayer);
 				}
 				else{
 					if(instance.currentObjective == null)		
@@ -595,7 +598,7 @@ public class BattleManager : MonoBehaviour {
 			instance.numMonsters = 3;
 		else {
 			//instance.numMonsters = Random.Range(1, (instance.playersInBattle.Count+1));
-			instance.numMonsters = 3; // DEBUG
+			instance.numMonsters = 1; // DEBUG
 		}
 		
 		Monster monster;

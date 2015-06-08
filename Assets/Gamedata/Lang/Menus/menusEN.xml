@@ -141,6 +141,20 @@
 		<text>Skill Points</text>
 	</menu>
 
+	<!-- 						  SKILLS MENU 					  -->
+	<menu>
+		<menuId>pause_menu_skill_name_label</menuId>
+		<text>Name</text>
+	</menu>
+	<menu>
+		<menuId>pause_menu_skill_level_label</menuId>
+		<text>Level</text>
+	</menu>
+	<menu>
+		<menuId>pause_menu_skill_nextlevel_label</menuId>
+		<text>Next level info</text>
+	</menu>
+
 	<!--						  SAVE MENU 					  -->
 	<menu>
 		<menuId>saving_games_head</menuId>

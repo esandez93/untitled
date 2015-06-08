@@ -371,6 +371,13 @@ public class PauseMenuManager : MonoBehaviour {
 
 		showSkillTabs();
 		hideSkills();
+		
+		Text nameLabel = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Body/Name").GetComponent<Text>();
+		nameLabel.text = LanguageManager.Instance.getMenuText(nameLabel.text);
+		Text levelLabel = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Body/Level").GetComponent<Text>();
+		levelLabel.text = LanguageManager.Instance.getMenuText(levelLabel.text);
+		Text nextLevelLabel = GameObject.Find("Gamestate/PauseMenuCanvas/Body/SkillsBody/SkillsFrame/Body/NextLevelInfo").GetComponent<Text>();
+		nextLevelLabel.text = LanguageManager.Instance.getMenuText(nextLevelLabel.text);
 
 		if (targetPlayer.hasSkillPoints())
 			showSkillButtons();

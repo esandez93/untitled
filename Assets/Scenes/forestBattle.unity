@@ -215,7 +215,19 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 1
+        m_CallState: 2
+      - m_Target: {fileID: 640508814}
+        m_MethodName: reloadSkills
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Player, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &42576747
@@ -2642,6 +2654,7 @@ MonoBehaviour:
   deathFinished: 0
   showPlayerStatGUI: 0
   showMonsterStatGUI: 0
+  skillsGUI: {fileID: 0}
   currentObjective: {fileID: 0}
   currentState: 0
   currentPhase: 0

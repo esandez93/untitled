@@ -215,8 +215,8 @@
 - Arreglado bug con el menú de pausa donde no funcionaba correctamente al intentar despausar desde la tecla correspondiente del teclado.
 
 02/02/2015
-- Implementación (teórica, por falta de material, pero siguiendo el esquema funcional de los monstruos que sí funcionan) de las animaciones de los personajes y 
-  arreglados varios bugs descubiertos durante el desarrollo.
+- Implementación (teórica, por falta de material, pero siguiendo el esquema funcional de los monstruos que sí funcionan) de las animaciones 
+  de los personajes y arreglados varios bugs descubiertos durante el desarrollo.
   
 03/02/2015
 - Implementada la desaparición del monstruo del mapa de plataformas una vez derrotado en batalla.
@@ -256,8 +256,10 @@
 - Inicio de la programación de los menús
 
 11/04/2015 - 16/04/2015
-- Implementada casi al 100% la ventana de estado. Sólo falta poder cambiar el target sobre el que se muestra la información (haciendo click en el retrato de la esquiza inferior izquierda.
-- Implementación con algunos bugs de la ventana de inventario. Falta cambiar color a los objetos no usables y revisar los errores (de actualización en su mayoría).
+- Implementada casi al 100% la ventana de estado. Sólo falta poder cambiar el target sobre el que se muestra la información 
+  (haciendo click en el retrato de la esquiza inferior izquierda)
+- Implementación con algunos bugs de la ventana de inventario. Falta cambiar color a los objetos no usables y revisar los errores 
+  (de actualización en su mayoría).
 
 17/04/2015 - 22/04/2015
 - Implementación de la ventana de creación de objetos. Falta actualizar los datos una vez creado un objeto.
@@ -284,7 +286,8 @@
 29/04/2015
 - Implementado el guardado y carga de partida desde el menú correspondiente.
 - Implementado el resaltado de objetos, recetas, partidas guardadas, etc seleccionados en ese momento.
-- Implementado el resaltado de la pestaña del menú activa en ese momento. !!! IMPORTANTE: Si se añaden datos para guardar en SaveData las partidas anteriores no serán válidas.
+- Implementado el resaltado de la pestaña del menú activa en ese momento. !!! IMPORTANTE: Si se añaden datos para guardar en 
+																						  SaveData las partidas anteriores no serán válidas.
 - Solucionados varios errores con el guardado y la carga de partidas.
 - Solucionado un error menor donde al guardar partida salían desordenadas.
 
@@ -326,7 +329,8 @@
 
 27/05/2015
 - Arreglado un fallo que provocaba que si dos jugadores con turnos consecutivos querían atacar a un objetivo, no dejase seleccionarlo.
-- Arreglado un fallo en los cálculos de las trayectorias donde al volver del ataque volvían a una posición más hacia el centro en el eje Y, provocando que en los combates largos se agolpasen todos los personajes en un mismo punto.
+- Arreglado un fallo en los cálculos de las trayectorias donde al volver del ataque volvían a una posición más hacia el centro en el eje Y, 
+  provocando que en los combates largos se agolpasen todos los personajes en un mismo punto.
 
 28/05/2015 - 02/06/2015
 - Creado fondo para el menú principal y rediseño del mismo.
@@ -356,7 +360,12 @@
 
 07/05/2015
 - Implementadas las zonas secretas.
+- Corregido un error con el mensaje de afectación de estado alterado.
 
+08/06/2015
+- Arreglado un error con la muestra de las habilidades en batalla.
+- Arreglado un error con la muestra de las habilidades en el menú de habilidades.
+- Añadido texto indicativo en el menú de habilidades.
 
 TO DO:
 - Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
@@ -369,7 +378,8 @@ TO DO:
 
 DIFICULTADES:
 - Aprender el manejo del motor Unity.
-- Hacerse a la idea del funcionamiento de un juego, pensar que está en constante iteración y que debes programar en consecuencia. No puedes hacer un bucle while, por ejemplo.
+- Hacerse a la idea del funcionamiento de un juego, pensar que está en constante iteración y que debes programar en consecuencia. 
+  No puedes hacer un bucle while, por ejemplo.
 - Todo el tema de tratar interfaz via código al principio se hizo complicado.
 - Manejar tantos ficheros y/o BBDD se puede llegar a hacer confuso.
 - Mantener un ritmo de producción más o menos constante sin caer en la desmotivación.
