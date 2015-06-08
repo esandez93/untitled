@@ -366,6 +366,8 @@
 - Arreglado un error con la muestra de las habilidades en batalla.
 - Arreglado un error con la muestra de las habilidades en el menú de habilidades.
 - Añadido texto indicativo en el menú de habilidades.
+- Arreglado un error con las ventanas abiertas al iniciar partida.
+- Arreglado un error donde al ganar una batalla no se destruía su instancia.
 
 TO DO:
 - Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.

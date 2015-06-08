@@ -16,7 +16,7 @@ class ClickButton : MonoBehaviour {
 	}
 
 	public void clickLoad(){
-		if(clicked)
+		if(clicked) 
 			PauseMenuManager.Instance.clickLoad(this.gameObject);
 	}
 }

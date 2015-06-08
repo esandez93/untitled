@@ -4,7 +4,15 @@ using System.Collections;
 public class NewGame : MonoBehaviour{
 
 	void Start (){
-		try{
+		try{			
+			GameObject optionsCanvas = GameObject.Find("Gamestate/OptionsCanvas");
+			if (optionsCanvas != null)
+				optionsCanvas.SetActive(false);
+
+			GameObject loadCanvas = GameObject.Find("Gamestate/LoadGameCanvas");
+			if (loadCanvas != null)
+				loadCanvas.SetActive(false);
+
 			if(SaveManager.Instance.loadStartGame()){
 				Time.timeScale = 1;
 				/*Gamestate.instance.playersData[0].matk = 150; // DEBUG

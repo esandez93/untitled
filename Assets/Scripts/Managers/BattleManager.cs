@@ -271,6 +271,7 @@ public class BattleManager : MonoBehaviour {
 				instance.ost.Stop();
 				if (!isBossBattle()){
 					giveRewards();
+					deleteInstance();
 					Application.LoadLevel("forestWinBattle");
 				}
 				else
@@ -656,6 +657,10 @@ public class BattleManager : MonoBehaviour {
 		}
 
 		Singleton.Instance.lastBattleResults = instance.battleResults;
+	}
+
+	private bool rewardsGiven() {
+		return instance.battleResults != null;
 	}
 
 	public void finishCurrentAttack(){

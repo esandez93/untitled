@@ -238,8 +238,6 @@ public class PauseMenuManager : MonoBehaviour {
 
 		if(currentButton != null)
 			currentButton.GetComponent<Image>().sprite = NORMAL_BUTTON;
-
-		//currentButton = null;
 	}
 
 	#region status
@@ -684,10 +682,10 @@ public class PauseMenuManager : MonoBehaviour {
 
 	#endregion craft
 
-	#region saveLoad
-	
+	#region saveLo
+
 	public void showLoadMenuData() {
-		if (!instance.loadGameFrame.activeInHierarchy){
+		if (!instance.loadGameFrame.activeInHierarchy){		
 			hideAll();
 			instance.loadGameFrame.SetActive(true);
 			fillLoadMenuData();
@@ -780,9 +778,6 @@ public class PauseMenuManager : MonoBehaviour {
 	public void fillLoadMenuData() {
 		if (instance.loadGameFrame == null) 
 			instance.loadGameFrame = GameObject.Find("Gamestate/LoadGameCanvas/Frame");	
-		
-		/*if(!instance.loadGameFrame.activeInHierarchy)
-			instance.loadGameFrame.SetActive(true);*/
 
 		GameObject.Find("Gamestate/LoadGameCanvas/Frame/Text").GetComponent<Text>().text = LanguageManager.Instance.getMenuText(GameObject.Find("Gamestate/LoadGameCanvas/Frame/Text").GetComponent<Text>().text);
 		List<SaveData> savegames = SaveManager.Instance.getFormattedSavegames();		
@@ -795,8 +790,6 @@ public class PauseMenuManager : MonoBehaviour {
 			else
 				children[i].SetActive(false);			
 		}
-
-		//instance.loadGameFrame.SetActive(false);
 	}	
 
 	#endregion saveLoad
