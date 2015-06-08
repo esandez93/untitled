@@ -276,6 +276,8 @@ public class Gamestate : MonoBehaviour {
 						if(data.characterName.Equals("Ki")) {
 							data.skills.Add("skill_name_fireball", Singleton.Instance.allSkills["skill_name_fireball"]);
 							data.skills["skill_name_fireball"].levelUp();
+							data.skills["skill_name_fireball"].levelUp();
+							data.skillPoints = 5;
 							//data.agi += 250;
 						}
 						Singleton.Instance.inventory.addItem("item_name_potion", 1);

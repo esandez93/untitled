@@ -513,7 +513,7 @@ public class Character : MonoBehaviour{
 			enemy.receiveDamage(damage);
 		}
 		else{
-			Gamestate.instance.showMessage(isPlayer() ? this.characterName : LanguageManager.Instance.getMenuText("enemy_status") + " " + LanguageManager.Instance.getMenuText("failed_attack"));
+			Gamestate.instance.showMessage(LanguageManager.Instance.getFailedAttackMessage(this.characterName));
 			BattleManager.Instance.finishCurrentAttack();
 		}
 	}

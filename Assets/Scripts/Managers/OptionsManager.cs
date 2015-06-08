@@ -87,7 +87,6 @@ public class OptionsManager : MonoBehaviour{
 	}
 
 	public void showMenu() {
-
 		instance.source.SetActive(true);
 		setSettingsToGUI();
 	}

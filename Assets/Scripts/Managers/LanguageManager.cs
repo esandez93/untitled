@@ -73,6 +73,21 @@ public class LanguageManager : MonoBehaviour{
 		}
 	}
 
+	public string getFailedAttackMessage(string target) {
+		string result = "";
+
+		if(isEnemy(target)){
+			result = formatText(getMenuText("enemy_status"), "@name", target);
+		}
+		else{
+			result = target;
+		}
+
+		result +=  " " + LanguageManager.Instance.getMenuText("failed_attack")+".";
+
+		return result;
+	}
+
 	public string getStatus(string target, string status){
 		string result = "";
 
