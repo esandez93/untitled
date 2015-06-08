@@ -70,6 +70,7 @@ public class PlayerBehaviour : MonoBehaviour {
 				skill();
 				break;
 			case animationState.BLOCKING:
+				defend();
 				break;
 			case animationState.MOVINGBACK: 
 				backToPosition();
@@ -123,6 +124,11 @@ public class PlayerBehaviour : MonoBehaviour {
 		}
 	}
 
+	private void block() {		
+		animator.SetInteger("AnimationState", Animations.BLOCK);
+		changeAnimationState(animationState.BLOCKING);	
+	}
+
 	private void skill(){
 		if(isAttacking)
 			animator.SetInteger("AnimationState", Animations.USE_SKILL);		
@@ -154,7 +160,7 @@ public class PlayerBehaviour : MonoBehaviour {
 		}		
 	}
 
-	private void stand(){
+	public void stand(){
 		rigidbody2D.velocity = new Vector2 (0,0);
 		changeAnimationState(animationState.STANDING);
 		animator.SetInteger("AnimationState", Animations.STAND);
@@ -210,6 +216,11 @@ public class PlayerBehaviour : MonoBehaviour {
 			animator.SetInteger("AnimationState", Animations.RECEIVE_DAMAGE);
 			changeAnimationState(animationState.RECEIVINGDAMAGE);
 		}
+	}
+
+	public void defend() {
+		animator.SetInteger("AnimationState", Animations.BLOCK);
+		changeAnimationState(animationState.BLOCKING);	
 	}
 
 	public void die(){

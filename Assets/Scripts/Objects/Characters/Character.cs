@@ -778,7 +778,12 @@ public class Character : MonoBehaviour{
 		}
 	}
 
+	public void stand() {
+		this.gameObject.GetComponent<PlayerBehaviour>().stand();
+	}
+
 	public void defend(){
+		this.gameObject.GetComponent<PlayerBehaviour>().defend();
 		defending = true;
 	}
 
@@ -846,7 +851,7 @@ public class Character : MonoBehaviour{
 	}
 
 	public void startTurn(){
-		if(this.isAlive()){
+		if(this.isAlive()){	
 			this.restoreMP(this.maxMP * mpRegen);
 			this.restoreHP(this.maxHP * hpRegen);		
 

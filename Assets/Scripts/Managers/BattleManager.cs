@@ -208,6 +208,7 @@ public class BattleManager : MonoBehaviour {
 				setGUIPlayerInfo(instance.currentPlayer);
 
 				if(instance.currentPhase == BattlePhases.AFFECT) {
+					instance.currentPlayer.GetComponent<PlayerBehaviour>().stand();
 					instance.currentPlayer.startTurn();	
 					hideGUIEnemyInfo();					
 					//instance.skillsGUI.GetComponent<DisplaySkills>().reloadSkills(currentPlayer);

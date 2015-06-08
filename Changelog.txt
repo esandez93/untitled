@@ -370,6 +370,7 @@
 - Arreglado un error donde al ganar una batalla no se destruía su instancia.
 - Arreglado un error con el botón de subir de nivel las habilidades.
 - Arreglado un fallo de traducción al fallar un ataque.
+- Implementadas las animaciones correctas al bloquear.
 
 TO DO:
 - Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
