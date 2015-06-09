@@ -371,8 +371,14 @@
 - Arreglado un error con el botón de subir de nivel las habilidades.
 - Arreglado un fallo de traducción al fallar un ataque.
 - Implementadas las animaciones correctas al bloquear.
+- Arreglado un error al usar un objeto o habilidad grupal contra un grupo menor de 3.
+
+09/06/2015
+- Arreglado un error donde a veces en el combate final atacaban varios enemigos a la vez.
+- Arreglado un error en el menú principal que permitía que se solapasen varios menús.
 
 TO DO:
+- Ver por qué después de los créditos los menús se dibujan detrás del background.
 - Implementar varias skills para que todos tengan al menos una. A poder ser, una activa por rama. URGENTE.
 - Revisar las colisiones y la detección de suelo. URGENTE.
 - Balancear personajes.

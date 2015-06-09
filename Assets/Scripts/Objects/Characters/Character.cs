@@ -599,12 +599,12 @@ public class Character : MonoBehaviour{
 			if(physic){
 				damage = this.atk * (skill.damage/100);
 				damage -= target.def;
-				Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
+				//Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", ATK: " + this.atk + " * " + skill.damage + ", MonsDEF: " + target.def + ", DMG: " + (damage*modifier))	;
 			}
 			else {
 				damage = this.matk * (skill.damage/100);
 				damage -= target.mdef;
-				Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", MATK: " + this.matk + " * " + skill.damage + "%, MonsMDEF: " + target.mdef + ", DMG: " + (damage*modifier));
+				//Debug.Log("Skill: " + skill.name + ", Modifier: " + modifier + ", MATK: " + this.matk + " * " + skill.damage + "%, MonsMDEF: " + target.mdef + ", DMG: " + (damage*modifier));
 			}
 
 			damage *= modifier;
@@ -800,7 +800,7 @@ public class Character : MonoBehaviour{
 	
 	public void die(){
 		if (isAlive()){
-			Debug.Log(this.characterName + " is dying!");
+			//Debug.Log(this.characterName + " is dying!");
 			alive = false;
 
 			if (this.isPlayer()){

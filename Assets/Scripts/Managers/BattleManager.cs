@@ -230,34 +230,39 @@ public class BattleManager : MonoBehaviour {
 					instance.playerInterface.SetActive(false);
 
 				instance.currentMonster = (Monster) instance.currentCharacter;			
-				setGUIEnemyInfo(instance.currentMonster);
+				
+				if(instance.currentMonster.isAlive())
+				{
+					setGUIEnemyInfo(instance.currentMonster);
 
-				if(instance.currentPhase == BattlePhases.AFFECT){
-					instance.currentMonster.startTurn();
-					hideGUIPlayerInfo();				
-				}
-				else {
-					if(instance.action == -1){				
-						changePhase(BattlePhases.CHOSEACTION);		
-						instance.action = instance.currentMonster.decideAction();
+					if(instance.currentPhase == BattlePhases.AFFECT){
+						instance.currentMonster.startTurn();
+						hideGUIPlayerInfo();				
 					}
 					else {
-						if(instance.playerObjective == null){
-							hideGUIPlayerInfo();			
-							changePhase(BattlePhases.CHOSEOBJECTIVE);
-							instance.playerObjective = (Player) instance.currentMonster.decideObjective();
+						if(instance.action == -1){				
+							changePhase(BattlePhases.CHOSEACTION);		
+							instance.action = instance.currentMonster.decideAction();
 						}
-						else{
-							setGUIPlayerInfo(instance.playerObjective);
+						else {
+							if(instance.playerObjective == null){
+								hideGUIPlayerInfo();			
+								changePhase(BattlePhases.CHOSEOBJECTIVE);
+								instance.playerObjective = (Player) instance.currentMonster.decideObjective();
+							}
+							else{
+								setGUIPlayerInfo(instance.playerObjective);
 
-							instance.currentMonster.doAction(instance.action, instance.playerObjective);
+								instance.currentMonster.doAction(instance.action, instance.playerObjective);
 				
-							if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION)								
+								if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION) {
+									Debug.Log("ENDING FROM UPDATE " + instance.currentMonster.characterName + " - TURN " + instance.turn);
 									endTurn();							
+								}	
+							}
 						}
-					}
-				}				
-				
+					}				
+				}
 				break;
 			case BattleStates.LOSE:
 				Debug.Log ("Monsters WIN!");
@@ -360,6 +365,8 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	public void endTurn(){
+		changePhase(BattlePhases.NONE);
+		//Debug.Log("KHAHSAHSKAH " + currentCharacter.characterName);
 		checkIfEnded();
 
 		if(instance.turn < instance.maxTurns)
@@ -377,6 +384,8 @@ public class BattleManager : MonoBehaviour {
 
 		if(!instance.ended){
 			if(instance.currentCharacter.isAlive()){
+				changePhase(BattlePhases.AFFECT);
+
 				if(instance.currentCharacter.isPlayer()){
 					hideGUIEnemyInfo();
 					instance.playerTurn = true;
@@ -392,12 +401,19 @@ public class BattleManager : MonoBehaviour {
 					instance.currentPlayer = null;
 					changeState(BattleStates.ENEMYTURN);
 				}
-
-				changePhase(BattlePhases.AFFECT);
 			}
 			else {
-				if (currentPhase != BattlePhases.AFFECT)
-					endTurn();	
+				if (currentPhase == BattlePhases.NONE){
+					Debug.Log("ENDING DEAD - " + currentCharacter.characterName + " - TURN " + instance.turn);
+					if (instance.turn < instance.maxTurns)
+						instance.turn++;
+					else
+						instance.turn = 1;
+
+					checkIfPlayerTurn();
+				}
+				else
+					Debug.Log("/cry");
 			}
 		}
 	}
@@ -567,9 +583,6 @@ public class BattleManager : MonoBehaviour {
 		if (character != null) {
 			character.cleanVariables();
 		}
-
-		//if (!character.isAlive())
-			//killCharacter(character);		
 	}
 	
 	private void enableComponents(GameObject go){
@@ -803,7 +816,7 @@ public class BattleManager : MonoBehaviour {
 				}		
 				
 				if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION){
-					//changePhase(BattlePhases.DOACTION);
+					Debug.Log("ENDING FROM BATTLE LISTENER - " + currentCharacter.characterName + " - TURN " + instance.turn);
 					endTurn ();
 				}
 			}

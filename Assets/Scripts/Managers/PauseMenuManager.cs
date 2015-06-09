@@ -67,6 +67,9 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private bool initialized = false;
 
+	public bool optionsOpened = false;
+	public bool loadgameOpened = false;
+
 	private static PauseMenuManager instance = null;
 	public static PauseMenuManager Instance{
 		get{
@@ -227,7 +230,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	private void hideAll(){
 		this.gameObject.SetActive(true);
-		instance.creditsCanvas.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Buttons/inactive");	
+		//instance.creditsCanvas.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Buttons/inactive");	
 		hideBody(instance.loadGameFrame);
 		hideBody(instance.statusBody);		
 		hideBody(instance.skillsBody);
@@ -682,19 +685,28 @@ public class PauseMenuManager : MonoBehaviour {
 
 	#endregion craft
 
-	#region saveLo
+	#region saveLoad
 
 	public void showLoadMenuData() {
-		if (!instance.loadGameFrame.activeInHierarchy){		
+		if (!instance.loadGameFrame.activeInHierarchy){	
+			if (instance.optionsOpened) {
+				OptionsManager.Instance.cancel();
+				instance.optionsOpened = false;
+			}
+
+			instance.loadgameOpened = true;
 			hideAll();
 			instance.loadGameFrame.SetActive(true);
 			fillLoadMenuData();
 		}
-		else
+		else {
+			instance.loadgameOpened = false;
 			hideAll();
+		}
 	}
 	
 	public void hideMenuData(){
+		instance.loadgameOpened = false;
 		hideAll();
 	}
 
@@ -795,6 +807,12 @@ public class PauseMenuManager : MonoBehaviour {
 	#endregion saveLoad
 
 	public void showCredits() {
+		if (PauseMenuManager.Instance.optionsOpened) 
+			OptionsManager.Instance.cancel();		
+
+		if(PauseMenuManager.Instance.loadgameOpened)
+			PauseMenuManager.Instance.hideMenuData();	
+
 		Debug.Log("SHOWING CREDITS");
 		instance.creditsCanvas.SetActive(true);
 		instance.creditsShowing = true;
@@ -814,7 +832,7 @@ public class PauseMenuManager : MonoBehaviour {
 		instance.creditsCanvas.GetComponent<AudioSource>().Play();
 		instance.creditsCanvas.GetComponent<Credits>().enabled = true;
 
-		if(Application.loadedLevelName.Equals("MainMenu"))
+		if (Application.loadedLevelName.Equals("MainMenu"))
 			instance.menuCanvas.SetActive(false);
 	}
 

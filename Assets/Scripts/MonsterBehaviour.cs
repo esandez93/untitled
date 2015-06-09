@@ -171,8 +171,10 @@ public class MonsterBehaviour : MonoBehaviour {
 
 	public void receiveDamage(){
 		if(startReceivingDamage){
-			animator.SetInteger("AnimationState", Animations.RECEIVE_DAMAGE);
-			changeAnimationState(animationState.RECEIVINGDAMAGE);
+			if (animator != null) {
+				animator.SetInteger("AnimationState", Animations.RECEIVE_DAMAGE);
+				changeAnimationState(animationState.RECEIVINGDAMAGE);
+			}
 		}
 	}
 
@@ -203,7 +205,7 @@ public class MonsterBehaviour : MonoBehaviour {
 
 	public void finishDeath(){
 		startDeath = false;
-		BattleManager.Instance.finishCurrentAttack();
+		//BattleManager.Instance.finishCurrentAttack();
 		animator.enabled = false;
 	}
 	

@@ -87,8 +87,20 @@ public class OptionsManager : MonoBehaviour{
 	}
 
 	public void showMenu() {
-		instance.source.SetActive(true);
-		setSettingsToGUI();
+		if(!instance.source.activeInHierarchy) {
+			if(PauseMenuManager.Instance.loadgameOpened) {
+				PauseMenuManager.Instance.hideMenuData();
+				PauseMenuManager.Instance.loadgameOpened = false;
+			}
+
+			PauseMenuManager.Instance.optionsOpened = true;
+			instance.source.SetActive(true);
+			setSettingsToGUI();
+		}
+		else {
+			PauseMenuManager.Instance.optionsOpened = false;
+			cancel();
+		}
 	}
 
 	public void getSettingsFromGUI() {
@@ -220,6 +232,7 @@ public class OptionsManager : MonoBehaviour{
 	}
 
 	public void cancel() {
+		PauseMenuManager.Instance.optionsOpened = false;
 		instance.source.SetActive(false);
 	}
 

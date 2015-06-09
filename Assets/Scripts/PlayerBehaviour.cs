@@ -260,7 +260,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	public void finishDeath(){
 		startDeath = false;
-		BattleManager.Instance.finishCurrentAttack();
+		//BattleManager.Instance.finishCurrentAttack();
 		animator.enabled = false;
 	}
 	
