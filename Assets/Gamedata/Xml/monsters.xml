@@ -4,9 +4,9 @@
 		<name>enemy_name_wolf</name>
 		<level>1</level>
 		<element>1</element>
-		<hp>30</hp>
+		<hp>40</hp>
 		<mp>10</mp>
-		<str>1</str>
+		<str>2</str>
 		<agi>4</agi>
 		<vit>1</vit>
 		<int>1</int>
@@ -22,9 +22,9 @@
 		<name>enemy_name_ninja</name>
 		<level>3</level>
 		<element>8</element>
-		<hp>45</hp>
+		<hp>65</hp>
 		<mp>15</mp>
-		<str>3</str>
+		<str>5</str>
 		<agi>5</agi>
 		<vit>1</vit>
 		<int>1</int>
@@ -33,6 +33,6 @@
 		<drop>item_name_potion;item_name_high_potion;item_name_gunpowder;item_name_container</drop>
 		<dropQuantity>1;1;1;1</dropQuantity>
 		<dropRates>75;10;35;15</dropRates>
-		<expGiven>30</expGiven>
+		<expGiven>40</expGiven>
 	</monster>
 </monsters>

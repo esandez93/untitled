@@ -9,14 +9,6 @@ public class RewardsBehaviour : MonoBehaviour {
 
 	public int playersNumber;
 
-	/*public string player1Name;
-	public string player2Name;
-	public string player3Name;*/
-
-	/*
-		Hacer struct con las variables y crear un array de 3. Así se puede acceder sin repetir código.
-	*/
-
 	private struct DataBundle {
 		public Player player;
 		public GameObject playerFrame;
@@ -31,41 +23,10 @@ public class RewardsBehaviour : MonoBehaviour {
 
 	private DataBundle[] playersBundle;
 
-	/*//PLAYER 1
-	private Player player1;
-	private GameObject player1Frame;
-	private Image player1Portrait;
-	private Text player1Name;
-	private Text player1CurrentLevel;
-	private Image player1Exp;
-	private Text player1CurrentExp;
-	private Text player1GivenExp;
-	private Text player1LevelUp;
-
-	//PLAYER 2
-	private Player player2;
-	private GameObject player2Frame;
-	private Image player2Portrait;
-	private Text player2Name;
-	private Text player2CurrentLevel;
-	private Image player2Exp;
-	private Text player2CurrentExp;
-	private Text player2GivenExp;
-	private Text player2LevelUp;
-
-	//PLAYER 3
-	private Player player3;
-	private GameObject player3Frame;
-	private Image player3Portrait;
-	private Text player3Name;
-	private Text player3CurrentLevel;
-	private Image player3Exp;
-	private Text player3CurrentExp;
-	private Text player3GivenExp;
-	private Text player3LevelUp;*/
-
 	private bool filled;
 	private bool clickContinue = false;
+
+	private AudioSource ost;
 
 	private List<Text> dropNames;
 	private List<Text> dropQuantities;
@@ -87,8 +48,9 @@ public class RewardsBehaviour : MonoBehaviour {
 		playersBundle = new DataBundle[3];
 
 		battleResults = Singleton.Instance.lastBattleResults;
-
 		playersNumber = battleResults.getNumberOfPlayers();
+
+		loadBackgroundMusic();
 
 		Transform transform = GameObject.FindGameObjectWithTag("RewardPanel").transform;
 
@@ -120,6 +82,21 @@ public class RewardsBehaviour : MonoBehaviour {
 		initializeDrops();
 
 		filled = false;		
+	}
+	
+	public void loadBackgroundMusic() {
+		ost = this.gameObject.GetComponent<AudioSource>();
+
+		string songName = "Victory Fanfare";
+
+		AudioClip audio = Resources.Load<AudioClip>("Sounds/OST/" + songName);
+		if (audio != null){
+			ost.minDistance = 10f;
+			ost.maxDistance = 10f;
+			ost.loop = true;
+			ost.clip = audio;
+			ost.Play();
+		}
 	}
 
 	private void initializePlayer(int numPlayer) {

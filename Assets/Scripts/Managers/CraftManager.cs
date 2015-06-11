@@ -41,12 +41,15 @@ public class CraftManager : MonoBehaviour{
 
 			if(this.hasNeededItems(craft.item1, craft.item1Quantity, craft.item2, craft.item2Quantity)){
 				LanguageManager lm = LanguageManager.Instance;
+				string message = "Crafted " + craft.resultQuantity + " " + lm.getMenuText(craft.result) + " using " + 
+					craft.item1Quantity + " " + lm.getMenuText(craft.item1) +
+					" and " + craft.item2Quantity + " " + lm.getMenuText(craft.item2) + ".";
 
 				inventory.removeItem(craft.item1, craft.item1Quantity);
 				inventory.removeItem(craft.item2, craft.item2Quantity);
 				inventory.addItem(craft.result, craft.resultQuantity);
-				Debug.Log("Crafted " + craft.resultQuantity + " " + lm.getMenuText(craft.result) + " using " + craft.item1Quantity + " " + lm.getMenuText(craft.item1)
-						   + " and " + craft.item2Quantity + " " + lm.getMenuText(craft.item2) + ".");
+
+				Gamestate.instance.showMessage(message);
 
 				return true;
 			}

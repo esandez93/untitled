@@ -41,8 +41,7 @@ public class OptionsManager : MonoBehaviour{
 	}
 
 	public void initialize(){	
-		if(!initialized){	
-			//SaveManager.Instance.loadGameFrame = GameObject.Find("Gamestate/loadGameCanvas/Frame");		
+		if(!initialized){		
 			instance.source = GameObject.Find("Gamestate/OptionsCanvas/Frame");
 			instance.video = source.transform.FindChild("Video").gameObject;
 			instance.game = source.transform.FindChild("Game").gameObject;
@@ -60,9 +59,8 @@ public class OptionsManager : MonoBehaviour{
 		string[] settingsLines = Regex.Split(settings,"\r\n");
 		
 		foreach(string line in settingsLines){
-			if(line.StartsWith("[")){
-				continue;
-			}
+			if(line.StartsWith("["))
+				continue;			
 
 			string[] thisLine = Regex.Split(line,"=");
 

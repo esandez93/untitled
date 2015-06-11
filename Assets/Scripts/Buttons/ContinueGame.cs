@@ -16,7 +16,7 @@ public class ContinueGame : MonoBehaviour{
 					loadCanvas.SetActive(false);
 
 				if (SaveManager.Instance.autoLoad())
-					Debug.Log("Continue game success");//Application.LoadLevel(Gamestate.instance.map.mapName);			
+					Debug.Log("Continue game success");	
 				else
 					Debug.Log("AutoLoad failed.");			
 			}
@@ -24,10 +24,7 @@ public class ContinueGame : MonoBehaviour{
 				Debug.Log ("Continue failed.");
 			}
 
-			this.enabled = false;
-		/*}
-		else
-			this.gameObject.GetComponent<Button>().interactable = false;*/		
+			this.enabled = false;	
 	}
 }
 

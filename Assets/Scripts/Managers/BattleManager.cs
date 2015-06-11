@@ -255,10 +255,8 @@ public class BattleManager : MonoBehaviour {
 
 								instance.currentMonster.doAction(instance.action, instance.playerObjective);
 				
-								if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION) {
-									Debug.Log("ENDING FROM UPDATE " + instance.currentMonster.characterName + " - TURN " + instance.turn);
-									endTurn();							
-								}	
+								if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION) 
+									endTurn();															
 							}
 						}
 					}				
@@ -301,15 +299,12 @@ public class BattleManager : MonoBehaviour {
 
 		AudioClip audio = Resources.Load<AudioClip>("Sounds/OST/" + songName);
 		if (audio != null){
-			Debug.Log("PLAYING " + audio.name);
 			instance.ost.minDistance = 10f;
 			instance.ost.maxDistance = 10f;
 			instance.ost.loop = true;
 			instance.ost.clip = audio;
 			instance.ost.Play();
 		}
-		else
-			Debug.Log("FAILED OST ");
 	}
 
 	public bool isBossBattle() {
@@ -366,7 +361,6 @@ public class BattleManager : MonoBehaviour {
 
 	public void endTurn(){
 		changePhase(BattlePhases.NONE);
-		//Debug.Log("KHAHSAHSKAH " + currentCharacter.characterName);
 		checkIfEnded();
 
 		if(instance.turn < instance.maxTurns)
@@ -404,7 +398,6 @@ public class BattleManager : MonoBehaviour {
 			}
 			else {
 				if (currentPhase == BattlePhases.NONE){
-					Debug.Log("ENDING DEAD - " + currentCharacter.characterName + " - TURN " + instance.turn);
 					if (instance.turn < instance.maxTurns)
 						instance.turn++;
 					else
@@ -412,8 +405,6 @@ public class BattleManager : MonoBehaviour {
 
 					checkIfPlayerTurn();
 				}
-				else
-					Debug.Log("/cry");
 			}
 		}
 	}
@@ -642,9 +633,7 @@ public class BattleManager : MonoBehaviour {
 				instance.playersInBattle.Add(player);
 				enableComponents(player.gameObject);
 				player.enablePassives();
-			}
-			else 
-				Debug.Log("FAILED " + data.characterName);			
+			}		
 		}
 	}
 
@@ -660,10 +649,8 @@ public class BattleManager : MonoBehaviour {
 	private void giveRewards(){
 		instance.battleResults = new BattleResults();
 
-		foreach(Player player in instance.playersInBattle) {
-			instance.battleResults.addPlayer(player);
-			//Debug.Log("ADDING " + player.characterName);
-		}
+		foreach(Player player in instance.playersInBattle) 
+			instance.battleResults.addPlayer(player);		
 
 		foreach(Monster monster in instance.monstersInBattle){
 			instance.battleResults.addExp(monster.giveExp());
@@ -749,12 +736,10 @@ public class BattleManager : MonoBehaviour {
 		if (random >= 0 && random <= 50) { // 50% success
 			instance.gamestate.showMessage(LanguageManager.Instance.getMenuText("run_success"));
 			run();
-			Debug.Log("Scape success");
 		}
 		else {
 			instance.gamestate.showMessage(LanguageManager.Instance.getMenuText("run_failed"));
 			instance.attackFinished = true;
-			Debug.Log("Scape failed");
 		}
 
 		changePhase(BattlePhases.DOACTION);
@@ -815,10 +800,8 @@ public class BattleManager : MonoBehaviour {
 						setGUIEnemyInfo((Monster) instance.currentObjective);			
 				}		
 				
-				if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION){
-					Debug.Log("ENDING FROM BATTLE LISTENER - " + currentCharacter.characterName + " - TURN " + instance.turn);
-					endTurn ();
-				}
+				if(instance.attackFinished && instance.currentPhase == BattlePhases.DOACTION)
+					endTurn ();				
 			}
 		}
 	}

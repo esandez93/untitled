@@ -70,7 +70,6 @@ public class Gamestate : MonoBehaviour {
 	}
 
 	public void initialize(){
-		//OptionsManager.Instance.initialize();
 		PauseMenuManager.Instance.hideCanvas();
 
 		messageCanvas = GameObject.Find("Gamestate/MessageCanvas");
@@ -273,13 +272,13 @@ public class Gamestate : MonoBehaviour {
 				player = findPlayer(data.characterName);
 				if(player != null && data != null) {
 					try{
-						if(data.characterName.Equals("Ki")) {
+						/*if(data.characterName.Equals("Ki")) {
 							data.skills.Add("skill_name_fireball", Singleton.Instance.allSkills["skill_name_fireball"]);
 							data.skills["skill_name_fireball"].levelUp();
 							data.skills["skill_name_fireball"].levelUp();
 							data.skillPoints = 5;
 							//data.agi += 250;
-						}
+						}*/
 						Singleton.Instance.inventory.addItem("item_name_potion", 1);
 						Singleton.Instance.inventory.addItem("item_name_grenade", 1);
 					}
@@ -292,10 +291,11 @@ public class Gamestate : MonoBehaviour {
 				}
 			}
 
-			if(!positionIsDefault()){
-				Debug.Log("POSITION NOT DEFAULT");	
-				findPlayer("Strider").transform.position = Singleton.Instance.playerPositionInMap;
-				GameObject.FindWithTag("MainCamera").transform.position = new Vector3(Singleton.Instance.playerPositionInMap.x, Singleton.Instance.playerPositionInMap.y, -1);
+			if (OptionsManager.Instance.getDifficulty().Equals(OptionsManager.Difficulty.EASY)) {
+				if(!positionIsDefault()){
+					findPlayer("Strider").transform.position = Singleton.Instance.playerPositionInMap;
+					GameObject.FindWithTag("MainCamera").transform.position = new Vector3(Singleton.Instance.playerPositionInMap.x, Singleton.Instance.playerPositionInMap.y, -1);
+				}
 			}
 		}
 	}

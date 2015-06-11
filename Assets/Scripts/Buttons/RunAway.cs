@@ -14,7 +14,6 @@ class RunAway : MonoBehaviour {
 				Application.LoadLevel(Gamestate.instance.map.mapName);	
 			}
 			catch (Exception e) {
-				Debug.Log("LOADING HARDCODED");
 				Application.LoadLevel("Forest");	
 			}
 		}

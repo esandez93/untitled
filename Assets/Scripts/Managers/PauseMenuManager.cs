@@ -332,12 +332,10 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	private void fillNonTargets(){
-		//Debug.Log(instance.players.Count);
 		if(instance.players.Count > 1){
 			Player nonTarget;
 			for(int i = 1; i < instance.players.Count; i++){
 				nonTarget = instance.players[i];
-				//Debug.Log(i + " - " + nonTarget.characterName);
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("Button").tag = nonTarget.characterName;
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerPortrait").GetComponent<Image>().sprite = Resources.Load <Sprite> ("Portraits/" + nonTarget.characterName + "Portrait");
 				instance.nonTargetPlayers.transform.FindChild("Player"+i).FindChild("PlayerName").GetComponent<Text>().text = nonTarget.characterName;
@@ -484,7 +482,6 @@ public class PauseMenuManager : MonoBehaviour {
 
 		// CHANGE COLOR IF ITEM IS NOT USABLE
 		if(!item.isUsable()){
-			//Debug.Log(item.toString());
 			itemGameObject.transform.FindChild("ItemName").GetComponent<Text>().color = Color.grey;
 			itemGameObject.transform.FindChild("ItemQuantity").GetComponent<Text>().color = Color.grey;
 		}
@@ -557,23 +554,19 @@ public class PauseMenuManager : MonoBehaviour {
 
 		int i = 0;
 		foreach (GameObject recipe in instance.recipesGameObjects){
-			if(i < recipes.Count){
-//				Debug.Log(recipes[i].result);
-				instance.setRecipeInfo(recipes[i], instance.recipesGameObjects[i]);
-			}
-			else{
+			if(i < recipes.Count)
+				instance.setRecipeInfo(recipes[i], instance.recipesGameObjects[i]);			
+			else
 				instance.recipesGameObjects[i].SetActive(false);	
-			}
+			
 			i++;
 		}
 
-		if(instance.materialsGameObjects == null){
-			instance.materialsGameObjects = GameObject.FindGameObjectsWithTag("Material");
-		}
+		if(instance.materialsGameObjects == null)
+			instance.materialsGameObjects = GameObject.FindGameObjectsWithTag("Material");		
 
-		foreach (GameObject material in instance.materialsGameObjects){
-			material.SetActive(false);
-		}
+		foreach (GameObject material in instance.materialsGameObjects)
+			material.SetActive(false);		
 
 		instance.craftDescription.SetActive(false);
 	}
@@ -741,7 +734,6 @@ public class PauseMenuManager : MonoBehaviour {
 	private void formatSavegame(GameObject slot, SaveData savegame, int id){
 		slot.SetActive(true);
 		Sprite sprite = null;
-		//Debug.Log(id + " - " + slot.transform.GetComponentInChildren<Button>().gameObject.name);
 
 		if(savegame.map.mapName.Contains("Forest"))
 			sprite = Resources.Load <Sprite> ("Backgrounds/Battle/Forest"); 		
@@ -754,7 +746,6 @@ public class PauseMenuManager : MonoBehaviour {
 		slot.transform.FindChild("MapName").GetComponent<Text>().text = "Map: " + savegame.map.mapName;
 		if(savegame != null)
 			slot.transform.GetComponentInChildren<Button>().gameObject.name = savegame.getPath();
-		//slot.SetActive(true);
 	}
 
 	public void clickSaveGameButton(){
@@ -813,7 +804,6 @@ public class PauseMenuManager : MonoBehaviour {
 		if(PauseMenuManager.Instance.loadgameOpened)
 			PauseMenuManager.Instance.hideMenuData();	
 
-		Debug.Log("SHOWING CREDITS");
 		instance.creditsCanvas.SetActive(true);
 		instance.creditsShowing = true;
 		instance.creditsCanvas.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Buttons/black");
@@ -825,8 +815,6 @@ public class PauseMenuManager : MonoBehaviour {
 			if (BattleManager.Instance.GetComponent<AudioSource>().isPlaying)
 				BattleManager.Instance.GetComponent<AudioSource>().Stop();
 		}
-
-		Debug.Log("PLAYING " + instance.creditsSound.name);
 
 		instance.creditsCanvas.GetComponent<AudioSource>().clip = instance.creditsSound;
 		instance.creditsCanvas.GetComponent<AudioSource>().Play();
